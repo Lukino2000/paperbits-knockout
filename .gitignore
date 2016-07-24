@@ -1,0 +1,11 @@
+node_modules/
+bower_components/
+engagement/
+public/
+src/typings/globals
+!src/typings/aloha.d.ts
+!src/typings/lity.d.ts
+!src/typings/webkit.d.ts
+!src/typings/gtm.d.ts
+.idea/
+.vscode/
