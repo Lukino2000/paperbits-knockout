@@ -1,0 +1,5 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="48px" height="48px" viewBox="0 0 48 48"><g  transform="translate(0.5, 0.5)">
+<line data-cap="butt" data-color="color-2" fill="none" stroke="#444444" stroke-width="3" stroke-miterlimit="10" x1="24" y1="36" x2="24" y2="14" stroke-linejoin="miter" stroke-linecap="butt"/>
+<rect x="2" y="2" transform="matrix(-1.346052e-10 -1 1 -1.346052e-10 3.232344e-09 48)" fill="none" stroke="#444444" stroke-width="3" stroke-linecap="square" stroke-miterlimit="10" width="44" height="44" stroke-linejoin="miter"/>
+<polyline data-color="color-2" fill="none" stroke="#444444" stroke-width="3" stroke-linecap="square" stroke-miterlimit="10" points=" 16,22 24,14 32,22 " stroke-linejoin="miter"/>
+</g></svg>

@@ -1,0 +1,20 @@
+<!--ko if: working()-->
+<spinner></spinner>
+<!--/ko-->
+
+<div class="flex-container flex-container-column fit">
+    <fieldset class="flex-item form">
+        <input class="form-control" type="search" data-bind="value: searchPattern, valueUpdate: 'keyup'" placeholder="Search news..."
+        />
+    </fieldset>
+
+    <ul class="flex-item flex-item-grow list" data-bind="foreach: newsElements, scrollable: {}">
+        <li class="list-item icon icon-notification" data-bind="css: { selected: hasFocus }">
+            <a href="#" data-bind="click: $parent.selectNewsElement, text: title, hasFocus: hasFocus"></a>
+        </li>
+    </ul>
+
+    <div class="flex-item button-group">
+        <button class="button" data-bind="click: addNewsElement"><span class="icon icon-plus">Add news article</span></button>
+    </div>
+</div>

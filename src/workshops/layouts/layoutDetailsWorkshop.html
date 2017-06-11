@@ -1,0 +1,17 @@
+<fieldset class="form">
+    <label class="form-label"><span class="help"></span>Title</label>
+    <input type="text" class="form-control"  data-bind="textInput: layoutItem.title" placeholder="i.e. Orders" />
+
+    <label class="form-label"><span class="help"></span>Uri template</label>
+    <input type="text" class="form-control" data-bind="textInput: layoutItem.uriTemplate" placeholder="/" />
+
+    <label class="form-label"><span class="help"></span>Description</label>
+    <input type="text" class="form-control" data-bind="textInput: layoutItem.description" />
+</fieldset>
+<div class="button-group">
+    <!--ko if: isNotDefault-->
+    <button class="button">
+        <span class="icon icon-minus" data-bind="click: deleteLayout">Delete</span>
+    </button>
+    <!--/ko-->
+</div>

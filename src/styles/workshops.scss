@@ -1,0 +1,62 @@
+﻿@import "variables.scss";
+
+@import "icons.scss";
+
+@import "mixins.scss";
+
+@import "animation.scss";
+
+.workshop {
+    .workshop-journey {
+        .workshop-journey-step {
+            width: 300px;
+            margin: 10px;
+        }
+    }
+
+    h1 {
+        margin: 0;
+        padding: 0;
+    }
+}
+
+.toolbox.workshops-container {
+    z-index: $z-index-base;
+
+    .journey-container {
+        float: left;
+        padding: 10px 20px;
+        position: relative;
+    }
+}
+
+.workshop {
+    @include animation-fadein();
+    float: left;
+    overflow: visible;
+    position: relative;
+    padding: 10px;
+
+    @media (min-width: $screen-lg) {
+        height: auto;
+        bottom: initial;
+        right: initial;
+        width: 80%;
+        float: left;
+    }
+
+    sub {
+        color: $workshop-subtitle-color;
+        font-size: $font-size-base;
+        display: block;
+        line-height: 1.3em;
+    }
+}
+
+.workshop:first-child {
+    margin-left: 0;
+}
+
+.workshop:last-child {
+    margin-right: 0;
+}

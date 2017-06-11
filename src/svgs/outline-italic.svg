@@ -1,0 +1,5 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="18px" height="18px" viewBox="0 0 48 48"><g  transform="translate(0.5, 0.5)">
+<line data-cap="butt" fill="none" stroke="#444444" stroke-width="3" stroke-miterlimit="10" x1="30" y1="2" x2="18" y2="46" stroke-linejoin="miter" stroke-linecap="butt"/>
+<line fill="none" stroke="#444444" stroke-width="3" stroke-linecap="square" stroke-miterlimit="10" x1="24" y1="2" x2="36" y2="2" stroke-linejoin="miter"/>
+<line fill="none" stroke="#444444" stroke-width="3" stroke-linecap="square" stroke-miterlimit="10" x1="12" y1="46" x2="24" y2="46" stroke-linejoin="miter"/>
+</g></svg>

@@ -1,0 +1,50 @@
+<div class="editor">
+    <h1>
+        Button
+    </h1>
+    <hr />
+    <fieldset class="form" data-bind="scrollable: {}">
+        <label class="form-label"><span class="help"></span>Label</label>
+        <div class="form-group">
+            <input type="text" class="form-control" data-bind="textInput: label" />
+        </div>
+
+        <div class="form-group">
+            <label class="form-label">Link to</label>
+            <div data-bind="text: hyperlinkTitle" class="pull-left"></div>
+            <div class="toolbox-button pull-right" data-bind="css: { 'toolbox-button-is-active': hyperlink }" title="Hyperlink">
+                <a href="#" class="icon icon-smaller icon-hyperlink" data-bind="balloon: { target: '#hyperlinkSelector', position: 'bottom' }"></a>
+            </div>
+        </div>
+
+        <label class="form-label"><span class="help"></span>Style</label>
+        <div class="form-group">
+            <label class="form-label">
+                <input name="style" type="radio" value="default" data-bind="checked: style" />Default
+            </label>
+            <label class="form-label">
+                <input name="style" type="radio" value="primary" data-bind="checked: style" />Primary
+            </label>
+            <label class="form-label">
+                <input name="style" type="radio" value="inverted" data-bind="checked: style" />Inverted
+            </label>
+        </div>
+
+        <label class="form-label"><span class="help"></span>Size</label>
+        <div class="form-group">
+            <label class="form-label">
+                <input name="size" type="radio" value="default" data-bind="checked: size" />Default
+            </label>
+            <label class="form-label">
+                <input name="size" type="radio" value="medium" data-bind="checked: size" />Medium
+            </label>
+            <label class="form-label">
+                <input name="size" type="radio" value="large" data-bind="checked: size" />Large
+            </label>
+        </div>
+    </fieldset>
+
+    <div id="hyperlinkSelector" class="balloon">
+        <hyperlink-selector params="hyperlink: $component.hyperlink, onChange: $component.onHyperlinkChange"></hyperlink-selector>
+    </div>
+</div>

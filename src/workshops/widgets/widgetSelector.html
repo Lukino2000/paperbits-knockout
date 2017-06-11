@@ -1,0 +1,14 @@
+<!--ko if: working()-->
+<spinner></spinner>
+<!--/ko-->
+
+<div class="editor">
+    <h1>Add widget</h1>
+    <hr/>
+
+    <ul class="list" data-bind="foreach: widgets, scrollable: {}">
+        <li class="list-item icon icon-widget" data-bind="css: { selected: hasFocus }">
+            <a href="#" data-bind="text: title, hasFocus: hasFocus, click: $component.selectWidget"></a>
+        </li>
+    </ul>
+</div>

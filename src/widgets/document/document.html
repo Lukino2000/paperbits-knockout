@@ -1,0 +1,11 @@
+<paperbits-intercom></paperbits-intercom>
+
+<!--ko if: layoutModel()-->
+<div data-bind="widget: layoutModel(), layout-grid: { disabled: disableTracking }"></div>
+<!--/ko-->
+
+<!--ko if: working()-->
+<div class="shutter">
+    <spinner></spinner>
+</div>
+<!--/ko-->

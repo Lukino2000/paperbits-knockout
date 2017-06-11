@@ -1,0 +1,61 @@
+﻿import * as ko from "knockout";
+import * as Utils from '@paperbits/common/core/utils';
+import ILazy = Utils.ILazy;
+import { ICreatedMedia } from "@paperbits/common/media/ICreatedMedia";
+import { IWidgetFactoryResult } from "@paperbits/common/editing/IWidgetFactoryResult";
+import { NavbarModel } from "@paperbits/common/widgets/models/navbarModel";
+import { IMedia } from "@paperbits/common/media/IMedia";
+import { IWidgetModel } from "@paperbits/common/editing/IWidgetModel";
+import { IWidgetOrder } from '@paperbits/common/editing/IWidgetOrder';
+import { IContentDropHandler } from '@paperbits/common/editing/IContentDropHandler';
+import { MediaHandlers } from '../../editors/mediaHandlers';
+import { IWidgetHandler } from '@paperbits/common/editing/IWidgetHandler';
+import { IDataTransfer } from '@paperbits/common/editing/IDataTransfer';
+import { IContentDescriptor } from '@paperbits/common/editing/IContentDescriptor';
+import { PromiseToDelayedComputed } from '../../core/task';
+import { NavbarModelBinder } from "@paperbits/common/widgets/navbarModelBinder";
+import { ContentConfig } from "@paperbits/common/editing/contentNode";
+
+
+export class NavbarHandlers implements IWidgetHandler {
+    private readonly navbarModelBinder: NavbarModelBinder;
+
+    constructor(navbarModelBinder: NavbarModelBinder) {
+        this.navbarModelBinder = navbarModelBinder;
+    }
+
+    private async getWidgetOrderByConfig(): Promise<IWidgetOrder> {
+        let node = {
+            kind: "block",
+            type: "navbar",
+            rootKey: "navigationItems/main" // TODO: This is temporary, until multiple menus support is implemented.
+        };
+
+        let model = await this.navbarModelBinder.nodeToModel(node);
+        let widgetModel = await this.navbarModelBinder.modelToWidgetModel(model);
+
+        let widgetOrder: IWidgetOrder = {
+            title: "Navigation bar",
+            createWidget: () => {
+                let htmlElement = document.createElement("widget");
+                htmlElement.style.width = "150px";
+
+                ko.applyBindingsToNode(htmlElement, { widget: widgetModel });
+                htmlElement["attachedModel"] = widgetModel.model;
+
+                return {
+                    element: htmlElement
+                }
+            },
+            createModel: () => {
+                return model;
+            }
+        }
+
+        return widgetOrder;
+    }
+
+    public async getWidgetOrder(): Promise<IWidgetOrder> {
+        return await this.getWidgetOrderByConfig();
+    }
+}

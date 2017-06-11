@@ -1,0 +1,17 @@
+﻿<div class="editor">
+    <h1 class="icon icon-picture">
+        Audio file
+    </h1>
+    <hr />
+    <fieldset class="form">
+        <div class="dropzone-small" data-bind="click: uploadMedia">
+        </div>
+        <audio controls>
+            <source data-bind="attr: { src: sourceUrl }" />
+        </audio>
+        <label class="form-label"><span class="help"></span>Controls</label>
+        <input type="checkbox" data-bind="checked: controls" />
+        <label class="form-label"><span class="help"></span>Autoplay</label>
+        <input type="checkbox" data-bind="checked: autoplay" />
+    </fieldset>
+</div>

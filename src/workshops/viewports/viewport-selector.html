@@ -1,0 +1,17 @@
+<div class="toolbox toolbox-position-left-bottom">
+    <div class="toolbox-button" data-bind="css: { 'toolbox-button-is-active': viewport() == 'desktop' }" title="Desktop">
+        <a href="#" data-bind="click: setDesktop">
+            <span class="icon icon-desktop"></span>
+        </a>
+    </div>
+    <div class="toolbox-button" data-bind="css: { 'toolbox-button-is-active': viewport() == 'tablet' }" title="Tablet">
+        <a href="#" data-bind="click: setTablet">
+            <span class="icon icon-smaller icon-tablet"></span>
+        </a>
+    </div>
+    <div class="toolbox-button" data-bind="css: { 'toolbox-button-is-active': viewport() == 'phone' }" title="Phone">
+        <a href="#" data-bind="click: setPhone">
+            <span class="icon icon-smaller icon-phone"></span>
+        </a>
+    </div>
+</div>

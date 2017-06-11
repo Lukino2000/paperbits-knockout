@@ -1,0 +1,12 @@
+<div>
+    <!-- ko if: widgets().length > 0 -->
+    <!-- ko foreach: { data: widgets, as: 'widget'  } -->
+    <!-- ko widget: widget --><!-- /ko -->
+    <!-- /ko -->
+    <!-- /ko -->
+
+    <!-- ko if: widgets().length === 0 -->
+    <div class="empty-item">
+    </div>
+    <!-- /ko -->
+</div>

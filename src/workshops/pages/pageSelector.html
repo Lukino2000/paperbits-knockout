@@ -1,0 +1,11 @@
+<!--ko if: working()-->
+<spinner></spinner>
+<!--/ko-->
+
+<div class="flex-container flex-container-column list-container">
+    <ul class="flex-item flex-item-grow list" data-bind="foreach: pages, scrollable: {}">
+        <li class="list-item icon icon-page" data-bind="css: { selected: hasFocus }">
+            <a href="#" data-bind="click: $component.selectPage, text: title, hasFocus: hasFocus, event: { keydown: $component.keydown }"></a>
+        </li>
+    </ul>
+</div>

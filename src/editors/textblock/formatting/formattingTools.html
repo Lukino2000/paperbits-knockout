@@ -1,0 +1,73 @@
+<!--<div class="toolbox-button" >
+    <a href="#" data-bind="click: clearFormatting">
+        <span class="icon icon-clearformat">Clear formatting</span>
+    </a>
+</div>-->
+<div class="toolbox-button" data-bind="css: { 'toolbox-button-is-active': ol() }" title="Ordered list">
+    <a href="#" data-bind="click: toggleOl">
+        <span class="icon icon-smaller icon-orderedlist"></span>
+    </a>
+</div>
+<div class="toolbox-button" data-bind="css: { 'toolbox-button-is-active': ul() }" title="Unordered list">
+    <a href="#" data-bind="click: toggleUl">
+        <span class="icon icon-smaller icon-unorderedlist"></span>
+    </a>
+</div>
+<div class="toolbox-button" data-bind="css: { 'toolbox-button-is-active': bold() }" title="Bold">
+    <a href="#" data-bind="click: toggleBold">
+        <span class="icon icon-smaller icon-bold"></span>
+    </a>
+</div>
+<div class="toolbox-button" data-bind="css: { 'toolbox-button-is-active': italic() }" title="Italic">
+    <a href="#" data-bind="click: toggleItalic">
+        <span class="icon icon-smaller icon-italic"></span>
+    </a>
+</div>
+<div class="toolbox-button" data-bind="css: { 'toolbox-button-is-active': underlined() }" title="Underlined">
+    <a href="#" data-bind="click: toggleUnderlined">
+        <span class="icon icon-smaller icon-underline"></span>
+    </a>
+</div>
+<div class="toolbox-button toolbox-button-formatting" data-bind="balloon: { target: '#blockStyleSelector', position: 'bottom' }"
+     title="Style">
+    <span data-bind="text: style" class="text"></span>
+</div>
+<div id="blockStyleSelector" class="balloon tools-paragraphstyle">
+    <a href="#" class="tools-paragraph-style tools-paragraph-style-normal" data-bind="click: resetToNormal">Normal</a>
+    <a href="#" class="tools-paragraph-style tools-paragraph-style-h1" data-bind="click: toggleH1">Heading 1</a>
+    <a href="#" class="tools-paragraph-style tools-paragraph-style-h2" data-bind="click: toggleH2">Heading 2</a>
+    <a href="#" class="tools-paragraph-style tools-paragraph-style-h3" data-bind="click: toggleH3">Heading 3</a>
+    <a href="#" class="tools-paragraph-style tools-paragraph-style-h4" data-bind="click: toggleH4">Heading 4</a>
+    <a href="#" class="tools-paragraph-style tools-paragraph-style-h5" data-bind="click: toggleH5">Heading 5</a>
+    <a href="#" class="tools-paragraph-style tools-paragraph-style-h6" data-bind="click: toggleH6">Heading 6</a>
+    <a href="#" class="tools-paragraph-style tools-paragraph-style-normal" data-bind="click: toggleQuote">Quote</a>
+    <a href="#" class="tools-paragraph-style tools-paragraph-style-normal" data-bind="click: toggleCode">Code snippet</a>
+</div>
+<div class="toolbox-button" data-bind="css: { 'toolbox-button-is-active': alignedLeft() }" title="Align left">
+    <a href="#" data-bind="click: toggleAlignLeft">
+        <span class="icon icon-smaller icon-alignleft"></span>
+    </a>
+</div>
+<div class="toolbox-button" data-bind="css: { 'toolbox-button-is-active': alignedCenter() }" title="Align center">
+    <a href="#" data-bind="click: toggleAlignCenter">
+        <span class="icon icon-smaller icon-aligncenter"></span>
+    </a>
+</div>
+<div class="toolbox-button" data-bind="css: { 'toolbox-button-is-active': alignedRight() }" title="Align right">
+    <a href="#" data-bind="click: toggleAlignRight">
+        <span class="icon icon-smaller icon-alignright"></span>
+    </a>
+</div>
+<div class="toolbox-button" data-bind="css: { 'toolbox-button-is-active': justified() }" title="Justify">
+    <a href="#" data-bind="click: toggleJustify">
+        <span class="icon icon-smaller icon-justify"></span>
+    </a>
+</div>
+<div title="Text style" class="toolbox-button" data-bind="css: { 'toolbox-button-is-active': styled() }">
+    <a href="#" data-bind="balloon: { target: '#textStyleSelector', position: 'bottom' }">
+        <span class="icon icon-smaller icon-drop"></span>
+    </a>
+</div>
+<div id="textStyleSelector" class="balloon">
+    <style-selector params="selectedStyle: styleIntentionKey, setStyleCallback: setStyle.bind($data)"></style-selector>
+</div>

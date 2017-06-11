@@ -1,0 +1,7 @@
+<div class="toolbox-button" data-bind="css: { 'toolbox-button-is-active': hyperlink() }" title="Hyperlink">
+    <a href="#" class="icon icon-smaller icon-hyperlink" data-bind="click: $component.onClick, balloon: { target: '#hyperlinkSelector', position: 'bottom' }"></a>
+</div>
+
+<div id="hyperlinkSelector" class="balloon">
+    <hyperlink-selector params="hyperlink: $component.hyperlink, onChange: $component.onHyperlinkChange"></hyperlink-selector>
+</div>

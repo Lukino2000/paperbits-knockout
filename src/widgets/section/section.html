@@ -1,0 +1,11 @@
+<section>
+    <div data-bind="css: { container: $component.layout() == 'container' }">
+        <!-- ko foreach: { data: rows, as: 'row' } -->
+        <!-- ko widget: row -->
+        <!-- /ko -->
+        <!-- /ko -->
+        <!-- ko if: rows().length === 0 -->
+        <p class="empty-item"></p>
+        <!-- /ko -->
+    </div>
+</section>

@@ -1,0 +1,21 @@
+﻿<!-- ko if: droppedItems().length > 0 -->
+
+<ul data-bind="foreach: droppedItems()">
+    <li class="toolbox droppedcontent">
+        <div class="droppedcontent-preview"
+             data-bind="dragsource: { payload: $data, ondragstart: $parent.onDragStart, ondragend: $parent.onDragEnd }, background: background, lightbox: { url: previewUrl }">
+        </div>
+        <div class="droppedcontent-details">
+            <div data-bind="text: title"></div>
+            <b class="droppedcontent-details-description" data-bind="text: description"></b>
+        </div>
+        <!--ko if: uploadables().length > 0 -->
+        <button class="button button-tall" data-bind="click: $parent.uploadContentAsMedia">
+            <span class="icon icon-uploadmedia">Upload</span>
+        </button>
+        <!--/ko-->
+        <button class="button-close" data-bind="click: $parent.discardDroppedContent">✖</button>
+        <div class="clearfix"></div>
+    </li>
+</ul>
+<!-- /ko -->

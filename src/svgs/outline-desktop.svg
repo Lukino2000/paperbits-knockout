@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="18px" height="18px" viewBox="0 0 48 48"><g  transform="translate(0.5, 0.5)">
+<line data-color="color-2" fill="none" stroke="#444444" stroke-width="3" stroke-linecap="square" stroke-miterlimit="10" x1="30" y1="37" x2="30" y2="45" stroke-linejoin="miter"/>
+<line data-color="color-2" fill="none" stroke="#444444" stroke-width="3" stroke-linecap="square" stroke-miterlimit="10" x1="18" y1="45" x2="18" y2="37" stroke-linejoin="miter"/>
+<line data-color="color-2" fill="none" stroke="#444444" stroke-width="3" stroke-linecap="square" stroke-miterlimit="10" x1="12" y1="45" x2="36" y2="45" stroke-linejoin="miter"/>
+<line data-color="color-2" fill="none" stroke="#444444" stroke-width="3" stroke-linecap="square" stroke-miterlimit="10" x1="23" y1="9" x2="25" y2="9" stroke-linejoin="miter"/>
+<path fill="none" stroke="#444444" stroke-width="3" stroke-linecap="square" stroke-miterlimit="10" d="M42,37H6 c-2.209,0-4-1.791-4-4V7c0-2.209,1.791-4,4-4h36c2.209,0,4,1.791,4,4v26C46,35.209,44.209,37,42,37z" stroke-linejoin="miter"/>
+<line fill="none" stroke="#444444" stroke-width="3" stroke-linecap="square" stroke-miterlimit="10" x1="2" y1="29" x2="46" y2="29" stroke-linejoin="miter"/>
+</g></svg>

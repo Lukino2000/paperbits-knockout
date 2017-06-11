@@ -1,123 +1,111 @@
-var gulp = require("gulp");
-var less = require("gulp-less");
-var autoprefixer = require('gulp-autoprefixer');
-var bower = require("main-bower-files");
-var concat = require("gulp-concat");
-var webserver = require("gulp-webserver");
-var uglify = require("gulp-uglify");
-var filter = require("gulp-filter");
-var exec = require("child_process").exec;
-var typescript = require("typescript");
-var typescriptCompiler = require("gulp-typescript");
-var sourcemaps = require("gulp-sourcemaps");
+const gulp = require("gulp");
+const sass = require("gulp-sass");
+const inlineImage = require("sass-inline-image");
+const less = require("gulp-less");
+const autoprefixer = require("gulp-autoprefixer");
+const concat = require("gulp-concat");
+const uglify = require("gulp-uglify");
+const filter = require("gulp-filter");
+const typescript = require("typescript");
+const typescriptCompiler = require("gulp-typescript");
+const sourcemaps = require("gulp-sourcemaps");
+const buffer = require("vinyl-buffer");
+const source = require("vinyl-source-stream");
+const tsify = require("tsify");
+const merge = require("merge2");
 
-function handleErrors(error) {
-    console.log('ERROR');
-    console.log(error.toString());
+
+function handleError(error) {
+    console.error("ERROR");
+    console.error(error.toString());
     this.emit("end");
 }
 
-gulp.task("styles", function () {
-    return gulp.src("src/styles/vienna.less")
-        .pipe(sourcemaps.init())
-        .pipe(less())
+function sassFunctions(options) {
+    options = options || {};
+    options.base = options.base || process.cwd();
+
+    const fs = require("fs");
+    const path = require("path");
+    const types = require("node-sass").types;
+    const funcs = {};
+
+    funcs["inline-image($file)"] = function (file, done) {
+        file = path.resolve(options.base, file.getValue());
+
+        const ext = file.split(".").pop();
+
+        fs.readFile(file, function (err, data) {
+            if (err) {
+                return done(err);
+            }
+
+            data = new Buffer(data);
+            data = data.toString("base64");
+            data = "data:image/" + (ext === "svg" ? "svg+xml" : ext) + ";base64," + data;
+            data = types.String(data);
+            done(data);
+        });
+    };
+
+    return funcs;
+}
+
+gulp.task("assets", function () {
+    return gulp.src([
+        `./src/assets/**/*.*`],
+        { base: `./src/assets/` })
+        .pipe(gulp.dest("./dist/"));
+});
+
+gulp.task("styles", () => {
+    return gulp.src("src/styles/vienna.scss")
+        .pipe(sass({
+            outputStyle: "compressed",
+            functions: sassFunctions(),
+            sourceMap: true,
+        }))
+        .on("error", sass.logError)
         .pipe(autoprefixer())
-        .pipe(sourcemaps.write())
-        .on("error", handleErrors)
-        .pipe(gulp.dest("public/styles"));
+        .pipe(concat("paperbits.css"))
+        .on("error", handleError)
+        .pipe(gulp.dest("dist"));
 });
 
 gulp.task("fonts", function () {
     return gulp.src("src/styles/fonts/**/*.*")
-        .pipe(gulp.dest("public/styles/fonts"));
+        .pipe(gulp.dest("dist/fonts"));
 });
 
 gulp.task("typescript", function () {
-    var tsProject = typescriptCompiler.createProject('tsconfig.json', {
-        sortOutput: true,
-        typescript: typescript
+    var typescriptProject = typescriptCompiler.createProject("tsconfig.json", {
+        typescript: typescript,
+        declaration: true
     });
 
-    var tsResult = tsProject
+    var tsResult = typescriptProject
         .src()
-        .pipe(sourcemaps.init())
-        .pipe(typescriptCompiler(tsProject))
+        .pipe(typescriptProject())
 
-    return tsResult.js
-        .pipe(concat('vienna.js'))
-        .pipe(uglify({ mangle: false }))
-        .pipe(sourcemaps.write())
-        .pipe(gulp.dest('public/scripts'));
+    return merge([
+        tsResult.dts.pipe(gulp.dest("./dist")),
+        tsResult.js.pipe(gulp.dest("./dist"))
+    ]);
 });
 
 gulp.task("templates", function () {
-    return gulp.src(["src/app.ko/**/*.html"])
-        .pipe(gulp.dest("public/scripts/templates"));
+    return gulp.src(["src/**/*.html"])
+        .pipe(gulp.dest("dist/templates"));
 });
 
-gulp.task("vendor-scripts", function () {
-    var files = bower();
-    var jsFilesFilter = filter("**/*.js", { restore: true });
+gulp.task("build", ["assets", "styles", "fonts", "typescript", "templates"]);
 
-    files.push("src/other_components/*.js");
-
-    return gulp.src(files)
-        .pipe(jsFilesFilter)
-        .pipe(concat("vendor.js"))
-        //.pipe(uglify())
-        .pipe(gulp.dest("public/scripts"));
-});
-
-gulp.task("vendor-styles", function () {
-    var files = bower();
-    var cssFilesFilter = filter("**/*.css", { restore: true });
-
-    return gulp.src(files)
-        .pipe(cssFilesFilter)
-        .pipe(concat("vendor.css"))
-        .pipe(gulp.dest("public/styles"));
-});
-
-gulp.task("serve", ["build", "build-theme", "watch"], function () {
-    return gulp.src("public")
-        .pipe(webserver({
-            port: "80",
-            livereload: true,
-            fallback: 'index.html',
-            open: false
-        }));
-});
-
-gulp.task("theme", function () {
-    return gulp.src([
-        "src/theme/fonts/**/*.*",
-        "src/theme/images/**/*.*",
-        "src/theme/*.html",
-        "src/theme/**/*.json"],
-        { base: 'src/theme/' })
-        .pipe(gulp.dest("public"));
-});
-
-gulp.task("theme-styles", function () {
-    return gulp.src("src/theme/styles/styles.less")
-        .pipe(sourcemaps.init())
-        .pipe(less())
-        .pipe(autoprefixer())
-        .pipe(sourcemaps.write())
-        .on("error", handleErrors)
-        .pipe(concat("theme.css"))
-        .pipe(gulp.dest("public/styles"));
-});
-
-gulp.task("build", ["styles", "fonts", "typescript", "templates", "vendor-scripts", "vendor-styles"]);
-gulp.task("build-theme", ["theme", "theme-styles"]);
 
 gulp.task("watch", function () {
-    gulp.watch(["src/**/*.less"], ["styles"]).on("error", handleErrors);
-    gulp.watch(["src/**/*.ts"], ["typescript"]).on("error", handleErrors);
-    gulp.watch(["src/**/*.html"], ["templates"]).on("error", handleErrors);
-    gulp.watch(["src/theme/**/*.*"], ["theme", "theme-styles"]).on("error", handleErrors);
+    gulp.watch(["src/**/*.scss"], ["styles"]).on("error", handleError);
+    gulp.watch(["src/**/*.ts"], ["typescript"]).on("error", handleError);
+    gulp.watch(["src/**/*.html"], ["templates"]).on("error", handleError);
+    gulp.watch(["src/themes/paperbits/**/*.*"], []).on("error", handleError);
 });
 
-gulp.task("default", ["build", "build-theme", "watch"]);
-gulp.task("build-all", ["build", "build-theme"])
+gulp.task("default", ["build", "watch"]);

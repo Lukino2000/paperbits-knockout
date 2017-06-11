@@ -1,11 +1,10 @@
 node_modules/
 bower_components/
 engagement/
-public/
-src/typings/globals
-!src/typings/aloha.d.ts
-!src/typings/lity.d.ts
-!src/typings/webkit.d.ts
-!src/typings/gtm.d.ts
+dist/
+src@paperbits/common/**/*.js
+src/**/*.js
 .idea/
 .vscode/
+/debug.log
+tmp/

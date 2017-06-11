@@ -1,0 +1,22 @@
+<div class="flex-container flex-container-column fit">
+    <fieldset class="flex-item flex-item-grow form" data-bind="scrollable: {}">
+        <label class="form-label"><span class="help"></span>Label</label>
+        <input class="form-control" type="text" autofocus data-bind="textInput: node.label" placeholder="i.e. Orders" />
+
+        <div class="form-group">
+            <label class="form-label">Link to</label>
+            <div data-bind="text: hyperlinkTitle" class="pull-left"></div>
+            <div class="toolbox-button pull-right" data-bind="css: { 'toolbox-button-is-active': hyperlink }" title="Hyperlink">
+                <a href="#" class="icon icon-smaller icon-hyperlink" data-bind="balloon: { target: '#hyperlinkSelector', position: 'bottom' }"></a>
+            </div>
+        </div>
+    </fieldset>
+
+    <div class="flex-item button-group">
+        <button class="button" data-bind="click: deleteNavigationItem"><span class="icon icon-minus">Delete</span></button>
+    </div>
+</div>
+
+<div id="hyperlinkSelector" class="balloon">
+    <hyperlink-selector params="hyperlink: $component.hyperlink, onChange: $component.onHyperlinkChange"></hyperlink-selector>
+</div>

@@ -1,0 +1,69 @@
+﻿<div class="viewport" data-bind="host: { viewport: viewport }"></div>
+
+<div class="indicators" data-bind="foreach: progressIndicators">
+    <!--ko if: complete()-->
+    <div class="indicator">
+        <div class="indicator-success">
+        </div>
+        <div class="indicator-text">
+            <h1 data-bind="text: title"></h1>
+            <p data-bind="text: content"></p>
+        </div>
+        <button class="button-close">✖</button>
+    </div>
+    <!--/ko-->
+    <!--ko if: !complete()-->
+    <div class="indicator">
+        <div class="indicator-progress">
+            <spinner></spinner>
+        </div>
+        <div class="indicator-text">
+            <h1 data-bind="text: title"></h1>
+            <p data-bind="text: content"></p>
+        </div>
+        <button class="button-close">✖</button>
+    </div>
+    <!--/ko-->
+</div>
+
+<!-- ko with: widgetEditor() -->
+<div class="toolbox toolbox-position-left-offset" data-bind="surface: {}">
+    <!-- ko if: !hideCloseButton -->
+    <!--<a href="#" class="button-close" data-bind="click: $component.closeWidgetEditor">&#10006;</a>-->
+    <!-- /ko -->
+    <div data-bind="component: { name: component.name, params: component.params, oncreate: component.oncreate }"></div>
+</div>
+<!-- /ko -->
+
+<!-- ko foreach: { data: contextualEditors, as: 'contextualEditor' } -->
+<!-- ko with: contextualEditor -->
+<button class="fixed button-standalone icon icon-plus-inverted" data-bind="stickTo: { target: element, position: position }, balloon: { target: '#ce-'+component.name, position: 'top' }, background: { color: color }, attr: { title: addTooltip }"></button>
+
+<div class="balloon" data-bind="attr: { id: 'ce-'+component.name }">
+    <div data-bind="component: component"></div>
+</div>
+<!-- /ko -->
+<!-- /ko -->
+
+<!-- ko if: highlightedElement() -->
+<div class="layout-editor-selection" data-bind="highlight: highlightedElement"></div>
+<!-- /ko -->
+
+<!-- ko if: selectedElement() -->
+<div class="layout-editor-selection" data-bind="highlight: selectedElement"></div>
+
+<!-- ko with: selectedElementContextualEditor() -->
+<div class="fixed" data-bind="stickTo: { target: element, position: 'top right' }">
+    <!-- ko if: settingsCallback -->
+    <button class="button-standalone icon icon-pen" data-bind="click: settingsCallback, background: { color: color }, attr: { title: settingsTooltip }"></button>
+    <!-- /ko -->
+
+    <!-- ko if: deleteCallback -->
+    <button class="button-standalone icon icon-trash-inverted" data-bind="click: deleteCallback, background: { color: color }, attr: { title: deleteTooltip }"></button>
+    <!-- /ko -->
+</div>
+<!-- /ko -->
+
+<!-- /ko -->
+
+<viewport-selector data-bind="visible: primaryToolboxVisible"></viewport-selector>

@@ -1,0 +1,9 @@
+<!--ko if: working()-->
+<spinner></spinner>
+<!--/ko-->
+
+<ul class="list" data-bind="foreach: widgets, scrollable: {}">
+    <li class="list-item icon icon-widget" data-bind="css: { selected: hasFocus }, dragsource: { sticky: true, payload: $data, ondragstart: $parent.onDragStart, ondragend: $parent.onDragEnd }">
+        <a href="#" data-bind="text: title, hasFocus: hasFocus"></a>
+    </li>
+</ul>

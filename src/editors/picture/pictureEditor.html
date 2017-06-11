@@ -1,0 +1,77 @@
+﻿<div class="editor">
+    <h1 class="icon icon-picture">
+        Picture
+    </h1>
+    <hr />
+    <fieldset class="form" data-bind="scrollable: {}">
+        <label class="form-label">
+            <span class="help"></span>
+            Picture
+        </label>
+
+        <div class="dropzone" data-bind="background: background, balloon: { target: '#mediaSelector', position: 'top' }"></div>
+
+        <label class="form-label">
+            <span class="help"></span>
+            Caption
+        </label>
+
+        <input type="text" class="form-control" data-bind="textInput: caption" />
+
+        <label class="form-label">
+            <span class="help"></span>
+            Layout
+        </label>
+
+        <div class="form-group">
+            <label class="form-label">
+                <input name="layout" type="radio" value="noframe" data-bind="checked: layout" />No frame
+            </label>
+            <label class="form-label">
+                <input name="layout" type="radio" value="polaroid" data-bind="checked: layout" />Polaroid
+            </label>
+            <label class="form-label">
+                <input name="layout" type="radio" value="circle" data-bind="checked: layout" />Circle
+            </label>
+            <!--<div class="picture-layout">
+                <a href="#" class="picture noframe" data-bind="background: { url: sourceUrl }, click: function(){ layout('noframe') }">
+                    No frame
+                </a>
+            </div>
+            <div class="picture-layout">
+                <a href="#" class="picture circle" title="Circle" data-bind="background: { url: sourceUrl }, click: function(){ layout('circle') }">
+                    Circle
+                </a>
+            </div>
+            <div class="picture-layout">
+                <a href="#" class="picture polaroid" title="Polaroid" data-bind="background: { url: sourceUrl }, click: function(){ layout('polaroid') }">
+                    Polaroid
+                </a>
+            </div>-->
+        </div>
+
+        <label class="form-label">
+            <span class="help"></span>
+            Animation
+        </label>
+
+        <div class="form-group">
+            <label class="form-label">
+                <input name="animation" type="radio" value="none" data-bind="checked: animation" />None
+            </label>
+            <label class="form-label">
+                <input name="animation" type="radio" value="animation-fadein" data-bind="checked: animation" />Fade-In
+            </label>
+            <label class="form-label">
+                <input name="animation" type="radio" value="animation-popin" data-bind="checked: animation"/>Pop-In
+            </label>
+            <label class="form-label">
+                <input name="animation" type="radio" value="animation-shake" data-bind="checked: animation" />Shake
+            </label>
+        </div>
+    </fieldset>
+</div>
+
+<div id="mediaSelector" class="balloon">
+    <media-selector params="onSelect: $component.onMediaSelected"></media-selector>
+</div>

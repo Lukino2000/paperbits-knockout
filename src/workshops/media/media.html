@@ -1,0 +1,23 @@
+<!--ko if: working()-->
+<spinner></spinner>
+<!--/ko-->
+
+<div class="flex-container flex-container-column fit">
+    <fieldset class="flex-item form">
+        <input class="form-control" type="search" data-bind="value: searchPattern, valueUpdate: 'keyup'" placeholder="Search media..."
+        />
+    </fieldset>
+
+    <ul class="flex-item flex-item-grow list" data-bind="foreach: mediaItems, scrollable: {}">
+        <li class="list-item icon icon-image" data-bind="css: { selected: hasFocus }, dragsource: { sticky: true, payload: $data, ondragstart: $parent.onDragStart, ondragend: $parent.onDragEnd }">
+            <a href="#" data-bind="text: media.filename, click: $component.selectMedia, hasFocus: hasFocus, event: { keydown: $component.keydown }"></a>
+        </li>
+    </ul>
+
+    <div class="flex-item button-group">
+        <button class="button" data-bind="click: uploadMedia"><span class="icon icon-uploadmedia">Upload file</span></button>
+        <!--ko if: selectedMediaItem -->
+        <button class="button" data-bind="click: deleteMedia"><span class="icon icon-minus">Delete file</span></button>
+        <!--/ko-->
+    </div>
+</div>
