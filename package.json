@@ -1,8 +1,20 @@
 {
     "name": "@paperbits/knockout",
-    "version": "0.0.1",
+    "version": "0.0.3",
     "description": "Paperbits components for Knockout.",
-    "license": "GPL3",
+    "author": "Vienna LLC",
+    "license": "GPL-3.0",
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/paperbits/paperbits-knockout.git"
+    },
+    "keywords": [
+        "paperbits",
+        "knockout"
+    ],
+    "bugs": {
+        "url": "https://github.com/paperbits/paperbits-knockout/issues"
+    },
     "devDependencies": {
         "@types/ace": "0.0.32",
         "@types/es6-shim": "^0.31.33",
