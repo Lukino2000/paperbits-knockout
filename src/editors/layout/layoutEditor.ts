@@ -1,4 +1,4 @@
-﻿import * as $ from "jquery";
+﻿import * as $ from "jquery/dist/jquery";
 import * as ko from "knockout";
 import { ColumnModel } from "@paperbits/common/widgets/models/columnModel";
 import { IViewManager } from "@paperbits/common/ui/IViewManager";

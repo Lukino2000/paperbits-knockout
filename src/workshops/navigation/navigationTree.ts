@@ -1,4 +1,4 @@
-﻿import * as $ from "jquery";
+﻿import * as $ from "jquery/dist/jquery";
 import * as ko from "knockout";
 import * as Utils from "@paperbits/common/core/utils";
 import { INavigationItem } from "@paperbits/common/navigation/INavigationItem";
