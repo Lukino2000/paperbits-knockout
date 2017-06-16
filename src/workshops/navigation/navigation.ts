@@ -1,12 +1,19 @@
 ﻿import * as ko from "knockout";
+import * as template from "./navigation.html";
 import { INavigationService } from "@paperbits/common/navigation/INavigationService";
 import { IViewManager } from "@paperbits/common/ui/IViewManager";
 import { IPermalinkService } from "@paperbits/common/permalinks/IPermalinkService";
 import { INavigationItem } from "@paperbits/common/navigation/INavigationItem";
 import { NavigationTree } from "../../workshops/navigation/navigationTree";
 import { NavigationTreeNode } from "../../workshops/navigation/navigationTreeNode";
+import { Component } from "../../decorators/component";
 
 
+@Component({
+    selector: "navigation",
+    template: template,
+    injectable: "navigationWorkshop"
+})
 export class NavigationWorkshop {
     private navigationService: INavigationService;
     private readonly permalinkService: IPermalinkService;

@@ -1,11 +1,20 @@
-﻿import { IBlogPost } from "@paperbits/common/blogs/IBlogPost";
+﻿import * as ko from "knockout";
+import * as template from "./blogPostDetails.html";
+import { IBlogPost } from "@paperbits/common/blogs/IBlogPost";
 import { IPermalink } from "@paperbits/common/permalinks/IPermalink";
 import { IPermalinkService } from "@paperbits/common/permalinks/IPermalinkService";
 import { IBlogService } from "@paperbits/common/blogs/IBlogService";
 import { IRouteHandler } from "@paperbits/common/routing/IRouteHandler";
 import { IViewManager } from "@paperbits/common/ui/IViewManager";
 import { BlogPostItem } from "../../workshops/blogs/blogPostItem";
+import { Component } from "../../decorators/component";
 
+
+@Component({
+    selector: "blog-post-details-workshop",
+    template: template,
+    injectable: "blogPostDetailsWorkshop"
+})
 export class BlogPostDetailsWorkshop {
     private readonly blogService: IBlogService;
     private readonly permalinkService: IPermalinkService;

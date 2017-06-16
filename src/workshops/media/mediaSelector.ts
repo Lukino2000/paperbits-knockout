@@ -1,11 +1,19 @@
 import * as ko from "knockout";
+import * as template from "./mediaSelector.html";
 import { IResourceSelector } from "@paperbits/common/ui/IResourceSelector";
 import { MediaItem } from "./mediaItem";
 import { IMedia } from '@paperbits/common/media/IMedia';
 import { IPermalink } from '@paperbits/common/permalinks/IPermalink';
 import { IPermalinkService } from '@paperbits/common/permalinks/IPermalinkService';
 import { IMediaService } from '@paperbits/common/media/IMediaService';
+import { Component } from "../../decorators/component";
 
+
+@Component({
+    selector: "media-selector",
+    template: template,
+    injectable: "mediaSelector"
+})
 export class MediaSelector implements IResourceSelector<IMedia> {
     private readonly mediaService: IMediaService;
     private readonly permalinkService: IPermalinkService;

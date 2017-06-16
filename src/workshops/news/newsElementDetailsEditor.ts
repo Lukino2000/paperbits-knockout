@@ -1,11 +1,20 @@
-﻿import { INewsArticle } from "@paperbits/common/news/INewsElement";
+﻿import * as ko from "knockout";
+import * as template from "./newsElementDetailsEditor.html";
+import { INewsArticle } from "@paperbits/common/news/INewsElement";
 import { IPermalink } from "@paperbits/common/permalinks/IPermalink";
 import { IPermalinkService } from "@paperbits/common/permalinks/IPermalinkService";
 import { INewsService } from "@paperbits/common/news/INewsService";
 import { IRouteHandler } from "@paperbits/common/routing/IRouteHandler";
 import { IViewManager } from "@paperbits/common/ui/IViewManager";
 import { NewsArticleItem } from "../../workshops/news/newsElementItem";
+import { Component } from "../../decorators/component";
 
+
+@Component({
+    selector: "news-element-details-editor",
+    template: template,
+    injectable: "newsElementDetailsEditor"
+})
 export class NewsElementDetailsEditor {
     private readonly newsService: INewsService;
     private readonly permalinkService: IPermalinkService;

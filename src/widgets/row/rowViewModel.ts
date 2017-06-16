@@ -1,8 +1,16 @@
 import * as ko from "knockout";
+import * as template from "./row.html";
 import { RowModel } from "@paperbits/common/widgets/models/rowModel";
 import { IWidgetModel } from "@paperbits/common/editing/IWidgetModel";
 import { IViewModelBinder } from "@paperbits/common/widgets/IViewModelBinder";
+import { Component } from "../../decorators/component";
 
+
+@Component({
+    selector: "layout-row",
+    template: template,
+    injectable: "row"
+})
 export class RowViewModel implements IViewModelBinder {
     public columns: KnockoutObservableArray<IWidgetModel>;
     public css: KnockoutComputed<string>;
@@ -48,8 +56,8 @@ export class RowViewModel implements IViewModelBinder {
         });
     }
 
-    public attachToModel(widgetModel:IWidgetModel) {        
-        let model = <RowModel> widgetModel.model;
+    public attachToModel(widgetModel: IWidgetModel) {
+        let model = <RowModel>widgetModel.model;
         this.alignSm(model.alignSm);
         this.alignMd(model.alignMd);
         this.alignLg(model.alignLg);
@@ -59,6 +67,6 @@ export class RowViewModel implements IViewModelBinder {
         this.justifyLg(model.justifyLg);
 
         this.columns(widgetModel.children);
-        
+
     }
 }

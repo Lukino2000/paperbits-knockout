@@ -1,11 +1,19 @@
 ﻿import * as ko from "knockout";
+import * as template from "./hyperlinkTools.html";
 import { IHtmlEditorProvider } from '@paperbits/common/editing/htmlEditorProvider'
 import { IEventManager } from '@paperbits/common/events/IEventManager';
 import { HyperlinkModel } from "@paperbits/common/permalinks/hyperlinkModel";
 import { IHyperlink } from "@paperbits/common/permalinks/IHyperlink";
 import { PermalinkResolver } from "@paperbits/common/permalinks/permalinkResolver";
 import { IPermalinkService } from "@paperbits/common/permalinks/IPermalinkService";
+import { Component } from "../../../decorators/component";
 
+
+@Component({
+    selector: "hyperlink-editor",
+    template: template,
+    injectable: "hyperlinkTools"
+})
 export class HyperlinkTools {
     private readonly htmlEditorProvider: IHtmlEditorProvider;
     private readonly permalinkResolver: PermalinkResolver;

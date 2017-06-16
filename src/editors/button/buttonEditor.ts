@@ -1,9 +1,17 @@
 import * as ko from "knockout";
+import * as template from "./buttonEditor.html";
 import { IWidgetEditor } from '@paperbits/common/widgets/IWidgetEditor';
 import { IViewManager } from '@paperbits/common/ui/IViewManager';
 import { ButtonModel } from "@paperbits/common/widgets/models/buttonModel";
 import { HyperlinkModel } from "@paperbits/common/permalinks/hyperlinkModel";
+import { Component } from "../../decorators/component";
 
+
+@Component({
+    selector: "paperbits-button-editor",
+    template: template,
+    injectable: "buttonEditor"
+})
 export class ButtonEditor implements IWidgetEditor {
     private buttonModel: ButtonModel;
     private applyChangesCallback: () => void;

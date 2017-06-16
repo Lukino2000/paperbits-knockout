@@ -1,8 +1,16 @@
 import * as ko from "knockout";
+import * as template from "./widgetSelector.html";
 import { WidgetItem } from "./widgetItem";
 import { IResourceSelector } from "@paperbits/common/ui/IResourceSelector";
 import { IWidgetService } from "@paperbits/common/widgets/IWidgetService";
+import { Component } from "../../decorators/component";
 
+
+@Component({
+    selector: "widget-selector",
+    template: template,
+    injectable: "widgetSelector"
+})
 export class WidgetSelector implements IResourceSelector<Object> {
     private readonly widgetService: IWidgetService;
     public readonly onResourceSelected: (widgetModel: Object) => void;

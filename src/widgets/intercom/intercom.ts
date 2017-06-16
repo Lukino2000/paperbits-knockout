@@ -1,6 +1,14 @@
 import * as ko from "knockout";
+import * as template from "./intercom.html";
 import { ISettingsProvider } from '@paperbits/common/configuration/ISettingsProvider';
+import { Component } from "../../decorators/component";
 
+
+@Component({
+    selector: "paperbits-intercom",
+    template: template,
+    injectable: "intercom"
+})
 export class IntercomViewModel {
     private readonly settingsProvider: ISettingsProvider;
 

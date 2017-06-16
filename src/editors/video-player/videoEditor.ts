@@ -3,7 +3,14 @@ import { IWidgetEditor } from '@paperbits/common/widgets/IWidgetEditor';
 import { IMedia } from '@paperbits/common/media/IMedia';
 import { IViewManager } from '@paperbits/common/ui/IViewManager';
 import { VideoPlayerModel } from "@paperbits/common/widgets/models/videoPlayerModel";
+import { Component } from "../../decorators/component";
 
+
+@Component({
+    selector: "video-player-editor",
+    template: { fromUrl: "./videoEditor.html" },
+    injectable: "videoPlayerEditor"
+})
 export class VideoEditor implements IWidgetEditor {
     private video: VideoPlayerModel;
     private readonly viewManager: IViewManager;

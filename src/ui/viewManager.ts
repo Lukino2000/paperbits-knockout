@@ -1,6 +1,7 @@
 ﻿import * as _ from "lodash";
 import * as $ from "jquery";
 import * as ko from "knockout";
+import * as template from "./viewManager.html";
 import "@paperbits/common/core/extensions";
 import { IHighlightConfig } from "@paperbits/common/ui/IHighlightConfig";
 import { IBag } from "@paperbits/common/core/IBag";
@@ -14,7 +15,14 @@ import { IViewManager, ViewManagerMode } from "@paperbits/common/ui/IViewManager
 import { IComponent } from "@paperbits/common/ui/IComponent";
 import { ProgressIndicator } from "../ui/progressIndicator";
 import { IRouteHandler } from "@paperbits/common/routing/IRouteHandler";
+import { Component } from "../decorators/component";
 
+
+@Component({
+    selector: "view-manager",
+    template: template,
+    injectable: "viewManager"
+})
 export class ViewManager implements IViewManager {
     private readonly eventManager: IEventManager;
     private readonly globalEventHandler: GlobalEventHandler;

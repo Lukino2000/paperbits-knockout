@@ -1,12 +1,19 @@
 import * as ko from "knockout";
+import * as template from "./pageSelector.html";
 import { IResourceSelector } from "@paperbits/common/ui/IResourceSelector";
 import { PageItem } from "./pageItem";
 import { IPage } from '@paperbits/common/pages/IPage';
 import { IPermalink } from '@paperbits/common/permalinks/IPermalink';
 import { IPermalinkService } from '@paperbits/common/permalinks/IPermalinkService';
 import { IPageService } from '@paperbits/common/pages/IPageService';
+import { Component } from "../../decorators/component";
 
 
+@Component({
+    selector: "page-selector",
+    template: template,
+    injectable: "pageSelector"
+})
 export class PageSelector implements IResourceSelector<IPage> {
     private readonly pageService: IPageService;
     private readonly permalinkService: IPermalinkService;

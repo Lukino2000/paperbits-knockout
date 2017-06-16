@@ -1,12 +1,19 @@
 import * as ko from "knockout";
+import * as template from "./document.html";
 import * as Utils from "@paperbits/common/core/utils";
 import { LayoutModel } from "@paperbits/common/widgets/models/layoutModel";
 import { LayoutModelBinder } from "@paperbits/common/widgets/layoutModelBinder";
 import { IWidgetModel } from "@paperbits/common/editing/IWidgetModel";
 import { IRouteHandler } from "@paperbits/common/routing/IRouteHandler";
 import { IViewManager } from "@paperbits/common/ui/IViewManager";
+import { Component } from "../../decorators/component";
 
 
+@Component({
+    selector: "paperbits-doc",
+    template: template,
+    injectable: "docWidget"
+})
 export class DocumentViewModel {
     private readonly layoutModelBinder: LayoutModelBinder;
     private readonly routeHandler: IRouteHandler;

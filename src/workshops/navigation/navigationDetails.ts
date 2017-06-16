@@ -1,4 +1,5 @@
 ﻿import * as ko from "knockout";
+import * as template from "./navigationDetails.html";
 import { IEditorSession } from "@paperbits/common/ui/IEditorSession";
 import { PermalinkService } from "@paperbits/common/permalinks/permalinkService";
 import { IViewManager } from "@paperbits/common/ui/IViewManager";
@@ -6,7 +7,14 @@ import { IPermalink } from "@paperbits/common/permalinks/IPermalink";
 import { INavigationService } from "@paperbits/common/navigation/INavigationService";
 import { NavigationTreeNode } from "../../workshops/navigation/navigationTreeNode";
 import { HyperlinkModel } from "@paperbits/common/permalinks/hyperlinkModel";
+import { Component } from "../../decorators/component";
 
+
+@Component({
+    selector: "navigation-details-workshop",
+    template: template,
+    injectable: "navigationDetailsWorkshop"
+})
 export class NavigationDetailsWorkshop {
     private navigationService: INavigationService;
 

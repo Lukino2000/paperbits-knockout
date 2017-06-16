@@ -1,9 +1,30 @@
 import * as ko from "knockout";
+import * as template from "./column.html";
 import { ColumnModel } from "@paperbits/common/widgets/models/columnModel";
 import { IViewModelBinder } from "@paperbits/common/widgets/IViewModelBinder";
 import { IWidgetModel } from "@paperbits/common/editing/IWidgetModel";
+import { Component } from "../../decorators/component";
 
 
+@Component({
+    selector: "layout-column",
+    template: template,
+    injectable: "column",
+    postprocess: (element: Node, viewModel) => {
+        // TODO: Get rid of hack!
+        if (element.nodeName == "#comment") {
+            do {
+                element = element.nextSibling;
+            }
+            while (element != null && element.nodeName == "#comment")
+        }
+
+        ko.applyBindingsToNode(element, {
+            layoutcolumn: {},
+            css: viewModel.css
+        });
+    }
+})
 export class ColumnViewModel implements IViewModelBinder {
     public widgets: KnockoutObservableArray<IWidgetModel>;
     public css: KnockoutComputed<string>;

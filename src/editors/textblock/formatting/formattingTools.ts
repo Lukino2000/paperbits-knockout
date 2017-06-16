@@ -1,8 +1,16 @@
 ﻿import * as ko from "knockout";
+import * as template from "./formattingTools.html";
 import { IEventManager } from '@paperbits/common/events/IEventManager';
 import { IHtmlEditorProvider } from '@paperbits/common/editing/htmlEditorProvider';
 import { Intention } from "@paperbits/common/ui/color";
+import { Component } from "../../../decorators/component";
 
+
+@Component({
+    selector: "formatting",
+    template: template,
+    injectable: "formattingTools"
+})
 export class FormattingTools {
     private readonly htmlEditorProvider: IHtmlEditorProvider;
     private readonly eventManager: IEventManager;

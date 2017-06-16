@@ -1,6 +1,14 @@
 import * as ko from "knockout";
+import * as template from "./viewport-selector.html";
 import { IViewManager } from "@paperbits/common/ui/IViewManager";
+import { Component } from "../../decorators/component";
 
+
+@Component({
+    selector: "viewport-selector",
+    template: template,
+    injectable: "viewportSelector"
+})
 export class ViewportSelector {
     private readonly viewManager: IViewManager;
 

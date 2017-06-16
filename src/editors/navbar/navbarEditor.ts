@@ -1,7 +1,15 @@
 import * as ko from "knockout";
+import * as template from "./navbarEditor.html";
 import { NavbarModel } from "@paperbits/common/widgets/models/navbarModel";
 import { IWidgetEditor } from "@paperbits/common/widgets/IWidgetEditor";
+import { Component } from "../../decorators/component";
 
+
+@Component({
+    selector: "navbar-editor",
+    template: template,
+    injectable: "navbarEditor"
+})
 export class NavbarEditor implements IWidgetEditor {
     private navbarModel: NavbarModel;
     private applyChangesCallback?: () => void;

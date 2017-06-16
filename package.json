@@ -1,6 +1,6 @@
 {
     "name": "@paperbits/knockout",
-    "version": "0.0.3",
+    "version": "0.0.5",
     "description": "Paperbits components for Knockout.",
     "author": "Vienna LLC",
     "license": "GPL-3.0",
@@ -31,7 +31,6 @@
     "dependencies": {
         "@paperbits/common": "0.0.2",
         "@paperbits/slate": "0.0.2",
-        "@paperbits/knockout": "0.0.1",
         "es6-shim": "^0.35.3",
         "google-maps": "^3.2.1",
         "hasher": "^1.2.0",

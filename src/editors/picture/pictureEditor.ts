@@ -1,4 +1,5 @@
 ﻿import * as ko from "knockout";
+import * as template from "./pictureEditor.html";
 import * as Utils from '@paperbits/common/core/utils';
 import { IBackground } from "@paperbits/common/ui/IBackground";
 import { IMediaService } from '@paperbits/common/media/IMediaService';
@@ -10,7 +11,14 @@ import { IWidgetEditor } from '@paperbits/common/widgets/IWidgetEditor';
 import { PictureModel } from "@paperbits/common/widgets/models/pictureModel";
 import { IEventManager } from '@paperbits/common/events/IEventManager';
 import { IMedia } from "@paperbits/common/media/IMedia";
+import { Component } from "../../decorators/component";
 
+
+@Component({
+    selector: "picture-editor-editor",
+    template: template,
+    injectable: "pictureEditor"
+})
 export class PictureEditor implements IWidgetEditor {
     private picture: PictureModel;
     private applyChangesCallback: () => void;

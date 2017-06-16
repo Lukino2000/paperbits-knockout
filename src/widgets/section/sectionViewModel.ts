@@ -1,11 +1,38 @@
 import * as ko from "knockout";
+import * as template from "./section.html";
 import { RowViewModel } from "./../row/rowViewModel";
 import { IBackground } from "@paperbits/common/ui/IBackground";
 import { IViewModelBinder } from "@paperbits/common/widgets/IViewModelBinder";
 import { SectionModel } from "@paperbits/common/widgets/models/sectionModel";
 import { IWidgetModel } from "@paperbits/common/editing/IWidgetModel";
+import { Component } from "../../decorators/component";
 
 
+@Component({
+    selector: "layout-section",
+    template: template,
+    injectable: "section",
+    postprocess: (element: Node, viewModel) => {
+        // TODO: Get rid of hack!
+        if (element.nodeName == "#comment") {
+            do {
+                element = element.nextSibling;
+            }
+            while (element != null && element.nodeName == "#comment")
+        }
+
+        if (!element) {
+            debugger;
+        }
+
+        ko.applyBindingsToNode(element, {
+            background: viewModel.background,
+            layoutsection: {},
+            css: viewModel.css,
+            snapTo: viewModel.snapTo
+        });
+    }
+})
 export class SectionViewModel implements IViewModelBinder {
     public rows: KnockoutObservableArray<IWidgetModel>;
     public layout: KnockoutObservable<string>;
@@ -51,7 +78,7 @@ export class SectionViewModel implements IViewModelBinder {
 
     public attachToModel(widgetModel: IWidgetModel) {
         let model = <SectionModel>widgetModel.model;
-        
+
         this.layout(model.layout);
         this.backgroundType(model.backgroundType);
         this.backgroundPictureUrl(model.backgroundPictureUrl);

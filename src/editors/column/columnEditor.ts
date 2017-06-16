@@ -1,6 +1,7 @@
 import * as ko from "knockout";
-import { IMedia } from "@paperbits/common/media/IMedia";
+import * as template from "./columnEditor.html";
 import * as Utils from "@paperbits/common/core/utils";
+import { IMedia } from "@paperbits/common/media/IMedia";
 import { ColumnViewModel } from "../../widgets/column/columnViewModel";
 import { IMediaService } from "@paperbits/common/media/IMediaService";
 import { ICreatedMedia } from "@paperbits/common/media/ICreatedMedia";
@@ -10,13 +11,19 @@ import { IViewManager } from "@paperbits/common/ui/IViewManager";
 import { IWidgetEditor } from "@paperbits/common/widgets/IWidgetEditor";
 import { ColumnModel } from "@paperbits/common/widgets/models/columnModel";
 import { IEventManager } from "@paperbits/common/events/IEventManager";
+import { Component } from "../../decorators/component";
 
+
+@Component({
+    selector: "layout-column-editor",
+    template: template,
+    injectable: "columnEditor"
+})
 export class ColumnEditor implements IWidgetEditor {
     private readonly viewManager: IViewManager;
 
     private column: ColumnModel;
     private applyChangesCallback: () => void;
-
     private verticalAlignment: string;
     private horizontalAlignment: string;
 

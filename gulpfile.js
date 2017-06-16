@@ -28,7 +28,7 @@ gulp.task("typescript", function () {
 
 gulp.task("templates", function () {
     return gulp.src(["src/**/*.html"])
-        .pipe(gulp.dest("dist/templates"));
+        .pipe(gulp.dest("dist/"));
 });
 
 gulp.task("build", ["typescript", "templates"]);

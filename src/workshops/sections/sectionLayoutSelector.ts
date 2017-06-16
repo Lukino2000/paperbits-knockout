@@ -1,9 +1,16 @@
+import * as template from "./sectionLayoutSelector.html";
 import { IResourceSelector } from "@paperbits/common/ui/IResourceSelector";
 import { SectionModel } from "@paperbits/common/widgets/models/sectionModel";
 import { ColumnModel } from "@paperbits/common/widgets/models/columnModel";
 import { RowModel } from "@paperbits/common/widgets/models/rowModel";
+import { Component } from "../../decorators/component";
 
 
+@Component({
+    selector: "section-layout-selector",
+    template: template,
+    injectable: "sectionLayoutSelector"
+})
 export class SectionLayoutSelector implements IResourceSelector<SectionModel> {
     public readonly onResourceSelected: (rowModel: SectionModel) => void;
 

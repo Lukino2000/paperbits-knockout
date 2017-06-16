@@ -1,8 +1,16 @@
 ﻿import * as ko from "knockout";
+import * as template from "./mapEditor.html";
 import { MapModel } from "@paperbits/common/widgets/models/mapModel";
 import { IWidgetEditor } from '@paperbits/common/widgets/IWidgetEditor';
 import { IViewManager } from '@paperbits/common/ui/IViewManager';
+import { Component } from "../../decorators/component";
 
+
+@Component({
+    selector: "paperbits-map-editor",
+    template: template,
+    injectable: "mapEditor"
+})
 export class MapEditor implements IWidgetEditor {
     private map: MapModel;
     private applyChangesCallback: () => void;
@@ -51,7 +59,7 @@ export class MapEditor implements IWidgetEditor {
             this.map.zoomControl = "show";
         else
             this.map.zoomControl = "hide";
-            
+
         this.applyChangesCallback();
     }
 

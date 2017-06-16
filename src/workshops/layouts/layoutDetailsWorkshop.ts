@@ -1,8 +1,17 @@
-﻿import { IRouteHandler } from '@paperbits/common/routing/IRouteHandler';
+﻿import * as ko from "knockout";
+import * as template from "./layoutDetailsWorkshop.html";
+import { IRouteHandler } from '@paperbits/common/routing/IRouteHandler';
 import { IViewManager } from '@paperbits/common/ui/IViewManager';
 import { ILayoutService } from "@paperbits/common/layouts/ILayoutService";
 import { LayoutItem } from "./layoutItem";
+import { Component } from "../../decorators/component";
 
+
+@Component({
+    selector: "layout-details-workshop",
+    template: template,
+    injectable: "layoutDetailsWorkshop"
+})
 export class LayoutDetailsWorkshop {
     private readonly layoutService: ILayoutService;
     private readonly routeHandler: IRouteHandler;

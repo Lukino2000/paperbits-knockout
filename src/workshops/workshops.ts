@@ -1,7 +1,14 @@
 ﻿import * as ko from "knockout";
+import * as template from "./workshops.html";
 import { IViewManager } from '@paperbits/common/ui/IViewManager';
+import { Component } from "../decorators/component";
 
 
+@Component({
+    selector: "workshops",
+    template: template,
+    injectable: "workshops"
+})
 export class Workshops {
     private readonly viewManager: IViewManager;
 

@@ -1,8 +1,15 @@
 ﻿import * as ko from "knockout";
+import * as template from "./map.html";
 import { IViewModelBinder } from "@paperbits/common/widgets/IViewModelBinder";
 import { MapModel } from "@paperbits/common/widgets/models/mapModel";
+import { Component } from "../../decorators/component";
 
 
+@Component({
+    selector: "paperbits-map",
+    template: template,
+    injectable: "map"
+})
 export class MapViewModel implements IViewModelBinder {
     public location: KnockoutObservable<string>;
     public caption: KnockoutObservable<string>;

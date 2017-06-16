@@ -1,5 +1,13 @@
 ﻿import * as ko from "knockout";
+import * as template from "./code.html";
+import { Component } from "../../decorators/component";
 
+
+@Component({
+    selector: "paperbits-code",
+    template: template,
+    injectable: "codeBlock"
+})
 export class Code {
     public lang: KnockoutObservable<string>;
     public code: KnockoutObservable<string>;

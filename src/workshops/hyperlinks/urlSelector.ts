@@ -1,6 +1,14 @@
 import * as ko from "knockout";
+import * as template from "./urlSelector.html";
 import { IResourceSelector } from "@paperbits/common/ui/IResourceSelector";
+import { Component } from "../../decorators/component";
 
+
+@Component({
+    selector: "url-selector",
+    template: template,
+    injectable: "urlSelector"
+})
 export class UrlSelector implements IResourceSelector<string> {
     private readonly onUrlSelected: (url: string) => void;
 

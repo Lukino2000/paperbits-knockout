@@ -1,4 +1,5 @@
 ﻿import * as ko from "knockout";
+import * as template from "./dropbucket.html";
 import * as Utils from "@paperbits/common/core/utils";
 import { IViewManager } from "@paperbits/common/ui/IViewManager";
 import { IHttpClient } from "@paperbits/common/http/IHttpClient";
@@ -13,7 +14,7 @@ import { ProgressPromise } from "@paperbits/common/core/progressPromise";
 import { DataTransferTypes } from "@paperbits/common/editing/dataTransferTypes";
 import { DropBucketItem } from "../../workshops/dropbucket/dropBucketItem";
 import { LayoutEditor } from "../../editors/layout/layoutEditor";
-
+import { Component } from "../../decorators/component";
 
 /*
    - Drop bucket introduces a special container for dropping content,
@@ -25,6 +26,12 @@ import { LayoutEditor } from "../../editors/layout/layoutEditor";
    
    - Widget/Content handler registrations should be injected in respective order;
 */
+
+@Component({
+    selector: "dropbucket",
+    template: template,
+    injectable: "dropbucket"
+})
 export class DropBucket {
     private readonly dropHandlers: Array<IContentDropHandler>;
     private readonly mediaService: IMediaService;

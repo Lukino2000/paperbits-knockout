@@ -1,4 +1,5 @@
 ﻿import * as ko from "knockout";
+import * as template from "./newsEditor.html";
 import { ContentConfig } from "@paperbits/common/editing/contentNode";
 import { INewsArticle } from "@paperbits/common/news/INewsElement";
 import { INewsService } from "@paperbits/common/news/INewsService";
@@ -7,7 +8,14 @@ import { IPermalinkService } from "@paperbits/common/permalinks/IPermalinkServic
 import { IViewManager } from "@paperbits/common/ui/IViewManager";
 import { NewsArticleItem } from "../../workshops/news/newsElementItem";
 import { IFileService } from "@paperbits/common/files/IFileService";
+import { Component } from "../../decorators/component";
 
+
+@Component({
+    selector: "news",
+    template: template,
+    injectable: "newsEditor"
+})
 export class NewsEditor {
     private readonly newsService: INewsService;
     private readonly fileService: IFileService;

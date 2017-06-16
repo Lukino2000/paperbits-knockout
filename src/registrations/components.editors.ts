@@ -43,7 +43,6 @@ import { DefaultRouteHandler } from '@paperbits/common/routing/defaultRouteHandl
 import { DragManager } from '@paperbits/common/ui/draggables/dragManager';
 import { DropBucket } from '../workshops/dropbucket/dropbucket';
 import { FileService } from '@paperbits/common/files/fileService';
-import { FollowUs } from '../widgets/intercom/followUs';
 import { FormattingTools } from '../editors/textblock/formatting/formattingTools';
 import { GlobalEventHandler } from '@paperbits/common/events/globalEventHandler';
 import { GoogleTagManager } from '../widgets/gtm/gtm';

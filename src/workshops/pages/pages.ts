@@ -1,4 +1,5 @@
 ﻿import * as ko from "knockout";
+import * as template from "./pages.html";
 import { ContentConfig } from "@paperbits/common/editing/contentNode";
 import { IPage } from "@paperbits/common/pages/IPage";
 import { IPageService } from "@paperbits/common/pages/IPageService";
@@ -7,9 +8,16 @@ import { IPermalinkService } from "@paperbits/common/permalinks/IPermalinkServic
 import { IViewManager } from "@paperbits/common/ui/IViewManager";
 import { PageItem } from "../../workshops/pages/pageItem";
 import { IFileService } from "@paperbits/common/files/IFileService";
+import { Component } from "../../decorators/component";
 
 const DeleteKeyCode = 46; // TODO: Move to separate file;
 
+
+@Component({
+    selector: "pages",
+    template: template,
+    injectable: "pagesWorkshop"
+})
 export class PagesWorkshop {
     private readonly pageService: IPageService;
     private readonly fileService: IFileService;

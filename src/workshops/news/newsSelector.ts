@@ -1,11 +1,19 @@
 import * as ko from "knockout";
+import * as template from "./newsSelector.html";
 import { IResourceSelector } from "@paperbits/common/ui/IResourceSelector";
 import { NewsArticleItem } from "./newsElementItem";
 import { INewsArticle } from '@paperbits/common/news/INewsElement';
 import { IPermalink } from '@paperbits/common/permalinks/IPermalink';
 import { IPermalinkService } from '@paperbits/common/permalinks/IPermalinkService';
 import { INewsService } from '@paperbits/common/news/INewsService';
+import { Component } from "../../decorators/component";
 
+
+@Component({
+    selector: "news-selector",
+    template: template,
+    injectable: "newsSelector"
+})
 export class NewsSelector implements IResourceSelector<INewsArticle> {
     private readonly newsService: INewsService;
     private readonly permalinkService: IPermalinkService;

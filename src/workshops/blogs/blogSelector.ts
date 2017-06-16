@@ -1,12 +1,19 @@
 import * as ko from "knockout";
+import * as template from "./blogSelector.html";
 import { IResourceSelector } from "@paperbits/common/ui/IResourceSelector";
 import { BlogPostItem } from "./blogPostItem";
 import { IBlogPost } from '@paperbits/common/blogs/IBlogPost';
 import { IPermalink } from '@paperbits/common/permalinks/IPermalink';
 import { IPermalinkService } from '@paperbits/common/permalinks/IPermalinkService';
 import { IBlogService } from '@paperbits/common/blogs/IBlogService';
+import { Component } from "../../decorators/component";
 
 
+@Component({
+    selector: "blog-selector",
+    template: template,
+    injectable: "blogSelector"
+})
 export class BlogSelector implements IResourceSelector<IBlogPost> {
     private readonly blogService: IBlogService;
     private readonly permalinkService: IPermalinkService;

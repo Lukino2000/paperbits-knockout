@@ -1,4 +1,5 @@
 import * as ko from "knockout";
+import * as template from "./sectionEditor.html";
 import { IMedia } from "@paperbits/common/media/IMedia";
 import * as Utils from '@paperbits/common/core/utils';
 import { IBackground } from "@paperbits/common/ui/IBackground";
@@ -11,7 +12,14 @@ import { IViewManager } from '@paperbits/common/ui/IViewManager';
 import { IWidgetEditor } from '@paperbits/common/widgets/IWidgetEditor';
 import { SectionModel } from "@paperbits/common/widgets/models/sectionModel";
 import { IEventManager } from '@paperbits/common/events/IEventManager';
+import { Component } from "../../decorators/component";
 
+
+@Component({
+    selector: "layout-section-editor",
+    template: template,
+    injectable: "sectionEditor"
+})
 export class SectionEditor implements IWidgetEditor {
     private section: SectionModel;
     private applyChangesCallback: () => void;

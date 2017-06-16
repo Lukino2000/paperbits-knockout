@@ -1,9 +1,17 @@
 ﻿import * as ko from "knockout";
+import * as template from "./audioEditor.html";
 import { AudioPlayerViewModel } from "../../widgets/audio-player/audioViewModel";
 import { IWidgetEditor } from '@paperbits/common/widgets/IWidgetEditor';
 import { IViewManager } from '@paperbits/common/ui/IViewManager';
 import { IMedia } from '@paperbits/common/media/IMedia';
+import { Component } from "../../decorators/component";
 
+
+@Component({
+    selector: "paperbits-audio-player-editor",
+    template: template,
+    injectable: "audioPlayerEditor"
+})
 export class AudioEditor implements IWidgetEditor {
     private audio: KnockoutObservable<AudioPlayerViewModel>;
     private readonly viewManager: IViewManager;

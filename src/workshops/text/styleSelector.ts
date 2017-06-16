@@ -1,4 +1,7 @@
+import * as ko from "knockout";
+import * as template from "./styleSelector.html";
 import { Intention } from "@paperbits/common/ui/color";
+import { Component } from "../../decorators/component";
 
 
 export interface IntentionItem {
@@ -7,6 +10,11 @@ export interface IntentionItem {
     css: () => string;
 }
 
+@Component({
+    selector: "style-selector",
+    template: template,
+    injectable: "styleSelector"
+})
 export class StyleSelector {
     private readonly selectedStyle: KnockoutObservable<string>;
     private readonly setStyleCallback: Function;

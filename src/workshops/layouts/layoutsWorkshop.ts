@@ -1,4 +1,5 @@
 ﻿import * as ko from "knockout";
+import * as template from "./layoutsWorkshop.html";
 import { ContentConfig } from "@paperbits/common/editing/contentNode";
 import { IRouteHandler } from '@paperbits/common/routing/IRouteHandler';
 import { IPermalinkService } from '@paperbits/common/permalinks/IPermalinkService';
@@ -6,9 +7,16 @@ import { IViewManager } from '@paperbits/common/ui/IViewManager';
 import { IFileService } from '@paperbits/common/files/IFileService';
 import { ILayoutService } from "@paperbits/common/layouts/ILayoutService";
 import { LayoutItem } from "./layoutItem";
+import { Component } from "../../decorators/component";
 
 const DeleteKeyCode = 46; // TODO: Move to separate file;
 
+
+@Component({
+    selector: "layouts",
+    template: template,
+    injectable: "layoutsWorkshop"
+})
 export class LayoutsWorkshop {
     private readonly layoutService: ILayoutService;
     private readonly fileService: IFileService;

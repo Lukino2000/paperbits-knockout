@@ -1,11 +1,20 @@
-﻿import { IPage } from "@paperbits/common/pages/IPage";
+﻿import * as ko from "knockout";
+import * as template from "./pageDetails.html";
+import { IPage } from "@paperbits/common/pages/IPage";
 import { IPermalink } from "@paperbits/common/permalinks/IPermalink";
 import { IPermalinkService } from "@paperbits/common/permalinks/IPermalinkService";
 import { IPageService } from "@paperbits/common/pages/IPageService";
 import { IRouteHandler } from "@paperbits/common/routing/IRouteHandler";
 import { IViewManager } from "@paperbits/common/ui/IViewManager";
 import { PageItem } from "../../workshops/pages/pageItem";
+import { Component } from "../../decorators/component";
 
+
+@Component({
+    selector: "page-details-workshop",
+    template: template,
+    injectable: "pageDetailsWorkshop"
+})
 export class PageDetailsWorkshop {
     private readonly pageService: IPageService;
     private readonly permalinkService: IPermalinkService;

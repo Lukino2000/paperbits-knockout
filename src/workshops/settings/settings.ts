@@ -1,4 +1,5 @@
 ﻿import * as ko from "knockout";
+import * as template from "./settings.html";
 import * as Utils from '@paperbits/common/core/utils';
 import { IViewManager } from '@paperbits/common/ui/IViewManager';
 import { ISiteService } from '@paperbits/common/sites/ISiteService';
@@ -8,8 +9,14 @@ import { IPermalink } from '@paperbits/common/permalinks/IPermalink';
 import { IPermalinkService } from '@paperbits/common/permalinks/IPermalinkService';
 import { IMedia } from '@paperbits/common/media/IMedia';
 import { ISiteSettings } from "@paperbits/common/sites/ISiteSettings";
+import { Component } from "../../decorators/component";
 
 
+@Component({
+    selector: "settings",
+    template: template,
+    injectable: "settingsWorkshop"
+})
 export class SettingsWorkshop {
     private readonly mediaService: IMediaService;
     private readonly permalinkService: IPermalinkService;

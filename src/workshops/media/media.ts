@@ -1,4 +1,5 @@
 ﻿import * as ko from "knockout";
+import * as template from "./media.html";
 import * as Utils from "@paperbits/common/core/utils";
 import { IMediaService } from "@paperbits/common/media/IMediaService";
 import { IViewManager } from "@paperbits/common/ui/IViewManager";
@@ -9,9 +10,16 @@ import { ICreatedMedia } from "@paperbits/common/media/ICreatedMedia";
 import { IPermalinkService } from "@paperbits/common/permalinks/IPermalinkService";
 import { IWidgetOrder } from "@paperbits/common/editing/IWidgetOrder";
 import { LayoutEditor } from "../../editors/layout/layoutEditor";
+import { Component } from "../../decorators/component";
 
 const DeleteKeyCode = 46; // TODO: Move to separate file;
 
+
+@Component({
+    selector: "media",
+    template: template,
+    injectable: "mediaWorkshop"
+})
 export class MediaWorkshop {
     private readonly mediaService: IMediaService;
     private readonly permalinkService: IPermalinkService;

@@ -1,4 +1,7 @@
+import * as ko from "knockout";
+import * as template from "./colorSelector.html";
 import { Intention } from "@paperbits/common/ui/color";
+import { Component } from "../../decorators/component";
 
 export interface IntentionItem {
     name: string;
@@ -6,6 +9,11 @@ export interface IntentionItem {
     css: () => string;
 }
 
+@Component({
+    selector: "color-selector",
+    template: template,
+    injectable: "colorSelector"
+})
 export class ColorSelector {
     private readonly selectedColor: KnockoutObservable<string>;
     private readonly setColorCallback: Function;
