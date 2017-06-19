@@ -14,6 +14,7 @@ import { Component } from "../../decorators/component";
 })
 export class HyperlinkSelector {
     private readonly permalinkService: IPermalinkService;
+    private readonly hyperlinkSubscription: KnockoutSubscription;
 
     public readonly resourcePickers: IHyperlinkProvider[];
     public readonly onHyperlinkChange: (hyperlink: HyperlinkModel) => void;
@@ -27,12 +28,15 @@ export class HyperlinkSelector {
 
         this.updateHyperlinkState = this.updateHyperlinkState.bind(this);
         this.onResourceSelected = this.onResourceSelected.bind(this);
+        this.onResourcePickerChange = this.onResourcePickerChange.bind(this);
 
         this.hyperlink = ko.observable<HyperlinkModel>(ko.unwrap(hyperlink));
         this.selectedResourcePicker = ko.observable<IHyperlinkProvider>(null);
 
         this.updateHyperlinkState(hyperlink());
-        hyperlink.subscribe(this.updateHyperlinkState);
+        this.hyperlinkSubscription = hyperlink.subscribe(this.updateHyperlinkState);
+
+        this.selectedResourcePicker.subscribe(this.onResourcePickerChange);
     }
 
     private onResourcePickerChange(resourcePicker: IHyperlinkProvider): void {
@@ -72,5 +76,9 @@ export class HyperlinkSelector {
 
         this.hyperlink(hyperlink);
         this.selectedResourcePicker(resourcePicker);
+    }
+
+    public dispose(): void {
+        this.hyperlinkSubscription.dispose();
     }
 }

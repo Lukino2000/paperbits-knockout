@@ -28,22 +28,11 @@ export class KnockoutRegistrationLoaders implements IRegistration {
                 }
             },
 
-            loadTemplate(name: string, templateConfig: any, callback: (result: Node[]) => void) {
-                let templatesBasePath = "/scripts/templates";
+            loadTemplate(name: string, templateHtml: any, callback: (result: Node[]) => void) {
+                const parseHtmlFragment = <any>ko.utils.parseHtmlFragment;
+                const nodes = parseHtmlFragment(templateHtml, document);
 
-                if (templateConfig.fromUrl) {
-                    var fullUrl = `${templatesBasePath}/${templateConfig.fromUrl}`;
-
-                    $.get(fullUrl, markupString => {
-                        // We need an array of DOM nodes, not a string.
-                        // We can use the default loader to convert to the
-                        // required format.
-                        ko.components.defaultLoader.loadTemplate(name, markupString, callback);
-                    });
-                } else {
-                    // Unrecognized config format. Let another loader handle it.
-                    callback(null);
-                }
+                ko.components.defaultLoader.loadTemplate(name, nodes, callback);
             },
 
             loadComponent(componentName: string, config: any, callback: (definition: KnockoutComponentTypes.Definition) => void) {

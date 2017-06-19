@@ -2,7 +2,7 @@ import * as ko from "knockout";
 
 export interface ComponentConfig {
     selector: string;
-    template: any;
+    template: string;
     injectable: string;
     postprocess?: (element: Node, viewModel) => void;
 }

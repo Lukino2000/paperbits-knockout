@@ -1,5 +1,4 @@
-﻿import * as $ from "jquery/dist/jquery";
-import * as ko from "knockout";
+﻿import * as ko from "knockout";
 
 var componentLoadingOperationUniqueId = 0;
 

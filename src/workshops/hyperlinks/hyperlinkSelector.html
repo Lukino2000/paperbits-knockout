@@ -7,12 +7,12 @@
             <div class="form">
                 <div class="form-group">
                     <label class="form-label">
-                    <input name="size" type="radio" data-bind="value: null, checked: $component.selectedResourcePicker" /> None
-                </label>
+                        <input name="size" type="radio" data-bind="value: null, checked: $component.selectedResourcePicker" /> None
+                    </label>
                     <!--ko foreach: { data: resourcePickers, as: 'resourcePicker' } -->
                     <label class="form-label">
-                    <input name="size" type="radio" data-bind="value: resourcePicker, checked: $component.selectedResourcePicker" /> <span data-bind="text: resourcePicker.name"></span>
-                </label>
+                        <input name="size" type="radio" data-bind="value: resourcePicker, checked: $component.selectedResourcePicker" /> <span data-bind="text: resourcePicker.name"></span>
+                    </label>
                     <!--/ko-->
                 </div>
             </div>
