@@ -1,6 +1,6 @@
 {
     "name": "@paperbits/knockout",
-    "version": "0.0.8",
+    "version": "0.0.9",
     "description": "Paperbits components for Knockout.",
     "author": "Vienna LLC",
     "license": "GPL-3.0",
@@ -16,20 +16,20 @@
         "url": "https://github.com/paperbits/paperbits-knockout/issues"
     },
     "devDependencies": {
-        "@types/ace": "0.0.33",
-        "@types/es6-shim": "^0.31.33",
+        "@types/ace": "0.0.34",
+        "@types/es6-shim": "^0.31.34",
         "@types/google-maps": "^3.2.0",
-        "@types/jquery": "^3.2.0",
-        "@types/knockout": "^3.4.40",
+        "@types/jquery": "^3.2.5",
+        "@types/knockout": "^3.4.41",
         "@types/knockout.mapping": "^2.0.28",
-        "@types/lodash": "^4.14.64",
+        "@types/lodash": "^4.14.68",
         "gulp": "^3.9.1",
         "gulp-typescript": "^3.1.7",
-        "merge2": "^1.0.3",
-        "typescript": "2.3.4"
+        "merge2": "^1.1.0",
+        "typescript": "2.4.1"
     },
     "dependencies": {
-        "@paperbits/common": "0.0.5",
+        "@paperbits/common": "0.0.8",
         "@paperbits/slate": "0.0.3",
         "es6-shim": "^0.35.3",
         "google-maps": "^3.2.1",

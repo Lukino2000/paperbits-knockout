@@ -4,7 +4,7 @@ import { IInjector } from '@paperbits/common/injection/IInjector';
 import { DocumentViewModel } from "../widgets/document/documentViewModel";
 import { LayoutViewModel } from "../widgets/layout/layoutViewModel";
 import { PageViewModel } from "../widgets/page/pageViewModel";
-import { PagePlaceholderViewModel } from "../editors/page-placeholder/pagePlaceholderViewModel";
+import { PlaceholderViewModel } from "../editors/placeholder/placeholderViewModel";
 import { MapViewModel } from "../widgets/map/mapViewModel";
 import { TextblockViewModel } from "../widgets/textblock/textblockViewModel";
 import { AudioPlayerViewModel } from "../widgets/audio-player/audioViewModel";

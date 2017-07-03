@@ -5,6 +5,7 @@
         "moduleResolution": "node",
         "declaration": false,
         "noImplicitAny": false,
+        "noStrictGenericChecks": true,
         "removeComments": true,
         "noLib": false,
         "skipLibCheck": true,

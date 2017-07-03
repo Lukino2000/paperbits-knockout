@@ -12,7 +12,8 @@ export function Component(config: ComponentConfig) {
         ko.components.register(config.selector, {
             template: config.template,
             viewModel: { injectable: config.injectable },
-            postprocess: config.postprocess
+            postprocess: config.postprocess,
+            synchrounous: true
         });
     };
 } 

@@ -10,7 +10,7 @@ import { SectionModelBinder } from "@paperbits/common/widgets/sectionModelBinder
 import { IEditorSession } from "@paperbits/common/ui/IEditorSession";
 import { IWidgetEditor } from "@paperbits/common/widgets/IWidgetEditor";
 import { IViewManager, ViewManagerMode } from "@paperbits/common/ui/IViewManager";
-import { PagePlaceholderModel } from "@paperbits/common/widgets/models/pagePlaceholderModel";
+import { PlaceholderModel } from "@paperbits/common/widgets/models/placeholderModel";
 import { LayoutModel } from "@paperbits/common/widgets/models/layoutModel";
 import { LayoutModelBinder } from "@paperbits/common/widgets/layoutModelBinder";
 import { IModel } from "@paperbits/common/widgets/models/IModel";
@@ -44,8 +44,8 @@ class GridEditor {
 
     private activeSectionElement: HTMLElement;
     private activeSectionHalf: string;
-    private activePagePlaceholderElement: HTMLElement;
-    private activePagePlaceholderHalf: string;
+    private activePlaceholderElement: HTMLElement;
+    private activePlaceholderHalf: string;
     private activeRowElement: HTMLElement;
     private activeRowHalf: string;
     private activeColumnElement: HTMLElement;
@@ -138,8 +138,8 @@ class GridEditor {
             let attachedModel = <IWidgetModel>element["attachedModel"];
             let contextualEditor;
 
-            if (attachedModel instanceof PagePlaceholderModel) {
-                //contextualEditor = this.getPagePlaceholderContextualEditor();
+            if (attachedModel instanceof PlaceholderModel) {
+                //contextualEditor = this.getPlaceholderContextualEditor();
             }
             else if (attachedModel instanceof SectionModel) {
                 contextualEditor = this.getSectionContextualEditor(element, "top", null, null);
@@ -284,30 +284,30 @@ class GridEditor {
         this.activeRowElement = null;
         this.activeSectionElement = null;
         this.activeHighlightedElement = null;
-        this.activePagePlaceholderElement = null;
+        this.activePlaceholderElement = null;
 
         if (this.viewManager.mode != ViewManagerMode.configure) {
             this.viewManager.switchToEditing();
         }
     }
 
-    private getPagePlaceholderContextualEditor(): IContextualEditor {
-        let pagePlaceholderContextualEditor: IContextualEditor = {
-            element: this.activePagePlaceholderElement,
-            position: this.activePagePlaceholderHalf,
+    private getPlaceholderContextualEditor(): IContextualEditor {
+        let placeholderContextualEditor: IContextualEditor = {
+            element: this.activePlaceholderElement,
+            position: this.activePlaceholderHalf,
             color: "#2b87da",
             addTooltip: "Add section",
             component: {
                 name: "section-layout-selector",
                 params: {
                     onSelect: (newSectionModel: SectionModel) => {
-                        let mainElement = getParentElementWithModel(this.activePagePlaceholderElement);
+                        let mainElement = getParentElementWithModel(this.activePlaceholderElement);
                         let mainModel = mainElement["attachedModel"];
                         let mainWidgetModel = <IWidgetModel>mainElement["attachedWidgetModel"];
-                        let pagePlaceholderModel = <PagePlaceholderModel>this.activePagePlaceholderElement["attachedModel"];
-                        let index = mainModel.sections.indexOf(pagePlaceholderModel);
+                        let placeholderModel = <PlaceholderModel>this.activePlaceholderElement["attachedModel"];
+                        let index = mainModel.sections.indexOf(placeholderModel);
 
-                        if (this.activePagePlaceholderHalf === "bottom") {
+                        if (this.activePlaceholderHalf === "bottom") {
                             index++;
                         }
 
@@ -320,10 +320,10 @@ class GridEditor {
             }
         }
 
-        return pagePlaceholderContextualEditor;
+        return placeholderContextualEditor;
     }
 
-    private getSectionContextualEditor(activeSectionElement: HTMLElement, activeSectionHalf: string, activePagePlaceholderElement: HTMLElement, activePagePlaceholderHalf: string): IContextualEditor {
+    private getSectionContextualEditor(activeSectionElement: HTMLElement, activeSectionHalf: string, activePlaceholderElement: HTMLElement, activePlaceholderHalf: string): IContextualEditor {
         let sectionContextualEditor: IContextualEditor = {
             element: activeSectionElement,
             position: activeSectionHalf,
@@ -337,11 +337,11 @@ class GridEditor {
                         let sectionHalf = activeSectionHalf;
 
                         if (!sectionElement) {
-                            sectionElement = activePagePlaceholderElement;
+                            sectionElement = activePlaceholderElement;
                         }
 
                         if (!sectionHalf) {
-                            sectionHalf = activePagePlaceholderHalf;
+                            sectionHalf = activePlaceholderHalf;
                         }
 
                         let mainElement = getParentElementWithModel(sectionElement);
@@ -559,8 +559,8 @@ class GridEditor {
     public rerenderEditors(pointerX: number, pointerY: number, elements: HTMLElement[]): void {
         let highlightedElement: HTMLElement = null;
         let highlightedColor: string = null;
-        let pagePlaceholderElement;
-        let pagePlaceholderHalf;
+        let placeholderElement;
+        let placeholderHalf;
         let sectionElement;
         let sectionHalf;
         let rowElement;
@@ -577,12 +577,12 @@ class GridEditor {
             }
 
             if (attachedModel) {
-                if (attachedModel instanceof PagePlaceholderModel) {
+                if (attachedModel instanceof PlaceholderModel) {
                     highlightedElement = element;
                     highlightedColor = "#2b87da";
-                    pagePlaceholderElement = element;
+                    placeholderElement = element;
                     let quadrant = this.pointerToClientQuadrant(pointerX, pointerY, element);
-                    pagePlaceholderHalf = quadrant.vertical
+                    placeholderHalf = quadrant.vertical
                 }
                 else if (attachedModel instanceof SectionModel) {
                     highlightedElement = element;
@@ -633,7 +633,7 @@ class GridEditor {
         if (sectionElement != this.activeSectionElement || sectionHalf != this.activeSectionHalf) {
             this.activeSectionElement = sectionElement;
             this.activeSectionHalf = sectionHalf;
-            this.viewManager.setContextualEditor("section", this.getSectionContextualEditor(this.activeSectionElement, this.activeSectionHalf, this.activePagePlaceholderElement, this.activePagePlaceholderHalf));
+            this.viewManager.setContextualEditor("section", this.getSectionContextualEditor(this.activeSectionElement, this.activeSectionHalf, this.activePlaceholderElement, this.activePlaceholderHalf));
 
             if (this.activeSectionElement) {
                 let attachedModel = <SectionModel>this.activeSectionElement["attachedModel"];
@@ -654,10 +654,10 @@ class GridEditor {
             }
         }
 
-        if (pagePlaceholderElement != this.activePagePlaceholderElement || pagePlaceholderHalf != this.activePagePlaceholderHalf) {
-            this.activePagePlaceholderElement = pagePlaceholderElement;
-            this.activePagePlaceholderHalf = pagePlaceholderHalf;
-            this.viewManager.setContextualEditor("page", this.getPagePlaceholderContextualEditor());
+        if (placeholderElement != this.activePlaceholderElement || placeholderHalf != this.activePlaceholderHalf) {
+            this.activePlaceholderElement = placeholderElement;
+            this.activePlaceholderHalf = placeholderHalf;
+            this.viewManager.setContextualEditor("page", this.getPlaceholderContextualEditor());
         }
 
         if (this.activeHighlightedElement != highlightedElement) {

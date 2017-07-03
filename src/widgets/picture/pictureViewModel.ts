@@ -2,7 +2,7 @@
 import * as template from "./picture.html";
 import { PictureModel } from "@paperbits/common/widgets/models/pictureModel";
 import { IViewModelBinder } from "@paperbits/common/widgets/IViewModelBinder";
-import { ILightbox } from '@paperbits/common/ui/ILightbox'; // TODO: Can be plugged in as binding
+import { ILightbox } from "@paperbits/common/ui/ILightbox"; // TODO: Can be plugged in as binding
 import { IBackground } from "@paperbits/common/ui/IBackground";
 import { Component } from "../../decorators/component";
 

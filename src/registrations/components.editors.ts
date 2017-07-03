@@ -77,7 +77,7 @@ import { NewsService } from "@paperbits/common/news/newsService";
 import { PageDetailsWorkshop } from '../workshops/pages/pageDetails';
 import { PageItem } from '../workshops/pages/pageItem';
 import { PageModelBinder } from "@paperbits/common/widgets/pageModelBinder";
-import { PagePlaceholderViewModel } from "../editors/page-placeholder/pagePlaceholderViewModel";
+import { PlaceholderViewModel } from "../editors/placeholder/placeholderViewModel";
 import { PageResourcePicker } from "../workshops/pages/pageResourcePicker";
 import { PageSelector } from '../workshops/pages/pageSelector';
 import { PageService } from '@paperbits/common/pages/pageService';
@@ -333,7 +333,7 @@ export class ComponentRegistrationEditors implements IRegistration {
         // injector.bindSingleton("viewManager", ViewManager);
         injector.bindSingleton("dragManager", DragManager);
         injector.bindSingleton("lightbox", LityLightbox);
-        injector.bind("pagePlaceholderWidget", PagePlaceholderViewModel);
+        injector.bind("placeholderWidget", PlaceholderViewModel);
 
 
         /*** Editors ***/

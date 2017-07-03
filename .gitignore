@@ -1,10 +1,5 @@
 node_modules/
-bower_components/
-engagement/
 dist/
-src@paperbits/common/**/*.js
-src/**/*.js
 .idea/
 .vscode/
-/debug.log
-tmp/
+package-lock.json
