@@ -6,6 +6,7 @@ import { IViewModelBinder } from "@paperbits/common/widgets/IViewModelBinder";
 import { SectionModel } from "@paperbits/common/widgets/models/sectionModel";
 import { IWidgetModel } from "@paperbits/common/editing/IWidgetModel";
 import { Component } from "../../decorators/component";
+import { IntentionMapService } from "@paperbits/slate/intentionMapService";
 
 
 @Component({
@@ -34,6 +35,8 @@ import { Component } from "../../decorators/component";
     }
 })
 export class SectionViewModel implements IViewModelBinder {
+    private readonly intentionMapService: IntentionMapService;
+
     public rows: KnockoutObservableArray<IWidgetModel>;
     public layout: KnockoutObservable<string>;
     public backgroundType: KnockoutObservable<string>;
@@ -46,7 +49,9 @@ export class SectionViewModel implements IViewModelBinder {
     public css: KnockoutObservable<string>;
     public snapTo: KnockoutObservable<string>;
 
-    constructor() {
+    constructor(intentionMapService: IntentionMapService) {
+        this.intentionMapService = intentionMapService;
+
         this.rows = ko.observableArray<IWidgetModel>();
         this.layout = ko.observable<string>("container");
         this.backgroundType = ko.observable<string>();
@@ -87,12 +92,14 @@ export class SectionViewModel implements IViewModelBinder {
 
         let sectionClasses = [];
         let backgroundIntentionKey = model.backgroundIntentionKey;
-        let intention = intentions.section.background[backgroundIntentionKey];
 
-        if (!intention) {
-            intention = intentions.section.background["section-bg-default"];
+        let intentionMap = <any>this.intentionMapService.getMap();
+        let backgroundIntention = intentionMap.section.background[backgroundIntentionKey];
+
+        if (!backgroundIntention) {
+            backgroundIntention = intentionMap.section.background["section-bg-default"];
         }
-        sectionClasses.push(intention.styles());
+        sectionClasses.push(backgroundIntention.styles());
 
         this.rows(widgetModel.children);
 

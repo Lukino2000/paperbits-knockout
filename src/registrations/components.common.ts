@@ -1,12 +1,10 @@
-import { IRegistration } from "@paperbits/common/injection/IRegistration";
-import { IInjector } from "@paperbits/common/injection/IInjector";
+import { IInjector, IInjectorModule } from "@paperbits/common/injection";
 import { XmlHttpRequestClient } from "@paperbits/common/http/xmlHttpRequestClient";
 import { SettingsProvider } from "@paperbits/common/configuration/settingsProvider";
 import { DefaultEventManager } from "@paperbits/common/events/defaultEventManager";
 import { DefaultRouteHandler } from "@paperbits/common/routing/defaultRouteHandler";
 import { GlobalEventHandler } from "@paperbits/common/events/globalEventHandler";
 import { LocalCache } from "@paperbits/common/caching/localCache";
-import { IObjectStorage } from "@paperbits/common/persistence/IObjectStorage";
 import { PermalinkService } from "@paperbits/common/permalinks/permalinkService";
 import { WidgetService } from "@paperbits/common/widgets/widgetService";
 import { LayoutService } from "@paperbits/common/layouts/layoutService";
@@ -34,7 +32,7 @@ import { MapModelBinder } from "@paperbits/common/widgets/mapModelBinder";
 import { ButtonModelBinder } from "@paperbits/common/widgets/buttonModelBinder";
 
 
-export class ComponentRegistrationCommon implements IRegistration {
+export class ComponentRegistrationCommon implements IInjectorModule {
     public register(injector: IInjector) {
         /*** Core ***/
         injector.bindSingleton("httpClient", XmlHttpRequestClient);

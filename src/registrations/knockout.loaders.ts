@@ -1,11 +1,10 @@
 ﻿import * as ko from "knockout";
 import * as $ from "jquery/dist/jquery";
-import { IRegistration } from '@paperbits/common/injection/IRegistration';
-import { IInjector } from '@paperbits/common/injection/IInjector';
+import { IInjector, IInjectorModule } from "@paperbits/common/injection";
 import { XmlHttpRequestClient } from "@paperbits/common/http/xmlHttpRequestClient";
 
 
-export class KnockoutRegistrationLoaders implements IRegistration {
+export class KnockoutRegistrationLoaders implements IInjectorModule {
     public register(injector: IInjector): void {
         var injectableComponentLoader = {
             loadViewModel(name, config, callback) {

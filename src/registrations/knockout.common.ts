@@ -1,6 +1,5 @@
 ﻿import * as ko from "knockout";
-import { IRegistration } from "@paperbits/common/injection/IRegistration";
-import { IInjector } from "@paperbits/common/injection/IInjector";
+import { IInjector, IInjectorModule } from "@paperbits/common/injection";
 import { IEventManager } from "@paperbits/common/events/IEventManager";
 
 import "../bindingHandlers/bindingHandlers.background";
@@ -29,11 +28,10 @@ import { BalloonBindingHandler } from "../bindingHandlers/bindingHandlers.balloo
 import { ViewManager } from "../ui/viewManager";
 
 
-export class KnockoutRegistrationCommon implements IRegistration {
+export class KnockoutRegistrationCommon implements IInjectorModule {
     public register(injector: IInjector): void {
         injector.bindSingleton("viewManager", ViewManager);
 
-        ko.virtualElements.allowedBindings["widget"] = true;
         ko.virtualElements.allowedBindings["widget"] = true;
         ko.virtualElements.allowedBindings["layoutrow"] = true;
         ko.virtualElements.allowedBindings["component"] = true;

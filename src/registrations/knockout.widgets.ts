@@ -1,6 +1,5 @@
 ﻿import * as ko from "knockout";
-import { IRegistration } from '@paperbits/common/injection/IRegistration';
-import { IInjector } from '@paperbits/common/injection/IInjector';
+import { IInjector, IInjectorModule } from "@paperbits/common/injection";
 import { DocumentViewModel } from "../widgets/document/documentViewModel";
 import { LayoutViewModel } from "../widgets/layout/layoutViewModel";
 import { PageViewModel } from "../widgets/page/pageViewModel";
@@ -20,7 +19,7 @@ import { GoogleTagManager } from "../widgets/gtm/gtm";
 import { IntercomViewModel } from "../widgets/intercom/intercom";
 
 
-export class KnockoutRegistrationWidgets implements IRegistration {
+export class KnockoutRegistrationWidgets implements IInjectorModule {
     public register(injector: IInjector) {
         injector.bind("docWidget", DocumentViewModel);
         injector.bind("layoutWidget", LayoutViewModel);
