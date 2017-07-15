@@ -1,5 +1,3 @@
-import { SlateHtmlEditor } from "@paperbits/slate/slateHtmlEditor";
-
 import { IRegistration } from "@paperbits/common/injection/IRegistration";
 import { IInjector } from "@paperbits/common/injection/IInjector";
 import { XmlHttpRequestClient } from "@paperbits/common/http/xmlHttpRequestClient";
@@ -8,7 +6,6 @@ import { DefaultEventManager } from "@paperbits/common/events/defaultEventManage
 import { DefaultRouteHandler } from "@paperbits/common/routing/defaultRouteHandler";
 import { GlobalEventHandler } from "@paperbits/common/events/globalEventHandler";
 import { LocalCache } from "@paperbits/common/caching/localCache";
-import { IPermalinkService } from "@paperbits/common/permalinks/IPermalinkService";
 import { IObjectStorage } from "@paperbits/common/persistence/IObjectStorage";
 import { PermalinkService } from "@paperbits/common/permalinks/permalinkService";
 import { WidgetService } from "@paperbits/common/widgets/widgetService";
@@ -21,6 +18,10 @@ import { MediaService } from "@paperbits/common/media/mediaService";
 import { NavigationService } from "@paperbits/common/navigation/navigationService";
 import { SiteService } from "@paperbits/common/sites/siteService";
 import { IntercomService } from "@paperbits/common/intercom/intercomService";
+import { YoutubeModelBinder } from "../editors/youtube-player/youtubeModelBinder";
+import { VideoPlayerModelBinder } from "@paperbits/common/widgets/videoPlayerModelBinder";
+import { AudioPlayerModelBinder } from "@paperbits/common/widgets/audioPlayerModelBinder";
+import { BlogModelBinder } from "@paperbits/common/widgets/blogModelBinder";
 import { LayoutModelBinder } from "@paperbits/common/widgets/layoutModelBinder";
 import { PageModelBinder } from "@paperbits/common/widgets/pageModelBinder";
 import { SectionModelBinder } from "@paperbits/common/widgets/sectionModelBinder";
@@ -30,16 +31,7 @@ import { NavbarModelBinder } from "@paperbits/common/widgets/navbarModelBinder";
 import { TextblockModelBinder } from "@paperbits/common/widgets/textblockModelBinder";
 import { PictureModelBinder } from "@paperbits/common/widgets/pictureModelBinder";
 import { MapModelBinder } from "@paperbits/common/widgets/mapModelBinder";
-import { VideoPlayerModelBinder } from "@paperbits/common/widgets/videoPlayerModelBinder";
-import { AudioPlayerModelBinder } from "@paperbits/common/widgets/audioPlayerModelBinder";
 import { ButtonModelBinder } from "@paperbits/common/widgets/buttonModelBinder";
-import { ModelBinderSelector } from "@paperbits/common/widgets/modelBinderSelector";
-import { IModelBinder } from "@paperbits/common/editing/IModelBinder";
-import { PermalinkResolver } from "@paperbits/common/permalinks/permalinkResolver";
-import { ViewManager } from "../ui/viewManager";
-import { YoutubeModelBinder } from "../editors/youtube-player/youtubeModelBinder";
-import { BlogModelBinder } from "@paperbits/common/widgets/blogModelBinder";
-import { IEventManager } from "@paperbits/common/events/IEventManager";
 
 
 export class ComponentRegistrationCommon implements IRegistration {
@@ -53,10 +45,7 @@ export class ComponentRegistrationCommon implements IRegistration {
         injector.bindSingleton("localCache", LocalCache);
 
         /*** Services ***/
-        injector.bindFactory<IPermalinkService>("permalinkService", (ctx: IInjector) => {
-            var objectStorage = ctx.resolve<IObjectStorage>("objectStorage");
-            return new PermalinkService(objectStorage);
-        });
+        injector.bindSingleton("permalinkService", PermalinkService);
         injector.bindSingleton("widgetService", WidgetService);
         injector.bindSingleton("layoutService", LayoutService);
         injector.bindSingleton("pageService", PageService);
@@ -82,31 +71,7 @@ export class ComponentRegistrationCommon implements IRegistration {
         injector.bind("youtubeModelBinder", YoutubeModelBinder);
         injector.bind("videoPlayerModelBinder", VideoPlayerModelBinder);
         injector.bind("audioPlayerModelBinder", AudioPlayerModelBinder);
-        //injector.bind("codeblockModelBinder", CodeblockModelBinder);
         injector.bind("buttonModelBinder", ButtonModelBinder);
-
-        injector.bindFactory<ModelBinderSelector>("modelBinderSelector", (ctx) => {
-            let modelBinders = new Array<IModelBinder>();
-            modelBinders.push(ctx.resolve<IModelBinder>("navbarModelBinder"));
-            modelBinders.push(ctx.resolve<IModelBinder>("textModelBinder"));
-            modelBinders.push(ctx.resolve<IModelBinder>("pictureModelBinder"));
-            modelBinders.push(ctx.resolve<IModelBinder>("mapModelBinder"));
-            modelBinders.push(ctx.resolve<IModelBinder>("youtubeModelBinder"));
-            modelBinders.push(ctx.resolve<IModelBinder>("videoPlayerModelBinder"));
-            modelBinders.push(ctx.resolve<IModelBinder>("audioPlayerModelBinder"));
-            //editors.push(ctx.resolve<IModelBinder>("codeblockModelBinder"));
-            modelBinders.push(ctx.resolve<IModelBinder>("buttonModelBinder"));
-
-            return new ModelBinderSelector(modelBinders);
-        });
-
-        injector.bindFactory<ModelBinderSelector>("layoutModelBinderSelector", (ctx) => {
-            let modelBinders = new Array<IModelBinder>();
-            modelBinders.push(ctx.resolve<IModelBinder>("sectionModelBinder"));
-            modelBinders.push(ctx.resolve<IModelBinder>("pageModelBinder"));
-            modelBinders.push(ctx.resolve<IModelBinder>("blogModelBinder"));
-
-            return new ModelBinderSelector(modelBinders);
-        });
+        //injector.bind("codeblockModelBinder", CodeblockModelBinder);
     }
 }
