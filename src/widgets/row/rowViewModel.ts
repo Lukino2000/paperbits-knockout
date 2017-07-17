@@ -67,6 +67,5 @@ export class RowViewModel implements IViewModelBinder {
         this.justifyLg(model.justifyLg);
 
         this.columns(widgetModel.children);
-
     }
 }

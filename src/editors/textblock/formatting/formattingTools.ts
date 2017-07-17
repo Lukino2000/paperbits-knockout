@@ -133,6 +133,10 @@ export class FormattingTools {
                 this.htmlEditorProvider.getCurrentHtmlEditor().toggleCategory("lead", intentionKey, "block");
                 break;
 
+            case null:
+                // this.htmlEditorProvider.getCurrentHtmlEditor().clearColor();
+                break;
+
             default:
                 throw `Unapplicable text style intention ${intentionKey}`;
         }

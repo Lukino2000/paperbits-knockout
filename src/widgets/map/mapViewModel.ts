@@ -24,7 +24,7 @@ export class MapViewModel implements IViewModelBinder {
         this.zoomControl = ko.observable<string>("hide");
     }
 
-    public attachToModel(model:MapModel){
+    public attachToModel(model: MapModel) {
         this.caption(model.caption);
         this.layout(model.layout);
         this.location(model.location);

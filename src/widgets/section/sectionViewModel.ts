@@ -81,7 +81,7 @@ export class SectionViewModel implements IViewModelBinder {
         return background;
     }
 
-    public attachToModel(widgetModel: IWidgetModel) {
+    public attachToModel(widgetModel: IWidgetModel): void {
         let model = <SectionModel>widgetModel.model;
 
         this.layout(model.layout);

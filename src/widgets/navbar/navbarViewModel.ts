@@ -14,7 +14,7 @@ import { Component } from "../../decorators/component";
 })
 export class NavbarViewModel {
     private readonly routeHandler: IRouteHandler;
-    
+
     public root: KnockoutObservable<NavbarItemViewModel>;
     public alignRight: KnockoutObservable<boolean>;
 
@@ -24,26 +24,22 @@ export class NavbarViewModel {
         this.alignRight = ko.observable<boolean>(false);
     }
 
-    public async attachToModel(navbarModel: NavbarModel): Promise<void> {        
+    public attachToModel(navbarModel: NavbarModel): void {
         let url = this.routeHandler.getCurrentUrl();
-        let root = await this.navItemModelToNavbarItemViewModel(navbarModel.root);
+        let root = this.navItemModelToNavbarItemViewModel(navbarModel.root);
 
         this.root(root);
         this.alignRight(navbarModel.align === "right");
     }
 
-    private async navItemModelToNavbarItemViewModel(navbarItemModel: NavbarItemModel): Promise<NavbarItemViewModel> {
+    private navItemModelToNavbarItemViewModel(navbarItemModel: NavbarItemModel): NavbarItemViewModel {
         let label = navbarItemModel.label;
         let navbarItemViewModel = new NavbarItemViewModel(this.routeHandler, label);
 
         if (navbarItemModel.nodes.length > 0) {
             var tasks = [];
 
-            navbarItemModel.nodes.forEach(childNode => {
-                tasks.push(this.navItemModelToNavbarItemViewModel(childNode));
-            });
-
-            let results = await Promise.all(tasks);
+            let results = navbarItemModel.nodes.map(childNode => this.navItemModelToNavbarItemViewModel(childNode));
 
             results.forEach(child => {
                 navbarItemViewModel.nodes.push(child);

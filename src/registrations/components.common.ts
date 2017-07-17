@@ -16,7 +16,7 @@ import { MediaService } from "@paperbits/common/media/mediaService";
 import { NavigationService } from "@paperbits/common/navigation/navigationService";
 import { SiteService } from "@paperbits/common/sites/siteService";
 import { IntercomService } from "@paperbits/common/intercom/intercomService";
-import { YoutubeModelBinder } from "../editors/youtube-player/youtubeModelBinder";
+import { YoutubeModelBinder } from "@paperbits/common/widgets/youtubeModelBinder";
 import { VideoPlayerModelBinder } from "@paperbits/common/widgets/videoPlayerModelBinder";
 import { AudioPlayerModelBinder } from "@paperbits/common/widgets/audioPlayerModelBinder";
 import { BlogModelBinder } from "@paperbits/common/widgets/blogModelBinder";
