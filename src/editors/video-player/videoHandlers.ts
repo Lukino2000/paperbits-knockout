@@ -33,29 +33,31 @@ export class VideoHandlers implements IWidgetHandler, IContentDropHandler {
 
     private async prepareWidgetOrder(config: IVideoPlayerNode): Promise<IWidgetOrder> {
         let model = await this.videoPlayerModelBinder.nodeToModel(config);
-        let widgetModel = await this.videoPlayerModelBinder.modelToWidgetModel(model);
 
         let factoryFunction: () => IWidgetFactoryResult = () => {
-            let htmlElement = document.createElement("widget");
-            htmlElement.style.width = "150px";
+            throw "Not implemented.";
 
-            ko.applyBindingsToNode(htmlElement, { widget: widgetModel });
-            htmlElement["attachedModel"] = widgetModel.model;
+            // let widgetModel = await this.videoPlayerModelBinder.modelToWidgetModel(model);
+            // let htmlElement = document.createElement("widget");
+            // htmlElement.style.width = "150px";
 
-            return {
-                element: htmlElement,
-                onMediaUploadedCallback: (media: ICreatedMedia) => {
-                    model.sourceKey = media.permalink.key;
-                    model.sourceUrl = media.media.downloadUrl;
-                    widgetModel.applyChanges();
-                }
-            }
+            // ko.applyBindingsToNode(htmlElement, { widget: widgetModel });
+            // htmlElement["attachedModel"] = widgetModel.model;
+
+            // return {
+            //     element: htmlElement,
+            //     onMediaUploadedCallback: (media: ICreatedMedia) => {
+            //         model.sourceKey = media.permalink.key;
+            //         model.sourceUrl = media.media.downloadUrl;
+            //         widgetModel.applyChanges();
+            //     }
+            // }
         }
 
         let widgetOrder: IWidgetOrder = {
             title: "Video player",
             createWidget: factoryFunction,
-            createModel:() =>{
+            createModel: () => {
                 return model;
             }
         }

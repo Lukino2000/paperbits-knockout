@@ -1,47 +1,127 @@
 ﻿import * as ko from "knockout";
-import { IEditorSession } from "@paperbits/common/ui/IEditorSession";
-import { IWidgetEditor } from "@paperbits/common/widgets/IWidgetEditor";
-import { IViewManager } from "@paperbits/common/ui/IViewManager";
-import { IInjector } from "@paperbits/common/injection/IInjector";
-import { IWidgetModel } from "@paperbits/common/editing/IWidgetModel";
 
 
 export class WidgetBindingHandler {
-    public constructor(viewManager: IViewManager) {
+    public constructor() {
+        let componentLoadingOperationUniqueId = 0;
+
         ko.bindingHandlers["widget"] = {
-            init(widgetElement: HTMLElement, valueAccessor: () => IWidgetModel) {
-                let attachedWidgetModel: IWidgetModel = valueAccessor();
-
-                let oncreate = (viewModel, element: Node) => {
-                    attachedWidgetModel.applyChanges = (): void => {
-                        attachedWidgetModel.setupViewModel(viewModel);
-                    }
-
-                    attachedWidgetModel.setupViewModel(viewModel);
-
-                    if (element.nodeName == "#comment") {
-                        do {
-                            element = element.nextSibling;
+            "init": (element, valueAccessor, ignored1, ignored2, bindingContext) => {
+                let currentViewModel,
+                    currentLoadingOperationId,
+                    disposeAssociatedComponentViewModel = () => {
+                        let currentViewModelDispose = currentViewModel && currentViewModel["dispose"];
+                        if (typeof currentViewModelDispose === "function") {
+                            currentViewModelDispose.call(currentViewModel);
                         }
-                        while (element != null && element.nodeName == "#comment")
+                        currentViewModel = null;
+                        // Any in-flight loading operation is no longer relevant, so make sure we ignore its completion
+                        currentLoadingOperationId = null;
+                    },
+                    originalChildNodes = makeArray(ko.virtualElements.childNodes(element));
+
+                ko.utils.domNodeDisposal.addDisposeCallback(element, disposeAssociatedComponentViewModel);
+
+                ko.computed(() => {
+                    let componentOnCreateHandler;
+                    let componentViewModel = ko.utils.unwrapObservable(valueAccessor());
+                    let loadingOperationId = currentLoadingOperationId = ++componentLoadingOperationUniqueId;
+                    let registration = ko.components["registry"].find(x => componentViewModel instanceof x.constructor);
+
+                    if (!registration) {
+                        throw `Could not find component registration for view model: ${componentViewModel}`;
                     }
 
-                    if (!element) {
-                        return;
-                    }
+                    let componentName = registration.name;
 
-                    element["attachedModel"] = attachedWidgetModel.model;
-                    element["attachedWidgetModel"] = attachedWidgetModel;
-                }
+                    ko.components.get(componentName, componentDefinition => {
+                        // If this is not the current load operation for this element, ignore it.
+                        if (currentLoadingOperationId !== loadingOperationId) {
+                            return;
+                        }
 
-                ko.applyBindingsToNode(widgetElement, {
-                    component: {
-                        name: attachedWidgetModel.name,
-                        params: attachedWidgetModel.params,
-                        oncreate: oncreate
-                    }
-                })
+                        // Clean up previous state
+                        disposeAssociatedComponentViewModel();
+
+                        // Instantiate and bind new component. Implicitly this cleans any old DOM nodes.
+                        if (!componentDefinition) {
+                            throw new Error('Unknown component \'' + componentName + '\'');
+                        }
+                        let root = cloneTemplateIntoElement(componentName, componentDefinition, element, !!(<any>componentDefinition).shadow);
+
+                        let childBindingContext = bindingContext['createChildContext'](componentViewModel, /* dataItemAlias */ undefined, ctx => {
+                            ctx["$component"] = componentViewModel;
+                            ctx["$componentTemplateNodes"] = originalChildNodes;
+                        });
+
+                        currentViewModel = componentViewModel;
+                        ko.applyBindingsToDescendants(childBindingContext, root);
+
+                        if (componentOnCreateHandler) {
+                            componentOnCreateHandler(componentViewModel, element);
+                        }
+
+                        let correctedElement = element;
+
+                        if (correctedElement.nodeName == "#comment") {
+                            do {
+                                correctedElement = correctedElement.nextSibling;
+                            }
+                            while (correctedElement != null && correctedElement.nodeName == "#comment")
+                        }
+
+                        if (correctedElement) {
+                            correctedElement["attachedViewModel"] = componentViewModel;
+
+                            if (correctedElement.nodeName == "A") {
+                                correctedElement.onclick = (event) => {
+                                    event.preventDefault();
+                                    event.stopImmediatePropagation();
+                                }
+                            }
+                        }
+                    });
+                }, null, { disposeWhenNodeIsRemoved: element });
+
+                return { 'controlsDescendantBindings': true };
             }
         };
+
+        ko.virtualElements.allowedBindings['widget'] = true;
+
+        let makeArray = (arrayLikeObject) => {
+            let result = [];
+            for (let i = 0, j = arrayLikeObject.length; i < j; i++) {
+                result.push(arrayLikeObject[i]);
+            };
+            return result;
+        };
+
+        let cloneNodes = (nodesArray, shouldCleanNodes) => {
+            for (var i = 0, j = nodesArray.length, newNodesArray = []; i < j; i++) {
+                var clonedNode = nodesArray[i].cloneNode(true);
+                newNodesArray.push(shouldCleanNodes ? ko.cleanNode(clonedNode) : clonedNode);
+            }
+            return newNodesArray;
+        };
+
+        function cloneTemplateIntoElement(componentName, componentDefinition, element, useShadow: boolean): HTMLElement {
+            let template = componentDefinition['template'];
+
+            if (!template) {
+                return element;
+            }
+
+            let clonedNodesArray = cloneNodes(template, false);
+            ko.virtualElements.setDomNodeChildren(element, clonedNodesArray);
+            return element;
+        }
+
+        function createViewModel(componentDefinition, element, originalChildNodes, componentParams) {
+            let componentViewModelFactory = componentDefinition['createViewModel'];
+            return componentViewModelFactory
+                ? componentViewModelFactory.call(componentDefinition, componentParams, { 'element': element, 'templateNodes': originalChildNodes })
+                : componentParams; // Template-only component
+        }
     }
 }

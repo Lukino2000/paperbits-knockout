@@ -31,16 +31,18 @@ export class TextblockHandlers implements IWidgetHandler {
                 }]
         });
 
-        let textblockWidgetModel = await this.textblockModelBinder.modelToWidgetModel(textblockModel);
         let widgetOrder: IWidgetOrder = {
             title: "Text block",
 
             createWidget: () => {
-                let htmlElement = document.createElement("widget");
-                htmlElement.style.width = "25%";
-                ko.applyBindingsToNode(htmlElement, { widget: textblockWidgetModel });
-                htmlElement["attachedModel"] = textblockWidgetModel.model;
-                return { element: htmlElement }
+                throw "Not implemented.";
+
+                // let textblockWidgetModel = await this.textblockModelBinder.modelToWidgetModel(textblockModel);
+                // let htmlElement = document.createElement("widget");
+                // htmlElement.style.width = "25%";
+                // ko.applyBindingsToNode(htmlElement, { widget: textblockWidgetModel });
+                // htmlElement["attachedModel"] = textblockWidgetModel.model;
+                // return { element: htmlElement }
             },
             createModel: () => {
                 return textblockModel;

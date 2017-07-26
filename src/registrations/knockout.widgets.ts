@@ -16,7 +16,7 @@ import { NavbarViewModel } from "../widgets/navbar/navbarViewModel";
 import { YoutubePlayerViewModel } from "../widgets/youtube-player/youtubePlayerViewModel";
 import { VideoPlayerViewModel } from "../widgets/video-player/videoPlayerViewModel";
 import { GoogleTagManager } from "../widgets/gtm/gtm";
-import { IntercomViewModel } from "../widgets/intercom/intercom";
+import { IntercomViewModel } from "../widgets/intercom/intercomViewModel";
 
 
 export class KnockoutRegistrationWidgets implements IInjectorModule {
@@ -37,6 +37,7 @@ export class KnockoutRegistrationWidgets implements IInjectorModule {
         injector.bind("videoPlayer", VideoPlayerViewModel);
         injector.bind("gtm", GoogleTagManager);
         injector.bind("intercom", IntercomViewModel);
+
 
         // var aceconfig: any = ace;
         // aceconfig.config.set("basePath", "https://cdn.jsdelivr.net/ace/1.2.3/noconflict/");

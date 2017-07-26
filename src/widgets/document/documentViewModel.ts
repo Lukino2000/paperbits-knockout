@@ -7,6 +7,8 @@ import { IWidgetModel } from "@paperbits/common/editing/IWidgetModel";
 import { IRouteHandler } from "@paperbits/common/routing/IRouteHandler";
 import { IViewManager } from "@paperbits/common/ui/IViewManager";
 import { Component } from "../../decorators/component";
+import { LayoutViewModelBinder } from "../layout/layoutViewModelBinder";
+import { LayoutViewModel } from "../layout/layoutViewModel";
 
 
 @Component({
@@ -16,18 +18,20 @@ import { Component } from "../../decorators/component";
 })
 export class DocumentViewModel {
     private readonly layoutModelBinder: LayoutModelBinder;
+    private readonly layoutViewModelBinder: LayoutViewModelBinder;
     private readonly routeHandler: IRouteHandler;
     private readonly viewManager: IViewManager;
     private readonly disposeBag: Utils.IFunctionBag = Utils.createFunctionBag();
 
-    public readonly layoutModel: KnockoutObservable<IWidgetModel>;
+    public readonly layoutModel: KnockoutObservable<LayoutViewModel>;
     public readonly working: KnockoutObservable<boolean>;
 
     public disableTracking: KnockoutObservable<boolean>;
 
-    constructor(layoutModelBinder: LayoutModelBinder, routeHandler: IRouteHandler, viewManager: IViewManager) {
+    constructor(layoutModelBinder: LayoutModelBinder, layoutViewModelBinder: LayoutViewModelBinder, routeHandler: IRouteHandler, viewManager: IViewManager) {
         // initialization...
         this.layoutModelBinder = layoutModelBinder;
+        this.layoutViewModelBinder = layoutViewModelBinder;
         this.routeHandler = routeHandler;
         this.viewManager = viewManager;
 
@@ -37,8 +41,9 @@ export class DocumentViewModel {
 
         // setting up...
         this.routeHandler.addRouteChangeListener(this.onRouteChange);
-        
-        this.layoutModel = ko.observable<IWidgetModel>();
+
+        //this.layoutModel = ko.observable<IWidgetModel>();
+        this.layoutModel = ko.observable<LayoutViewModel>();
         this.working = ko.observable(true);
         this.disableTracking = ko.observable(false);
 
@@ -50,9 +55,11 @@ export class DocumentViewModel {
         this.layoutModel(null);
 
         let layoutMode = this.viewManager.getCurrentJourney() == "Layouts";
-        let layoutWidgetModel = await this.layoutModelBinder.getCurrentLayout(layoutMode);
+        let layoutModel = await this.layoutModelBinder.getCurrentLayoutModel();
+        let readonly = !layoutMode;
+        let layoutViewModel = this.layoutViewModelBinder.modelToViewModel(layoutModel, readonly);
 
-        this.layoutModel(layoutWidgetModel);
+        this.layoutModel(layoutViewModel);
 
         this.working(false);
         this.disableTracking(!layoutMode)

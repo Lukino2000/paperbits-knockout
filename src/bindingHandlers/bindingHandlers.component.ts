@@ -90,42 +90,14 @@ var cloneNodes = (nodesArray, shouldCleanNodes) => {
 
 function cloneTemplateIntoElement(componentName, componentDefinition, element, useShadow: boolean): HTMLElement {
     var template = componentDefinition['template'];
+    
     if (!template) {
         return element;
     }
 
-    if (useShadow) {
-        if (!element.shadowRoot) {
-            element.createShadowRoot();
-        } else {
-            while (element.shadowRoot.firstChild) {
-                ko.removeNode(element.shadowRoot.firstChild);
-            }
-        }
-
-        var root = document.createElement("div")
-        /*
-        $("link[rel=stylesheet]").each((i: number, e: HTMLLinkElement) => $.get(e.href, stylesheet => element.shadowRoot.insertBefore($.parseHTML(`<style>${stylesheet}</style>`)[0], element.shadowRoot.firstChild)));
-        
-        var styles = cloneNodes($("style"), false);
-        for (var i = 0, j = styles.length; i < j; i++)
-        {
-            element.shadowRoot.appendChild(styles[i]);   
-        }
-        */
-
-        var clonedNodesArray = cloneNodes(template, false);
-        for (var i = 0, j = clonedNodesArray.length; i < j; i++) {
-            root.appendChild(clonedNodesArray[i]);
-        }
-        element.shadowRoot.appendChild(root);
-
-        return root;
-    } else {
-        var clonedNodesArray = cloneNodes(template, false);
-        ko.virtualElements.setDomNodeChildren(element, clonedNodesArray);
-        return element;
-    }
+    var clonedNodesArray = cloneNodes(template, false);
+    ko.virtualElements.setDomNodeChildren(element, clonedNodesArray);
+    return element;
 }
 
 function createViewModel(componentDefinition, element, originalChildNodes, componentParams) {

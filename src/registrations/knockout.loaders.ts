@@ -51,12 +51,11 @@ export class KnockoutRegistrationLoaders implements IInjectorModule {
                         return viewModel;
                     }
 
-                    var definitionWrapper: KnockoutComponentTypes.Definition = {
+                    var definitionWrapper /*: KnockoutComponentTypes.Definition*/ = {
                         template: resultWrapper.template,
-                        createViewModel: createViewModelWrapper
+                        createViewModel: createViewModelWrapper,
+                        constructor: config.constructor
                     };
-
-                    (<any>definitionWrapper).shadow = config.template && config.template.shadow;
 
                     callback(definitionWrapper);
                 }

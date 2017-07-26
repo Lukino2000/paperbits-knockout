@@ -29,7 +29,7 @@ function getParentElementWithModel<T>(element: HTMLElement): HTMLElement {
         return null;
     }
 
-    let model = parent["attachedModel"];
+    let model = getModel(parent);
 
     if (model) {
         return parent;
@@ -37,6 +37,28 @@ function getParentElementWithModel<T>(element: HTMLElement): HTMLElement {
 
     return getParentElementWithModel(parent);
 }
+
+function getWidgetModel(element: Element): any {
+    if (element["attachedViewModel"] &&
+        element["attachedViewModel"]["attachedWidgetModel"]) {
+        return element["attachedViewModel"]["attachedWidgetModel"]
+    }
+    else {
+        return null;
+    }
+}
+
+function getModel(element: Element): any {
+    let widgetModel = getWidgetModel(element);
+
+    if (widgetModel && widgetModel["model"]) {
+        return widgetModel["model"];
+    }
+    else {
+        return null;
+    }
+}
+
 
 class GridEditor {
     private readonly viewManager: IViewManager
@@ -90,7 +112,7 @@ class GridEditor {
             return false;
         }
 
-        let selectedWidgetModel = selectedElement.element["attachedWidgetModel"];
+        let selectedWidgetModel = getWidgetModel(selectedElement.element);
 
         if (widgetModel != selectedWidgetModel) {
             return false;
@@ -107,7 +129,9 @@ class GridEditor {
         }
 
         let elements = this.getUnderlyingElements();
-        let element = elements.find(element => element["attachedWidgetModel"] != undefined);
+        let element = elements.find(element => {
+            return getWidgetModel(element);
+        });
 
         if (!element) {
             return;
@@ -115,13 +139,11 @@ class GridEditor {
 
         this.selectedWidget = null;
 
-        let attachedWidgetModel = <IWidgetModel>element["attachedWidgetModel"];
+        let attachedWidgetModel = <IWidgetModel>getWidgetModel(element);
 
         if (!attachedWidgetModel) {
             return;
         }
-
-
 
         if (attachedWidgetModel.readonly) {
             return;
@@ -135,7 +157,7 @@ class GridEditor {
             this.setWidgetEditorSession(attachedWidgetModel);
         }
         else {
-            let attachedModel = <IWidgetModel>element["attachedModel"];
+            let attachedModel = <IWidgetModel>getModel(element);
             let contextualEditor;
 
             if (attachedModel instanceof PlaceholderModel) {
@@ -154,6 +176,7 @@ class GridEditor {
                 contextualEditor = this.getWidgetContextualEditor(element);
             }
 
+
             if (!contextualEditor) {
                 return;
             }
@@ -166,8 +189,6 @@ class GridEditor {
             this.viewManager.setSelectedElement(config, contextualEditor);
             this.selectedWidget = element;
             this.selectedWidgetContextualEditor = contextualEditor;
-
-
         }
     }
 
@@ -233,6 +254,7 @@ class GridEditor {
         }
 
         let elements = this.getUnderlyingElements();
+
 
         if (elements.length > 0) {
             if (elements.some(x =>
@@ -302,9 +324,9 @@ class GridEditor {
                 params: {
                     onSelect: (newSectionModel: SectionModel) => {
                         let mainElement = getParentElementWithModel(this.activePlaceholderElement);
-                        let mainModel = mainElement["attachedModel"];
-                        let mainWidgetModel = <IWidgetModel>mainElement["attachedWidgetModel"];
-                        let placeholderModel = <PlaceholderModel>this.activePlaceholderElement["attachedModel"];
+                        let mainModel = getModel(mainElement);
+                        let mainWidgetModel = <IWidgetModel>getWidgetModel(mainElement);
+                        let placeholderModel = <PlaceholderModel>getModel(this.activePlaceholderElement);
                         let index = mainModel.sections.indexOf(placeholderModel);
 
                         if (this.activePlaceholderHalf === "bottom") {
@@ -345,9 +367,9 @@ class GridEditor {
                         }
 
                         let mainElement = getParentElementWithModel(sectionElement);
-                        let mainModel = <PageModel>mainElement["attachedModel"];
-                        let mainWidgetModel = <IWidgetModel>mainElement["attachedWidgetModel"];
-                        let sectionModel = <SectionModel>sectionElement["attachedModel"];
+                        let mainModel = <PageModel>getModel(mainElement);
+                        let mainWidgetModel = <IWidgetModel>getWidgetModel(mainElement);
+                        let sectionModel = <SectionModel>getModel(sectionElement);
                         let index = mainModel.sections.indexOf(sectionModel);
 
                         if (sectionHalf === "bottom") {
@@ -364,9 +386,9 @@ class GridEditor {
             deleteTooltip: "Delete section",
             deleteCallback: () => {
                 let mainElement = getParentElementWithModel(activeSectionElement);
-                let mainModel = <PageModel>mainElement["attachedModel"];
-                let mainWidgetModel = <IWidgetModel>mainElement["attachedWidgetModel"];
-                let sectionModel = <SectionModel>activeSectionElement["attachedModel"];
+                let mainModel = <PageModel>getModel(mainElement);
+                let mainWidgetModel = <IWidgetModel>getWidgetModel(mainElement);
+                let sectionModel = <SectionModel>getModel(activeSectionElement);
 
                 mainModel.sections.remove(sectionModel);
                 mainWidgetModel.applyChanges();
@@ -375,7 +397,7 @@ class GridEditor {
             },
             settingsTooltip: "Edit section",
             settingsCallback: () => {
-                let widgetModel = activeSectionElement["attachedWidgetModel"];
+                let widgetModel = getWidgetModel(activeSectionElement);
                 let editorSession: IEditorSession = {
                     component: {
                         name: widgetModel.editor,
@@ -404,8 +426,8 @@ class GridEditor {
                 name: "row-layout-selector",
                 params: {
                     onSelect: (newRowModel: RowModel) => {
-                        let sectionModel = <SectionModel>this.activeSectionElement["attachedModel"];
-                        let sectionWidgetModel = <IWidgetModel>this.activeSectionElement["attachedWidgetModel"];
+                        let sectionModel = <SectionModel>getModel(this.activeSectionElement);
+                        let sectionWidgetModel = <IWidgetModel>getWidgetModel(this.activeSectionElement);
 
                         sectionModel.rows.push(newRowModel);
                         sectionWidgetModel.applyChanges();
@@ -428,9 +450,9 @@ class GridEditor {
                 params: {
                     onSelect: (newRowModel: RowModel) => {
                         let sectionElement = getParentElementWithModel(activeRowElement);
-                        let sectionModel = <SectionModel>sectionElement["attachedModel"];
-                        let sectionWidgetModel = <IWidgetModel>sectionElement["attachedWidgetModel"];
-                        let rowModel = <RowModel>activeRowElement["attachedModel"];
+                        let sectionModel = <SectionModel>getModel(sectionElement);
+                        let sectionWidgetModel = <IWidgetModel>getWidgetModel(sectionElement);
+                        let rowModel = <RowModel>getModel(activeRowElement);
                         let index = sectionModel.rows.indexOf(rowModel);
 
                         if (this.activeRowHalf === "bottom") {
@@ -448,9 +470,9 @@ class GridEditor {
             deleteTooltip: "Delete row",
             deleteCallback: () => {
                 let sectionElement = getParentElementWithModel(activeRowElement);
-                let sectionModel = <SectionModel>sectionElement["attachedModel"];
-                let sectionWidgetModel = <IWidgetModel>sectionElement["attachedWidgetModel"];
-                let rowModel = <RowModel>activeRowElement["attachedModel"];
+                let sectionModel = <SectionModel>getModel(sectionElement);
+                let sectionWidgetModel = <IWidgetModel>getWidgetModel(sectionElement);
+                let rowModel = <RowModel>getModel(activeRowElement);
 
                 sectionModel.rows.remove(rowModel);
                 sectionWidgetModel.applyChanges();
@@ -472,8 +494,8 @@ class GridEditor {
                 name: "widget-selector",
                 params: {
                     onSelect: (widgetModel: IModel) => {
-                        let columnModel = <ColumnModel>activeColumnElement["attachedModel"];
-                        let columnWidgetModel = <IWidgetModel>activeColumnElement["attachedWidgetModel"];
+                        let columnModel = <ColumnModel>getModel(activeColumnElement);
+                        let columnWidgetModel = <IWidgetModel>getWidgetModel(activeColumnElement);
 
                         columnModel.widgets.push(widgetModel);
                         columnWidgetModel.applyChanges();
@@ -486,7 +508,7 @@ class GridEditor {
             deleteCallback: null,
             settingsTooltip: "Edit column",
             settingsCallback: () => {
-                let widgetModel = activeColumnElement["attachedWidgetModel"];
+                let widgetModel = getWidgetModel(activeColumnElement);
                 let editorSession: IEditorSession = {
                     component: {
                         name: widgetModel.editor,
@@ -516,16 +538,16 @@ class GridEditor {
             deleteCallback: () => {
                 let parentRow = widgetElement.parentElement;
                 let columnElement = widgetElement.parentElement;
-                let sourceColumnModel = columnElement["attachedModel"];
+                let sourceColumnModel = getModel(columnElement);
 
                 let rowElement = columnElement.parentElement;
-                let sourceRowModel = rowElement["attachedModel"];
-                let sourceRowWidgetModel = <IWidgetModel>rowElement["attachedWidgetModel"];
+                let sourceRowModel = getModel(rowElement);
+                let sourceRowWidgetModel = <IWidgetModel>getWidgetModel(rowElement);
 
                 let sectionElement = rowElement.parentElement.parentElement;
-                let sourceSectionModel = sectionElement["attachedModel"];
+                let sourceSectionModel = getModel(sectionElement);
 
-                let widgetModel = widgetElement["attachedModel"];
+                let widgetModel = getModel(widgetElement);
 
                 if (sourceColumnModel) {
                     sourceColumnModel.widgets.remove(widgetModel);
@@ -537,7 +559,7 @@ class GridEditor {
             },
             settingsTooltip: "Edit widget",
             settingsCallback: () => {
-                let widgetModel = widgetElement["attachedWidgetModel"];
+                let widgetModel = getWidgetModel(widgetElement);
                 let editorSession: IEditorSession = {
                     component: {
                         name: widgetModel.editor,
@@ -569,8 +591,9 @@ class GridEditor {
 
         for (let i = elements.length - 1; i >= 0; i--) {
             let element = elements[i];
-            let attachedModel = element["attachedModel"];
-            let attachedWidgetModel = element["attachedWidgetModel"];
+
+            let attachedModel = getModel(element);
+            let attachedWidgetModel = getWidgetModel(element);
 
             if (attachedWidgetModel && attachedWidgetModel.readonly) {
                 continue;
@@ -615,7 +638,7 @@ class GridEditor {
             this.activeColumnElement = columnElement;
 
             if (this.activeColumnElement) {
-                let attachedModel = <ColumnModel>this.activeColumnElement["attachedModel"];
+                let attachedModel = <ColumnModel>getModel(this.activeColumnElement);
 
                 this.viewManager.setContextualEditor("column", this.getColumnContextualEditor(this.activeColumnElement));
             }
@@ -636,7 +659,7 @@ class GridEditor {
             this.viewManager.setContextualEditor("section", this.getSectionContextualEditor(this.activeSectionElement, this.activeSectionHalf, this.activePlaceholderElement, this.activePlaceholderHalf));
 
             if (this.activeSectionElement) {
-                let attachedModel = <SectionModel>this.activeSectionElement["attachedModel"];
+                let attachedModel = <SectionModel>getModel(this.activeSectionElement);
 
                 if (attachedModel.rows.length === 0) {
                     this.viewManager.setContextualEditor("row", this.getEmptySectionContextualEditor(this.activeSectionElement, this.activeSectionHalf))
@@ -692,7 +715,7 @@ export class GridBindingHandler {
                 const gridEditor = new GridEditor(viewManager, gridElement.ownerDocument);
 
                 const observer = new MutationObserver(mutations => {
-                    let layoutModel = gridElement["attachedModel"];
+                    let layoutModel = getModel(gridElement);
                     layoutModelBinder.updateContent(layoutModel);
                 });
 
@@ -721,7 +744,7 @@ export class GridBindingHandler {
                         return;
                     }
 
-                    let model = parentElement["attachedModel"];
+                    let model = getModel(parentElement);
                     pageModelBinder.updateContent(model);
                 });
 

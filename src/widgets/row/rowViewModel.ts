@@ -1,9 +1,7 @@
 import * as ko from "knockout";
 import * as template from "./row.html";
-import { RowModel } from "@paperbits/common/widgets/models/rowModel";
-import { IWidgetModel } from "@paperbits/common/editing/IWidgetModel";
-import { IViewModelBinder } from "@paperbits/common/widgets/IViewModelBinder";
 import { Component } from "../../decorators/component";
+import { ColumnViewModel } from "../column/columnViewModel";
 
 
 @Component({
@@ -11,8 +9,8 @@ import { Component } from "../../decorators/component";
     template: template,
     injectable: "row"
 })
-export class RowViewModel implements IViewModelBinder {
-    public columns: KnockoutObservableArray<IWidgetModel>;
+export class RowViewModel {
+    public columns: KnockoutObservableArray<ColumnViewModel>;
     public css: KnockoutComputed<string>;
     public alignSm: KnockoutObservable<string>;
     public alignMd: KnockoutObservable<string>;
@@ -22,7 +20,7 @@ export class RowViewModel implements IViewModelBinder {
     public justifyLg: KnockoutObservable<string>;
 
     constructor() {
-        this.columns = ko.observableArray<IWidgetModel>();
+        this.columns = ko.observableArray<ColumnViewModel>();
         this.alignSm = ko.observable<string>();
         this.alignMd = ko.observable<string>();
         this.alignLg = ko.observable<string>();
@@ -54,18 +52,5 @@ export class RowViewModel implements IViewModelBinder {
 
             return css;
         });
-    }
-
-    public attachToModel(widgetModel: IWidgetModel) {
-        let model = <RowModel>widgetModel.model;
-        this.alignSm(model.alignSm);
-        this.alignMd(model.alignMd);
-        this.alignLg(model.alignLg);
-
-        this.justifySm(model.justifySm);
-        this.justifyMd(model.justifyMd);
-        this.justifyLg(model.justifyLg);
-
-        this.columns(widgetModel.children);
     }
 }

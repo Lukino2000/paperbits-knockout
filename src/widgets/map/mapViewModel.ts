@@ -1,7 +1,5 @@
 ﻿import * as ko from "knockout";
 import * as template from "./map.html";
-import { IViewModelBinder } from "@paperbits/common/widgets/IViewModelBinder";
-import { MapModel } from "@paperbits/common/widgets/models/mapModel";
 import { Component } from "../../decorators/component";
 
 
@@ -10,7 +8,7 @@ import { Component } from "../../decorators/component";
     template: template,
     injectable: "map"
 })
-export class MapViewModel implements IViewModelBinder {
+export class MapViewModel {
     public location: KnockoutObservable<string>;
     public caption: KnockoutObservable<string>;
     public layout: KnockoutObservable<string>;
@@ -22,12 +20,5 @@ export class MapViewModel implements IViewModelBinder {
         this.caption = ko.observable<string>("Seattle, WA");
         this.layout = ko.observable<string>();
         this.zoomControl = ko.observable<string>("hide");
-    }
-
-    public attachToModel(model: MapModel) {
-        this.caption(model.caption);
-        this.layout(model.layout);
-        this.location(model.location);
-        this.zoomControl(model.zoomControl);
     }
 }

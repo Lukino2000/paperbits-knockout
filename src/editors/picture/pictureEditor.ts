@@ -15,7 +15,7 @@ import { Component } from "../../decorators/component";
 
 
 @Component({
-    selector: "picture-editor-editor",
+    selector: "paperbits-picture-editor",
     template: template,
     injectable: "pictureEditor"
 })

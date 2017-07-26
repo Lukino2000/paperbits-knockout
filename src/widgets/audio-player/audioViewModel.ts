@@ -1,7 +1,5 @@
 ﻿import * as ko from "knockout";
 import * as template from "./audioPlayer.html";
-import { AudioPlayerModel } from "@paperbits/common/widgets/models/audioPlayerModel";
-import { IViewModelBinder } from "@paperbits/common/widgets/IViewModelBinder";
 import { Component } from "../../decorators/component";
 
 
@@ -10,7 +8,7 @@ import { Component } from "../../decorators/component";
     template: template,
     injectable: "audioPlayer"
 })
-export class AudioPlayerViewModel implements IViewModelBinder {
+export class AudioPlayerViewModel {
     public sourceUrl: KnockoutObservable<string>;
     public controls: KnockoutObservable<boolean>;
     public autoplay: KnockoutObservable<boolean>;
@@ -21,12 +19,5 @@ export class AudioPlayerViewModel implements IViewModelBinder {
         this.sourceKey = ko.observable<string>();
         this.controls = ko.observable<boolean>();
         this.autoplay = ko.observable<boolean>();
-    }
-
-    public attachToModel(model:AudioPlayerModel){
-        this.sourceUrl(model.sourceUrl);
-        this.sourceKey(model.sourceKey);
-        this.controls(model.controls);
-        this.autoplay(model.autoplay);
     }
 }

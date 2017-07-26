@@ -8,7 +8,7 @@ import { Component } from "../../decorators/component";
 
 
 @Component({
-    selector: "video-player-editor",
+    selector: "paperbits-video-player-editor",
     template: template,
     injectable: "videoPlayerEditor"
 })

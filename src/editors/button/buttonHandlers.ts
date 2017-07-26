@@ -19,15 +19,18 @@ export class ButtonHandlers implements IWidgetHandler {
 
     private async prepareWidgetOrder(config: ContentConfig): Promise<IWidgetOrder> {
         let model = await this.buttonModelBinder.nodeToModel(config);
-        let widgetModel = await this.buttonModelBinder.modelToWidgetModel(model);
+        
 
         let factoryFunction: () => IWidgetFactoryResult = () => {
-            let htmlElement = document.createElement("widget");
-            htmlElement.style.width = "150px";
-            htmlElement.style.height = "100px";
-            ko.applyBindingsToNode(htmlElement, { widget: widgetModel })
-            htmlElement["attachedModel"] = widgetModel.model;
-            return { element: htmlElement };
+            throw "Not implemented.";
+
+            //let widgetModel = await this.buttonModelBinder.modelToWidgetModel(model);
+            // let htmlElement = document.createElement("widget");
+            // htmlElement.style.width = "150px";
+            // htmlElement.style.height = "100px";
+            // ko.applyBindingsToNode(htmlElement, { widget: widgetModel })
+            // htmlElement["attachedModel"] = widgetModel.model;
+            // return { element: htmlElement };
         }
 
         let widgetOrder: IWidgetOrder = {

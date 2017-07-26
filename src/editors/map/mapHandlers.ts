@@ -46,15 +46,17 @@ export class MapHandlers implements IWidgetHandler, IContentDropHandler {
 
     private async prepareWidgetOrder(config: IMapConfig): Promise<IWidgetOrder> {
         let model = await this.mapModelBinder.nodeToModel(config);
-        let widgetModel = await this.mapModelBinder.modelToWidgetModel(model);
 
         let factoryFunction: () => IWidgetFactoryResult = () => {
-            let htmlElement = document.createElement("widget");
-            htmlElement.style.width = "150px";
-            htmlElement.style.height = "100px";
-            ko.applyBindingsToNode(htmlElement, { widget: widgetModel })
-            htmlElement["attachedModel"] = widgetModel.model;
-            return { element: htmlElement };
+            throw "Not implemented.";
+
+            // let widgetModel = await this.mapModelBinder.modelToWidgetModel(model);
+            // let htmlElement = document.createElement("widget");
+            // htmlElement.style.width = "150px";
+            // htmlElement.style.height = "100px";
+            // ko.applyBindingsToNode(htmlElement, { widget: widgetModel })
+            // htmlElement["attachedModel"] = widgetModel.model;
+            // return { element: htmlElement };
         }
 
         let widgetOrder: IWidgetOrder = {

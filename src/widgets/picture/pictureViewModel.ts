@@ -1,20 +1,18 @@
 ﻿import * as ko from "knockout";
 import * as template from "./picture.html";
-import { PictureModel } from "@paperbits/common/widgets/models/pictureModel";
-import { IViewModelBinder } from "@paperbits/common/widgets/IViewModelBinder";
 import { ILightbox } from "@paperbits/common/ui/ILightbox"; // TODO: Can be plugged in as binding
 import { IBackground } from "@paperbits/common/ui/IBackground";
 import { Component } from "../../decorators/component";
 
 const DefaultSourceUrl = "http://placehold.it/800x600";
 
-        
+
 @Component({
     selector: "paperbits-picture",
     template: template,
     injectable: "picture"
 })
-export class PictureViewModel implements IViewModelBinder {
+export class PictureViewModel {
     public sourceUrl: KnockoutObservable<string>;
     public caption: KnockoutObservable<string>;
     public action: KnockoutObservable<string>;
@@ -43,12 +41,5 @@ export class PictureViewModel implements IViewModelBinder {
 
             return classes.join(" ");
         });
-    }
-
-    public attachToModel(model: PictureModel): void {
-        this.caption(model.caption);
-        this.layout(model.layout);
-        this.animation(model.animation);
-        this.sourceUrl(model.sourceUrl);
     }
 }

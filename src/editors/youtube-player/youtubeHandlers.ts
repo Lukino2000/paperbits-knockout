@@ -24,20 +24,21 @@ export class YoutubeHandlers implements IWidgetHandler, IContentDropHandler {
         let youtubePlayerModel = new YoutubePlayerModel();
         youtubePlayerModel.videoId = youtubeClipId;
 
-        let widgetModel = await this.youtubePlayerModelBinder.modelToWidgetModel(youtubePlayerModel);
+        // let widgetModel = await this.youtubePlayerModelBinder.modelToWidgetModel(youtubePlayerModel);
 
         let widgetOrder: IWidgetOrder = {
             title: "Youtube player",
             createWidget: () => {
-                let htmlElement = document.createElement("widget");
-                htmlElement.style.width = "100px";
+                throw "Not implemented.";
+                // let htmlElement = document.createElement("widget");
+                // htmlElement.style.width = "100px";
 
-                ko.applyBindingsToNode(htmlElement, { widget: widgetModel });
-                htmlElement["attachedModel"] = widgetModel.model;
+                // ko.applyBindingsToNode(htmlElement, { widget: widgetModel });
+                // htmlElement["attachedModel"] = widgetModel.model;
 
-                return { element: htmlElement }
+                // return { element: htmlElement }
             },
-            createModel:() =>{
+            createModel: () => {
                 return youtubePlayerModel;
             }
         }

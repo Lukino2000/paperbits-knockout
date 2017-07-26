@@ -20,40 +20,4 @@ export class ButtonViewModel {
         this.css = ko.observable<Object>();
         this.hyperlink = ko.observable<HyperlinkModel>();
     }
-
-    public attachToModel(model: ButtonModel) {
-        this.label(model.label);
-        this.hyperlink(model.hyperlink);
-
-        let classes = [];
-
-        switch (model.style) {
-            case "default":
-                classes.push("btn-default");
-                break;
-
-            case "primary":
-                classes.push("btn-primary");
-                break;
-
-            case "inverted":
-                classes.push("btn-inverted");
-                break;
-        }
-
-        switch (model.size) {
-            case "default":
-                break;
-
-            case "medium":
-                classes.push("btn-medium");
-                break;
-
-            case "large":
-                classes.push("btn-large");
-                break;
-        }
-
-        this.css(classes.join(" "));
-    }
 }

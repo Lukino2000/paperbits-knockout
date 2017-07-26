@@ -27,20 +27,22 @@ export class PictureHandlers implements IWidgetHandler, IContentDropHandler {
 
     private async prepareWidgetOrder(config: IPictureNode): Promise<IWidgetOrder> {
         let model = await this.pictureModelBinder.nodeToModel(config);
-        let widgetModel = await this.pictureModelBinder.modelToWidgetModel(model);
 
         let factoryFunction: () => IWidgetFactoryResult = () => {
-            let htmlElement = document.createElement("widget");
-            htmlElement.style.width = "150px";
-            ko.applyBindingsToNode(htmlElement, { widget: widgetModel })
-            htmlElement["attachedModel"] = widgetModel.model;
-            return { element: htmlElement };
+            throw "Not implemented.";
+
+            // let widgetModel = await this.pictureModelBinder.modelToWidgetModel(model);
+            // let htmlElement = document.createElement("widget");
+            // htmlElement.style.width = "150px";
+            // ko.applyBindingsToNode(htmlElement, { widget: widgetModel })
+            // htmlElement["attachedModel"] = widgetModel.model;
+            // return { element: htmlElement };
         }
 
         let widgetOrder: IWidgetOrder = {
             title: "Picture",
             createWidget: factoryFunction,
-            createModel:() =>{
+            createModel: () => {
                 return model;
             }
         }
@@ -54,27 +56,28 @@ export class PictureHandlers implements IWidgetHandler, IContentDropHandler {
         model.caption = caption;
         model.layout = "noframe";
 
-        let widgetModel = await this.pictureModelBinder.modelToWidgetModel(model);
-
         let widgetOrder: IWidgetOrder = {
             title: "Picture",
             createWidget: () => {
-                let htmlElement = document.createElement("widget");
-                htmlElement.style.width = "150px";
+                throw "Not implemented.";
 
-                ko.applyBindingsToNode(htmlElement, { widget: widgetModel });
-                htmlElement["attachedModel"] = widgetModel.model;
+                // let widgetModel = await this.pictureModelBinder.modelToWidgetModel(model);
+                // let htmlElement = document.createElement("widget");
+                // htmlElement.style.width = "150px";
 
-                return {
-                    element: htmlElement,
-                    onMediaUploadedCallback: (media: ICreatedMedia) => {
-                        model.sourceKey = media.permalink.key;
-                        model.sourceUrl = media.media.downloadUrl;
-                        widgetModel.applyChanges();
-                    }
-                }
+                // ko.applyBindingsToNode(htmlElement, { widget: widgetModel });
+                // htmlElement["attachedModel"] = widgetModel.model;
+
+                // return {
+                //     element: htmlElement,
+                //     onMediaUploadedCallback: (media: ICreatedMedia) => {
+                //         model.sourceKey = media.permalink.key;
+                //         model.sourceUrl = media.media.downloadUrl;
+                //         widgetModel.applyChanges();
+                //     }
+                // }
             },
-            createModel:() =>{
+            createModel: () => {
                 return model;
             }
         }

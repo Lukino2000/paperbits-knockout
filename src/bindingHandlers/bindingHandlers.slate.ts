@@ -30,10 +30,13 @@ export class SlateBindingHandler {
                     if (config.readonly()) {
                         return;
                     }
+
                     htmlEditor.enable();
                 }
 
                 eventManager.addEventListener("enableHtmlEditor", onHtmlEditorRequested);
+
+                htmlEditor.updateState(stateObservable());
 
                 stateObservable.subscribe(state => {
                     htmlEditor.updateState(state);

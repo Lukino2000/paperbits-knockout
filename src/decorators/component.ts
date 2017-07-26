@@ -7,13 +7,17 @@ export interface ComponentConfig {
     postprocess?: (element: Node, viewModel) => void;
 }
 
+ko.components["registry"] = [];
+
 export function Component(config: ComponentConfig) {
-    return function (target: Function) {
+    return function (target) {
         ko.components.register(config.selector, {
             template: config.template,
             viewModel: { injectable: config.injectable },
             postprocess: config.postprocess,
             synchrounous: true
         });
+
+        ko.components["registry"].push({ name: config.selector, constructor: target });
     };
 } 

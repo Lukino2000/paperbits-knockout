@@ -25,6 +25,8 @@ export class NavbarHandlers implements IWidgetHandler {
     }
 
     private async getWidgetOrderByConfig(): Promise<IWidgetOrder> {
+        
+
         let node = {
             kind: "block",
             type: "navbar",
@@ -32,20 +34,23 @@ export class NavbarHandlers implements IWidgetHandler {
         };
 
         let model = await this.navbarModelBinder.nodeToModel(node);
-        let widgetModel = await this.navbarModelBinder.modelToWidgetModel(model);
+        
 
         let widgetOrder: IWidgetOrder = {
             title: "Navigation bar",
             createWidget: () => {
-                let htmlElement = document.createElement("widget");
-                htmlElement.style.width = "150px";
+                throw "Not implemented.";
 
-                ko.applyBindingsToNode(htmlElement, { widget: widgetModel });
-                htmlElement["attachedModel"] = widgetModel.model;
+                // let widgetModel = await this.navbarModelBinder.modelToWidgetModel(model);
+                // let htmlElement = document.createElement("widget");
+                // htmlElement.style.width = "150px";
 
-                return {
-                    element: htmlElement
-                }
+                // ko.applyBindingsToNode(htmlElement, { widget: widgetModel });
+                // htmlElement["attachedModel"] = widgetModel.model;
+
+                // return {
+                //     element: htmlElement
+                // }
             },
             createModel: () => {
                 return model;

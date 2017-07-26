@@ -1,8 +1,5 @@
 import * as ko from "knockout";
 import * as template from "./column.html";
-import { ColumnModel } from "@paperbits/common/widgets/models/columnModel";
-import { IViewModelBinder } from "@paperbits/common/widgets/IViewModelBinder";
-import { IWidgetModel } from "@paperbits/common/editing/IWidgetModel";
 import { Component } from "../../decorators/component";
 
 
@@ -25,8 +22,9 @@ import { Component } from "../../decorators/component";
         });
     }
 })
-export class ColumnViewModel implements IViewModelBinder {
-    public widgets: KnockoutObservableArray<IWidgetModel>;
+export class ColumnViewModel 
+{
+    public widgets: KnockoutObservableArray<Object>;
     public css: KnockoutComputed<string>;
     public sizeSm: KnockoutObservable<number>;
     public sizeMd: KnockoutObservable<number>;
@@ -37,7 +35,7 @@ export class ColumnViewModel implements IViewModelBinder {
     public align: KnockoutObservable<string>;
 
     constructor() {
-        this.widgets = ko.observableArray<IWidgetModel>();
+        this.widgets = ko.observableArray<Object>();
         this.sizeSm = ko.observable<number>();
         this.sizeMd = ko.observable<number>();
         this.sizeLg = ko.observable<number>();
@@ -130,35 +128,5 @@ export class ColumnViewModel implements IViewModelBinder {
         }
 
         return `align-content-${targetSize}-${vertical} justify-content-${targetSize}-${horizontal}`;
-    }
-
-    public attachToModel(widgetModel: IWidgetModel) {
-        let model = <ColumnModel>widgetModel.model;
-        this.sizeSm(model.sizeSm);
-        this.sizeMd(model.sizeMd);
-        this.sizeLg(model.sizeLg);
-
-        if (model.alignmentSm) {
-            this.alignmentSm(model.alignmentSm);
-        }
-        else {
-            this.alignmentSm("middle center");
-        }
-
-        if (model.alignmentMd) {
-            this.alignmentMd(model.alignmentMd);
-        }
-        else {
-            this.alignmentMd("middle center");
-        }
-
-        if (model.alignmentLg) {
-            this.alignmentLg(model.alignmentLg);
-        }
-        else {
-            this.alignmentLg("middle center");
-        }
-
-        this.widgets(widgetModel.children);
     }
 }

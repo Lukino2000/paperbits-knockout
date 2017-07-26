@@ -72,16 +72,17 @@ export class AudioHandlers extends MediaHandlers implements IWidgetHandler, ICon
                 }
 
                 let model = await this.audioPlayerModelBinder.nodeToModel(config);
-                let audioPlayerWidgetModel = await this.audioPlayerModelBinder.modelToWidgetModel(model);
+                //let audioPlayerWidgetModel = await this.audioPlayerModelBinder.modelToWidgetModel(model);
 
                 let factoryFunction: () => IWidgetFactoryResult = () => {
-                    let htmlElement = document.createElement("widget");
-                    htmlElement.style.width = "100px";
-                    htmlElement.style.height = "100px";
-                    htmlElement["attachedModel"] = audioPlayerWidgetModel.model;
+                    throw "Not implemented.";
+                    // let htmlElement = document.createElement("widget");
+                    // htmlElement.style.width = "100px";
+                    // htmlElement.style.height = "100px";
+                    // htmlElement["attachedModel"] = audioPlayerWidgetModel.model;
 
-                    ko.applyBindingsToNode(htmlElement, { component: { name: audioPlayerWidgetModel.name, oncreate: audioPlayerWidgetModel.oncreate } })
-                    return { element: htmlElement };
+                    // ko.applyBindingsToNode(htmlElement, { component: { name: audioPlayerWidgetModel.name, oncreate: audioPlayerWidgetModel.oncreate } })
+                    // return { element: htmlElement };
                 }
 
                 var widgetOrder: IWidgetOrder = {
