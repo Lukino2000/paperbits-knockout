@@ -1,0 +1,27 @@
+{
+    "compilerOptions": {
+        "target": "es5",
+        "module": "commonjs",
+        "moduleResolution": "node",
+        "declaration": false,
+        "noImplicitAny": false,
+        "noStrictGenericChecks": true,
+        "removeComments": true,
+        "noLib": false,
+        "skipLibCheck": true,
+        "experimentalDecorators": true,
+        "emitDecoratorMetadata": true,
+        "allowUnreachableCode": true,
+        "listFiles": false,
+        "inlineSourceMap": true,
+        "inlineSources": true
+    },
+    "include": [
+        "**/*.ts"
+    ],
+    "exclude": [
+        "bower_components",
+        "node_modules",
+        "functions"
+    ]
+}

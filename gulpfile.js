@@ -285,8 +285,16 @@ gulp.task("cloud-theme-config", () => {
         .pipe(gulp.dest("dist/server"));
 });
 
+
+gulp.task("cloud-templates", function () {
+    return gulp.src(["./src/**/*.html"])
+        .pipe(gulp.dest("dist/server/src"));
+});
+
+
 gulp.task("cloud", [
     // files required for publishing
+    "cloud-templates",
     "cloud-typescript",
 
     // theme-specific files
