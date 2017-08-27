@@ -14,6 +14,7 @@ export class VideoPlayerViewModelBinder implements IViewModelBinder {
         viewModel.autoplay(model.autoplay);
 
         viewModel["widgetBinding"] = {
+            displayName: "Video player",
             readonly: readonly,
             model: model,
             editor: "paperbits-video-player-editor",

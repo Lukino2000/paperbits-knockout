@@ -13,6 +13,7 @@ export class AudioPlayerViewModelBinder {
         viewModel.autoplay(model.autoplay);
 
         viewModel["widgetBinding"] = {
+            displayName: "Audio player",
             readonly: readonly,
             model: model,
             editor: "paperbits-audio-player-editor",

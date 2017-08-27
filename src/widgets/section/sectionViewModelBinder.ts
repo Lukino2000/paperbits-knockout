@@ -60,6 +60,7 @@ export class SectionViewModelBinder implements IViewModelBinder {
         sectionViewModel.css(sectionClasses.join(" "));
 
         sectionViewModel["widgetBinding"] = {
+            displayName: "Section",
             readonly: readonly,
             model: model,
             editor: "layout-section-editor",

@@ -12,6 +12,7 @@ export class YoutubePlayerViewModelBinder implements IViewModelBinder {
         viewModel.videoId(model.videoId);
 
         viewModel["widgetBinding"] = {
+            displayName: "Youtube player",
             readonly: readonly,
             model: model,
             editor: "paperbits-youtube-player-editor",

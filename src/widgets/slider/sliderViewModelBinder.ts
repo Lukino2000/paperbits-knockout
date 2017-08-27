@@ -80,6 +80,7 @@ export class SliderViewModelBinder {
         }
 
         viewModel["widgetBinding"] = {
+            displayName: "Slider",
             model: model,
             editor: "paperbits-slider-editor",
             applyChanges: () => {

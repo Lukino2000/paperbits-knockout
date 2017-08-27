@@ -78,6 +78,7 @@ export class ColumnViewModelBinder implements IViewModelBinder {
         columnViewModel.orderXl(model.orderXl);
 
         columnViewModel["widgetBinding"] = {
+            displayName: "Column",
             readonly: readonly,
             model: model,
             editor: "layout-column-editor",

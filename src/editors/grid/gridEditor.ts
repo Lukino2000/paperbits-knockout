@@ -55,36 +55,31 @@ export class GridEditor {
             type: PlaceholderModel,
             highlightedColor: "#2b87da",
             name: "placeholder",
-            getContextualEditor: this.getPlaceholderContextualEditor.bind(this),
-            displayName: "Placeholder"
+            getContextualEditor: this.getPlaceholderContextualEditor.bind(this)
         },
         {
             type: SectionModel,
             highlightedColor: "#2b87da",
             name: "section",
-            getContextualEditor: this.getSectionContextualEditor.bind(this),
-            displayName: "Section"
+            getContextualEditor: this.getSectionContextualEditor.bind(this)
         },
         {
             type: SliderModel,
             highlightedColor: "#2b87da",
             name: "slider",
-            getContextualEditor: this.getSliderContextualEditor.bind(this),
-            displayName: "Slider"
+            getContextualEditor: this.getSliderContextualEditor.bind(this)
         },
         {
             type: RowModel,
             highlightedColor: "#29c4a9",
             name: "row",
-            getContextualEditor: this.getRowContextualEditor.bind(this),
-            displayName: "Row"
+            getContextualEditor: this.getRowContextualEditor.bind(this)
         },
         {
             type: ColumnModel,
             highlightedColor: "#4c5866",
             name: "column",
-            getContextualEditor: this.getColumnContextualEditor.bind(this),
-            displayName: "Column"
+            getContextualEditor: this.getColumnContextualEditor.bind(this)
         }]
     }
 
@@ -186,7 +181,7 @@ export class GridEditor {
             let config: IHighlightConfig = {
                 element: element,
                 color: contextualEditor.color,
-                text: "Test"
+                text: widgetBinding["displayName"]
             }
 
             this.viewManager.setSelectedElement(config, contextualEditor);
@@ -798,8 +793,7 @@ export class GridEditor {
                 type: null,
                 highlightedColor: "#607d8b",
                 name: "widget",
-                getContextualEditor: this.getWidgetContextualEditor.bind(this),
-                displayName: "Widget"
+                getContextualEditor: this.getWidgetContextualEditor.bind(this)
             }
         }
 
@@ -828,7 +822,7 @@ export class GridEditor {
 
                 highlightedElement = element;
                 highlightedColor = gridItem.highlightedColor;
-                highlightedText = gridItem.displayName;
+                highlightedText = widgetBinding["displayName"];
 
                 let quadrant = this.pointerToClientQuadrant(pointerX, pointerY, element);
                 let half = quadrant.vertical;

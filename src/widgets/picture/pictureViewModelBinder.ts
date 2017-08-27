@@ -18,6 +18,7 @@ export class PictureViewModelBinder implements IViewModelBinder {
         viewModel.css(classes.join(" "));
 
         viewModel["widgetBinding"] = {
+            displayName: "Picture",
             readonly: readonly,
             model: model,
             editor: "paperbits-picture-editor",

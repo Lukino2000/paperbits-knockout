@@ -57,6 +57,7 @@ export class NavbarViewModelBinder implements IViewModelBinder {
         }
 
         viewModel["widgetBinding"] = {
+            displayName: "Navigation bar",
             readonly: readonly,
             model: model,
             applyChanges: applyChanges

@@ -23,10 +23,7 @@ ko.bindingHandlers["highlight"] = {
             element.style.width = rect.width + "px";
             element.style.height = rect.height + "px";
             element.style.borderColor = currentConfig.color;
-
-            if (currentConfig.text) {
-                element.title = currentConfig.text;
-            }
+            element.title = currentConfig.text || "Widget";
         }
         element["highlightUpdate"] = updatePosition;
 

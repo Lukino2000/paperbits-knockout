@@ -34,6 +34,7 @@ export class RowViewModelBinder implements IViewModelBinder {
         viewModel.justifyLg(model.justifyLg);
 
         viewModel["widgetBinding"] = {
+            displayName: "Row",
             readonly: readonly,
             model: model,
             applyChanges: () => {

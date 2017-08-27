@@ -22,6 +22,7 @@ export class TextblockViewModelBinder implements IViewModelBinder {
         // textblockViewModel.readonly(!!model.readonly);
 
         viewModel["widgetBinding"] = {
+            displayName: "Text",
             readonly: readonly,
             model: model,
             editor: "paperbits-text-editor",

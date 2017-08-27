@@ -14,6 +14,7 @@ export class MapViewModelBinder {
         viewModel.zoomControl(model.zoomControl);
 
         viewModel["widgetBinding"] = {
+            displayName: "Map",
             readonly: readonly,
             model: model,
             editor: "paperbits-map-editor",

@@ -43,6 +43,7 @@ export class ButtonViewModelBinder {
         viewModel.css(classes.join(" "));
 
         viewModel["widgetBinding"] = {
+            displayName: "Button",
             model: model,
             editor: "paperbits-button-editor",
             applyChanges: () => {
