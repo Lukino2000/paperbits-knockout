@@ -5,8 +5,7 @@ import { Component } from "../../decorators/component";
 
 @Component({
     selector: "paperbits-layout",
-    template: template,
-    injectable: "layoutWidget"
+    template: template
 })
 export class LayoutViewModel {
     public title: KnockoutObservable<string>;

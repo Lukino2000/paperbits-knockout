@@ -1,7 +1,7 @@
 ﻿import * as ko from "knockout";
 import * as template from "./dropbucket.html";
 import * as Utils from "@paperbits/common/core/utils";
-import { IViewManager } from "@paperbits/common/ui/IViewManager";
+import { IViewManager, ViewManagerMode } from "@paperbits/common/ui/IViewManager";
 import { IHttpClient } from "@paperbits/common/http/IHttpClient";
 import { IMediaService } from "@paperbits/common/media/IMediaService";
 import { IContentDropHandler } from "@paperbits/common/editing/IContentDropHandler";
@@ -12,7 +12,7 @@ import { IWidgetOrder } from "@paperbits/common/editing/IWidgetOrder";
 import { GlobalEventHandler } from "@paperbits/common/events/globalEventHandler";
 import { ProgressPromise } from "@paperbits/common/core/progressPromise";
 import { DataTransferTypes } from "@paperbits/common/editing/dataTransferTypes";
-import { DropBucketItem } from "../../workshops/dropbucket/dropBucketItem";
+import { DropBucketItem } from "../../workshops/dropbucket/dropbucketItem";
 import { LayoutEditor } from "../../editors/layout/layoutEditor";
 import { Component } from "../../decorators/component";
 
@@ -64,10 +64,8 @@ export class DropBucket {
         this.droppedItems = ko.observableArray<DropBucketItem>();
     }
 
-    private isDraggableAttached(event: DragEvent): boolean {
-        var text = event.dataTransfer.getData("text");
-
-        return text != null && text.startsWith(DataTransferTypes.widget);
+    private canHandleDrop(event: DragEvent): boolean {
+        return (event.dataTransfer.files && event.dataTransfer.files.length > 0) || event.dataTransfer.getData("url").length > 0;
     }
 
     private addPendingContent(item: DropBucketItem): void {
@@ -75,37 +73,37 @@ export class DropBucket {
     }
 
     private async handleDroppedContent(contentDescriptor: IContentDescriptor): Promise<void> {
-        var dropBucketItem = new DropBucketItem();
+        var dropbucketItem = new DropBucketItem();
 
-        dropBucketItem.title = contentDescriptor.title;
-        dropBucketItem.description = contentDescriptor.description;
+        dropbucketItem.title = contentDescriptor.title;
+        dropbucketItem.description = contentDescriptor.description;
 
         if (contentDescriptor.getWidgetOrder) {
             let widgetOrder = await contentDescriptor.getWidgetOrder();
-            dropBucketItem.widgetOrder(widgetOrder);
+            dropbucketItem.widgetOrder(widgetOrder);
         }
 
-        dropBucketItem.thumbnailUrl(contentDescriptor.iconUrl);
+        dropbucketItem.thumbnailUrl(contentDescriptor.iconUrl);
 
         if (contentDescriptor.getThumbnailUrl) {
             contentDescriptor.getThumbnailUrl().then(thumbnailUrl => {
-                dropBucketItem.previewUrl(thumbnailUrl);
-                dropBucketItem.thumbnailUrl(thumbnailUrl);
+                dropbucketItem.previewUrl(thumbnailUrl);
+                dropbucketItem.thumbnailUrl(thumbnailUrl);
             });
         }
 
         if (contentDescriptor.uploadables && contentDescriptor.uploadables.length) {
             for (var i = 0; i < contentDescriptor.uploadables.length; i++) {
                 var uploadable = contentDescriptor.uploadables[i];
-                dropBucketItem.uploadables.push(uploadable);
+                dropbucketItem.uploadables.push(uploadable);
             }
         }
 
-        this.addPendingContent(dropBucketItem);
+        this.addPendingContent(dropbucketItem);
     }
 
     private onDragDrop(event: DragEvent): void {
-        if (this.isDraggableAttached(event)) {
+        if (!this.canHandleDrop(event)) {
             return;
         }
 
@@ -125,11 +123,11 @@ export class DropBucket {
             }
         }
         else {
-            var data = dataTransfer.getData("url") || dataTransfer.getData("text");
-            var parts = data.split("/");
+            var urlData = dataTransfer.getData("url");
+            var parts = urlData.split("/");
 
             items = [{
-                source: data,
+                source: urlData,
                 name: parts[parts.length - 1]
             }];
         }
@@ -190,18 +188,18 @@ export class DropBucket {
             title = "Piece of text";
         }
 
-        var dropBucketItem = new DropBucketItem();
+        var dropbucketItem = new DropBucketItem();
         var uploadables = [];
 
         for (var i = 0; i < dataTransfer.files.length; i++) {
             uploadables.push(dataTransfer.files[i]);
         }
 
-        dropBucketItem.title = title;
-        dropBucketItem.description = description;
-        dropBucketItem.uploadables(uploadables);
+        dropbucketItem.title = title;
+        dropbucketItem.description = description;
+        dropbucketItem.uploadables(uploadables);
 
-        this.addPendingContent(dropBucketItem);
+        this.addPendingContent(dropbucketItem);
     }
 
     public onDragStart(item: DropBucketItem): HTMLElement {

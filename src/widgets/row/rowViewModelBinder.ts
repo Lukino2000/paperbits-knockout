@@ -1,4 +1,4 @@
-import { RowModel } from "@paperbits/common/widgets/models/rowModel";
+import { RowModel } from "@paperbits/common/widgets/row/rowModel";
 import { RowViewModel } from "./rowViewModel";
 import { IntentionMapService } from "@paperbits/slate/intentionMapService";
 import { ColumnViewModelBinder } from "../column/columnViewModelBinder";
@@ -33,10 +33,9 @@ export class RowViewModelBinder implements IViewModelBinder {
         viewModel.justifyMd(model.justifyMd);
         viewModel.justifyLg(model.justifyLg);
 
-        viewModel["attachedWidgetModel"] = {
+        viewModel["widgetBinding"] = {
             readonly: readonly,
             model: model,
-            editor: "paperbits-button-editor",
             applyChanges: () => {
                 this.modelToViewModel(model, readonly, viewModel);
             }

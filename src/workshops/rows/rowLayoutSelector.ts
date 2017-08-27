@@ -1,7 +1,7 @@
 import * as template from "./rowLayoutSelector.html";
 import { IResourceSelector } from "@paperbits/common/ui/IResourceSelector";
-import { ColumnModel } from "@paperbits/common/widgets/models/columnModel";
-import { RowModel } from "@paperbits/common/widgets/models/rowModel";
+import { ColumnModel } from "@paperbits/common/widgets/column/columnModel";
+import { RowModel } from "@paperbits/common/widgets/row/rowModel";
 import { Component } from "../../decorators/component";
 
 

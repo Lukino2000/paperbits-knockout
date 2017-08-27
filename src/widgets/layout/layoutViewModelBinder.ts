@@ -1,8 +1,9 @@
-import { LayoutModel } from "@paperbits/common/widgets/models/layoutModel";
+import { LayoutModel } from "@paperbits/common/widgets/layout/layoutModel";
 import { LayoutViewModel } from "./layoutViewModel";
 import { ViewModelBinderSelector } from "../viewModelBinderSelector";
 import { PlaceholderViewModel } from "../../editors/placeholder/placeholderViewModel";
-import { PageModel } from "@paperbits/common/widgets/models/pageModel";
+import { PageModel } from "@paperbits/common/widgets/page/pageModel";
+import { PlaceholderModel } from "@paperbits/common/widgets/placeholder/placeholderModel";
 
 
 export class LayoutViewModelBinder {
@@ -29,6 +30,11 @@ export class LayoutViewModelBinder {
 
                 if (!readonly && widgetModel instanceof PageModel) {
                     widgetViewModel = new PlaceholderViewModel();
+
+                    widgetViewModel["widgetBinding"] = {
+                        readonly: readonly,
+                        model: new PlaceholderModel()
+                    }
                 }
                 else {
                     widgetViewModel = widgetViewModelBinder.modelToViewModel(widgetModel, readonly);
@@ -40,7 +46,7 @@ export class LayoutViewModelBinder {
 
         viewModel.widgets(sectionViewModels);
 
-        viewModel["attachedWidgetModel"] = {
+        viewModel["widgetBinding"] = {
             readonly: readonly,
             model: model,
             applyChanges: () => {

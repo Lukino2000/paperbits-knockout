@@ -1,8 +1,8 @@
 ﻿import * as ko from "knockout";
-import { YoutubeModelBinder } from "@paperbits/common/widgets/youtubeModelBinder";
-import { YoutubePlayerModel } from "@paperbits/common/widgets/models/youtubePlayerModel";
+import { YoutubeModelBinder } from "@paperbits/common/widgets/youtube-player/youtubeModelBinder";
+import { YoutubePlayerModel } from "@paperbits/common/widgets/youtube-player/youtubePlayerModel";
 import { YoutubePlayerViewModel } from "../../widgets/youtube-player/youtubePlayerViewModel";
-import { IWidgetModel } from "@paperbits/common/editing/IWidgetModel";
+import { IWidgetBinding } from "@paperbits/common/editing/IWidgetBinding";
 import * as Utils from '@paperbits/common/core/utils';
 import { IWidgetOrder } from '@paperbits/common/editing/IWidgetOrder';
 import { IContentDropHandler } from '@paperbits/common/editing/IContentDropHandler';

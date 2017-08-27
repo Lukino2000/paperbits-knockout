@@ -1,6 +1,6 @@
 ﻿import * as ko from "knockout";
 import * as template from "./blogs.html";
-import { ContentConfig } from "@paperbits/common/editing/contentNode";
+import { Contract } from "@paperbits/common/editing/contentNode";
 import { IBlogPost } from "@paperbits/common/blogs/IBlogPost";
 import { IBlogService } from "@paperbits/common/blogs/IBlogService";
 import { IRouteHandler } from "@paperbits/common/routing/IRouteHandler";
@@ -24,7 +24,8 @@ export class BlogWorkshop {
     private readonly permalinkService: IPermalinkService;
     private readonly routeHandler: IRouteHandler;
     private readonly viewManager: IViewManager;
-    private template: ContentConfig;
+    private template: Contract;
+    private searchTimeout: number;
 
 
     public readonly searchPattern: KnockoutObservable<string>;
@@ -105,7 +106,7 @@ export class BlogWorkshop {
         }
     }
 
-    public async searchBlogPosts(searchPattern: string): Promise<void> {
+    public async launchSearch(searchPattern: string): Promise<void> {
         this.working(true);
 
         let blogposts = await this.blogService.search(searchPattern);
@@ -114,6 +115,14 @@ export class BlogWorkshop {
         this.blogPosts(blogpostItems);
 
         this.working(false);
+    }
+
+    public async searchBlogPosts(searchPattern: string): Promise<void> {
+        clearTimeout(this.searchTimeout);
+
+        this.searchTimeout = setTimeout(() => {
+            this.launchSearch(searchPattern);
+        }, 600);
     }
 
     public selectBlogPost(blogpost: BlogPostItem): void {

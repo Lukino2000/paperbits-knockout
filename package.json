@@ -17,27 +17,27 @@
     },
     "devDependencies": {
         "@types/ace": "0.0.35",
-        "@types/es6-shim": "^0.31.34",
+        "@types/es6-shim": "^0.31.35",
         "@types/google-maps": "^3.2.0",
-        "@types/jquery": "^3.2.8",
-        "@types/knockout": "^3.4.42",
-        "@types/knockout.mapping": "^2.0.28",
-        "@types/lodash": "^4.14.69",
+        "@types/jquery": "^3.2.12",
+        "@types/knockout": "^3.4.45",
+        "@types/knockout.mapping": "^2.0.29",
+        "@types/lodash": "^4.14.74",
         "gulp": "^3.9.1",
-        "gulp-typescript": "^3.2.1",
+        "gulp-typescript": "^3.2.2",
         "merge2": "^1.1.0",
-        "typescript": "2.4.1"
+        "typescript": "2.4.2"
     },
     "dependencies": {
-        "@paperbits/common": "0.0.12",
+        "@paperbits/common": "0.0.15",
         "@paperbits/slate": "0.0.6",
         "es6-shim": "^0.35.3",
         "google-maps": "^3.2.1",
         "hasher": "^1.2.0",
         "jquery": "^3.2.1",
-        "jquery.nicescroll": "^3.7.5",
         "knockout": "^3.4.2",
-        "lity": "^2.2.2",
-        "lodash": "^4.17.4"
+        "lity": "^2.3.0",
+        "lodash": "^4.17.4",
+        "perfect-scrollbar": "^0.7.1"
     }
 }

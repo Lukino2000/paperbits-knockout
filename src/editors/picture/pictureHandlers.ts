@@ -3,11 +3,11 @@ import * as Utils from "@paperbits/common/core/utils";
 import ILazy = Utils.ILazy;
 import { ICreatedMedia } from "@paperbits/common/media/ICreatedMedia";
 import { IWidgetFactoryResult } from "@paperbits/common/editing/IWidgetFactoryResult";
-import { IPictureNode } from "@paperbits/common/widgets/models/IPictureNode";
-import { PictureModel } from "@paperbits/common/widgets/models/pictureModel";
-import { PictureModelBinder } from "@paperbits/common/widgets/pictureModelBinder";
+import { PictureContract } from "@paperbits/common/widgets/picture/IPictureNode";
+import { PictureModel } from "@paperbits/common/widgets/picture/pictureModel";
+import { PictureModelBinder } from "@paperbits/common/widgets/picture/pictureModelBinder";
 import { IMedia } from "@paperbits/common/media/IMedia";
-import { IWidgetModel } from "@paperbits/common/editing/IWidgetModel";
+import { IWidgetBinding } from "@paperbits/common/editing/IWidgetBinding";
 import { IWidgetOrder } from "@paperbits/common/editing/IWidgetOrder";
 import { IContentDropHandler } from "@paperbits/common/editing/IContentDropHandler";
 import { MediaHandlers } from "../../editors/mediaHandlers";
@@ -15,6 +15,7 @@ import { IWidgetHandler } from "@paperbits/common/editing/IWidgetHandler";
 import { IDataTransfer } from "@paperbits/common/editing/IDataTransfer";
 import { IContentDescriptor } from "@paperbits/common/editing/IContentDescriptor";
 import { PromiseToDelayedComputed } from "../../core/task";
+import { BackgroundModel } from "@paperbits/common/widgets/background/backgroundModel";
 
 const pictureIconUrl = "data:image/svg+xml;base64,PHN2ZyBjbGFzcz0ibmMtaWNvbiBvdXRsaW5lIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHhtbG5zOnhsaW5rPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5L3hsaW5rIiB4PSIwcHgiIHk9IjBweCIgd2lkdGg9IjQ4cHgiIGhlaWdodD0iNDhweCIgdmlld0JveD0iMCAwIDQ4IDQ4Ij48ZyB0cmFuc2Zvcm09InRyYW5zbGF0ZSgwLjUsIDAuNSkiPgo8cG9seWxpbmUgZGF0YS1jYXA9ImJ1dHQiIGRhdGEtY29sb3I9ImNvbG9yLTIiIGZpbGw9Im5vbmUiIHN0cm9rZT0iIzQ0NDQ0NCIgc3Ryb2tlLXdpZHRoPSIzIiBzdHJva2UtbWl0ZXJsaW1pdD0iMTAiIHBvaW50cz0iMiwzNCAxMiwyNiAyMiwzNCAKCTM0LDIwIDQ2LDMwICIgc3Ryb2tlLWxpbmVqb2luPSJtaXRlciIgc3Ryb2tlLWxpbmVjYXA9ImJ1dHQiPjwvcG9seWxpbmU+CjxyZWN0IHg9IjIiIHk9IjQiIGZpbGw9Im5vbmUiIHN0cm9rZT0iIzQ0NDQ0NCIgc3Ryb2tlLXdpZHRoPSIzIiBzdHJva2UtbGluZWNhcD0ic3F1YXJlIiBzdHJva2UtbWl0ZXJsaW1pdD0iMTAiIHdpZHRoPSI0NCIgaGVpZ2h0PSI0MCIgc3Ryb2tlLWxpbmVqb2luPSJtaXRlciI+PC9yZWN0Pgo8Y2lyY2xlIGRhdGEtY29sb3I9ImNvbG9yLTIiIGZpbGw9Im5vbmUiIHN0cm9rZT0iIzQ0NDQ0NCIgc3Ryb2tlLXdpZHRoPSIzIiBzdHJva2UtbGluZWNhcD0ic3F1YXJlIiBzdHJva2UtbWl0ZXJsaW1pdD0iMTAiIGN4PSIyMCIgY3k9IjE2IiByPSI0IiBzdHJva2UtbGluZWpvaW49Im1pdGVyIj48L2NpcmNsZT4KPC9nPjwvc3ZnPg==";
 
@@ -25,7 +26,7 @@ export class PictureHandlers implements IWidgetHandler, IContentDropHandler {
         this.pictureModelBinder = pictureModelBinder;
     }
 
-    private async prepareWidgetOrder(config: IPictureNode): Promise<IWidgetOrder> {
+    private async prepareWidgetOrder(config: PictureContract): Promise<IWidgetOrder> {
         let model = await this.pictureModelBinder.nodeToModel(config);
 
         let factoryFunction: () => IWidgetFactoryResult = () => {
@@ -52,7 +53,7 @@ export class PictureHandlers implements IWidgetHandler, IContentDropHandler {
 
     private async getWidgetOrderByConfig(sourceUrl: string, caption: string): Promise<IWidgetOrder> {
         let model = new PictureModel();
-        model.sourceUrl = sourceUrl;
+        model.background = new BackgroundModel();
         model.caption = caption;
         model.layout = "noframe";
 
@@ -95,7 +96,7 @@ export class PictureHandlers implements IWidgetHandler, IContentDropHandler {
         }
 
         let getWidgetOrderFunction: () => Promise<IWidgetOrder> = async () => {
-            let config: IPictureNode = {
+            let config: PictureContract = {
                 kind: "block",
                 type: "picture",
                 sourceKey: media.permalinkKey,

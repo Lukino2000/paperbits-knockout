@@ -5,8 +5,7 @@ import { Component } from "../../decorators/component";
 
 @Component({
     selector: "paperbits-page",
-    template: template,
-    injectable: "pageWidget"
+    template: template
 })
 export class PageViewModel {
     public title: KnockoutObservable<string>;

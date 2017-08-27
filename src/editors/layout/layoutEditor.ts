@@ -1,16 +1,15 @@
 ﻿import * as $ from "jquery/dist/jquery";
 import * as ko from "knockout";
-import { ColumnModel } from "@paperbits/common/widgets/models/columnModel";
+import { ColumnModel } from "@paperbits/common/widgets/column/columnModel";
 import { IViewManager } from "@paperbits/common/ui/IViewManager";
 import { IEventManager } from "@paperbits/common/events/IEventManager";
 import { DataTransferTypes } from "@paperbits/common/editing/dataTransferTypes";
-import { IWidgetModel } from "@paperbits/common/editing/IWidgetModel";
-import { SectionModel } from "@paperbits/common/widgets/models/sectionModel";
-import { RowModel } from "@paperbits/common/widgets/models/rowModel";
-import { PageModel } from "@paperbits/common/widgets/models/pageModel";
+import { IWidgetBinding } from "@paperbits/common/editing/IWidgetBinding";
+import { SectionModel } from "@paperbits/common/widgets/section/sectionModel";
+import { RowModel } from "@paperbits/common/widgets/row/rowModel";
+import { PageModel } from "@paperbits/common/widgets/page/pageModel";
 
 const timeBeforeStartDragging = 700;
-
 
 export class LayoutEditor {
     private readonly eventManager: IEventManager;
@@ -81,7 +80,7 @@ export class LayoutEditor {
 
         let rowElement = columnElement.parentElement;
         let sourceRowModel = rowElement["attachedModel"];
-        let sourceRowWidgetModel = <IWidgetModel>rowElement["attachedWidgetModel"];
+        let sourceRowWidgetModel = <IWidgetBinding>rowElement["attachedWidgetModel"];
 
         let sectionElement = rowElement.parentElement.parentElement;
         let sourceSectionModel = sectionElement["attachedModel"];
@@ -348,27 +347,27 @@ export class LayoutEditor {
     }
 
     private selectedPage: PageModel;
-    private selectedSection: IWidgetModel;
-    private selectedRow: IWidgetModel;
-    private selectedColumn: IWidgetModel;
+    private selectedSection: IWidgetBinding;
+    private selectedRow: IWidgetBinding;
+    private selectedColumn: IWidgetBinding;
 
     public setActivePage(pageModel: PageModel) {
         this.selectedPage = pageModel;
     }
 
-    public setActiveSection(widget: IWidgetModel) {
+    public setActiveSection(widget: IWidgetBinding) {
         this.selectedSection = widget;
     }
 
-    public setActiveRow(widget: IWidgetModel) {
+    public setActiveRow(widget: IWidgetBinding) {
         this.selectedRow = widget;
     }
 
-    public setActiveColumn(widget: IWidgetModel) {
+    public setActiveColumn(widget: IWidgetBinding) {
         this.selectedColumn = widget;
     }
 
-    public addRowToSection(sectionWidgetModel: IWidgetModel) {
+    public addRowToSection(sectionWidgetModel: IWidgetBinding) {
         if (this.selectedSection) {
             let sectionModel = <SectionModel>this.selectedSection.model;
             sectionModel.rows.push(new RowModel());

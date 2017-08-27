@@ -9,7 +9,7 @@ import { IPermalink } from "@paperbits/common/permalinks/IPermalink";
 import { IPermalinkService } from "@paperbits/common/permalinks/IPermalinkService";
 import { IViewManager } from "@paperbits/common/ui/IViewManager";
 import { IWidgetEditor } from "@paperbits/common/widgets/IWidgetEditor";
-import { ColumnModel } from "@paperbits/common/widgets/models/columnModel";
+import { ColumnModel } from "@paperbits/common/widgets/column/columnModel";
 import { IEventManager } from "@paperbits/common/events/IEventManager";
 import { Component } from "../../decorators/component";
 
@@ -28,6 +28,7 @@ export class ColumnEditor implements IWidgetEditor {
     private horizontalAlignment: string;
 
     public readonly alignment: KnockoutObservable<string>;
+    public readonly order: KnockoutObservable<number>;
 
     constructor(viewManager: IViewManager) {
         this.viewManager = viewManager;
@@ -35,6 +36,9 @@ export class ColumnEditor implements IWidgetEditor {
 
         this.alignment = ko.observable<string>();
         this.alignment.subscribe(this.onChange.bind(this));
+
+        this.order = ko.observable<number>();
+        this.order.subscribe(this.onChange.bind(this));
 
         this.topLeft.bind(this);
         this.top.bind(this);
@@ -58,16 +62,29 @@ export class ColumnEditor implements IWidgetEditor {
         let viewport = this.viewManager.getViewport();
 
         switch (viewport) {
-            case "desktop":
+            case "xl":
+                this.column.alignmentXl = this.alignment();
+                this.column.orderXl = this.order();
+                break;
+                
+            case "lg":
                 this.column.alignmentLg = this.alignment();
+                this.column.orderLg = this.order();
                 break;
 
-            case "tablet":
+            case "md":
                 this.column.alignmentMd = this.alignment();
+                this.column.orderMd = this.order();
                 break;
 
-            case "phone":
+            case "sm":
                 this.column.alignmentSm = this.alignment();
+                this.column.orderSm = this.order();
+                break;
+
+            case "xs":
+                this.column.alignmentXs = this.alignment();
+                this.column.orderXs = this.order();
                 break;
 
             default:
@@ -91,16 +108,29 @@ export class ColumnEditor implements IWidgetEditor {
         let viewport = this.viewManager.getViewport();
 
         switch (viewport) {
-            case "desktop":
+            case "xl":
+                this.alignment(this.column.alignmentXl);
+                this.order(this.column.orderXl);
+                break;
+
+            case "lg":
                 this.alignment(this.column.alignmentLg);
+                this.order(this.column.orderLg);
                 break;
 
-            case "tablet":
+            case "md":
                 this.alignment(this.column.alignmentMd);
+                this.order(this.column.orderMd);
                 break;
 
-            case "phone":
+            case "sm":
                 this.alignment(this.column.alignmentSm);
+                this.order(this.column.orderSm);
+                break;
+
+            case "xs":
+                this.alignment(this.column.alignmentXs);
+                this.order(this.column.orderXs);
                 break;
 
             default:

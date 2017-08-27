@@ -22,31 +22,47 @@ import { Component } from "../../decorators/component";
         });
     }
 })
-export class ColumnViewModel 
-{
+export class ColumnViewModel {
     public widgets: KnockoutObservableArray<Object>;
     public css: KnockoutComputed<string>;
     public sizeSm: KnockoutObservable<number>;
     public sizeMd: KnockoutObservable<number>;
     public sizeLg: KnockoutObservable<number>;
+    public sizeXl: KnockoutObservable<number>;
+    public alignmentXs: KnockoutObservable<string>;
     public alignmentSm: KnockoutObservable<string>;
     public alignmentMd: KnockoutObservable<string>;
     public alignmentLg: KnockoutObservable<string>;
-    public align: KnockoutObservable<string>;
+    public alignmentXl: KnockoutObservable<string>;
+    public orderXs: KnockoutObservable<number>;
+    public orderSm: KnockoutObservable<number>;
+    public orderMd: KnockoutObservable<number>;
+    public orderLg: KnockoutObservable<number>;
+    public orderXl: KnockoutObservable<number>;
 
     constructor() {
         this.widgets = ko.observableArray<Object>();
         this.sizeSm = ko.observable<number>();
         this.sizeMd = ko.observable<number>();
         this.sizeLg = ko.observable<number>();
+        this.sizeXl = ko.observable<number>();
 
+        this.alignmentXs = ko.observable<string>();
         this.alignmentSm = ko.observable<string>();
         this.alignmentMd = ko.observable<string>();
         this.alignmentLg = ko.observable<string>();
-        this.align = ko.observable<string>();
+        this.alignmentXl = ko.observable<string>();
+
+        this.orderXs = ko.observable<number>();
+        this.orderSm = ko.observable<number>();
+        this.orderMd = ko.observable<number>();
+        this.orderLg = ko.observable<number>();
+        this.orderXl = ko.observable<number>();
 
         this.css = ko.computed(() => {
             let classes = [];
+
+            // There's no XS size
 
             if (this.sizeSm()) {
                 classes.push("col-sm-" + this.sizeSm());
@@ -60,32 +76,69 @@ export class ColumnViewModel
                 classes.push("col-lg-" + this.sizeLg());
             }
 
+            if (this.sizeXl()) {
+                classes.push("col-xl-" + this.sizeXl());
+            }
+
+            if (this.alignmentXs()) {
+                classes.push(this.getAlignmentClass(this.alignmentXs(), "xs"));
+            }
+
             if (this.alignmentSm()) {
-                classes.push(this.getClass(this.alignmentSm(), "xs"));
+                classes.push(this.getAlignmentClass(this.alignmentSm(), "sm"));
             }
 
             if (this.alignmentMd()) {
-                classes.push(this.getClass(this.alignmentMd(), "md"));
+                classes.push(this.getAlignmentClass(this.alignmentMd(), "md"));
             }
 
-            /* 
-                TODO: There are more breakpoints then form factors, so we need to comeup with something here.
-            */
-            classes.push(this.getClass("middle center", "sm"));
-
             if (this.alignmentLg()) {
-                classes.push(this.getClass(this.alignmentLg(), "xl"));
-                classes.push(this.getClass(this.alignmentLg(), "lg"));
+                classes.push(this.getAlignmentClass(this.alignmentLg(), "lg"));
+            }
+
+            if (this.alignmentXl()) {
+                classes.push(this.getAlignmentClass(this.alignmentXl(), "xl"));
+            }
+
+            if (this.orderXs()) {
+                classes.push(this.getOrderClass(this.orderXs(), "xs"))
+            }
+
+            if (this.orderSm()) {
+                classes.push(this.getOrderClass(this.orderSm(), "sm"))
+            }
+
+            if (this.orderMd()) {
+                classes.push(this.getOrderClass(this.orderMd(), "md"))
+            }
+
+            if (this.orderLg()) {
+                classes.push(this.getOrderClass(this.orderLg(), "lg"))
+            }
+
+            if (this.orderXl()) {
+                classes.push(this.getOrderClass(this.orderXl(), "xl"))
             }
 
             return classes.join(" ");
         });
     }
 
-    private getClass(alignmentString: string, targetSize: string): string {
+    private getOrderClass(order: number, targetSize: string): string {
+        let size = "";
+
+        if (targetSize !== "xs") {
+            size = targetSize + "-";
+        }
+
+        return `order-${size}${order}`;
+    }
+
+    private getAlignmentClass(alignmentString: string, targetSize: string): string {
         let alignment = alignmentString.split(" ");
         let vertical = alignment[0];
         let horizontal = alignment[1];
+        let size = "";
 
         switch (vertical) {
             case "top":
@@ -127,6 +180,10 @@ export class ColumnViewModel
                 throw `Unknown horizontal metric "${horizontal}."`;
         }
 
-        return `align-content-${targetSize}-${vertical} justify-content-${targetSize}-${horizontal}`;
+        if (targetSize !== "xs") {
+            size = targetSize + "-";
+        }
+
+        return `align-content-${size}${vertical} align-items-${size}${vertical} justify-content-${size}${horizontal}`;
     }
 }

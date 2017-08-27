@@ -1,13 +1,13 @@
 ﻿import * as ko from "knockout";
-import { IWidgetModel } from "@paperbits/common/editing/IWidgetModel";
+import { IWidgetBinding } from "@paperbits/common/editing/IWidgetBinding";
 import * as Utils from '@paperbits/common/core/utils';
 import { IWidgetOrder } from '@paperbits/common/editing/IWidgetOrder';
 import { IContentDropHandler } from '@paperbits/common/editing/IContentDropHandler';
 import { IContentDescriptor } from '@paperbits/common/editing/IContentDescriptor';
 import { IWidgetHandler } from '@paperbits/common/editing/IWidgetHandler';
 import { IWidgetFactoryResult } from '@paperbits/common/editing/IWidgetFactoryResult';
-import { ButtonModelBinder } from "@paperbits/common/widgets/buttonModelBinder";
-import { ContentConfig } from "@paperbits/common/editing/contentNode";
+import { ButtonModelBinder } from "@paperbits/common/widgets/button/buttonModelBinder";
+import { Contract } from "@paperbits/common/editing/contentNode";
 
 
 export class ButtonHandlers implements IWidgetHandler {
@@ -17,9 +17,8 @@ export class ButtonHandlers implements IWidgetHandler {
         this.buttonModelBinder = buttonModelBinder;
     }
 
-    private async prepareWidgetOrder(config: ContentConfig): Promise<IWidgetOrder> {
+    private async prepareWidgetOrder(config: Contract): Promise<IWidgetOrder> {
         let model = await this.buttonModelBinder.nodeToModel(config);
-        
 
         let factoryFunction: () => IWidgetFactoryResult = () => {
             throw "Not implemented.";
@@ -45,7 +44,7 @@ export class ButtonHandlers implements IWidgetHandler {
     }
 
     private async getWidgetOrderByConfig(): Promise<IWidgetOrder> {
-        let config: ContentConfig = {
+        let config: Contract = {
             kind: "block",
             type: "button",
             label: "Button",

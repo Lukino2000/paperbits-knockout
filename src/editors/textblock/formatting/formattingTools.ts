@@ -185,12 +185,12 @@ export class FormattingTools {
     }
 
     public toggleH5(): void {
-        this.htmlEditorProvider.getCurrentHtmlEditor().toggleH4();
+        this.htmlEditorProvider.getCurrentHtmlEditor().toggleH5();
         this.updateFormattingState();
     }
 
     public toggleH6(): void {
-        this.htmlEditorProvider.getCurrentHtmlEditor().toggleH4();
+        this.htmlEditorProvider.getCurrentHtmlEditor().toggleH6();
         this.updateFormattingState();
     }
 
@@ -230,6 +230,6 @@ export class FormattingTools {
     }
 
     public dispose(): void {
-        this.eventManager.addEventListener("htmlEditorChanged", this.updateFormattingState)
+        this.eventManager.removeEventListener("htmlEditorChanged", this.updateFormattingState)
     }
 }

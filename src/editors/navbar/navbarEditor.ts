@@ -1,6 +1,6 @@
 import * as ko from "knockout";
 import * as template from "./navbarEditor.html";
-import { NavbarModel } from "@paperbits/common/widgets/models/navbarModel";
+import { NavbarModel } from "@paperbits/common/widgets/navbar/navbarModel";
 import { IWidgetEditor } from "@paperbits/common/widgets/IWidgetEditor";
 import { Component } from "../../decorators/component";
 

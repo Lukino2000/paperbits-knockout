@@ -1,10 +1,10 @@
 ﻿import * as ko from "knockout";
-import { IVideoPlayerNode } from "@paperbits/common/widgets/models/IVideoPlayerNode";
+import { IVideoPlayerNode } from "@paperbits/common/widgets/video-player/IVideoPlayerNode";
+import { VideoPlayerModelBinder } from "@paperbits/common/widgets/video-player/videoPlayerModelBinder";
 import { ICreatedMedia } from "@paperbits/common/media/ICreatedMedia";
 import { IWidgetFactoryResult } from "@paperbits/common/editing/IWidgetFactoryResult";
 import { IMedia } from "@paperbits/common/media/IMedia";
-import { VideoPlayerModelBinder } from "@paperbits/common/widgets/videoPlayerModelBinder";
-import { IWidgetModel } from "@paperbits/common/editing/IWidgetModel";
+import { IWidgetBinding } from "@paperbits/common/editing/IWidgetBinding";
 import { IEventManager } from "@paperbits/common/events/IEventManager";
 import { IWidgetOrder } from "@paperbits/common/editing/IWidgetOrder";
 import { IWidgetHandler } from "@paperbits/common/editing/IWidgetHandler";

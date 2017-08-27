@@ -1,4 +1,4 @@
-import { TextblockModel } from "@paperbits/common/widgets/models/textblockModel";
+import { TextblockModel } from "@paperbits/common/widgets/textblock/textblockModel";
 import { TextblockViewModel } from "./textblockViewModel";
 import { IHtmlEditor } from "@paperbits/common/editing/IHtmlEditor";
 import { IViewModelBinder } from "@paperbits/common/widgets/IViewModelBinder";
@@ -21,7 +21,7 @@ export class TextblockViewModelBinder implements IViewModelBinder {
         viewModel.state(model.state);
         // textblockViewModel.readonly(!!model.readonly);
 
-        viewModel["attachedWidgetModel"] = {
+        viewModel["widgetBinding"] = {
             readonly: readonly,
             model: model,
             editor: "paperbits-text-editor",

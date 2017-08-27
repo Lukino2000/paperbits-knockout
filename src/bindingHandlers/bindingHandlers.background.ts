@@ -1,6 +1,6 @@
 ﻿import * as $ from "jquery/dist/jquery";
 import * as ko from "knockout";
-import { IBackground } from "@paperbits/common/ui/IBackground";
+import { BackgroundModel } from "@paperbits/common/widgets/background/backgroundModel";
 
 ko.bindingHandlers["style"] = {
     update(element, valueAccessor) {
@@ -19,73 +19,86 @@ ko.bindingHandlers["style"] = {
     }
 };
 
-ko.bindingHandlers["background"] = {
-    init(element: HTMLElement, valueAccessor) {
-        var configuration = valueAccessor();
-        var styleObservable = ko.observable();
+export class BackgroundBindingHandler {
+    constructor() {
+        ko.bindingHandlers["background"] = {
+            init(element: HTMLElement, valueAccessor) {
+                var configuration = valueAccessor();
+                var styleObservable = ko.observable();
 
-        var setBackground = (config: IBackground) => {
-            let style = {};
+                var setBackground = (backgroundModel: BackgroundModel) => {
+                    if (element.nodeName === "IMG") {
+                        if (backgroundModel.sourceUrl) {
+                            element["src"] = backgroundModel.sourceUrl;
+                        }
+                        return;
+                    }
 
-            Object.assign(style, { "background-color": config.color || null });
+                    let style = {};
 
-            if (config.imageUrl) {
-                Object.assign(style, { "background-image": `url("${ko.unwrap(config.imageUrl)}")` });
-            }
-            else {
-                Object.assign(style, { "background-image": null });
-            }
+                    // TODO: Consider intention usage.
+                    Object.assign(style, { "background-color": backgroundModel.color || null });
 
-            Object.assign(style, { "background-position": config.position || null })
+                    if (backgroundModel.sourceUrl) {
+                        Object.assign(style, { "background-image": `url("${ko.unwrap(backgroundModel.sourceUrl)}")` });
+                    }
+                    else {
+                        Object.assign(style, { "background-image": null });
+                    }
 
-            Object.assign(style, { "background-size": config.size || null })
+                    Object.assign(style, { "background-position": backgroundModel.position || null })
 
-            Object.assign(style, { "background-repeat": config.repeat || "no-repeat" })
+                    Object.assign(style, { "background-size": backgroundModel.size || null })
+
+                    Object.assign(style, { "background-repeat": backgroundModel.repeat || "no-repeat" })
 
 
-            // if (config.videoUrl) {
-            //     let elements = [].slice.call(element.getElementsByTagName("video"));
+                    // if (config.videoUrl) {
+                    //     let elements = [].slice.call(element.getElementsByTagName("video"));
 
-            //     let video: HTMLVideoElement;
+                    //     let video: HTMLVideoElement;
 
-            //     if (elements.length > 0) {
-            //         video = elements[0];
-            //     }
-            //     else {
-            //         video = document.createElement("video");
-            //         video.classList.add("fit", "no-pointer-events")
-            //         $(element).prepend(video);
-            //     }
+                    //     if (elements.length > 0) {
+                    //         video = elements[0];
+                    //     }
+                    //     else {
+                    //         video = document.createElement("video");
+                    //         video.classList.add("fit", "no-pointer-events")
+                    //         $(element).prepend(video);
+                    //     }
 
-            //     video.src = config.videoUrl;
-            //     video.autoplay = true;
-            //     video.muted = true;
-            //     video.loop = true;
-            // }
+                    //     video.src = config.videoUrl;
+                    //     video.autoplay = true;
+                    //     video.muted = true;
+                    //     video.loop = true;
+                    // }
 
-            styleObservable(style);
-        }
-
-        ko.applyBindingsToNode(element, { style: styleObservable });
-
-        if (ko.isObservable(configuration)) {
-            configuration.subscribe((newConfiguration) => {
-
-                if (!newConfiguration) {
-                    newConfiguration = {};
+                    styleObservable(style);
                 }
-                else {
-                    setBackground(ko.unwrap(newConfiguration));
+
+                ko.applyBindingsToNode(element, { style: styleObservable });
+
+                if (ko.isObservable(configuration)) {
+                    configuration.subscribe((newConfiguration) => {
+
+                        if (!newConfiguration) {
+                            newConfiguration = {};
+                        }
+                        else {
+                            setBackground(ko.unwrap(newConfiguration));
+                        }
+                    });
                 }
-            });
-        }
 
-        let initialConfiguration = ko.unwrap(configuration);
+                let initialConfiguration = ko.unwrap(configuration);
 
-        if (!initialConfiguration) {
-            initialConfiguration = {};
-        }
+                if (!initialConfiguration) {
+                    initialConfiguration = {};
+                }
 
-        setBackground(initialConfiguration);
+                setBackground(initialConfiguration);
+            }
+        };
     }
-};
+}
+

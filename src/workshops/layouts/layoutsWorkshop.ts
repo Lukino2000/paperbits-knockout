@@ -1,6 +1,6 @@
 ﻿import * as ko from "knockout";
 import * as template from "./layoutsWorkshop.html";
-import { ContentConfig } from "@paperbits/common/editing/contentNode";
+import { Contract } from "@paperbits/common/editing/contentNode";
 import { IRouteHandler } from '@paperbits/common/routing/IRouteHandler';
 import { IPermalinkService } from '@paperbits/common/permalinks/IPermalinkService';
 import { IViewManager } from '@paperbits/common/ui/IViewManager';
@@ -23,7 +23,7 @@ export class LayoutsWorkshop {
     private readonly permalinkService: IPermalinkService;
     private readonly routeHandler: IRouteHandler;
     private readonly viewManager: IViewManager;
-    private template: ContentConfig;
+    private template: Contract;
 
     public readonly searchPattern: KnockoutObservable<string>;
     public readonly layouts: KnockoutObservableArray<LayoutItem>;

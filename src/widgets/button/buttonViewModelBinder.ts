@@ -1,4 +1,4 @@
-import { ButtonModel } from "@paperbits/common/widgets/models/buttonModel";
+import { ButtonModel } from "@paperbits/common/widgets/button/buttonModel";
 import { ButtonViewModel } from "./buttonViewModel";
 
 
@@ -42,7 +42,7 @@ export class ButtonViewModelBinder {
 
         viewModel.css(classes.join(" "));
 
-        viewModel["attachedWidgetModel"] = {
+        viewModel["widgetBinding"] = {
             model: model,
             editor: "paperbits-button-editor",
             applyChanges: () => {

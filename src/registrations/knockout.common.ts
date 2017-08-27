@@ -17,6 +17,7 @@ import "../bindingHandlers/bindingHandlers.resourcePicker";
 import "../bindingHandlers/bindingHandlers.hyperlink";
 import "../bindingHandlers/bindingHandlers.surface";
 import "../bindingHandlers/bindingHandlers.snapTo";
+import "../bindingHandlers/bindingHandlers.gridCommand";
 
 import { WidgetBindingHandler } from "../bindingHandlers/bindingHandlers.widget";
 import { ContentBindingHandler } from "../bindingHandlers/bindingHandlers.content";
@@ -26,6 +27,7 @@ import { LightboxBindingHandler } from "../bindingHandlers/bindingHandlers.light
 import { SlateBindingHandler } from "../bindingHandlers/bindingHandlers.slate";
 import { BalloonBindingHandler } from "../bindingHandlers/bindingHandlers.balloon";
 import { ViewManager } from "../ui/viewManager";
+import { BackgroundBindingHandler } from "../bindingHandlers/bindingHandlers.background";
 
 
 export class KnockoutRegistrationCommon implements IInjectorModule {
@@ -43,5 +45,6 @@ export class KnockoutRegistrationCommon implements IInjectorModule {
         injector.bindSingleton("widgetBindingHandler", WidgetBindingHandler);
         injector.bindSingleton("slateBindingHandler", SlateBindingHandler);
         injector.bindSingleton("balloonBindingHandler", BalloonBindingHandler);
+        injector.bindSingleton("backgroundBindingHandler", BackgroundBindingHandler);
     }
 }

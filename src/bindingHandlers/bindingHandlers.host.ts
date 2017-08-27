@@ -14,16 +14,24 @@ export class HostBindingHandler {
 
                 config.viewport.subscribe((viewport) => {
                     switch (viewport) {
-                        case "desktop":
-                            css("viewport-desktop");
+                        case "xl":
+                            css("viewport-xl");
                             break;
 
-                        case "tablet":
-                            css("viewport-tablet");
+                        case "lg":
+                            css("viewport-lg");
                             break;
 
-                        case "phone":
-                            css("viewport-phone");
+                        case "md":
+                            css("viewport-md");
+                            break;
+
+                        case "sm":
+                            css("viewport-sm");
+                            break;
+
+                        case "xs":
+                            css("viewport-xs");
                             break;
 
                         default:
@@ -59,7 +67,7 @@ export class HostBindingHandler {
                 let onLoad = () => {
                     globalEventHandler.appendDocument(hostElement.contentDocument);
 
-                    let documentElement = document.createElement("paperbits-doc");
+                    let documentElement = document.createElement("paperbits-document");
                     hostElement.contentDocument.body.appendChild(documentElement);
                     ko.applyBindings({}, documentElement);
                 }

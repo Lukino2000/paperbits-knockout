@@ -1,6 +1,6 @@
 ﻿import * as ko from "knockout";
 import * as template from "./mapEditor.html";
-import { MapModel } from "@paperbits/common/widgets/models/mapModel";
+import { MapModel } from "@paperbits/common/widgets/map/mapModel";
 import { IWidgetEditor } from '@paperbits/common/widgets/IWidgetEditor';
 import { IViewManager } from '@paperbits/common/ui/IViewManager';
 import { Component } from "../../decorators/component";

@@ -1,9 +1,8 @@
-import { SectionModel } from "@paperbits/common/widgets/models/sectionModel";
+import { SectionModel } from "@paperbits/common/widgets/section/sectionModel";
 import { SectionViewModel } from "./sectionViewModel";
 import { IntentionMapService } from "@paperbits/slate/intentionMapService";
 import { RowViewModelBinder } from "../row/rowViewModelBinder";
 import { IViewModelBinder } from "@paperbits/common/widgets/IViewModelBinder";
-
 
 export class SectionViewModelBinder implements IViewModelBinder {
     private readonly rowViewModelBinder: RowViewModelBinder;
@@ -26,15 +25,14 @@ export class SectionViewModelBinder implements IViewModelBinder {
 
         sectionViewModel.rows(rowViewModels);
         sectionViewModel.layout(model.layout);
-        sectionViewModel.backgroundType(model.backgroundType);
-        sectionViewModel.backgroundPictureUrl(model.backgroundPictureUrl);
-        sectionViewModel.backgroundSize(model.backgroundSize);
-        sectionViewModel.backgroundPosition(model.backgroundPosition);
+        sectionViewModel.background(model.background);
 
         let sectionClasses = [];
-        let backgroundIntentionKey = model.backgroundIntentionKey;
+        let backgroundColorKey = model.background.colorKey;
         let intentionMap = <any>this.intentionMapService.getMap();
-        let backgroundIntention = intentionMap.section.background[backgroundIntentionKey];
+
+        // TODO: Review background usage.
+        let backgroundIntention = intentionMap.section.background[backgroundColorKey];
 
         if (!backgroundIntention) {
             backgroundIntention = intentionMap.section.background["section-bg-default"];
@@ -47,13 +45,13 @@ export class SectionViewModelBinder implements IViewModelBinder {
 
         switch (model.snap) {
             case "none":
-                sectionViewModel.snapTo(null);
+                // Do nothing
                 break;
             case "top":
-                sectionViewModel.snapTo("top");
+                sectionClasses.push("sticky-top");
                 break;
             case "bottom":
-                sectionViewModel.snapTo("bottom");
+                sectionClasses.push("sticky-bottom");
                 break;
             default:
                 throw `Unkown snap value "${model.snap}".`;
@@ -61,7 +59,7 @@ export class SectionViewModelBinder implements IViewModelBinder {
 
         sectionViewModel.css(sectionClasses.join(" "));
 
-        sectionViewModel["attachedWidgetModel"] = {
+        sectionViewModel["widgetBinding"] = {
             readonly: readonly,
             model: model,
             editor: "layout-section-editor",

@@ -1,4 +1,4 @@
-import { VideoPlayerModel } from "@paperbits/common/widgets/models/videoPlayerModel";
+import { VideoPlayerModel } from "@paperbits/common/widgets/video-player/videoPlayerModel";
 import { VideoPlayerViewModel } from "./videoPlayerViewModel";
 import { IViewModelBinder } from "@paperbits/common/widgets/IViewModelBinder";
 
@@ -13,7 +13,7 @@ export class VideoPlayerViewModelBinder implements IViewModelBinder {
         viewModel.controls(model.controls);
         viewModel.autoplay(model.autoplay);
 
-        viewModel["attachedWidgetModel"] = {
+        viewModel["widgetBinding"] = {
             readonly: readonly,
             model: model,
             editor: "paperbits-video-player-editor",

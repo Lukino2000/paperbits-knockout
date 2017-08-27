@@ -1,4 +1,4 @@
-import { YoutubePlayerModel } from "@paperbits/common/widgets/models/youtubePlayerModel";
+import { YoutubePlayerModel } from "@paperbits/common/widgets/youtube-player/youtubePlayerModel";
 import { YoutubePlayerViewModel } from "./youtubePlayerViewModel";
 import { IViewModelBinder } from "@paperbits/common/widgets/IViewModelBinder";
 
@@ -11,7 +11,7 @@ export class YoutubePlayerViewModelBinder implements IViewModelBinder {
 
         viewModel.videoId(model.videoId);
 
-        viewModel["attachedWidgetModel"] = {
+        viewModel["widgetBinding"] = {
             readonly: readonly,
             model: model,
             editor: "paperbits-youtube-player-editor",

@@ -39,11 +39,6 @@ export class Workshops {
         this.journey("blogs");
     }
 
-    public openNews(): void {
-        this.viewManager.newJourney("News", "news");
-        this.journey("news");
-    }
-
     public openMedia(): void {
         this.viewManager.newJourney("Media", "media");
         this.journey("media");

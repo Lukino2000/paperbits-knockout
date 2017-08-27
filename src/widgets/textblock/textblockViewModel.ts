@@ -5,8 +5,7 @@ import { Component } from "../../decorators/component";
 
 @Component({
     selector: "paperbits-text",
-    template: template,
-    injectable: "textblock"
+    template: template
 })
 export class TextblockViewModel {
     public readonly htmlEditor;

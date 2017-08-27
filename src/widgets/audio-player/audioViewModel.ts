@@ -5,8 +5,7 @@ import { Component } from "../../decorators/component";
 
 @Component({
     selector: "paperbits-audio-player",
-    template: template,
-    injectable: "audioPlayer"
+    template: template
 })
 export class AudioPlayerViewModel {
     public sourceUrl: KnockoutObservable<string>;

@@ -1,7 +1,7 @@
 ﻿import * as ko from "knockout";
 import * as Utils from '@paperbits/common/core/utils';
-import { MapModelBinder } from "@paperbits/common/widgets/mapModelBinder";
-import { IWidgetModel } from "@paperbits/common/editing/IWidgetModel";
+import { MapModelBinder } from "@paperbits/common/widgets/map/mapModelBinder";
+import { IWidgetBinding } from "@paperbits/common/editing/IWidgetBinding";
 import { MapViewModel } from "../../widgets/map/mapViewModel";
 import { IWidgetOrder } from '@paperbits/common/editing/IWidgetOrder';
 import { IContentDropHandler } from '@paperbits/common/editing/IContentDropHandler';
@@ -10,7 +10,7 @@ import { IDataTransfer } from '@paperbits/common/editing/IDataTransfer';
 import { IWidgetHandler } from '@paperbits/common/editing/IWidgetHandler';
 import { IWidgetFactoryResult } from '@paperbits/common/editing/IWidgetFactoryResult';
 import { ISettingsProvider, Settings } from '@paperbits/common/configuration/ISettingsProvider';
-import { IMapConfig } from "@paperbits/common/widgets/models/IMapNode";
+import { IMapConfig } from "@paperbits/common/widgets/map/IMapNode";
 import * as GoogleMapsLoader from "google-maps";
 
 

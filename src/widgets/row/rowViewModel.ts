@@ -6,8 +6,7 @@ import { ColumnViewModel } from "../column/columnViewModel";
 
 @Component({
     selector: "layout-row",
-    template: template,
-    injectable: "row"
+    template: template
 })
 export class RowViewModel {
     public columns: KnockoutObservableArray<ColumnViewModel>;

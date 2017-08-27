@@ -3,9 +3,9 @@ import * as Utils from '@paperbits/common/core/utils';
 import ILazy = Utils.ILazy;
 import { ICreatedMedia } from "@paperbits/common/media/ICreatedMedia";
 import { IWidgetFactoryResult } from "@paperbits/common/editing/IWidgetFactoryResult";
-import { NavbarModel } from "@paperbits/common/widgets/models/navbarModel";
+import { NavbarModel } from "@paperbits/common/widgets/navbar/navbarModel";
 import { IMedia } from "@paperbits/common/media/IMedia";
-import { IWidgetModel } from "@paperbits/common/editing/IWidgetModel";
+import { IWidgetBinding } from "@paperbits/common/editing/IWidgetBinding";
 import { IWidgetOrder } from '@paperbits/common/editing/IWidgetOrder';
 import { IContentDropHandler } from '@paperbits/common/editing/IContentDropHandler';
 import { MediaHandlers } from '../../editors/mediaHandlers';
@@ -13,8 +13,8 @@ import { IWidgetHandler } from '@paperbits/common/editing/IWidgetHandler';
 import { IDataTransfer } from '@paperbits/common/editing/IDataTransfer';
 import { IContentDescriptor } from '@paperbits/common/editing/IContentDescriptor';
 import { PromiseToDelayedComputed } from '../../core/task';
-import { NavbarModelBinder } from "@paperbits/common/widgets/navbarModelBinder";
-import { ContentConfig } from "@paperbits/common/editing/contentNode";
+import { NavbarModelBinder } from "@paperbits/common/widgets/navbar/navbarModelBinder";
+import { Contract } from "@paperbits/common/editing/contentNode";
 
 
 export class NavbarHandlers implements IWidgetHandler {

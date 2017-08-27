@@ -1,9 +1,9 @@
 ﻿import * as ko from "knockout";
 import { AudioPlayerViewModel } from "../../widgets/audio-player/audioViewModel";
-import { AudioPlayerModelBinder } from "@paperbits/common/widgets/audioPlayerModelBinder";
-import { IAudioPlayerNode } from "@paperbits/common/widgets/models/IAudioPlayerNode";
+import { AudioPlayerModelBinder } from "@paperbits/common/widgets/audio-player/audioPlayerModelBinder";
+import { IAudioPlayerNode } from "@paperbits/common/widgets/audio-player/IAudioPlayerNode";
 import { IWidgetFactoryResult } from "@paperbits/common/editing/IWidgetFactoryResult";
-import { IWidgetModel } from "@paperbits/common/editing/IWidgetModel";
+import { IWidgetBinding } from "@paperbits/common/editing/IWidgetBinding";
 import { IMedia } from "@paperbits/common/media/IMedia";
 import { IWidgetOrder } from '@paperbits/common/editing/IWidgetOrder';
 import { IContentDropHandler } from '@paperbits/common/editing/IContentDropHandler';
@@ -26,7 +26,7 @@ export class AudioHandlers extends MediaHandlers implements IWidgetHandler, ICon
     }
 
     private getWidgetOrderByConfig(sourceUrl: string): IWidgetOrder {
-        let pictureWidgetModel: IWidgetModel = {
+        let pictureWidgetModel: IWidgetBinding = {
             name: "paperbits-audio-player",
             params: {},
             oncreate: (audioPlayerModel: AudioPlayerViewModel) => {

@@ -30,6 +30,9 @@ ko.bindingHandlers["stickTo"] = {
             let coordX: number;
             let coordY: number;
 
+            element.style.right = null;
+            element.style.left = null;
+
             coordX = rect.left + Math.floor((rect.width) / 2) - Math.floor(element.clientWidth / 2);
             coordY = rect.top + Math.floor((rect.height) / 2) - Math.floor(element.clientHeight / 2);
 
@@ -50,14 +53,15 @@ ko.bindingHandlers["stickTo"] = {
             }
 
             if (config.position.indexOf("left") >= 0) {
-                coordX = rect.left;
+                element.style.left = parentRect.left + rect.left + 10 + "px";
+            }
+            else if (config.position.indexOf("right") >= 0) {
+                element.style.right = parentRect.right - rect.right + 10 + "px";
+            }
+            else {
+                element.style.left = parentRect.left + coordX + "px";
             }
 
-            if (config.position.indexOf("right") >= 0) {
-                coordX = rect.left + rect.width - element.clientWidth;
-            }
-
-            element.style.left = parentRect.left + coordX + "px";
             element.style.top = parentRect.top + coordY + "px";
         }
 

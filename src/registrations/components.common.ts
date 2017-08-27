@@ -10,27 +10,28 @@ import { WidgetService } from "@paperbits/common/widgets/widgetService";
 import { LayoutService } from "@paperbits/common/layouts/layoutService";
 import { PageService } from "@paperbits/common/pages/pageService";
 import { BlogService } from "@paperbits/common/blogs/blogService";
-import { NewsService } from "@paperbits/common/news/newsService";
 import { FileService } from "@paperbits/common/files/fileService";
 import { MediaService } from "@paperbits/common/media/mediaService";
 import { NavigationService } from "@paperbits/common/navigation/navigationService";
 import { SiteService } from "@paperbits/common/sites/siteService";
 import { IntercomService } from "@paperbits/common/intercom/intercomService";
-import { YoutubeModelBinder } from "@paperbits/common/widgets/youtubeModelBinder";
-import { VideoPlayerModelBinder } from "@paperbits/common/widgets/videoPlayerModelBinder";
-import { AudioPlayerModelBinder } from "@paperbits/common/widgets/audioPlayerModelBinder";
-import { BlogModelBinder } from "@paperbits/common/widgets/blogModelBinder";
-import { LayoutModelBinder } from "@paperbits/common/widgets/layoutModelBinder";
-import { PageModelBinder } from "@paperbits/common/widgets/pageModelBinder";
-import { SectionModelBinder } from "@paperbits/common/widgets/sectionModelBinder";
-import { RowModelBinder } from "@paperbits/common/widgets/rowModelBinder";
-import { ColumnModelBinder } from "@paperbits/common/widgets/columnModelBinder";
-import { NavbarModelBinder } from "@paperbits/common/widgets/navbarModelBinder";
-import { TextblockModelBinder } from "@paperbits/common/widgets/textblockModelBinder";
-import { PictureModelBinder } from "@paperbits/common/widgets/pictureModelBinder";
-import { MapModelBinder } from "@paperbits/common/widgets/mapModelBinder";
-import { ButtonModelBinder } from "@paperbits/common/widgets/buttonModelBinder";
-
+import { YoutubeModelBinder } from "@paperbits/common/widgets/youtube-player/youtubeModelBinder";
+import { VideoPlayerModelBinder } from "@paperbits/common/widgets/video-player/videoPlayerModelBinder";
+import { AudioPlayerModelBinder } from "@paperbits/common/widgets/audio-player/audioPlayerModelBinder";
+import { BlogModelBinder } from "@paperbits/common/widgets/blog/blogModelBinder";
+import { LayoutModelBinder } from "@paperbits/common/widgets/layout/layoutModelBinder";
+import { PageModelBinder } from "@paperbits/common/widgets/page/pageModelBinder";
+import { SectionModelBinder } from "@paperbits/common/widgets/section/sectionModelBinder";
+import { RowModelBinder } from "@paperbits/common/widgets/row/rowModelBinder";
+import { ColumnModelBinder } from "@paperbits/common/widgets/column/columnModelBinder";
+import { NavbarModelBinder } from "@paperbits/common/widgets/navbar/navbarModelBinder";
+import { TextblockModelBinder } from "@paperbits/common/widgets/textblock/textblockModelBinder";
+import { PictureModelBinder } from "@paperbits/common/widgets/picture/pictureModelBinder";
+import { MapModelBinder } from "@paperbits/common/widgets/map/mapModelBinder";
+import { ButtonModelBinder } from "@paperbits/common/widgets/button/buttonModelBinder";
+import { SliderModelBinder } from "@paperbits/common/widgets/slider/sliderModelBinder";
+import { BackgroundModelBinder } from "@paperbits/common/widgets/background/backgroundModelBinder";
+import { SavingHandler } from "@paperbits/common/persistence/savingHandler";
 
 export class ComponentRegistrationCommon implements IInjectorModule {
     public register(injector: IInjector) {
@@ -48,7 +49,6 @@ export class ComponentRegistrationCommon implements IInjectorModule {
         injector.bindSingleton("layoutService", LayoutService);
         injector.bindSingleton("pageService", PageService);
         injector.bindSingleton("blogService", BlogService);
-        injector.bindSingleton("newsService", NewsService);
         injector.bindSingleton("fileService", FileService);
         injector.bindSingleton("mediaService", MediaService);
         injector.bindSingleton("navigationService", NavigationService);
@@ -56,8 +56,9 @@ export class ComponentRegistrationCommon implements IInjectorModule {
         injector.bindSingleton("intercomService", IntercomService);
 
         /*** Model binders ***/
+        injector.bind("backgroundModelBinder", BackgroundModelBinder);
         injector.bind("layoutModelBinder", LayoutModelBinder);
-        injector.bind("pageModelBinder", PageModelBinder);
+        injector.bindSingleton("pageModelBinder", PageModelBinder);
         injector.bind("blogModelBinder", BlogModelBinder);
         injector.bind("sectionModelBinder", SectionModelBinder);
         injector.bind("rowModelBinder", RowModelBinder);
@@ -70,6 +71,9 @@ export class ComponentRegistrationCommon implements IInjectorModule {
         injector.bind("videoPlayerModelBinder", VideoPlayerModelBinder);
         injector.bind("audioPlayerModelBinder", AudioPlayerModelBinder);
         injector.bind("buttonModelBinder", ButtonModelBinder);
+        injector.bind("sliderModelBinder", SliderModelBinder);
         //injector.bind("codeblockModelBinder", CodeblockModelBinder);
+
+        injector.bindSingleton("savingHandler", SavingHandler);
     }
 }

@@ -21,19 +21,29 @@ export class ViewportSelector {
         this.viewport(this.viewManager.getViewport());
     }
 
-    public setDesktop(): void {
-        this.viewport("desktop");
-        this.viewManager.setViewport("desktop");
+    public setXl(): void {
+        this.viewport("xl");
+        this.viewManager.setViewport("xl");
     }
 
-    public setTablet(): void {
-        this.viewport("tablet");
-        this.viewManager.setViewport("tablet");
+    public setLg(): void {
+        this.viewport("lg");
+        this.viewManager.setViewport("lg");
     }
 
-    public setPhone(): void {
-        this.viewport("phone");
-        this.viewManager.setViewport("phone");
+    public setMd(): void {
+        this.viewport("md");
+        this.viewManager.setViewport("md");
+    }
+
+    public setSm(): void {
+        this.viewport("sm");
+        this.viewManager.setViewport("sm");
+    }
+
+    public setXs(): void {
+        this.viewport("xs");
+        this.viewManager.setViewport("xs");
     }
 
     public zoomOut(): void {

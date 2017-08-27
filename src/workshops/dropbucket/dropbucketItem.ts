@@ -1,7 +1,8 @@
 ﻿import * as ko from "knockout";
-import { IBackground } from "@paperbits/common/ui/IBackground";
-import { IWidgetOrder } from '@paperbits/common/editing/IWidgetOrder';
 import { IWidgetFactoryResult } from '@paperbits/common/editing/IWidgetFactoryResult';
+import { BackgroundModel } from "@paperbits/common/widgets/background/backgroundModel";
+import { IWidgetOrder } from "@paperbits/common/editing/IWidgetOrder";
+
 
 export class DropBucketItem {
     public title: string | KnockoutObservable<string>;
@@ -12,7 +13,7 @@ export class DropBucketItem {
     public uploadables: KnockoutObservableArray<File | string>;
     public uploadablesPending: Promise<any>;
     public widgetFactoryResult: IWidgetFactoryResult;
-    public background: KnockoutObservable<IBackground>;
+    public background: KnockoutObservable<BackgroundModel>;
 
     constructor() {
         this.title = null;
@@ -22,11 +23,11 @@ export class DropBucketItem {
         this.uploadables = ko.observableArray<File | string>();
         this.widgetOrder = ko.observable<IWidgetOrder>();
 
-        this.background = ko.computed<IBackground>(() => {
-            return {
-                imageUrl: this.thumbnailUrl()
-            }
-        });
+        this.background = ko.computed<BackgroundModel>(() => {
+            const background = new BackgroundModel();
+            background.sourceUrl = this.thumbnailUrl();
 
+            return background;
+        });
     }
 }

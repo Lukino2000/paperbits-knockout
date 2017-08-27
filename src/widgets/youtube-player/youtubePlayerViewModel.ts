@@ -1,23 +1,18 @@
 ﻿import * as ko from "knockout";
 import * as template from "./youtube.html";
 import { Component } from "../../decorators/component";
-import { IWidgetModel } from "@paperbits/common/editing/IWidgetModel";
-import { YoutubePlayerModel } from "@paperbits/common/widgets/models/youtubePlayerModel";
+import { IWidgetBinding } from "@paperbits/common/editing/IWidgetBinding";
+import { YoutubePlayerModel } from "@paperbits/common/widgets/youtube-player/youtubePlayerModel";
 
 
 @Component({
     selector: "paperbits-youtube-player",
-    template: template,
-    injectable: "youtubePlayer"
+    template: template
 })
 export class YoutubePlayerViewModel {
     public videoId: KnockoutObservable<string>;
 
     constructor() {
         this.videoId = ko.observable<string>();
-    }
-
-    public attachToModel(model: YoutubePlayerModel): void {
-        this.videoId(model.videoId);
     }
 }

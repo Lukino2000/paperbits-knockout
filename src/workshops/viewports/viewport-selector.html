@@ -1,17 +1,31 @@
 <div class="toolbox toolbox-position-left-bottom">
-    <div class="toolbox-button" data-bind="css: { 'toolbox-button-is-active': viewport() == 'desktop' }" title="Desktop">
-        <a href="#" data-bind="click: setDesktop">
-            <span class="icon icon-desktop"></span>
+    <div class="toolbox-button" data-bind="css: { 'toolbox-button-is-active': viewport() == 'xl' }">
+        <a href="#" data-bind="click: setXl">
+            <span class="icon icon-smaller">XL</span>
         </a>
     </div>
-    <div class="toolbox-button" data-bind="css: { 'toolbox-button-is-active': viewport() == 'tablet' }" title="Tablet">
-        <a href="#" data-bind="click: setTablet">
-            <span class="icon icon-smaller icon-tablet"></span>
+    <div class="toolbox-button" data-bind="css: { 'toolbox-button-is-active': viewport() == 'lg' }" >
+        <a href="#" data-bind="click: setLg">
+            <span class="icon icon-smaller">LG</span>
         </a>
     </div>
-    <div class="toolbox-button" data-bind="css: { 'toolbox-button-is-active': viewport() == 'phone' }" title="Phone">
-        <a href="#" data-bind="click: setPhone">
-            <span class="icon icon-smaller icon-phone"></span>
+
+    <div class="toolbox-button" data-bind="css: { 'toolbox-button-is-active': viewport() == 'md' }">
+        <a href="#" data-bind="click: setMd">
+            <span class="icon icon-smaller">MD</span>
+        </a>
+    </div>
+
+    
+    <div class="toolbox-button" data-bind="css: { 'toolbox-button-is-active': viewport() == 'sm' }">
+        <a href="#" data-bind="click: setSm">
+            <span class="icon icon-smaller">SM</span>
+        </a>
+    </div>
+
+    <div class="toolbox-button" data-bind="css: { 'toolbox-button-is-active': viewport() == 'xs' }">
+        <a href="#" data-bind="click: setXs">
+            <span class="icon icon-smaller">XS</span>
         </a>
     </div>
 </div>

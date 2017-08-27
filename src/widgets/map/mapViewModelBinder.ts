@@ -1,4 +1,4 @@
-import { MapModel } from "@paperbits/common/widgets/models/mapModel";
+import { MapModel } from "@paperbits/common/widgets/map/mapModel";
 import { MapViewModel } from "./mapViewModel";
 
 
@@ -13,7 +13,7 @@ export class MapViewModelBinder {
         viewModel.location(model.location);
         viewModel.zoomControl(model.zoomControl);
 
-        viewModel["attachedWidgetModel"] = {
+        viewModel["widgetBinding"] = {
             readonly: readonly,
             model: model,
             editor: "paperbits-map-editor",

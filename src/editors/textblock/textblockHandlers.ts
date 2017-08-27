@@ -1,7 +1,7 @@
 ﻿import * as ko from "knockout";
 import * as Utils from "@paperbits/common/core/utils";
-import { TextblockModel } from "@paperbits/common/widgets/models/textblockModel";
-import { TextblockModelBinder } from "@paperbits/common/widgets/textblockModelBinder";
+import { TextblockModel } from "@paperbits/common/widgets/textblock/textblockModel";
+import { TextblockModelBinder } from "@paperbits/common/widgets/textblock/textblockModelBinder";
 import { IWidgetOrder } from "@paperbits/common/editing/IWidgetOrder";
 import { IWidgetFactoryResult } from "@paperbits/common/editing/IWidgetFactoryResult";
 import { IWidgetHandler } from "@paperbits/common/editing/IWidgetHandler";

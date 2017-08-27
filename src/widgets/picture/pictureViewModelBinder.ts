@@ -1,4 +1,4 @@
-import { PictureModel } from "@paperbits/common/widgets/models/pictureModel";
+import { PictureModel } from "@paperbits/common/widgets/picture/pictureModel";
 import { PictureViewModel } from "./pictureViewModel";
 import { IViewModelBinder } from "@paperbits/common/widgets/IViewModelBinder";
 
@@ -11,9 +11,13 @@ export class PictureViewModelBinder implements IViewModelBinder {
         viewModel.caption(model.caption);
         viewModel.layout(model.layout);
         viewModel.animation(model.animation);
-        viewModel.sourceUrl(model.sourceUrl);
+        viewModel.background(model.background);
 
-        viewModel["attachedWidgetModel"] = {
+        let classes = [];
+        classes.push(model.layout);
+        viewModel.css(classes.join(" "));
+
+        viewModel["widgetBinding"] = {
             readonly: readonly,
             model: model,
             editor: "paperbits-picture-editor",

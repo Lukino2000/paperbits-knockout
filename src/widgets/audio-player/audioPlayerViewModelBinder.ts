@@ -1,7 +1,5 @@
-
-import { AudioPlayerModel } from "@paperbits/common/widgets/models/audioPlayerModel";
+import { AudioPlayerModel } from "@paperbits/common/widgets/audio-player/audioPlayerModel";
 import { AudioPlayerViewModel } from "./audioViewModel";
-
 
 export class AudioPlayerViewModelBinder {
     public modelToViewModel(model: AudioPlayerModel, readonly: boolean, viewModel?: AudioPlayerViewModel): AudioPlayerViewModel {
@@ -14,7 +12,7 @@ export class AudioPlayerViewModelBinder {
         viewModel.controls(model.controls);
         viewModel.autoplay(model.autoplay);
 
-        viewModel["attachedWidgetModel"] = {
+        viewModel["widgetBinding"] = {
             readonly: readonly,
             model: model,
             editor: "paperbits-audio-player-editor",

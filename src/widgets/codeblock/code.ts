@@ -5,8 +5,7 @@ import { Component } from "../../decorators/component";
 
 @Component({
     selector: "paperbits-code",
-    template: template,
-    injectable: "codeBlock"
+    template: template
 })
 export class Code {
     public lang: KnockoutObservable<string>;

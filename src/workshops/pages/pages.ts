@@ -1,6 +1,6 @@
 ﻿import * as ko from "knockout";
 import * as template from "./pages.html";
-import { ContentConfig } from "@paperbits/common/editing/contentNode";
+import { Contract } from "@paperbits/common/editing/contentNode";
 import { IPage } from "@paperbits/common/pages/IPage";
 import { IPageService } from "@paperbits/common/pages/IPageService";
 import { IRouteHandler } from "@paperbits/common/routing/IRouteHandler";
@@ -24,7 +24,8 @@ export class PagesWorkshop {
     private readonly permalinkService: IPermalinkService;
     private readonly routeHandler: IRouteHandler;
     private readonly viewManager: IViewManager;
-    private template: ContentConfig;
+    private template: Contract;
+    private searchTimeout: number;
 
     public readonly searchPattern: KnockoutObservable<string>;
     public readonly pages: KnockoutObservableArray<PageItem>;
@@ -52,6 +53,7 @@ export class PagesWorkshop {
         this.searchPattern = ko.observable<string>();
         this.searchPattern.subscribe(this.searchPages);
         this.working = ko.observable(true);
+        
 
         this.init();
         this.searchPages();
@@ -106,14 +108,21 @@ export class PagesWorkshop {
         }
     }
 
-    public async searchPages(searchPattern: string = ""): Promise<void> {
+    private async launchSearch(searchPattern: string = ""): Promise<void> {
         this.working(true);
-
         let pages = await this.pageService.search(searchPattern);
         let pageItems = pages.map(page => new PageItem(page));
 
         this.pages(pageItems);
         this.working(false);
+    }
+
+    public async searchPages(searchPattern: string = ""): Promise<void> {
+        clearTimeout(this.searchTimeout);
+
+        this.searchTimeout = setTimeout(() => {
+            this.launchSearch(searchPattern);
+        }, 600);
     }
 
     public selectPage(page: PageItem): void {

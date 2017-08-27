@@ -5,7 +5,6 @@ import { IInjector, IInjectorModule } from "@paperbits/common/injection";
 import { ILayoutService } from "@paperbits/common/layouts/ILayoutService";
 import { IMediaService } from '@paperbits/common/media/IMediaService';
 import { INavigationService } from '@paperbits/common/navigation/INavigationService';
-import { INewsService } from "@paperbits/common/news/INewsService";
 import { IPageService } from '@paperbits/common/pages/IPageService';
 import { IPermalinkService } from '@paperbits/common/permalinks/IPermalinkService';
 import { IRouteHandler } from '@paperbits/common/routing/IRouteHandler';
@@ -20,7 +19,7 @@ import { BlogWorkshop } from '../workshops/blogs/blogs';
 import { ButtonEditor } from "../editors/button/buttonEditor";
 import { ButtonHandlers } from "../editors/button/buttonHandlers";
 import { Code } from '../widgets/codeblock/code';
-import { CodeblockModelBinder } from "@paperbits/common/widgets/codeblockModelBinder";
+import { CodeblockModelBinder } from "@paperbits/common/widgets/codeblock/codeblockModelBinder";
 import { CodeEditor } from '../editors/codeblock/codeEditor';
 import { ColorSelector } from '../workshops/colors/colorSelector';
 import { StyleSelector } from '../workshops/text/styleSelector';
@@ -44,9 +43,6 @@ import { NavbarEditor } from "../editors/navbar/navbarEditor";
 import { NavbarHandlers } from "../editors/navbar/navbarHandlers";
 import { NavigationDetailsWorkshop } from '../workshops/navigation/navigationDetails';
 import { NavigationWorkshop } from '../workshops/navigation/navigation';
-import { NewsEditor } from '../workshops/news/newsEditor';
-import { NewsElementDetailsEditor } from "../workshops/news/newsElementDetailsEditor";
-import { NewsArticleItem } from "../workshops/news/newsElementItem";
 import { PageDetailsWorkshop } from '../workshops/pages/pageDetails';
 import { PageItem } from '../workshops/pages/pageItem';
 import { PlaceholderViewModel } from "../editors/placeholder/placeholderViewModel";
@@ -74,7 +70,6 @@ import { PermalinkResolver } from "@paperbits/common/permalinks/permalinkResolve
 import { MediaPermalinkResolver } from "@paperbits/common/media/mediaPermalinkResolver";
 import { IPermalinkResolver } from "@paperbits/common/permalinks/IPermalinkResolver";
 import { PagePermalinkResolver } from "@paperbits/common/pages/pagePermalinkResolver";
-import { NewsPermalinkResolver } from "@paperbits/common/news/newsPermalinkResolver";
 import { BlogPermalinkResolver } from "@paperbits/common/blogs/blogPermalinkResolver";
 import { HtmlEditorProvider } from "@paperbits/common/editing/htmlEditorProvider";
 import { BlogResourcePicker } from "../workshops/blogs/blogResourcePicker";
@@ -83,6 +78,8 @@ import { ViewportSelector } from "../workshops/viewports/viewport-selector";
 import { HostBindingHandler } from "../bindingHandlers/bindingHandlers.host";
 import { LayoutEditor } from "../editors/layout/layoutEditor";
 import { IntentionMapService } from "@paperbits/slate/intentionMapService";
+import { SliderEditor } from "../editors/slider/sliderEditor";
+import { SliderHandlers } from "../editors/slider/sliderHandlers";
 
 
 export class ComponentRegistrationEditors implements IInjectorModule {
@@ -96,25 +93,21 @@ export class ComponentRegistrationEditors implements IInjectorModule {
         injector.bind("layoutsWorkshop", LayoutsWorkshop);
         injector.bind("pagesWorkshop", PagesWorkshop);
         injector.bind("blogWorkshop", BlogWorkshop);
-        injector.bind("newsEditor", NewsEditor);
         injector.bind("navigationWorkshop", NavigationWorkshop);
 
         injector.bind("mediaPermalinkResolver", MediaPermalinkResolver);
         injector.bind("pagePermalinkResolver", PagePermalinkResolver);
-        injector.bind("newsPermalinkResolver", NewsPermalinkResolver);
         injector.bind("blogPermalinkResolver", BlogPermalinkResolver);
 
         injector.bindSingletonFactory("permalinkResolver", (ctx: IInjector) => {
             let permalinkService = ctx.resolve<IPermalinkService>("permalinkService");
             let mediaPermalinkResolver = ctx.resolve<IPermalinkResolver>("mediaPermalinkResolver");
             let pagePermalinkResolver = ctx.resolve<IPermalinkResolver>("pagePermalinkResolver");
-            let newsPermalinkResolver = ctx.resolve<IPermalinkResolver>("newsPermalinkResolver");
             let blogPermalinkResolver = ctx.resolve<IPermalinkResolver>("blogPermalinkResolver");
 
             return new PermalinkResolver(permalinkService, [
                 mediaPermalinkResolver,
                 pagePermalinkResolver,
-                newsPermalinkResolver,
                 blogPermalinkResolver]);
         });
 
@@ -151,15 +144,6 @@ export class ComponentRegistrationEditors implements IInjectorModule {
             return new BlogPostDetailsWorkshop(blogService, permalinkService, routeHandler, blogPostReference, viewManager);
         });
 
-        injector.bindComponent("newsElementDetailsEditor", (ctx: IInjector, newsElementReference: NewsArticleItem) => {
-            var newsService = ctx.resolve<INewsService>("newsService");
-            var permalinkService = ctx.resolve<IPermalinkService>("permalinkService");
-            var routeHandler = ctx.resolve<IRouteHandler>("routeHandler");
-            var viewManager = ctx.resolve<IViewManager>("viewManager");
-
-            return new NewsElementDetailsEditor(newsService, permalinkService, routeHandler, newsElementReference, viewManager);
-        });
-
         injector.bind("dropbucket", DropBucket);
         injector.bind("viewportSelector", ViewportSelector);
 
@@ -176,6 +160,7 @@ export class ComponentRegistrationEditors implements IInjectorModule {
         injector.bindSingleton("audioDropHandler", AudioHandlers);
         injector.bindSingleton("navbarHandler", NavbarHandlers);
         injector.bindSingleton("buttonHandler", ButtonHandlers);
+        injector.bindSingleton("sliderHandler", SliderHandlers);
 
         injector.bindFactory<Array<IContentDropHandler>>("dropHandlers", (ctx: IInjector) => {
             var dropHandlers = new Array<IContentDropHandler>();
@@ -202,6 +187,7 @@ export class ComponentRegistrationEditors implements IInjectorModule {
             // widgetHandlers.push(ctx.resolve<AudioHandlers>("audioDropHandler"));
             widgetHandlers.push(ctx.resolve<NavbarHandlers>("navbarHandler"));
             widgetHandlers.push(ctx.resolve<ButtonHandlers>("buttonHandler"));
+            // widgetHandlers.push(ctx.resolve<SliderHandlers>("sliderHandler"));
 
             return widgetHandlers;
         });
@@ -306,5 +292,6 @@ export class ComponentRegistrationEditors implements IInjectorModule {
         injector.bind("navbarEditor", NavbarEditor);
         injector.bind("videoPlayerEditor", VideoEditor);
         injector.bind("codeBlockEditor", CodeEditor);
+        injector.bind("sliderEditor", SliderEditor);
     }
 }

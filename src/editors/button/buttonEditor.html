@@ -33,18 +33,16 @@
         <label class="form-label"><span class="help"></span>Size</label>
         <div class="form-group">
             <label class="form-label">
-                <input name="size" type="radio" value="default" data-bind="checked: size" />Default
+                <input name="buttonSize" type="radio" value="default" data-bind="checked: size" />Default
             </label>
             <label class="form-label">
-                <input name="size" type="radio" value="medium" data-bind="checked: size" />Medium
+                <input name="buttonSize" type="radio" value="medium" data-bind="checked: size" />Medium
             </label>
             <label class="form-label">
-                <input name="size" type="radio" value="large" data-bind="checked: size" />Large
+                <input name="buttonSize" type="radio" value="large" data-bind="checked: size" />Large
             </label>
         </div>
     </fieldset>
-
-    <div id="hyperlinkSelector" class="balloon">
-        <hyperlink-selector params="hyperlink: $component.hyperlink, onChange: $component.onHyperlinkChange"></hyperlink-selector>
-    </div>
 </div>
+
+<hyperlink-selector id="hyperlinkSelector" class="balloon" params="hyperlink: $component.hyperlink, onChange: $component.onHyperlinkChange"></hyperlink-selector>

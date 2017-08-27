@@ -10,7 +10,7 @@
 
     <ul class="flex-item flex-item-grow list" data-bind="foreach: mediaItems, scrollable: {}">
         <li class="list-item icon icon-image" data-bind="css: { selected: hasFocus }, dragsource: { sticky: true, payload: $data, ondragstart: $parent.onDragStart, ondragend: $parent.onDragEnd }">
-            <a href="#" data-bind="text: media.filename, click: $component.selectMedia, hasFocus: hasFocus, event: { keydown: $component.keydown }"></a>
+            <a href="#" data-bind="text: media.filename, click: $component.selectMedia, hasFocus: hasFocus, event: { keydown: $component.keydown }, attr: { title: media.filename }"></a>
         </li>
     </ul>
 </div>

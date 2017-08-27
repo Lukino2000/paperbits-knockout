@@ -26,6 +26,7 @@ export class MediaWorkshop {
     private readonly viewManager: IViewManager;
     private layoutEditor: LayoutEditor; //TODO: Review usage and remove;
     private dropHandlers: Array<IContentDropHandler>; // TODO: Switch to IWidgetHandlers
+    private searchTimeout: number;
 
     public searchPattern: KnockoutObservable<string>;
     public mediaItems: KnockoutObservableArray<MediaItem>;
@@ -60,7 +61,7 @@ export class MediaWorkshop {
         this.searchMedia();
     }
 
-    public async searchMedia(searchPattern: string = ""): Promise<void> {
+    private async launchSearch(searchPattern: string = ""): Promise<void> {
         this.working(true);
 
         var drophandlers = this.dropHandlers;
@@ -91,6 +92,14 @@ export class MediaWorkshop {
         });
 
         this.working(false);
+    }
+
+    public async searchMedia(searchPattern: string = ""): Promise<void> {
+        clearTimeout(this.searchTimeout);
+
+        this.searchTimeout = setTimeout(() => {
+            this.launchSearch(searchPattern);
+        }, 600);
     }
 
     private onMediaUploaded(): void {

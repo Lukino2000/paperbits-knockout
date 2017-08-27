@@ -5,8 +5,7 @@ import { Component } from "../../decorators/component";
 
 @Component({
     selector: "paperbits-map",
-    template: template,
-    injectable: "map"
+    template: template
 })
 export class MapViewModel {
     public location: KnockoutObservable<string>;

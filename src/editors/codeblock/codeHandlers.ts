@@ -1,6 +1,6 @@
 ﻿import * as ko from "knockout";
 import { Code } from "../../widgets/codeblock/code";
-import { IWidgetModel } from "@paperbits/common/editing/IWidgetModel";
+import { IWidgetBinding } from "@paperbits/common/editing/IWidgetBinding";
 import * as Utils from '@paperbits/common/core/utils';
 import { ProgressPromise } from '@paperbits/common/core/progressPromise';
 import { IWidgetOrder } from '@paperbits/common/editing/IWidgetOrder';
@@ -25,7 +25,7 @@ export class CodeHandlers extends MediaHandlers implements IWidgetHandler, ICont
     }
 
     private getWidgetOrderByConfig(code: string, language: string, theme: string, editable: boolean): IWidgetOrder {
-        let pictureWidgetModel: IWidgetModel = {
+        let pictureWidgetModel: IWidgetBinding = {
             name: "paperbits-code",
             params: {},
             oncreate: (codeModel: Code) => {

@@ -1,8 +1,7 @@
-import { PageModel } from "@paperbits/common/widgets/models/pageModel";
+import { PageModel } from "@paperbits/common/widgets/page/pageModel";
 import { PageViewModel } from "./pageViewModel";
 import { ViewModelBinderSelector } from "../viewModelBinderSelector";
 import { IViewModelBinder } from "@paperbits/common/widgets/IViewModelBinder";
-
 
 export class PageViewModelBinder implements IViewModelBinder {
     private readonly viewModelBinderSelector: ViewModelBinderSelector;
@@ -33,10 +32,9 @@ export class PageViewModelBinder implements IViewModelBinder {
         pageViewModel.sections(widgetViewModels);
 
 
-        pageViewModel["attachedWidgetModel"] = {
+        pageViewModel["widgetBinding"] = {
             readonly: readonly,
             model: model,
-            editor: "paperbits-button-editor",
             applyChanges: () => {
                 this.modelToViewModel(model, readonly, pageViewModel);
             }

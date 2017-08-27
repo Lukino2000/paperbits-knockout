@@ -40,6 +40,7 @@ export class ViewManager implements IViewManager {
     public selectedElement: KnockoutObservable<IHighlightConfig>;
     public selectedElementContextualEditor: KnockoutObservable<IContextualEditor>;
     public viewport: KnockoutObservable<string>;
+    public shutter: KnockoutObservable<boolean>;
 
     public mode: ViewManagerMode;
 
@@ -71,7 +72,8 @@ export class ViewManager implements IViewManager {
         this.highlightedElement = ko.observable<IHighlightConfig>();
         this.selectedElement = ko.observable<IHighlightConfig>();
         this.selectedElementContextualEditor = ko.observable<IContextualEditor>();
-        this.viewport = ko.observable<string>("desktop");
+        this.viewport = ko.observable<string>("xl");
+        this.shutter = ko.observable<boolean>(true);
 
         this.primaryToolboxVisible = ko.observable<boolean>(true);
 
@@ -286,6 +288,8 @@ export class ViewManager implements IViewManager {
         if (this.mode != ViewManagerMode.configure) {
             this.mode = ViewManagerMode.select;
         }
+
+        this.clearJourney();
     }
 
     public getSelectedElement(): IHighlightConfig {
@@ -305,5 +309,13 @@ export class ViewManager implements IViewManager {
         this.clearContextualEditors();
         this.closeWidgetEditor();
         this.mode = ViewManagerMode.edit;
+    }
+
+    public setShutter(): void {
+        this.shutter(true);
+    }
+
+    public removeShutter(): void {
+        this.shutter(false);
     }
 }

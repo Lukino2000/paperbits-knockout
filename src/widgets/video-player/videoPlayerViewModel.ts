@@ -5,8 +5,7 @@ import { Component } from "../../decorators/component";
 
 @Component({
     selector: "paperbits-video-player",
-    template: template,
-    injectable: "videoPlayer"
+    template: template
 })
 export class VideoPlayerViewModel {
     public sourceUrl: KnockoutObservable<string>;

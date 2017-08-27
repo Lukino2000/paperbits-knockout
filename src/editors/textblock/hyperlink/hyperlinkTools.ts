@@ -76,6 +76,6 @@ export class HyperlinkTools {
     }
 
     public dispose(): void {
-        this.eventManager.addEventListener("htmlEditorChanged", this.onSelectionChange)
+        this.eventManager.removeEventListener("htmlEditorChanged", this.onSelectionChange)
     }
 }
