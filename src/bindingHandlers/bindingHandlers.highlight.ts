@@ -1,14 +1,14 @@
 ﻿import * as ko from "knockout";
-import { IContextualEditor } from "@paperbits/common/ui/IContextualEditor";
+import { IHighlightConfig } from "@paperbits/common/ui/IHighlightConfig";
 
 ko.bindingHandlers["highlight"] = {
-    init(element: HTMLElement, valueAccessor: () => IContextualEditor) {
+    init(element: HTMLElement, valueAccessor: () => IHighlightConfig) {
         let config = valueAccessor();
 
         element["highlightConfig"] = config;
 
         let updatePosition = () => {
-            let currentConfig = <IContextualEditor>element["highlightConfig"];
+            let currentConfig = <IHighlightConfig>element["highlightConfig"];
 
             if (!currentConfig || !currentConfig.element) {
                 return;
@@ -23,8 +23,13 @@ ko.bindingHandlers["highlight"] = {
             element.style.width = rect.width + "px";
             element.style.height = rect.height + "px";
             element.style.borderColor = currentConfig.color;
+
+            if (currentConfig.text) {
+                element.title = currentConfig.text;
+            }
         }
         element["highlightUpdate"] = updatePosition;
+
 
         updatePosition();
 
@@ -35,7 +40,7 @@ ko.bindingHandlers["highlight"] = {
         });
     },
 
-    update(element: HTMLElement, valueAccessor: () => IContextualEditor) {
+    update(element: HTMLElement, valueAccessor: () => IHighlightConfig) {
         let config = valueAccessor();
 
         element["highlightConfig"] = ko.unwrap(config);

@@ -55,31 +55,36 @@ export class GridEditor {
             type: PlaceholderModel,
             highlightedColor: "#2b87da",
             name: "placeholder",
-            getContextualEditor: this.getPlaceholderContextualEditor.bind(this)
+            getContextualEditor: this.getPlaceholderContextualEditor.bind(this),
+            displayName: "Placeholder"
         },
         {
             type: SectionModel,
             highlightedColor: "#2b87da",
             name: "section",
-            getContextualEditor: this.getSectionContextualEditor.bind(this)
+            getContextualEditor: this.getSectionContextualEditor.bind(this),
+            displayName: "Section"
         },
         {
             type: SliderModel,
             highlightedColor: "#2b87da",
             name: "slider",
-            getContextualEditor: this.getSliderContextualEditor.bind(this)
+            getContextualEditor: this.getSliderContextualEditor.bind(this),
+            displayName: "Slider"
         },
         {
             type: RowModel,
             highlightedColor: "#29c4a9",
             name: "row",
-            getContextualEditor: this.getRowContextualEditor.bind(this)
+            getContextualEditor: this.getRowContextualEditor.bind(this),
+            displayName: "Row"
         },
         {
             type: ColumnModel,
             highlightedColor: "#4c5866",
             name: "column",
-            getContextualEditor: this.getColumnContextualEditor.bind(this)
+            getContextualEditor: this.getColumnContextualEditor.bind(this),
+            displayName: "Column"
         }]
     }
 
@@ -114,6 +119,10 @@ export class GridEditor {
     }
 
     public onPointerDown(event: PointerEvent): void {
+        if (event.button !== 0) {
+            return;
+        }
+
         if (this.viewManager.mode !== ViewManagerMode.edit &&
             this.viewManager.mode !== ViewManagerMode.select &&
             this.viewManager.mode !== ViewManagerMode.configure) {
@@ -176,7 +185,8 @@ export class GridEditor {
 
             let config: IHighlightConfig = {
                 element: element,
-                color: contextualEditor.color
+                color: contextualEditor.color,
+                text: "Test"
             }
 
             this.viewManager.setSelectedElement(config, contextualEditor);
@@ -489,28 +499,7 @@ export class GridEditor {
                     name: "row-layout-selector",
                     params: {
                         onSelect: (newRowModel: RowModel) => {
-                            let rowModel = <RowModel>GridHelper.getModel(activeRowElement);
-
-                            // Step 1: Adjust number of columns
-                            rowModel.columns.length
-
-                            // if (parentModel instanceof SliderModel) {
-                            //     let sliderModel = <SliderModel>parentModel;
-                            //     parentModel = sliderModel.slides[sliderModel.activeSlideNumber];
-                            // }
-
-                            // let parentWidgetModel = GridHelper.getWidgetBinding(parentElement);
-                            // let rowModel = GridHelper.getModel(activeRowElement);
-                            // let index = parentModel.rows.indexOf(rowModel);
-
-                            // if (activeRowHalf === "bottom") {
-                            //     index++;
-                            // }
-
-                            // parentModel.rows.splice(index, 0, newRowModel);
-                            // parentWidgetModel.applyChanges();
-
-                            // this.cleanActiveElements();
+                           
                         }
                     }
                 }
@@ -809,7 +798,8 @@ export class GridEditor {
                 type: null,
                 highlightedColor: "#607d8b",
                 name: "widget",
-                getContextualEditor: this.getWidgetContextualEditor.bind(this)
+                getContextualEditor: this.getWidgetContextualEditor.bind(this),
+                displayName: "Widget"
             }
         }
 
@@ -819,6 +809,7 @@ export class GridEditor {
     public rerenderEditors(pointerX: number, pointerY: number, elements: HTMLElement[]): void {
         let highlightedElement: HTMLElement = null;
         let highlightedColor: string = null;
+        let highlightedText: string = null;
         let tobeDeleted = Object.keys(this.actives);
 
         for (let i = elements.length - 1; i >= 0; i--) {
@@ -837,6 +828,7 @@ export class GridEditor {
 
                 highlightedElement = element;
                 highlightedColor = gridItem.highlightedColor;
+                highlightedText = gridItem.displayName;
 
                 let quadrant = this.pointerToClientQuadrant(pointerX, pointerY, element);
                 let half = quadrant.vertical;
@@ -863,7 +855,7 @@ export class GridEditor {
 
         if (this.activeHighlightedElement != highlightedElement) {
             this.activeHighlightedElement = highlightedElement;
-            this.viewManager.setHighlight({ element: highlightedElement, color: highlightedColor });
+            this.viewManager.setHighlight({ element: highlightedElement, color: highlightedColor, text: highlightedText });
         }
     }
 
