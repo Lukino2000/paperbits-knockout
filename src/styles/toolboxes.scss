@@ -1,0 +1,144 @@
+﻿@import "variables.scss";
+
+@import "mixins.scss";
+
+@import "icons.scss";
+
+@import "animation.scss";
+
+@import "layouts.scss";
+
+.toolbox {
+    position: fixed;
+    display: flex;
+
+    @include surface();
+
+    h1 {
+        font-family: $font-family-base;
+        font-size: $workshop-header-font-size;
+        color: $color-base;
+        display: block;
+        margin: 0;
+    }
+
+    &.toolbox-position-left {
+        top: 20px;
+        left: 20px;
+    }
+
+    &.toolbox-position-left-bottom {
+        bottom: 20px;
+        left: 20px;
+    }
+
+    &.toolbox-position-left-offset {
+        top: 20px;
+        left: 150px;
+    }
+
+    .toolbox-button {
+        line-height: $toolbox-button-size;
+        min-width: $toolbox-button-size;
+        height: $toolbox-button-size;
+        display: block;
+        padding: 0;
+        box-sizing: border-box;
+        border: none;
+        background-color: transparent;
+        text-decoration: none;
+        position: relative;
+        cursor: pointer;
+        @include no-select();
+        @include no-drag();
+
+        &:focus,
+        &:hover {
+            outline: none;
+            @include selection();
+        }
+
+        &.toolbox-button-is-active {
+            position: relative;
+
+            &:before {
+                position: absolute;
+                background-color: $toolbox-button-active-bg;
+                border: 1px solid $toolbox-button-active-border;
+                border-radius: $toolbox-border-radius - 5px;
+                height: $toolbox-button-size;
+                width: $toolbox-button-size;
+                content: '';
+            }
+        }
+
+        .icon {
+            display: block;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+        }
+
+        .text {
+            display: block;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+        }
+    }
+
+    .toolbox-splitter {
+        height: 1px;
+        border: none;
+        border-bottom: 1px solid lightgray;
+    }
+
+    .toolbox-primary {
+        height: 100%;
+        top: 0;
+        left: 0;
+        float: left;
+
+        .toolbox-button {
+            filter: grayscale(100%) brightness(0.4);
+
+            &.toolbox-button-is-open,
+            &:hover {
+                filter: grayscale(0%);
+            }
+        }
+
+        li {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            background: none;
+        }
+    }
+
+    &.toolbox-resizable {
+        resize: horizontal;
+    }
+
+    .clickable {
+        outline: 1px dashed $button-border-color;
+        cursor: pointer;
+        padding: 10px;
+    }
+
+    ul {
+        padding: 0;
+        margin: 0;
+        list-style: none;
+    }
+
+    &::after {
+        clear: both;
+        content: '';
+        display: block;
+    }
+}
+
+.no-pointer-events {
+    pointer-events: none;
+}

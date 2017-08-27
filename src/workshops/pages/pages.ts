@@ -25,7 +25,7 @@ export class PagesWorkshop {
     private readonly routeHandler: IRouteHandler;
     private readonly viewManager: IViewManager;
     private template: Contract;
-    private searchTimeout: number;
+    private searchTimeout: any;
 
     public readonly searchPattern: KnockoutObservable<string>;
     public readonly pages: KnockoutObservableArray<PageItem>;

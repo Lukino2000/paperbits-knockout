@@ -26,7 +26,7 @@ export class MediaWorkshop {
     private readonly viewManager: IViewManager;
     private layoutEditor: LayoutEditor; //TODO: Review usage and remove;
     private dropHandlers: Array<IContentDropHandler>; // TODO: Switch to IWidgetHandlers
-    private searchTimeout: number;
+    private searchTimeout: any;
 
     public searchPattern: KnockoutObservable<string>;
     public mediaItems: KnockoutObservableArray<MediaItem>;

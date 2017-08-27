@@ -1,0 +1,287 @@
+.icon-box {
+    background-repeat: no-repeat;
+    background-position: center center;
+}
+
+.icon-smaller {
+    background-size: 35%;
+}
+
+.icon-search {
+    @extend .icon-box;
+    background-image: url(inline-image("src/svgs/outline-zoom.svg"));
+}
+
+.icon-clear {
+    @extend .icon-box;
+    background-image: url(inline-image("src/svgs/outline-clear.svg"));
+}
+
+.icon-hyperlink {
+    @extend .icon-box;
+    background-image: url(inline-image("src/svgs/outline-link.svg"));
+}
+
+.icon-drop {
+    @extend .icon-box;
+    background-image: url(inline-image("src/svgs/outline-drop.svg"));
+}
+
+.icon-map {
+    @extend .icon-box;
+    background-image: url(inline-image("src/svgs/outline-map-pin.svg"));
+}
+
+.icon-video {
+    @extend .icon-box;
+    background-image: url(inline-image("src/svgs/outline-video.svg"));
+}
+
+.icon-orderedlist {
+    @extend .icon-box;
+    background-image: url(inline-image("src/svgs/outline-list-numbers.svg"));
+}
+
+.icon-unorderedlist {
+    @extend .icon-box;
+    background-image: url(inline-image("src/svgs/outline-list-bullet.svg"));
+}
+
+.icon-picture {
+    @extend .icon-box;
+    background-image: url(inline-image("src/svgs/outline-picture.svg"));
+}
+
+.icon-bold {
+    @extend .icon-box;
+    background-image: url(inline-image("src/svgs/outline-bold.svg"));
+}
+
+.icon-italic {
+    @extend .icon-box;
+    background-image: url(inline-image("src/svgs/outline-italic.svg"));
+}
+
+.icon-underline {
+    @extend .icon-box;
+    background-image: url(inline-image("src/svgs/outline-underline.svg"));
+}
+
+.icon-alignleft {
+    @extend .icon-box;
+    background-image: url(inline-image("src/svgs/outline-align-left.svg"));
+}
+
+.icon-aligncenter {
+    @extend .icon-box;
+    background-image: url(inline-image("src/svgs/outline-align-center.svg"));
+}
+
+.icon-alignright {
+    @extend .icon-box;
+    background-image: url(inline-image("src/svgs/outline-align-right.svg"));
+}
+
+.icon-justify {
+    @extend .icon-box;
+    background-image: url(inline-image("src/svgs/outline-align-justify.svg"));
+}
+
+.icon-gears {
+    @extend .icon-box;
+    background-image: url(inline-image("src/svgs/outline-preferences.svg"));
+}
+
+.icon-plus {
+    @extend .icon-box;
+    background-image: url(inline-image("src/svgs/outline-plus.svg"));
+}
+
+.icon-trash-inverted {
+    @extend .icon-box;
+    background-image: url(inline-image("src/svgs/outline-trash-inverted.svg"));
+}
+
+.icon-plus-inverted {
+    @extend .icon-box;
+    background-image: url(inline-image("src/svgs/outline-plus-inverted.svg"));
+}
+
+.icon-deletefolder {
+    @extend .icon-box;
+    background-image: url(inline-image("src/svgs/outline-minus.svg"));
+}
+
+.icon-uploadmedia {
+    @extend .icon-box;
+    background-image: url(inline-image("src/svgs/outline-upload.svg"));
+}
+
+.icon-menus {
+    @extend .icon-box;
+    background-image: url(inline-image("src/svgs/outline-menu.svg"));
+}
+
+.icon-pages {
+    @extend .icon-box;
+    background-image: url(inline-image("src/svgs/outline-page.svg"));
+}
+
+.icon-blogs {
+    @extend .icon-box;
+    background-image: url(inline-image("src/svgs/outline-blog.svg"));
+}
+
+.icon-blog-post {
+    @extend .icon-box;
+    background-image: url(inline-image("src/svgs/outline-blog.svg"));
+}
+
+.icon-minus {
+    @extend .icon-box;
+    background-image: url(inline-image("src/svgs/outline-minus.svg"));
+}
+
+.icon-news {
+    @extend .icon-box;
+    background-image: url(inline-image("src/svgs/outline-notification.svg"));
+}
+
+.icon-notification {
+    @extend .icon-box;
+    background-image: url(inline-image("src/svgs/outline-notification.svg"));
+}
+
+.icon-pen {
+    @extend .icon-box;
+    background-image: url(inline-image("src/svgs/outline-pen.svg"));
+}
+
+.icon-gear-inverted {
+    @extend .icon-box;
+    background-image: url(inline-image("src/svgs/outline-gear-inverted.svg"));
+}
+
+.icon-page {
+    @extend .icon-box;
+    background-image: url(inline-image("src/svgs/outline-page.svg"));
+}
+
+.icon-widget {
+    @extend .icon-box;
+    background-image: url(inline-image("src/svgs/outline-puzzle.svg"));
+}
+
+.icon-layout {
+    @extend .icon-box;
+    background-image: url(inline-image("src/svgs/outline-layout.svg"));
+}
+
+.icon-image {
+    background-repeat: no-repeat;
+    background-position: left center;
+    background-image: url(inline-image("src/svgs/outline-picture.svg"));
+}
+
+.icons-draghandle {
+    @extend .icon-box;
+    background-image: url(inline-image("src/svgs/icons-draghandle.svg"));
+}
+
+.icons-success {
+    @extend .icon-box;
+    background-image: url(inline-image("src/svgs/icons-success.svg"));
+    background-size: auto 90%;
+}
+
+.icons-expand {
+    @extend .icon-box;
+    background-image: url(inline-image("src/svgs/icons-expand.svg"));
+    background-size: auto 90%;
+}
+
+.icons-collapse {
+    @extend .icon-box;
+    background-image: url(inline-image("src/svgs/icons-collapse.svg"));
+    background-size: auto 90%;
+}
+
+.icon-info {
+    @extend .icon-box;
+    background-image: url(inline-image("src/svgs/outline-info.svg"));
+}
+
+.icon-arrow-up-left {
+    @extend .icon-box;
+    background-image: url(inline-image("src/svgs/outline-arrow-up-left.svg"));
+}
+
+.icon-arrow-up {
+    @extend .icon-box;
+    background-image: url(inline-image("src/svgs/outline-arrow-up.svg"));
+}
+
+.icon-arrow-up-right {
+    @extend .icon-box;
+    background-image: url(inline-image("src/svgs/outline-arrow-up-right.svg"));
+}
+
+.icon-arrow-left {
+    @extend .icon-box;
+    background-image: url(inline-image("src/svgs/outline-arrow-left.svg"));
+}
+
+.icon-arrow-center {
+    @extend .icon-box;
+    background-image: url(inline-image("src/svgs/outline-enlarge.svg"));
+}
+
+.icon-arrow-right {
+    @extend .icon-box;
+    background-image: url(inline-image("src/svgs/outline-arrow-right.svg"));
+}
+
+.icon-arrow-down-left {
+    @extend .icon-box;
+    background-image: url(inline-image("src/svgs/outline-arrow-down-left.svg"));
+}
+
+.icon-arrow-down {
+    @extend .icon-box;
+    background-image: url(inline-image("src/svgs/outline-arrow-down.svg"));
+}
+
+.icon-arrow-down-right {
+    @extend .icon-box;
+    background-image: url(inline-image("src/svgs/outline-arrow-down-right.svg"));
+}
+
+.icon-desktop {
+    @extend .icon-box;
+    background-image: url(inline-image("src/svgs/outline-desktop.svg"));
+}
+
+.icon-tablet {
+    @extend .icon-box;
+    background-image: url(inline-image("src/svgs/outline-tablet.svg"));
+}
+
+.icon-tablet-landscape {
+    @extend .icon-box;
+    background-image: url(inline-image("src/svgs/outline-tablet-landscape.svg"));
+}
+
+.icon-phone {
+    @extend .icon-box;
+    background-image: url(inline-image("src/svgs/outline-phone.svg"));
+}
+
+.icon-tail-left {
+    @extend .icon-box;
+    background-image: url(inline-image("src/svgs/outline-tail-left.svg"));
+}
+
+.icon-tail-right {
+    @extend .icon-box;
+    background-image: url(inline-image("src/svgs/outline-tail-right.svg"));
+}
