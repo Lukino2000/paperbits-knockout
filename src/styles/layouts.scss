@@ -54,7 +54,7 @@ paperbits-text, paperbits-picture, paperbits-code, paperbits-video-player, paper
     z-index: $z-index-selection;
     &:before {
         content: attr(title);
-        background: #607d8b;
+        background: #3c3c3c;
         color: #fff;
         padding: 5px;
         left: -5px;
@@ -63,6 +63,7 @@ paperbits-text, paperbits-picture, paperbits-code, paperbits-video-player, paper
         font-size: 8px;
         text-transform: uppercase;
         font-family: $font-family-base;
+        opacity: .7;
     }
 }
 
