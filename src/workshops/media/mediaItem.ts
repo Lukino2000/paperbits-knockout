@@ -7,9 +7,11 @@ export class MediaItem {
     public widgetOrder: IWidgetOrder;
     public element: HTMLElement;
     public hasFocus: KnockoutObservable<boolean>;
+    public url: string;
 
     constructor(media: IMedia) {
         this.media = media;
         this.hasFocus = ko.observable<boolean>();
+        this.url = media.downloadUrl;
     }
 }

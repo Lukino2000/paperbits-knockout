@@ -213,7 +213,8 @@ export class ComponentRegistrationEditors implements IInjectorModule {
         injector.bindComponent("mediaSelector", (ctx: IInjector, params: {}) => {
             var mediaService = ctx.resolve<IMediaService>("mediaService");
             var permalinkService = ctx.resolve<IPermalinkService>("permalinkService");
-            return new MediaSelector(mediaService, permalinkService, params["onSelect"]);
+            var viewManager = ctx.resolve<IViewManager>("viewManager");
+            return new MediaSelector(mediaService, permalinkService, viewManager, params["onSelect"]);
         });
 
         injector.bindComponent("colorSelector", (ctx: IInjector, params: {}) => {

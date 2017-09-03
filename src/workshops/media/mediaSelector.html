@@ -2,15 +2,24 @@
 <spinner></spinner>
 <!--/ko-->
 
-<div class="flex-container flex-container-column list-container">
-    <!--<fieldset class="flex-item form">
+<div class="editor">
+    <div class="flex-container flex-container-column list-container">
+        <!--<fieldset class="flex-item form">
         <input class="form-control" type="search" data-bind="value: searchPattern, valueUpdate: 'keyup'" placeholder="Search media..."
         />
     </fieldset>-->
 
-    <ul class="flex-item flex-item-grow list" data-bind="foreach: mediaItems, scrollable: {}">
-        <li class="list-item icon icon-image" data-bind="css: { selected: hasFocus }, dragsource: { sticky: true, payload: $data, ondragstart: $parent.onDragStart, ondragend: $parent.onDragEnd }">
-            <a href="#" data-bind="text: media.filename, click: $component.selectMedia, hasFocus: hasFocus, event: { keydown: $component.keydown }, attr: { title: media.filename }"></a>
-        </li>
-    </ul>
+        <ul class="flex-item flex-item-grow list" data-bind="foreach: { data: mediaItems, as: 'media' }, scrollable: {}">
+            <!--ko if: $component.working()-->
+            <spinner></spinner>
+            <!--/ko-->
+            <li class="list-item list-item-float" data-bind="css: { selected: hasFocus }, dragsource: { sticky: true, payload: $data, ondragstart: $parent.onDragStart, ondragend: $parent.onDragEnd }">
+                <a class="thumbnail" href="#" data-bind="click: $component.selectMedia, hasFocus: hasFocus, event: { keydown: $component.keydown }, style: { 'background-image': 'url('+media.downloadUrl+')' }, attr: { title: media.filename }"></a>
+            </li>
+        </ul>
+
+        <div class="flex-item button-group">
+            <button class="button" data-bind="click: uploadMedia"><span class="icon icon-uploadmedia">Upload file</span></button>
+        </div>
+    </div>
 </div>

@@ -166,6 +166,18 @@ export class FormattingTools {
 
     public toggleH1(): void {
         this.htmlEditorProvider.getCurrentHtmlEditor().toggleH1();
+
+        /*
+            1. Create permalink and get its key;
+            2. Add the key to "anchors" collection of a page;
+            3. Invoke toggleCategory:
+            
+            this.htmlEditorProvider.getCurrentHtmlEditor().toggleCategory("anchorKey", "permalinks/abcdefgh", "block")
+
+            Why we were talking about middlewares?
+            - i.e. I deleted whole section along with H1 > show warning;
+        */
+
         this.updateFormattingState();
     }
 

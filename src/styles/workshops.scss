@@ -1,9 +1,6 @@
 ﻿@import "variables.scss";
-
 @import "icons.scss";
-
 @import "mixins.scss";
-
 @import "animation.scss";
 
 .workshop {
@@ -11,6 +8,7 @@
         .workshop-journey-step {
             width: 300px;
             margin: 10px;
+            height: 300px;
         }
     }
 
@@ -36,7 +34,6 @@
     overflow: visible;
     position: relative;
     padding: 10px;
-
     @media (min-width: $breakpoint-lg) {
         height: auto;
         bottom: initial;
@@ -59,4 +56,18 @@
 
 .workshop:last-child {
     margin-right: 0;
+}
+
+media-selector {
+    .list-container {
+        width: 260px;
+        max-height: 260px;
+    }
+}
+
+hyperlink-selector {
+    .list-container {
+        max-height: 260px;
+        max-width: 260px;
+    }
 }
