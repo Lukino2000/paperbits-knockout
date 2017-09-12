@@ -38,7 +38,8 @@ export class AudioHandlers extends MediaHandlers implements IWidgetHandler, ICon
         };
 
         var widgetOrder: IWidgetOrder = {
-            title: "Audio",
+            name: "audio-player",
+            displayName: "Audio player",
 
             createWidget: () => {
                 let htmlElement = document.createElement("widget");
@@ -86,7 +87,8 @@ export class AudioHandlers extends MediaHandlers implements IWidgetHandler, ICon
                 }
 
                 var widgetOrder: IWidgetOrder = {
-                    title: "Audio recording",
+                    name: "audio-player",
+                    displayName: "Audio player",
                     createWidget: factoryFunction,
                     createModel:() =>{
                         return model;

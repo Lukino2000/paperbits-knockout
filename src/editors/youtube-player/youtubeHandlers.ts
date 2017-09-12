@@ -27,7 +27,8 @@ export class YoutubeHandlers implements IWidgetHandler, IContentDropHandler {
         // let widgetModel = await this.youtubePlayerModelBinder.modelToWidgetModel(youtubePlayerModel);
 
         let widgetOrder: IWidgetOrder = {
-            title: "Youtube player",
+            name: "youtube-player",
+            displayName: "Youtube player",
             createWidget: () => {
                 throw "Not implemented.";
                 // let htmlElement = document.createElement("widget");

@@ -1,5 +1,5 @@
 {
-    "vienna.io": {
+    "default": {
         "tenantId": "default",
         "firebase": {
             "apiKey": "AIzaSyC3ele01iE9B32yJ_6OjVSnsZCz18EVddE",

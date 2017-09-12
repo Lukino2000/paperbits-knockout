@@ -285,3 +285,28 @@
     @extend .icon-box;
     background-image: url(inline-image("src/svgs/outline-tail-right.svg"));
 }
+
+.icon-video-player {
+    @extend .icon-box;
+    background-image: url(inline-image("src/svgs/outline-video.svg"));
+}
+
+.icon-text-block {
+    @extend .icon-box;
+    background-image: url(inline-image("src/svgs/outline-text.svg"));
+}
+
+.icon-button {
+    @extend .icon-box;
+    background-image: url(inline-image("src/svgs/outline-button.svg"));
+}
+
+.icon-youtube-player {
+    @extend .icon-box;
+    background-image: url(inline-image("src/svgs/youtube.svg"));
+}
+
+.icon-navbar {
+    @extend .icon-box;
+    background-image: url(inline-image("src/svgs/outline-menu.svg"));
+}

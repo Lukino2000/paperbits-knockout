@@ -32,7 +32,8 @@ export class TextblockHandlers implements IWidgetHandler {
         });
 
         let widgetOrder: IWidgetOrder = {
-            title: "Text block",
+            name: "text-block",
+            displayName: "Text block",
 
             createWidget: () => {
                 throw "Not implemented.";

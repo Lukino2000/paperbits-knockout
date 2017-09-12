@@ -5,10 +5,15 @@
 <div class="editor">
     <h1>Add widget</h1>
     <hr/>
+    <div class="flex-container flex-container-column list-container">
+        <ul class="list" data-bind="foreach: widgets, scrollable: {}">
+            <!-- <li class="list-item icon icon-widget" data-bind="css: { selected: hasFocus }">
+            <a href="#" data-bind="text: displayName, hasFocus: hasFocus, click: $component.selectWidget"></a>
+            </li> -->
 
-    <ul class="list" data-bind="foreach: widgets, scrollable: {}">
-        <li class="list-item icon icon-widget" data-bind="css: { selected: hasFocus }">
-            <a href="#" data-bind="text: title, hasFocus: hasFocus, click: $component.selectWidget"></a>
-        </li>
-    </ul>
+            <li class="list-item list-item-large icon" data-bind="css: css">
+                <a href="#" data-bind="text: displayName, hasFocus: hasFocus, click: $component.selectWidget"></a>
+            </li>
+        </ul>
+    </div>
 </div>

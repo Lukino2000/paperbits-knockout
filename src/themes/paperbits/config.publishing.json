@@ -25,7 +25,7 @@
             "containerId": "GTM-NKC8HD"
         }
     },
-    "vienna.io": {
+    "default": {
         "tenantId": "default",
         "firebase": {
             "apiKey": "AIzaSyB5OCRbwJpE2tDYsMkDXZAVugGCyvYvXsI",

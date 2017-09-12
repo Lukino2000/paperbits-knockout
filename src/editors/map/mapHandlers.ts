@@ -60,7 +60,8 @@ export class MapHandlers implements IWidgetHandler, IContentDropHandler {
         }
 
         let widgetOrder: IWidgetOrder = {
-            title: "Map",
+            name: "map",
+            displayName: "Map",
             createWidget: factoryFunction,
             createModel: () => {
                 return model;

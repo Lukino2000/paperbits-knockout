@@ -33,7 +33,8 @@ export class ButtonHandlers implements IWidgetHandler {
         }
 
         let widgetOrder: IWidgetOrder = {
-            title: "Button",
+            name: "button",
+            displayName: "Button",
             createWidget: factoryFunction,
             createModel: () => {
                 return model;

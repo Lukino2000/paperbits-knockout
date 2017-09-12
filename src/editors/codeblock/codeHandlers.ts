@@ -38,7 +38,8 @@ export class CodeHandlers extends MediaHandlers implements IWidgetHandler, ICont
         };
 
         var widgetOrder: IWidgetOrder = {
-            title: "Code",
+            name: "code-block",
+            displayName: "Code",
 
             createWidget: () => {
                 let htmlElement = document.createElement("widget");
@@ -82,7 +83,8 @@ export class CodeHandlers extends MediaHandlers implements IWidgetHandler, ICont
 
     createWidgetOrderByConfig(config?: ICodeConfig): IWidgetOrder {
         var widgetOrder: IWidgetOrder = {
-            title: "Code",
+            name: "code-block",
+            displayName: "Code",
             createWidget: () => <IWidgetFactoryResult>{
                 element: Utils.createComponent("paperbits-code", {
                     code: config ? config.code || "" : "function foo(items) {\r\n\tvar x = 'Put your code snippet here';\r\n\treturn x;\r\n}",

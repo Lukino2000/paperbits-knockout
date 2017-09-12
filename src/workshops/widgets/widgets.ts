@@ -48,7 +48,8 @@ export class WidgetsWorkshop {
         widgetOrders.forEach((widgetOrder) => {
             let widgetItem = new WidgetItem();
 
-            widgetItem.title = widgetOrder.title;
+            widgetItem.css = `icon-${widgetOrder.name}`,
+            widgetItem.displayName = widgetOrder.displayName;
             widgetItem.widgetOrder = widgetOrder;
 
             items.push(widgetItem);

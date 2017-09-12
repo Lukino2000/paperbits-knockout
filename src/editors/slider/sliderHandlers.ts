@@ -34,7 +34,8 @@ export class SliderHandlers implements IWidgetHandler {
         }
 
         let widgetOrder: IWidgetOrder = {
-            title: "Slider",
+            name: "slider",
+            displayName: "Slider",
             createWidget: factoryFunction,
             createModel: () => {
                 return model;

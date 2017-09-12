@@ -41,7 +41,8 @@ export class PictureHandlers implements IWidgetHandler, IContentDropHandler {
         }
 
         let widgetOrder: IWidgetOrder = {
-            title: "Picture",
+            name: "picture",
+            displayName: "Picture",
             createWidget: factoryFunction,
             createModel: () => {
                 return model;
@@ -58,7 +59,8 @@ export class PictureHandlers implements IWidgetHandler, IContentDropHandler {
         model.layout = "noframe";
 
         let widgetOrder: IWidgetOrder = {
-            title: "Picture",
+            name: "picture",
+            displayName: "Picture",
             createWidget: () => {
                 throw "Not implemented.";
 

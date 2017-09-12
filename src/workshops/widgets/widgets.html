@@ -3,7 +3,11 @@
 <!--/ko-->
 
 <ul class="list" data-bind="foreach: widgets, scrollable: {}">
-    <li class="list-item icon icon-widget" data-bind="css: { selected: hasFocus }, dragsource: { sticky: true, payload: $data, ondragstart: $parent.onDragStart, ondragend: $parent.onDragEnd }">
-        <a href="#" data-bind="text: title, hasFocus: hasFocus"></a>
+    <!-- <li class="list-item icon icon-widget" data-bind="css: { selected: hasFocus }">
+        <a href="#" data-bind="text: displayName, hasFocus: hasFocus, click: $component.selectWidget"></a>
+        </li> -->
+
+    <li class="list-item list-item-large icon" data-bind="css: css">
+        <a href="#" data-bind="text: displayName, hasFocus: hasFocus, click: $component.selectWidget"></a>
     </li>
 </ul>

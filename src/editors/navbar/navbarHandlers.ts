@@ -37,7 +37,8 @@ export class NavbarHandlers implements IWidgetHandler {
         
 
         let widgetOrder: IWidgetOrder = {
-            title: "Navigation bar",
+            name: "navbar",
+            displayName: "Navigation bar",
             createWidget: () => {
                 throw "Not implemented.";
 

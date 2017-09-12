@@ -2,7 +2,8 @@
 import { IWidgetOrder } from "@paperbits/common/editing/IWidgetOrder";
 
 export class WidgetItem {
-    public title: string;
+    public css: string;
+    public displayName: string;
     public widgetOrder: IWidgetOrder;
     public element: HTMLElement;
     public hasFocus: KnockoutObservable<boolean>;
