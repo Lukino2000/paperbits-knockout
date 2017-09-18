@@ -1,9 +1,14 @@
 ﻿import * as ko from "knockout";
 import * as template from "./formattingTools.html";
-import { IEventManager } from '@paperbits/common/events/IEventManager';
-import { IHtmlEditorProvider } from '@paperbits/common/editing/htmlEditorProvider';
+import * as Utils from "@paperbits/common/core/utils";
+import { IEventManager } from "@paperbits/common/events/IEventManager";
+import { IHtmlEditorProvider } from "@paperbits/common/editing/htmlEditorProvider";
 import { Intention } from "@paperbits/common/ui/color";
 import { Component } from "../../../decorators/component";
+import { IPermalinkService } from "@paperbits/common/permalinks/IPermalinkService";
+import { IPageService } from "@paperbits/common/pages/IPageService";
+import { IRouteHandler } from "@paperbits/common/routing/IRouteHandler";
+import { IBag } from "@paperbits/common/core/IBag";
 
 
 @Component({
@@ -14,6 +19,9 @@ import { Component } from "../../../decorators/component";
 export class FormattingTools {
     private readonly htmlEditorProvider: IHtmlEditorProvider;
     private readonly eventManager: IEventManager;
+    private readonly permalinkService: IPermalinkService;
+    private readonly pageService: IPageService;
+    private readonly routeHandler: IRouteHandler;
 
     public bold: KnockoutObservable<boolean>;
     public italic: KnockoutObservable<boolean>;
@@ -27,13 +35,18 @@ export class FormattingTools {
     public alignedCenter: KnockoutObservable<boolean>;
     public alignedRight: KnockoutObservable<boolean>;
     public justified: KnockoutObservable<boolean>;
-    public styleIntentionKey: KnockoutObservable<string>;
+    public styleIntentions: KnockoutObservable<Object>;
+    public anchored: KnockoutObservable<boolean>;
 
-    constructor(htmlEditorProvider: IHtmlEditorProvider, eventManager: IEventManager) {
+    constructor(htmlEditorProvider: IHtmlEditorProvider, eventManager: IEventManager, permalinkService: IPermalinkService, pageService: IPageService, routeHandler: IRouteHandler) {
         this.htmlEditorProvider = htmlEditorProvider;
         this.eventManager = eventManager;
+        this.permalinkService = permalinkService;
+        this.pageService = pageService;
+        this.routeHandler = routeHandler;
 
         this.updateFormattingState = this.updateFormattingState.bind(this);
+        this.setStyle = this.setStyle.bind(this);
 
         this.bold = ko.observable<boolean>();
         this.italic = ko.observable<boolean>();
@@ -47,40 +60,33 @@ export class FormattingTools {
         this.alignedCenter = ko.observable<boolean>();
         this.alignedRight = ko.observable<boolean>();
         this.justified = ko.observable<boolean>();
-        this.styleIntentionKey = ko.observable<string>();
+        this.styleIntentions = ko.observable<IBag<string>>({});
+        this.anchored = ko.observable<boolean>();
 
         eventManager.addEventListener("htmlEditorChanged", this.updateFormattingState)
     }
 
-    private updateFormattingState() {
-        var selectionState = this.htmlEditorProvider.getCurrentHtmlEditor().getSelectionState();
+    private updateFormattingState(): void {
+        const selectionState = this.htmlEditorProvider.getCurrentHtmlEditor().getSelectionState();
+
         this.bold(selectionState.bold);
         this.italic(selectionState.italic);
         this.underlined(selectionState.underlined);
         this.ul(selectionState.ul);
         this.ol(selectionState.ol);
         this.pre(selectionState.code);
-
-        this.alignedLeft(selectionState.intentions.block.some(_ => _ == "alignedLeft"));
-        this.alignedCenter(selectionState.intentions.block.some(_ => _ == "alignedCenter"));
-        this.alignedRight(selectionState.intentions.block.some(_ => _ == "alignedRight"));
-        this.justified(selectionState.intentions.block.some(_ => _ == "justified"));
-        this.styled(selectionState.intentions.block.some(_ => _.indexOf("color") == 0));
-        this.setStyle = this.setStyle.bind(this);
+        this.alignedLeft(selectionState.intentions.alignment == "alignedLeft");
+        this.alignedCenter(selectionState.intentions.alignment == "alignedCenter");
+        this.alignedRight(selectionState.intentions.alignment == "alignedRight");
+        this.justified(selectionState.intentions.alignment == "justified");
+        this.anchored(!!selectionState.intentions.anchorKey);
 
         if (!this.alignedLeft() && !this.alignedCenter() && !this.alignedRight() && !this.justified()) {
             this.alignedLeft(true);
         }
 
-        var styleIntentionKey = selectionState.intentions.block.find(_ => _.indexOf("color") == 0);
-        styleIntentionKey = styleIntentionKey && styleIntentionKey.length > 5 && styleIntentionKey.substring(5);
-
-        if (styleIntentionKey) {
-            this.styleIntentionKey(styleIntentionKey);
-        }
-        else {
-            this.styleIntentionKey(null);
-        }
+        this.styleIntentions(selectionState.intentions);
+        this.styled(!!(selectionState.intentions.color || selectionState.intentions.lead));
 
         if (selectionState.normal) {
             this.style("Normal");
@@ -121,26 +127,8 @@ export class FormattingTools {
         this.updateFormattingState();
     }
 
-    public setStyle(intentionKey: string): void {
-        switch (intentionKey) {
-            case "text-color-primary":
-            case "text-color-danger":
-            case "text-color-inverted":
-                this.htmlEditorProvider.getCurrentHtmlEditor().toggleColor(intentionKey);
-                break;
-
-            case "text-lead":
-                this.htmlEditorProvider.getCurrentHtmlEditor().toggleCategory("lead", intentionKey, "block");
-                break;
-
-            case null:
-                // this.htmlEditorProvider.getCurrentHtmlEditor().clearColor();
-                break;
-
-            default:
-                throw `Unapplicable text style intention ${intentionKey}`;
-        }
-
+    public setStyle(intention): void {
+        this.htmlEditorProvider.getCurrentHtmlEditor().toggleCategory(intention.category, intention.key, intention.scope);
         this.updateFormattingState();
     }
 
@@ -164,8 +152,39 @@ export class FormattingTools {
         this.updateFormattingState();
     }
 
-    public toggleH1(): void {
-        this.htmlEditorProvider.getCurrentHtmlEditor().toggleH1();
+    public async toggleAnchor(): Promise<void> {
+        const htmlEditor = this.htmlEditorProvider.getCurrentHtmlEditor();
+        const selectionState = htmlEditor.getSelectionState();
+        const anchorKey = selectionState.intentions.anchorKey;
+        const currentUrl = this.routeHandler.getCurrentUrl();
+        const permalink = await this.permalinkService.getPermalinkByUrl(currentUrl);
+        const pageContract = await this.pageService.getPageByKey(permalink.targetKey);
+
+        if (!anchorKey) {
+            const anchorId = Utils.guid();
+            const anchorPermalink = await this.permalinkService.createPermalink(`${anchorId}`, null, permalink.key);
+
+            htmlEditor.toggleCategory("anchorKey", anchorPermalink.key, "block");
+
+            // TODO: Probably we should show dialog and allow users to enter anchor title.
+            const anchorTitle = htmlEditor.getSelectionText();
+            const anchors = pageContract.anchors || {};
+            anchors[anchorPermalink.key.replaceAll("/", "|")] = anchorTitle;
+            pageContract.anchors = anchors;
+
+            await this.pageService.updatePage(pageContract);
+        }
+        else {
+            this.htmlEditorProvider.getCurrentHtmlEditor().toggleCategory("anchorKey", anchorKey, "block");
+            this.permalinkService.deletePermalinkByKey(anchorKey);
+
+            if (pageContract.anchors) {
+                pageContract.anchors[anchorKey.replaceAll("/", "|")] = null;
+                await this.pageService.updatePage(pageContract);
+            }
+        }
+
+        this.updateFormattingState();
 
         /*
             1. Create permalink and get its key;
@@ -177,7 +196,10 @@ export class FormattingTools {
             Why we were talking about middlewares?
             - i.e. I deleted whole section along with H1 > show warning;
         */
+    }
 
+    public toggleH1(): void {
+        this.htmlEditorProvider.getCurrentHtmlEditor().toggleH1();
         this.updateFormattingState();
     }
 

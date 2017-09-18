@@ -36,10 +36,10 @@ export class SlateBindingHandler {
 
                 eventManager.addEventListener("enableHtmlEditor", onHtmlEditorRequested);
 
-                htmlEditor.updateState(stateObservable());
+                htmlEditor.setState(stateObservable());
 
                 stateObservable.subscribe(state => {
-                    htmlEditor.updateState(state);
+                    htmlEditor.setState(state);
                 });
 
                 ko.utils.domNodeDisposal.addDisposeCallback(element, () => {

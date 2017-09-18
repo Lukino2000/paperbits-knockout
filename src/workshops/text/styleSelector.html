@@ -1,15 +1,12 @@
-<h1>Text style</h1>
-<ul>
-    <li>
-        <a href="#" data-bind="click: $component.clearIntentions">
-            Clear style
-        </a>
-    </li>
-
-    <!-- ko foreach: { data: intentions, as: 'intention' } -->
-    <li>
-        <a href="#" data-bind="click: $component.selectIntention, css: intention.css">AaBbCcDd</a>
-        <sub data-bind="text: intention.name"></sub>
-    </li>
-    <!--/ko -->
-</ul>
+<div class="editor">
+    <h1>Text style</h1>
+    
+    <ul class="list">
+        <!-- ko foreach: { data: intentions, as: 'intention' } -->
+        <li class="list-item" data-bind="css: { selected: intention.selected() }">
+            <a href="#" data-bind="click: $component.selectIntention, css: intention.css">AaBbCcDd</a>
+            <sub data-bind="text: intention.name"></sub>
+        </li>
+        <!--/ko -->
+    </ul>
+</div>

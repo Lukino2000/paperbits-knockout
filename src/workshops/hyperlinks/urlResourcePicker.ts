@@ -13,8 +13,8 @@ export class UrlResourcePicker implements IHyperlinkProvider {
         this.permalinkService = permalinkService;
     }
 
-    public canHandleResource(resource: string): boolean {
-        return true;
+    public canHandleHyperlink(hyperlink: HyperlinkModel): boolean {
+        return hyperlink.type === "url";
     }
 
     public getHyperlinkFromResource(url: string): HyperlinkModel {

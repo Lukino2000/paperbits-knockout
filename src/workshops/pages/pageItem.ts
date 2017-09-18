@@ -1,6 +1,18 @@
 import * as ko from "knockout";
 import { IPage } from "@paperbits/common/pages/IPage";
 
+export class AnchorItem {
+    public hasFocus: KnockoutObservable<boolean>;
+    public title: string;
+    public shortTitle: string;
+    public permalinkKey: string;
+    public pagePermalinkKey: string;
+
+    constructor() {
+        this.hasFocus = ko.observable<boolean>(false);
+    }
+}
+
 export class PageItem {
     contentKey?: string;
     permalinkKey?: string;
@@ -12,6 +24,8 @@ export class PageItem {
     public keywords: KnockoutObservable<string>;
     public hasFocus: KnockoutObservable<boolean>;
 
+    public anchors: AnchorItem[];
+
     constructor(page: IPage) {
         this.contentKey = page.contentKey;
         this.permalinkKey = page.permalinkKey;
@@ -22,6 +36,17 @@ export class PageItem {
         this.description = ko.observable<string>(page.description);
         this.keywords = ko.observable<string>(page.keywords);
         this.hasFocus = ko.observable<boolean>(false);
+        this.anchors = [];
+
+        if (page.anchors) {
+            Object.keys(page.anchors).forEach(key => {
+                const anchorItem = new AnchorItem();
+                anchorItem.title = `${page.title} > ${page.anchors[key]}`;
+                anchorItem.shortTitle = page.anchors[key];
+                anchorItem.permalinkKey = key.replaceAll("|", "/");
+                this.anchors.push(anchorItem);
+            })
+        }
     }
 
     toPage(): IPage {

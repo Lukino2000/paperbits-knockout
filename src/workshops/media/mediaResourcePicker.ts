@@ -17,8 +17,8 @@ export class MediaResourcePicker implements IHyperlinkProvider {
         this.mediaService = mediaService;
     }
 
-    public canHandleResource(resource: string): boolean {
-        return resource.startsWith("uploads/");
+    public canHandleHyperlink(hyperlink: HyperlinkModel): boolean {
+        return hyperlink.type === "media";
     }
 
     public getHyperlinkFromLinkable(media: IMedia): HyperlinkModel {
@@ -26,6 +26,7 @@ export class MediaResourcePicker implements IHyperlinkProvider {
         hyperlinkModel.title = media.filename;
         hyperlinkModel.target = "_blank";
         hyperlinkModel.permalinkKey = media.permalinkKey;
+        hyperlinkModel.type = "media";
 
         return hyperlinkModel;
     }
@@ -37,6 +38,7 @@ export class MediaResourcePicker implements IHyperlinkProvider {
         hyperlinkModel.title = media.filename;
         hyperlinkModel.target = target;
         hyperlinkModel.permalinkKey = permalink.key;
+        hyperlinkModel.type = "media";
 
         return hyperlinkModel;
     }
@@ -46,6 +48,7 @@ export class MediaResourcePicker implements IHyperlinkProvider {
         hyperlinkModel.title = media.filename;
         hyperlinkModel.target = "_blank";
         hyperlinkModel.permalinkKey = media.permalinkKey;
+        hyperlinkModel.type = "media";
 
         return hyperlinkModel;
     }

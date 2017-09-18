@@ -55,6 +55,8 @@ import { Substitute7ModelBinder } from "./widgets/substitute7/substitute7ModelBi
 import { Substitute7ViewModelBinder } from "./widgets/substitute7/substitute7ViewModelBinder";
 import { Substitute8ModelBinder } from "./widgets/substitute8/substitute8ModelBinder";
 import { Substitute8ViewModelBinder } from "./widgets/substitute8/substitute8ViewModelBinder";
+import { OfflineObjectStorage } from "@paperbits/common/persistence/offlineObjectStorage";
+import { AnchorMiddleware } from "@paperbits/common/persistence/AnchorMiddleware";
 
 
 $(() => {
@@ -67,7 +69,7 @@ $(() => {
     injector.bindModule(new KnockoutRegistrationLoaders());
     injector.bindModule(new KnockoutRegistrationCommon());
     injector.bindModule(new KnockoutRegistrationWidgets());
-    injector.bindModule(new FirebaseModule(true));
+    injector.bindModule(new FirebaseModule());
     injector.bindModule(new ThemeModule());
 
     let modelBinders = new Array();
@@ -89,7 +91,7 @@ $(() => {
 
     injector.bind("htmlEditorFactory", () => {
         return {
-            createHtmlEditor : () => {
+            createHtmlEditor: () => {
                 return injector.resolve("htmlEditor");
             }
         }
@@ -125,7 +127,7 @@ $(() => {
     viewModelBinders.push(injector.resolve("videoPlayerViewModelBinder"));
     viewModelBinders.push(injector.resolve("mapViewModelBinder"));
 
-    
+
     injector.bind("substitute1ModelBinder", Substitute1ModelBinder);
     modelBinders.push(injector.resolve("substitute1ModelBinder"));
     injector.bind("substitute1ViewModelBinder", Substitute1ViewModelBinder);
@@ -145,7 +147,7 @@ $(() => {
     modelBinders.push(injector.resolve("substitute4ModelBinder"));
     injector.bind("substitute4ViewModelBinder", Substitute4ViewModelBinder);
     viewModelBinders.push(injector.resolve("substitute4ViewModelBinder"));
-    
+
     injector.bind("substitute5ModelBinder", Substitute5ModelBinder);
     modelBinders.push(injector.resolve("substitute5ModelBinder"));
     injector.bind("substitute5ViewModelBinder", Substitute5ViewModelBinder);
@@ -179,8 +181,12 @@ $(() => {
     injector.resolve("slateBindingHandler");
     injector.resolve("balloonBindingHandler");
     injector.resolve("backgroundBindingHandler");
-
     injector.resolve("savingHandler");
+
+    const offlineObjectStorage = injector.resolve<OfflineObjectStorage>("offlineObjectStorage");
+    const anchorMiddleware = injector.resolve<AnchorMiddleware>("anchorMiddleware");
+
+    offlineObjectStorage.registerMiddleware(anchorMiddleware);
 
     ko.applyBindings();
 });

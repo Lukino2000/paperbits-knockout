@@ -17,8 +17,8 @@ export class BlogResourcePicker implements IHyperlinkProvider {
         this.blogPermalinkResolver = blogPermalinkResolver;
     }
 
-    public canHandleResource(resource: string): boolean {
-        return resource.startsWith("posts/");
+    public canHandleHyperlink(hyperlink: HyperlinkModel): boolean {
+        return hyperlink.type === "post";
     }
 
     public getHyperlinkFromLinkable(blogPost: IBlogPost): HyperlinkModel {
@@ -26,28 +26,29 @@ export class BlogResourcePicker implements IHyperlinkProvider {
         hyperlinkModel.title = blogPost.title;
         hyperlinkModel.target = "_blank";
         hyperlinkModel.permalinkKey = blogPost.permalinkKey;
+        hyperlinkModel.type = "post";
 
         return hyperlinkModel;
     }
 
     public async getHyperlinkFromPermalink(permalink: IPermalink, target: string): Promise<HyperlinkModel> {
-        // return await this.blogPostPermalinkResolver.getHyperlinkFromConfig();
+        const blogPost = await this.blogService.getBlogPostByKey(permalink.targetKey);
 
-        let blogPost = await this.blogService.getBlogPostByKey(permalink.targetKey);
-
-        let hyperlinkModel = new HyperlinkModel();
+        const hyperlinkModel = new HyperlinkModel();
         hyperlinkModel.title = blogPost.title;
         hyperlinkModel.target = target;
         hyperlinkModel.permalinkKey = permalink.key;
+        hyperlinkModel.type = "post";
 
         return hyperlinkModel;
     }
 
     public getHyperlinkFromResource(blogPost: IBlogPost): HyperlinkModel {
-        let hyperlinkModel = new HyperlinkModel();
+        const hyperlinkModel = new HyperlinkModel();
         hyperlinkModel.title = blogPost.title;
         hyperlinkModel.target = "_blank";
         hyperlinkModel.permalinkKey = blogPost.permalinkKey;
+        hyperlinkModel.type = "post";
 
         return hyperlinkModel;
     }

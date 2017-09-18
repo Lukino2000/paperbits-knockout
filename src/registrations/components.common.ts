@@ -32,6 +32,9 @@ import { ButtonModelBinder } from "@paperbits/common/widgets/button/buttonModelB
 import { SliderModelBinder } from "@paperbits/common/widgets/slider/sliderModelBinder";
 import { BackgroundModelBinder } from "@paperbits/common/widgets/background/backgroundModelBinder";
 import { SavingHandler } from "@paperbits/common/persistence/savingHandler";
+import { OfflineObjectStorage } from "@paperbits/common/persistence/offlineObjectStorage";
+import { AnchorMiddleware } from "@paperbits/common/persistence/anchorMiddleware";
+
 
 export class ComponentRegistrationCommon implements IInjectorModule {
     public register(injector: IInjector) {
@@ -42,6 +45,9 @@ export class ComponentRegistrationCommon implements IInjectorModule {
         injector.bindSingleton("routeHandler", DefaultRouteHandler);
         injector.bindSingleton("globalEventHandler", GlobalEventHandler);
         injector.bindSingleton("localCache", LocalCache);
+        injector.bindSingleton("offlineObjectStorage", OfflineObjectStorage);
+
+        injector.bindSingleton("anchorMiddleware", AnchorMiddleware);
 
         /*** Services ***/
         injector.bindSingleton("permalinkService", PermalinkService);

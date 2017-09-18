@@ -1,20 +1,24 @@
 import * as ko from "knockout";
 import * as template from "./pageSelector.html";
 import { IResourceSelector } from "@paperbits/common/ui/IResourceSelector";
-import { PageItem } from "./pageItem";
+import { PageItem, AnchorItem } from "./pageItem";
 import { IPage } from '@paperbits/common/pages/IPage';
 import { IPermalink } from '@paperbits/common/permalinks/IPermalink';
 import { IPermalinkService } from '@paperbits/common/permalinks/IPermalinkService';
 import { IPageService } from '@paperbits/common/pages/IPageService';
 import { Component } from "../../decorators/component";
 
+export interface PageSelection {
+    title: string;
+    permalinkKey: string;
+}
 
 @Component({
     selector: "page-selector",
     template: template,
     injectable: "pageSelector"
 })
-export class PageSelector implements IResourceSelector<IPage> {
+export class PageSelector implements IResourceSelector<PageSelection> {
     private readonly pageService: IPageService;
     private readonly permalinkService: IPermalinkService;
 
@@ -23,13 +27,14 @@ export class PageSelector implements IResourceSelector<IPage> {
     public readonly working: KnockoutObservable<boolean>;
 
     public selectedPage: KnockoutObservable<PageItem>;
-    public onResourceSelected: (page: IPage) => void;
+    public onResourceSelected: (selection: PageSelection) => void;
 
-    constructor(pageService: IPageService, permalinkService: IPermalinkService, onSelect: (media: IPage) => void) {
+    constructor(pageService: IPageService, permalinkService: IPermalinkService, onSelect: (page: PageSelection) => void) {
         this.pageService = pageService;
         this.permalinkService = permalinkService;
 
         this.selectPage = this.selectPage.bind(this);
+        this.selectAnchor = this.selectAnchor.bind(this);
         this.onResourceSelected = onSelect;
 
         this.pages = ko.observableArray<PageItem>();
@@ -57,11 +62,17 @@ export class PageSelector implements IResourceSelector<IPage> {
         this.working(false);
     }
 
-    public async selectPage(page: PageItem): Promise<void> {
+    public async selectPage(page: PageItem, anchorKey?: string): Promise<void> {
         this.selectedPage(page);
 
         if (this.onResourceSelected) {
-            this.onResourceSelected(page.toPage());
+            this.onResourceSelected({ title: page.title(), permalinkKey: page.permalinkKey });
+        }
+    }
+
+    public async selectAnchor(anchor: AnchorItem): Promise<void> {
+        if (this.onResourceSelected) {
+            this.onResourceSelected({ title: anchor.title, permalinkKey: anchor.permalinkKey });
         }
     }
 }

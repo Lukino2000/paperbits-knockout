@@ -62,16 +62,11 @@ export class HyperlinkSelector {
         }
 
         let resourcePicker: IHyperlinkProvider;
+        resourcePicker = this.resourcePickers.find(x => x.canHandleHyperlink(hyperlink));
 
-        if (hyperlink.permalinkKey) {
-            /* TODO: Permalink is extracted second time here. May need to review this. */
-            /* Potentially hyperlinkModel may contain type of the resource to easily identify current resource selector component */
-
-            let permalink = await this.permalinkService.getPermalinkByKey(hyperlink.permalinkKey);
-            resourcePicker = this.resourcePickers.find(x => x.canHandleResource(permalink.targetKey));
-        }
-        else if (hyperlink.href) {
-            resourcePicker = this.resourcePickers.find(x => x.canHandleResource(hyperlink.href));
+        if (!resourcePicker) {
+            console.warn(hyperlink);
+            throw `Could not find handler for hyperlink.`;
         }
 
         this.hyperlink(hyperlink);

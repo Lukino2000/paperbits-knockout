@@ -21,63 +21,56 @@ export var intentions = {
 
         style: {
             "text-color-primary": {
+                category: "color",
                 name: (): string => "Primary",
-                styles: (): string => "text-primary"
+                styles: (): string => "text-primary",
+                scope: "inline"
             },
             "text-color-danger": {
+                category: "color",
                 name: (): string => "Danger",
-                styles: (): string => "text-danger"
+                styles: (): string => "text-danger",
+                scope: "inline"
             },
             "text-color-inverted": {
+                category: "color",
                 name: (): string => "Inverted",
-                styles: (): string => "text-inverted"
+                styles: (): string => "text-inverted",
+                scope: "inline"
             },
             "text-lead": {
+                category: "lead",
                 name: (): string => "Lead",
-                styles: (): string => "lead"
+                styles: (): string => "lead",
+                scope: "block"
             }
-            // success: {
-            //     name: "Success",
-            //     styles: (): string => "text-success"
-            // },
-            // info: {
-            //     name: "Info",
-            //     styles: (): string => "text-info"
-            // },
-            // warning: {
-            //     name: "Warning",
-            //     styles: (): string => "text-warning"
-            // },
-            // danger: {
-            //     name: "Danger",
-            //     styles: (): string => "text-danger"
-            // },
-            // muted: {
-            //     name: "Muted",
-            //     styles: (): string => "text-muted"
-            // }
         }
     },
 
     section: {
         background: {
             "section-bg-default": {
+                category: "background",
                 name: (): string => "Default",
                 styles: (): string => "section-default"
             },
             "section-bg-1": {
+                category: "background",
                 name: (): string => "Smoke",
                 styles: (): string => "section-smoke"
             },
             "section-bg-2": {
+                category: "background",
                 name: (): string => "Darker smoke",
                 styles: (): string => "section-darker-smoke"
             },
             "section-bg-3": {
+                category: "background",
                 name: (): string => "Dark smoke",
                 styles: (): string => "section-dark-smoke"
             },
             "section-bg-4": {
+                category: "background",
                 name: (): string => "Orange",
                 styles: (): string => "section-hightlighted"
             }

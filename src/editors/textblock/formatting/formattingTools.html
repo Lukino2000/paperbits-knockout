@@ -68,5 +68,10 @@
         <span class="icon icon-smaller icon-drop"></span>
     </a>
 </div>
+<div title="Anchor" class="toolbox-button" data-bind="css: { 'toolbox-button-is-active': anchored() }">
+    <a href="#" data-bind="click: toggleAnchor">
+        <span class="icon icon-smaller icon-anchor"></span>
+    </a>
+</div>
 
-<style-selector id="textStyleSelector" class="balloon" params="selectedStyle: styleIntentionKey, setStyleCallback: setStyle.bind($data)"></style-selector>
+<style-selector id="textStyleSelector" class="balloon" params="selectedStyle: styleIntentions, setStyleCallback: setStyle"></style-selector>
