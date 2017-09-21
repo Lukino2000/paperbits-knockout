@@ -16,6 +16,7 @@
         "inlineSourceMap": true,
         "inlineSources": true
     },
+    "compileOnSave": false,
     "include": [
         "src/**/*.ts"
     ],

@@ -15,7 +15,7 @@ export class StaticRouteHandler implements IRouteHandler {
     }
 
     public addRouteChangeListener(callback: () => void): void {
-        this.callbacks.push(callback);
+        //this.callbacks.push(callback);
     }
 
     public removeRouteChangeListener(callback: () => void): void {

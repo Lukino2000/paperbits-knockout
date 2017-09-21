@@ -10,8 +10,7 @@ import * as Utils from "./utils";
 
 import { IInjector, IInjectorModule } from "@paperbits/common/injection";
 import { ISiteSettings } from "@paperbits/common/sites/ISiteSettings";
-import { IPublisher } from "@paperbits/common/publishing/IPublisher";
-import { PublishingModule } from "@paperbits/common/publishing/publishing.module";
+
 import { InversifyInjector } from "@paperbits/common/injection/inversifyInjector";
 import { FirebaseModule } from "@paperbits/common/firebase/firebase.module";
 //import { GithubRegistration } from "@paperbits/common/github/registrations.github";
@@ -63,6 +62,8 @@ import { Substitute7ModelBinder } from "../src/widgets/substitute7/substitute7Mo
 import { Substitute7ViewModelBinder } from "../src/widgets/substitute7/substitute7ViewModelBinder";
 import { Substitute8ModelBinder } from "../src/widgets/substitute8/substitute8ModelBinder";
 import { Substitute8ViewModelBinder } from "../src/widgets/substitute8/substitute8ViewModelBinder";
+import { IPublisher } from "../src/publishing/IPublisher";
+import { PublishingModule } from "../src/publishing/publishing.module";
 
 
 declare var global: any;

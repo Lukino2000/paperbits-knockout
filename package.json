@@ -31,7 +31,7 @@
         "del": "^3.0.0",
         "domino": "^1.0.29",
         "firebase": "4.3.1",
-        "firebase-tools": "3.11.0",
+        "firebase-tools": "3.12.0",
         "fs": "0.0.2",
         "gulp": "^3.9.1",
         "gulp-autoprefixer": "^4.0.0",
@@ -48,18 +48,18 @@
         "mkdirp": "^0.5.1",
         "node-sass": "^4.5.3",
         "realpathify": "^1.0.1",
-        "run-sequence": "^2.1.0",
+        "run-sequence": "^2.2.0",
         "sass-inline-image": "0.0.3",
         "setimmediate": "^1.0.5",
         "stringify": "^5.1.0",
-        "tsify": "^3.0.1",
+        "tsify": "^3.0.3",
         "typescript": "2.5.2",
         "vinyl-buffer": "^1.0.0",
         "vinyl-source-stream": "^1.1.0",
         "yargs": "^9.0.1"
     },
     "dependencies": {
-        "@paperbits/common": "0.0.21",
+        "@paperbits/common": "0.0.22",
         "@paperbits/slate": "0.0.8",
         "es6-shim": "^0.35.3",
         "google-maps": "^3.2.1",
@@ -68,6 +68,6 @@
         "knockout": "^3.4.2",
         "lity": "^2.3.0",
         "lodash": "^4.17.4",
-        "perfect-scrollbar": "^0.8.0"
+        "perfect-scrollbar": "^0.8.1"
     }
 }

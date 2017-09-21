@@ -53,7 +53,7 @@ export class DocumentViewModel {
         this.layoutModel(null);
 
         let layoutMode = this.viewManager.getCurrentJourney() == "Layouts";
-        let layoutModel = await this.layoutModelBinder.getCurrentLayoutModel();
+        let layoutModel = await this.layoutModelBinder.getLayoutModel(this.routeHandler.getCurrentUrl());
         let readonly = !layoutMode;
         let layoutViewModel = this.layoutViewModelBinder.modelToViewModel(layoutModel, readonly);
 
