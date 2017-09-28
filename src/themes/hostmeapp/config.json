@@ -7,8 +7,8 @@
             "databaseURL": "https://vienna.firebaseio.com",
             "storageBucket": "project-5562312728052499011.appspot.com",
             "auth": {
-                "github": {
-                    "scopes": ["repo"]
+                "google": {
+                    "scopes": []
                 }
             }
         },

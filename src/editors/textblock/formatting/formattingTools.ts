@@ -9,6 +9,7 @@ import { IPermalinkService } from "@paperbits/common/permalinks/IPermalinkServic
 import { IPageService } from "@paperbits/common/pages/IPageService";
 import { IRouteHandler } from "@paperbits/common/routing/IRouteHandler";
 import { IBag } from "@paperbits/common/core/IBag";
+import { intentions } from "../../../themes/hostmeapp/intentions";
 
 
 @Component({
@@ -86,7 +87,7 @@ export class FormattingTools {
         }
 
         this.styleIntentions(selectionState.intentions);
-        this.styled(!!(selectionState.intentions.color || selectionState.intentions.lead));
+        this.styled(!!(selectionState.intentions.color));
 
         if (selectionState.normal) {
             this.style("Normal");
@@ -128,6 +129,7 @@ export class FormattingTools {
     }
 
     public setStyle(intention): void {
+        console.log(intention);
         this.htmlEditorProvider.getCurrentHtmlEditor().toggleCategory(intention.category, intention.key, intention.scope);
         this.updateFormattingState();
     }
@@ -139,6 +141,19 @@ export class FormattingTools {
 
     public toggleUnderlined(): void {
         this.htmlEditorProvider.getCurrentHtmlEditor().toggleUnderlined();
+        this.updateFormattingState();
+    }
+
+    public toggleSize(): void {
+        var intention = {
+            "name": "Lead",
+            "key": "text-lead",
+            "css": "lead",
+            "category": "lead",
+            "scope": "block"
+        }
+
+        this.htmlEditorProvider.getCurrentHtmlEditor().toggleCategory(intention.category, intention.key, intention.scope);
         this.updateFormattingState();
     }
 

@@ -315,3 +315,8 @@
     @extend .icon-box;
     background-image: url(inline-image("src/svgs/outline-anchor.svg"));
 }
+
+.icon-text-size {
+    @extend .icon-box;
+    background-image: url(inline-image("src/svgs/outline-text-size.svg"));
+}

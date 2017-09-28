@@ -19,6 +19,15 @@ export var intentions = {
             }
         },
 
+        size: {
+            "text-lead": {
+                category: "lead",
+                name: (): string => "Lead",
+                styles: (): string => "lead",
+                scope: "block"
+            }
+        },
+
         style: {
             "text-color-primary": {
                 category: "color",
