@@ -60,7 +60,7 @@
     },
     "dependencies": {
         "@paperbits/common": "0.0.23",
-        "@paperbits/slate": "0.0.12",
+        "@paperbits/slate": "0.0.14",
         "es6-shim": "^0.35.3",
         "google-maps": "^3.2.1",
         "hasher": "^1.2.0",
