@@ -1,5 +1,5 @@
 import * as ko from "knockout";
-import * as template from "./columnEditor.html";
+import template from "./columnEditor.html";
 import * as Utils from "@paperbits/common/core/utils";
 import { IMedia } from "@paperbits/common/media/IMedia";
 import { ColumnViewModel } from "../../widgets/column/columnViewModel";

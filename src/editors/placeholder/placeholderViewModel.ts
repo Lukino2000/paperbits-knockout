@@ -1,5 +1,5 @@
 import * as ko from "knockout";
-import * as template from "./placeholder.html";
+import template from "./placeholder.html";
 import { Component } from "../../decorators/component";
 
 

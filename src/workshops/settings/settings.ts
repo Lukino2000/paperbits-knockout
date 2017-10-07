@@ -1,5 +1,5 @@
 ﻿import * as ko from "knockout";
-import * as template from "./settings.html";
+import template from "./settings.html";
 import * as Utils from '@paperbits/common/core/utils';
 import { IViewManager } from '@paperbits/common/ui/IViewManager';
 import { ISiteService } from '@paperbits/common/sites/ISiteService';

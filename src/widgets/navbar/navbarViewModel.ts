@@ -1,5 +1,5 @@
 import * as ko from "knockout";
-import * as template from "./navbar.html";
+import template from "./navbar.html";
 import { NavbarItemViewModel } from "./../navbar/navbarItemViewModel";
 import { NavbarModel } from "@paperbits/common/widgets/navbar/navbarModel";
 import { NavbarItemModel } from "@paperbits/common/widgets/navbar/navbarItemModel";

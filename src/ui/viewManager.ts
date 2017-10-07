@@ -1,7 +1,7 @@
 ﻿import * as _ from "lodash";
 import * as $ from "jquery/dist/jquery";
 import * as ko from "knockout";
-import * as template from "./viewManager.html";
+import template from "./viewManager.html";
 import "@paperbits/common/core/extensions";
 import { IHighlightConfig } from "@paperbits/common/ui/IHighlightConfig";
 import { IBag } from "@paperbits/common/core/IBag";

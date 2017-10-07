@@ -1,5 +1,5 @@
 import * as ko from "knockout";
-import * as template from "./widgetSelector.html";
+import template from "./widgetSelector.html";
 import { WidgetItem } from "./widgetItem";
 import { IResourceSelector } from "@paperbits/common/ui/IResourceSelector";
 import { IWidgetService } from "@paperbits/common/widgets/IWidgetService";

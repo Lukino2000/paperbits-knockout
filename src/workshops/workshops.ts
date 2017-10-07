@@ -1,5 +1,5 @@
 ﻿import * as ko from "knockout";
-import * as template from "./workshops.html";
+import template from "./workshops.html";
 import { IViewManager } from '@paperbits/common/ui/IViewManager';
 import { Component } from "../decorators/component";
 

@@ -1,5 +1,5 @@
 ﻿import * as ko from "knockout";
-import * as template from "./audioPlayer.html";
+import template from "./audioPlayer.html";
 import { Component } from "../../decorators/component";
 
 

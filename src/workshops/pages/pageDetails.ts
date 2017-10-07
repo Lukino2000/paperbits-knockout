@@ -1,5 +1,5 @@
 ﻿import * as ko from "knockout";
-import * as template from "./pageDetails.html";
+import template from "./pageDetails.html";
 import { IPage } from "@paperbits/common/pages/IPage";
 import { IPermalink } from "@paperbits/common/permalinks/IPermalink";
 import { IPermalinkService } from "@paperbits/common/permalinks/IPermalinkService";

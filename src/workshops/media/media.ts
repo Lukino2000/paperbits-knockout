@@ -1,5 +1,5 @@
 ﻿import * as ko from "knockout";
-import * as template from "./media.html";
+import template from "./media.html";
 import * as Utils from "@paperbits/common/core/utils";
 import { IMediaService } from "@paperbits/common/media/IMediaService";
 import { IViewManager } from "@paperbits/common/ui/IViewManager";

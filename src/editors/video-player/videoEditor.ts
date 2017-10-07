@@ -1,5 +1,5 @@
 ﻿import * as ko from "knockout";
-import * as template from "./videoEditor.html";
+import template from "./videoEditor.html";
 import { IWidgetEditor } from '@paperbits/common/widgets/IWidgetEditor';
 import { IMedia } from '@paperbits/common/media/IMedia';
 import { IViewManager } from '@paperbits/common/ui/IViewManager';

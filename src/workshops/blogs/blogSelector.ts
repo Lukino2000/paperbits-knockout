@@ -1,5 +1,5 @@
 import * as ko from "knockout";
-import * as template from "./blogSelector.html";
+import template from "./blogSelector.html";
 import { IResourceSelector } from "@paperbits/common/ui/IResourceSelector";
 import { BlogPostItem } from "./blogPostItem";
 import { IBlogPost } from '@paperbits/common/blogs/IBlogPost';

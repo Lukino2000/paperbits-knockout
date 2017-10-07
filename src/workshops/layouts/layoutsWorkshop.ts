@@ -1,5 +1,5 @@
 ﻿import * as ko from "knockout";
-import * as template from "./layoutsWorkshop.html";
+import template from "./layoutsWorkshop.html";
 import { Contract } from "@paperbits/common/editing/contentNode";
 import { IRouteHandler } from '@paperbits/common/routing/IRouteHandler';
 import { IPermalinkService } from '@paperbits/common/permalinks/IPermalinkService';

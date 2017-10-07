@@ -1,5 +1,5 @@
 ﻿import * as ko from "knockout";
-import * as template from "./hyperlinkTools.html";
+import template from "./hyperlinkTools.html";
 import { IHtmlEditorProvider } from '@paperbits/common/editing/htmlEditorProvider'
 import { IEventManager } from '@paperbits/common/events/IEventManager';
 import { HyperlinkModel } from "@paperbits/common/permalinks/hyperlinkModel";

@@ -1,12 +1,11 @@
 ﻿import * as ko from "knockout";
-import * as template from "./widgets.html";
+import template from "./widgets.html";
 import { IViewManager } from "@paperbits/common/ui/IViewManager";
 import { IWidgetOrder } from "@paperbits/common/editing/IWidgetOrder";
 import { IWidgetService } from "@paperbits/common/widgets/IWidgetService";
 import { WidgetItem } from "../../workshops/widgets/widgetItem";
 import { LayoutEditor } from "../../editors/layout/layoutEditor";
 import { Component } from "../../decorators/component";
-
 
 @Component({
     selector: "widgets",

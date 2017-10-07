@@ -1,5 +1,5 @@
 import * as ko from "knockout";
-import * as template from "./sectionEditor.html";
+import template from "./sectionEditor.html";
 import { IMedia } from "@paperbits/common/media/IMedia";
 import * as Utils from '@paperbits/common/core/utils';
 import { SectionViewModel } from "../../widgets/section/sectionViewModel";

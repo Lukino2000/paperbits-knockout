@@ -1,5 +1,5 @@
 import * as ko from "knockout";
-import * as template from "./gtm.html";
+import template from "./gtm.html";
 import { IGtmConfig } from "@paperbits/common/sites/ISiteSettings";
 import { ISettingsProvider } from '@paperbits/common/configuration/ISettingsProvider';
 import { Component } from "../../decorators/component";

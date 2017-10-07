@@ -1,5 +1,5 @@
 import * as ko from "knockout";
-import * as template from "./styleSelector.html";
+import template from "./styleSelector.html";
 import { Intention } from "@paperbits/common/ui/color";
 import { Component } from "../../decorators/component";
 import { IntentionMapService } from "@paperbits/slate/intentionMapService";

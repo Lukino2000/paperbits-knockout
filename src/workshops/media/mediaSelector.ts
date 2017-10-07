@@ -1,5 +1,5 @@
 import * as ko from "knockout";
-import * as template from "./mediaSelector.html";
+import template from "./mediaSelector.html";
 import * as Utils from "@paperbits/common/core/utils";
 import { IResourceSelector } from "@paperbits/common/ui/IResourceSelector";
 import { MediaItem } from "./mediaItem";

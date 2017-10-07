@@ -1,5 +1,5 @@
 ﻿import * as ko from "knockout";
-import * as template from "./pages.html";
+import template from "./pages.html";
 import { Contract } from "@paperbits/common/editing/contentNode";
 import { IPage } from "@paperbits/common/pages/IPage";
 import { IPageService } from "@paperbits/common/pages/IPageService";

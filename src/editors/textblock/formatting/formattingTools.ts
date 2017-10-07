@@ -1,5 +1,5 @@
-﻿import * as ko from "knockout";
-import * as template from "./formattingTools.html";
+import * as ko from "knockout";
+import template from "./formattingTools.html";
 import * as Utils from "@paperbits/common/core/utils";
 import { IEventManager } from "@paperbits/common/events/IEventManager";
 import { IHtmlEditorProvider } from "@paperbits/common/editing/htmlEditorProvider";

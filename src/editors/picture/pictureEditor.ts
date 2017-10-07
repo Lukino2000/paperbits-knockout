@@ -1,5 +1,5 @@
 ﻿import * as ko from "knockout";
-import * as template from "./pictureEditor.html";
+import template from "./pictureEditor.html";
 import * as Utils from '@paperbits/common/core/utils';
 import { IMediaService } from '@paperbits/common/media/IMediaService';
 import { ICreatedMedia } from '@paperbits/common/media/ICreatedMedia';

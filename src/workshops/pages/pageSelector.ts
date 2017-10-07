@@ -1,5 +1,5 @@
 import * as ko from "knockout";
-import * as template from "./pageSelector.html";
+import template from "./pageSelector.html";
 import { IResourceSelector } from "@paperbits/common/ui/IResourceSelector";
 import { PageItem, AnchorItem } from "./pageItem";
 import { IPage } from '@paperbits/common/pages/IPage';

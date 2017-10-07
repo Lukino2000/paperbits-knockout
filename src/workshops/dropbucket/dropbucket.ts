@@ -1,5 +1,5 @@
 ﻿import * as ko from "knockout";
-import * as template from "./dropbucket.html";
+import template from "./dropbucket.html";
 import * as Utils from "@paperbits/common/core/utils";
 import { IViewManager, ViewManagerMode } from "@paperbits/common/ui/IViewManager";
 import { IHttpClient } from "@paperbits/common/http/IHttpClient";

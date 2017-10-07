@@ -1,5 +1,5 @@
 import * as ko from "knockout";
-import * as template from "./row.html";
+import template from "./row.html";
 import { Component } from "../../decorators/component";
 import { ColumnViewModel } from "../column/columnViewModel";
 

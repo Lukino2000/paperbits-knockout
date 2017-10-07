@@ -1,5 +1,5 @@
 import * as ko from "knockout";
-import * as template from "./document.html";
+import template from "./document.html";
 import * as Utils from "@paperbits/common/core/utils";
 import { LayoutModel } from "@paperbits/common/widgets/layout/layoutModel";
 import { LayoutModelBinder } from "@paperbits/common/widgets/layout/layoutModelBinder";

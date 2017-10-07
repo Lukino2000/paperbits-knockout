@@ -1,5 +1,5 @@
 import * as ko from "knockout";
-import * as template from "./button.html";
+import template from "./button.html";
 import { ButtonModel } from "@paperbits/common/widgets/button/buttonModel";
 import { HyperlinkModel } from "@paperbits/common/permalinks/hyperlinkModel";
 import { Component } from "../../decorators/component";

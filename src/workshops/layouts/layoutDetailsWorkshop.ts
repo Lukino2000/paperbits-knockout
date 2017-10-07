@@ -1,5 +1,5 @@
 ﻿import * as ko from "knockout";
-import * as template from "./layoutDetailsWorkshop.html";
+import template from "./layoutDetailsWorkshop.html";
 import { IRouteHandler } from '@paperbits/common/routing/IRouteHandler';
 import { IViewManager } from '@paperbits/common/ui/IViewManager';
 import { ILayoutService } from "@paperbits/common/layouts/ILayoutService";

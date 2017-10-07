@@ -1,5 +1,5 @@
 import * as ko from "knockout";
-import * as template from "./intercom.html";
+import template from "./intercom.html";
 import { ISettingsProvider } from '@paperbits/common/configuration/ISettingsProvider';
 import { Component } from "../../decorators/component";
 

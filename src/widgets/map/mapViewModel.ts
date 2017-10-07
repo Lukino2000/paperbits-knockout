@@ -1,5 +1,5 @@
 ﻿import * as ko from "knockout";
-import * as template from "./map.html";
+import template from "./map.html";
 import { Component } from "../../decorators/component";
 
 

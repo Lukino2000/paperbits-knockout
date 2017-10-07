@@ -1,5 +1,5 @@
 ﻿import * as ko from "knockout";
-import * as template from "./navigation.html";
+import template from "./navigation.html";
 import { INavigationService } from "@paperbits/common/navigation/INavigationService";
 import { IViewManager } from "@paperbits/common/ui/IViewManager";
 import { IPermalinkService } from "@paperbits/common/permalinks/IPermalinkService";

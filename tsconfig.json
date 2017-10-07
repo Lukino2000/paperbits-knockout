@@ -13,8 +13,9 @@
         "emitDecoratorMetadata": true,
         "allowUnreachableCode": true,
         "listFiles": false,
-        "inlineSourceMap": true,
-        "inlineSources": true
+        "sourceMap": true
+        // "inlineSourceMap": true,
+        // "inlineSources": true
     },
     "compileOnSave": false,
     "include": [

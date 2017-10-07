@@ -1,5 +1,5 @@
 ﻿import * as ko from "knockout";
-import * as template from "./textblockEditor.html";
+import template from "./textblockEditor.html";
 import { IWidgetEditor } from "@paperbits/common/widgets/IWidgetEditor";
 import { IEventManager } from '@paperbits/common/events/IEventManager';
 import { IViewManager } from '@paperbits/common/ui/IViewManager';

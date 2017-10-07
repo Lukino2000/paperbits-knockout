@@ -1,5 +1,5 @@
 import * as ko from "knockout";
-import * as template from "./section.html";
+import template from "./section.html";
 import { RowViewModel } from "./../row/rowViewModel";
 import { Component } from "../../decorators/component";
 import { BackgroundModel } from "@paperbits/common/widgets/background/backgroundModel";

@@ -1,5 +1,5 @@
 ﻿import * as ko from "knockout";
-import * as template from "./video.html";
+import template from "./video.html";
 import { Component } from "../../decorators/component";
 
 

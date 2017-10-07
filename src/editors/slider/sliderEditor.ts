@@ -1,5 +1,5 @@
 import * as ko from "knockout";
-import * as template from "./sliderEditor.html";
+import template from "./sliderEditor.html";
 import { IWidgetEditor } from '@paperbits/common/widgets/IWidgetEditor';
 import { Component } from "../../decorators/component";
 import { SliderModel, SlideModel } from "@paperbits/common/widgets/slider/sliderModel";

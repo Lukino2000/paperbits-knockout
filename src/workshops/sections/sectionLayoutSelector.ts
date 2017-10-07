@@ -1,4 +1,4 @@
-import * as template from "./sectionLayoutSelector.html";
+import template from "./sectionLayoutSelector.html";
 import { IResourceSelector } from "@paperbits/common/ui/IResourceSelector";
 import { SectionModel } from "@paperbits/common/widgets/section/sectionModel";
 import { ColumnModel } from "@paperbits/common/widgets/column/columnModel";
