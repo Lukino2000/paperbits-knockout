@@ -68,7 +68,7 @@ export class MediaSelector implements IResourceSelector<IMedia> {
         this.selectedMediaItem(media);
 
         if (this.onResourceSelected) {
-            this.onResourceSelected(media.media);
+            this.onResourceSelected(media.toMedia());
         }
     }
 

@@ -35,6 +35,8 @@ import { LayoutsWorkshop } from "../workshops/layouts/layoutsWorkshop";
 import { LityLightbox } from '@paperbits/common/ui/lityLightbox';
 import { MapEditor } from '../editors/map/mapEditor';
 import { MapHandlers } from '../editors/map/mapHandlers';
+import { MediaDetailsWorkshop } from '../workshops/media/mediaDetails';
+import { MediaItem } from '../workshops/media/mediaItem';
 import { MediaHandlers } from '../editors/mediaHandlers';
 import { MediaResourcePicker } from "../workshops/media/mediaResourcePicker";
 import { MediaSelector } from '../workshops/media/mediaSelector';
@@ -116,6 +118,14 @@ export class ComponentRegistrationEditors implements IInjectorModule {
             var viewManager = ctx.resolve<IViewManager>("viewManager");
 
             return new NavigationDetailsWorkshop(node, navigationService, viewManager);
+        });
+        
+        injector.bindComponent("mediaDetailsWorkshop", (ctx: IInjector, mediaReference: MediaItem) => {
+            var mediaService = ctx.resolve<IMediaService>("mediaService");
+            var permalinkService = ctx.resolve<IPermalinkService>("permalinkService");
+            var viewManager = ctx.resolve<IViewManager>("viewManager");
+
+            return new MediaDetailsWorkshop(mediaService, permalinkService, mediaReference, viewManager);
         });
 
         injector.bindComponent("layoutDetailsWorkshop", (ctx: IInjector, layoutReference: LayoutItem) => {

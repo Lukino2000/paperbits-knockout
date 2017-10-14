@@ -1,0 +1,22 @@
+<div class="flex-container flex-container-column fit">
+    <fieldset class="flex-item flex-item-grow form" data-bind="scrollable: {}">
+        <label class="form-label"><span class="help"></span>File name</label>
+        <input type="text" class="form-control" data-bind="textInput: mediaItem.fileName" placeholder="i.e. Orders" />
+
+        <label class="form-label"><span class="help"></span>Permalink</label>
+        <input type="text" class="form-control" data-bind="textInput: mediaItem.permalinkUrl" placeholder="http://www.site.com/"
+        />
+
+        <label class="form-label"><span class="help"></span>Description</label>
+        <input type="text" class="form-control" data-bind="textInput: mediaItem.description" />
+
+        <label class="form-label"><span class="help"></span>Keywords</label>
+        <input type="text" class="form-control" data-bind="textInput: mediaItem.keywords" />
+    </fieldset>
+
+    <div class="flex-item button-group">
+        <button class="button">
+            <span class="icon icon-minus" data-bind="click: deleteMedia">Delete file</span>
+        </button> 
+    </div>
+</div>

@@ -49,7 +49,6 @@ export class MediaWorkshop {
         this.onDragStart = this.onDragStart.bind(this);
         this.onDragEnd = this.onDragEnd.bind(this);
         this.selectMedia = this.selectMedia.bind(this);
-        this.keydown = this.keydown.bind(this);
 
         // setting up...
         this.working = ko.observable(true);
@@ -128,20 +127,10 @@ export class MediaWorkshop {
         this.working(false);
     }
 
-    public async deleteMedia(): Promise<void> {
-        // TODO: Ask for confirmation.
-        this.working(true);
-        await this.mediaService.deleteMedia(this.selectedMediaItem().media);
-        this.selectedMediaItem(null);
-        await this.searchMedia();
-
-        this.viewManager.notifySuccess("Media library", "File deleted");
-        this.working(false);
-    }
-
     public selectMedia(mediaItem: MediaItem): void {
         mediaItem.hasFocus(true);
         this.selectedMediaItem(mediaItem);
+        this.viewManager.openWorkshop("media-details-workshop", mediaItem);
     }
 
     public onDragStart(item: MediaItem): HTMLElement {
@@ -153,11 +142,5 @@ export class MediaWorkshop {
 
     public onDragEnd(item: MediaItem): void {
         this.layoutEditor.onWidgetDragEnd(item, item.element);
-    }
-
-    public keydown(item: MediaItem, event: KeyboardEvent): void {
-        if (event.keyCode === DeleteKeyCode) {
-            this.deleteMedia();
-        }
     }
 }
