@@ -20,6 +20,7 @@ import { BackgroundModel } from "@paperbits/common/widgets/background/background
 const pictureIconUrl = "data:image/svg+xml;base64,PHN2ZyBjbGFzcz0ibmMtaWNvbiBvdXRsaW5lIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHhtbG5zOnhsaW5rPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5L3hsaW5rIiB4PSIwcHgiIHk9IjBweCIgd2lkdGg9IjQ4cHgiIGhlaWdodD0iNDhweCIgdmlld0JveD0iMCAwIDQ4IDQ4Ij48ZyB0cmFuc2Zvcm09InRyYW5zbGF0ZSgwLjUsIDAuNSkiPgo8cG9seWxpbmUgZGF0YS1jYXA9ImJ1dHQiIGRhdGEtY29sb3I9ImNvbG9yLTIiIGZpbGw9Im5vbmUiIHN0cm9rZT0iIzQ0NDQ0NCIgc3Ryb2tlLXdpZHRoPSIzIiBzdHJva2UtbWl0ZXJsaW1pdD0iMTAiIHBvaW50cz0iMiwzNCAxMiwyNiAyMiwzNCAKCTM0LDIwIDQ2LDMwICIgc3Ryb2tlLWxpbmVqb2luPSJtaXRlciIgc3Ryb2tlLWxpbmVjYXA9ImJ1dHQiPjwvcG9seWxpbmU+CjxyZWN0IHg9IjIiIHk9IjQiIGZpbGw9Im5vbmUiIHN0cm9rZT0iIzQ0NDQ0NCIgc3Ryb2tlLXdpZHRoPSIzIiBzdHJva2UtbGluZWNhcD0ic3F1YXJlIiBzdHJva2UtbWl0ZXJsaW1pdD0iMTAiIHdpZHRoPSI0NCIgaGVpZ2h0PSI0MCIgc3Ryb2tlLWxpbmVqb2luPSJtaXRlciI+PC9yZWN0Pgo8Y2lyY2xlIGRhdGEtY29sb3I9ImNvbG9yLTIiIGZpbGw9Im5vbmUiIHN0cm9rZT0iIzQ0NDQ0NCIgc3Ryb2tlLXdpZHRoPSIzIiBzdHJva2UtbGluZWNhcD0ic3F1YXJlIiBzdHJva2UtbWl0ZXJsaW1pdD0iMTAiIGN4PSIyMCIgY3k9IjE2IiByPSI0IiBzdHJva2UtbGluZWpvaW49Im1pdGVyIj48L2NpcmNsZT4KPC9nPjwvc3ZnPg==";
 
 export class PictureHandlers implements IWidgetHandler, IContentDropHandler {
+    private static readonly imageFileExtensions = [".jpg", ".jpeg", ".png", ".svg", ".gif"];
     private readonly pictureModelBinder: PictureModelBinder;
 
     constructor(pictureModelBinder: PictureModelBinder) {
@@ -93,7 +94,7 @@ export class PictureHandlers implements IWidgetHandler, IContentDropHandler {
     }
 
     public getContentDescriptorFromMedia(media: IMedia): IContentDescriptor {
-        if (!media.filename || ![".jpg", ".jpeg", ".png", ".svg", ".gif"].some(e => media.filename.endsWith(e))) {
+        if (!PictureHandlers.IsMediaFileImage(media)) {
             return null;
         }
 
@@ -117,7 +118,7 @@ export class PictureHandlers implements IWidgetHandler, IContentDropHandler {
     }
 
     public getContentDescriptorFromDataTransfer(dataTransfer: IDataTransfer): IContentDescriptor {
-        if (!dataTransfer.name || ![".jpg", ".jpeg", ".png", ".svg", ".gif"].some(e => dataTransfer.name.endsWith(e))) {
+        if (!dataTransfer.name || !PictureHandlers.imageFileExtensions.some(e => dataTransfer.name.endsWith(e))) {
             return null;
         }
 
@@ -146,5 +147,10 @@ export class PictureHandlers implements IWidgetHandler, IContentDropHandler {
             getThumbnailUrl: getThumbnailPromise,
             uploadables: [dataTransfer.source]
         };
+    }
+
+    public static IsMediaFileImage(media: IMedia) : boolean {
+        return (media.contentType && media.contentType.contains("image")) || (media.filename && this.imageFileExtensions.some(e => media.filename.endsWith(e)));
+
     }
 }

@@ -1,5 +1,4 @@
 ﻿import * as ko from "knockout";
-import { IMediaItem } from '@paperbits/common/media/IMediaItem';
 import { IContentDropHandler } from '@paperbits/common/editing/IContentDropHandler';
 import { IDataTransfer } from '@paperbits/common/editing/IDataTransfer';
 import { IContentDescriptor } from '@paperbits/common/editing/IContentDescriptor';
@@ -26,7 +25,7 @@ export abstract class MediaHandlers implements IContentDropHandler {
         return true;
     }
 
-    public getContentDescriptorFromDataTransfer(item: IMediaItem): IContentDescriptor {
+    public getContentDescriptorFromDataTransfer(item: IDataTransfer): IContentDescriptor {
         return null;
     }
 

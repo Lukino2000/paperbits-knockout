@@ -52,6 +52,11 @@
     background-image: url(inline-image("src/svgs/outline-picture.svg"));
 }
 
+.icon-file {
+    @extend .icon-box;
+    background-image: url(inline-image("src/svgs/drawer.svg"));
+}
+
 .icon-bold {
     @extend .icon-box;
     background-image: url(inline-image("src/svgs/outline-bold.svg"));

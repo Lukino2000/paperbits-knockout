@@ -11,6 +11,7 @@ import { IPermalinkService } from "@paperbits/common/permalinks/IPermalinkServic
 import { IWidgetOrder } from "@paperbits/common/editing/IWidgetOrder";
 import { LayoutEditor } from "../../editors/layout/layoutEditor";
 import { Component } from "../../decorators/component";
+import { IContentDescriptor } from "@paperbits/common/editing/IContentDescriptor";
 
 const DeleteKeyCode = 46; // TODO: Move to separate file;
 
@@ -69,28 +70,40 @@ export class MediaWorkshop {
 
         let mediaFiles = await this.mediaService.search(searchPattern);
 
-        mediaFiles.forEach(async media => {
-            for (var i = 0; i < drophandlers.length; i++) {
-                let handler = drophandlers[i];
+        mediaFiles.forEach(async media => {            
+            
+            //TODO: Move this logic to drag start. MediaItem can get descriptor byitself;
+            
+            let mediaItem = new MediaItem(media);
 
-                if (!handler.getContentDescriptorFromMedia) {
-                    continue;
-                }
-
-                let descriptor = handler.getContentDescriptorFromMedia(media);
-
-                //TODO: Move this logic to drag start. MediaItem can get descriptor byitself;
-
-                if (descriptor && descriptor.getWidgetOrder) {
-                    let order = await descriptor.getWidgetOrder();
-                    var mediaItem = new MediaItem(media);
-                    mediaItem.widgetOrder = order;
-                    this.mediaItems.push(mediaItem);
-                }
+            let descriptor = this.findContentDescriptor(media);
+            if (descriptor && descriptor.getWidgetOrder) {
+                let order = await descriptor.getWidgetOrder();
+                mediaItem.widgetOrder = order;
             }
+            
+            this.mediaItems.push(mediaItem);
         });
 
         this.working(false);
+    }
+
+    private findContentDescriptor(media: IMedia): IContentDescriptor {
+        let result: IContentDescriptor;
+        for (var i = 0; i < this.dropHandlers.length; i++) {
+            let handler = this.dropHandlers[i];
+
+            if (!handler.getContentDescriptorFromMedia) {
+                continue;
+            }
+
+            result = handler.getContentDescriptorFromMedia(media);
+
+            if (result) {
+                return result;
+            }
+        }
+        return result;
     }
 
     public async searchMedia(searchPattern: string = ""): Promise<void> {

@@ -9,7 +9,14 @@
         <spinner></spinner>
         <!--/ko-->
         <li class="list-item list-item-float" data-bind="css: { selected: hasFocus }, dragsource: { sticky: true, payload: $data, ondragstart: $parent.onDragStart, ondragend: $parent.onDragEnd }">
+            <!--ko if: media.isImage -->
             <a class="thumbnail" href="#" data-bind="click: $component.selectMedia, hasFocus: hasFocus, style: { 'background-image': 'url('+media.downloadUrl()+')' }, attr: { title: media.fileName() }"></a>
+            <!--/ko-->    
+            <!--ko ifnot: media.isImage -->
+            <a class="thumbnail" href="#" data-bind="click: $component.selectMedia, hasFocus: hasFocus, attr: { title: media.fileName() }">
+                <div class="icon icon-file"></div>
+            </a>
+            <!--/ko-->        
         </li>
     </ul>
 

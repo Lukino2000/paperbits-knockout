@@ -1,16 +1,17 @@
 ﻿import * as ko from "knockout";
 import { IMedia } from "@paperbits/common/media/IMedia";
 import { IWidgetOrder } from '@paperbits/common/editing/IWidgetOrder';
+import { PictureHandlers } from "../../editors/picture/pictureHandlers";
 
 export class MediaItem {
     public key: string;
     public permalinkKey?: string;
     public widgetOrder: IWidgetOrder;
     public element: HTMLElement;
+    public isImage: boolean;
 
     public hasFocus: KnockoutObservable<boolean>;
     public downloadUrl: KnockoutObservable<string>;
-
 
     public permalinkUrl: KnockoutObservable<string>;
     public fileName: KnockoutObservable<string>;
@@ -29,6 +30,8 @@ export class MediaItem {
         this.contentType = ko.observable<string>(media.contentType);
         this.hasFocus = ko.observable<boolean>();
         this.downloadUrl = ko.observable<string>(media.downloadUrl);
+
+        this.isImage = PictureHandlers.IsMediaFileImage(media);
     }
 
     toMedia(): IMedia {
