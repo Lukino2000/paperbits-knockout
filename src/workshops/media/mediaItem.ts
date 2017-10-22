@@ -2,6 +2,7 @@
 import { IMedia } from "@paperbits/common/media/IMedia";
 import { IWidgetOrder } from '@paperbits/common/editing/IWidgetOrder';
 import { PictureHandlers } from "../../editors/picture/pictureHandlers";
+import { IWidgetFactoryResult } from "@paperbits/common/editing/IWidgetFactoryResult";
 
 export class MediaItem {
     public key: string;
@@ -18,6 +19,7 @@ export class MediaItem {
     public description: KnockoutObservable<string>;
     public keywords: KnockoutObservable<string>;
     public contentType: KnockoutObservable<string>;
+    public widgetFactoryResult: IWidgetFactoryResult;
 
     constructor(media: IMedia) {
         this.permalinkKey = media.permalinkKey;

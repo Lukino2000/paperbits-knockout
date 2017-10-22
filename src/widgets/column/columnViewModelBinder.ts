@@ -2,6 +2,7 @@ import { ColumnModel } from "@paperbits/common/widgets/column/columnModel";
 import { ColumnViewModel } from "./columnViewModel";
 import { ViewModelBinderSelector } from "../viewModelBinderSelector";
 import { IViewModelBinder } from "@paperbits/common/widgets/IViewModelBinder";
+import { DragSession } from "@paperbits/common/ui/draggables/dragManager";
 
 
 export class ColumnViewModelBinder implements IViewModelBinder {
@@ -24,7 +25,7 @@ export class ColumnViewModelBinder implements IViewModelBinder {
                     return null;
                 }
 
-                let widgetViewModel = widgetViewModelBinder.modelToViewModel(widgetModel, readonly);
+                const widgetViewModel = widgetViewModelBinder.modelToViewModel(widgetModel, readonly);
 
                 return widgetViewModel;
             })
@@ -77,15 +78,27 @@ export class ColumnViewModelBinder implements IViewModelBinder {
         columnViewModel.orderLg(model.orderLg);
         columnViewModel.orderXl(model.orderXl);
 
-        columnViewModel["widgetBinding"] = {
+        const binding = {
             displayName: "Column",
             readonly: readonly,
             model: model,
             editor: "layout-column-editor",
             applyChanges: () => {
                 this.modelToViewModel(model, readonly, columnViewModel);
+            },
+            onDragOver: (dragSession: DragSession): boolean => {
+                const canAccept = !readonly && dragSession.type === "widget";
+                return canAccept;
+            },
+            onDragDrop: (dragSession: DragSession): void => {
+                if (dragSession.type == "widget") {
+                    model.widgets.splice(dragSession.insertIndex, 0, dragSession.sourceModel);
+                }
+                binding.applyChanges();
             }
         }
+
+        columnViewModel["widgetBinding"] = binding;
 
         return columnViewModel;
     }

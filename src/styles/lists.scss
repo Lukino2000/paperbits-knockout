@@ -29,7 +29,7 @@
 
         a {
             color: $color-base;
-            display: inline;
+            display: inline-block;
             text-decoration: none;
 
             &:focus,
@@ -113,7 +113,7 @@
             text-align: center;
             float: left;
 
-            &.icon {
+            .icon {
                 background-position: center 10px;
                 padding: 25px 0 0;
             }

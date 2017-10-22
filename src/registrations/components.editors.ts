@@ -78,7 +78,6 @@ import { BlogResourcePicker } from "../workshops/blogs/blogResourcePicker";
 import { BlogSelector } from "../workshops/blogs/blogSelector";
 import { ViewportSelector } from "../workshops/viewports/viewport-selector";
 import { HostBindingHandler } from "../bindingHandlers/bindingHandlers.host";
-import { LayoutEditor } from "../editors/layout/layoutEditor";
 import { IntentionMapService } from "@paperbits/slate/intentionMapService";
 import { SliderEditor } from "../editors/slider/sliderEditor";
 import { SliderHandlers } from "../editors/slider/sliderHandlers";
@@ -292,7 +291,6 @@ export class ComponentRegistrationEditors implements IInjectorModule {
         injector.bindSingleton("htmlEditorProvider", HtmlEditorProvider);
         injector.bindSingleton("formattingTools", FormattingTools);
         injector.bindSingleton("hyperlinkTools", HyperlinkTools);
-        injector.bind("layoutEditor", LayoutEditor);
         injector.bind("mapEditor", MapEditor);
         injector.bind("textblockEditor", TextblockEditor)
         injector.bind("audioPlayerEditor", AudioEditor);

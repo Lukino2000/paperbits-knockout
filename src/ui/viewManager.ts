@@ -16,6 +16,8 @@ import { IComponent } from "@paperbits/common/ui/IComponent";
 import { ProgressIndicator } from "../ui/progressIndicator";
 import { IRouteHandler } from "@paperbits/common/routing/IRouteHandler";
 import { Component } from "../decorators/component";
+import { DragSession } from "@paperbits/common/ui/draggables/dragManager";
+import { ISplitterConfig } from "../bindingHandlers/bindingHandlers.splitter";
 
 
 @Component({
@@ -37,10 +39,12 @@ export class ViewManager implements IViewManager {
     public widgetEditor: KnockoutObservable<IEditorSession>;
     public contextualEditors: KnockoutObservableArray<IContextualEditor>;
     public highlightedElement: KnockoutObservable<IHighlightConfig>;
+    public splitterElement: KnockoutObservable<ISplitterConfig>;
     public selectedElement: KnockoutObservable<IHighlightConfig>;
     public selectedElementContextualEditor: KnockoutObservable<IContextualEditor>;
     public viewport: KnockoutObservable<string>;
     public shutter: KnockoutObservable<boolean>;
+    public dragSession: KnockoutObservable<DragSession>;
 
     public mode: ViewManagerMode;
 
@@ -60,6 +64,7 @@ export class ViewManager implements IViewManager {
         this.foldEverything = this.foldEverything.bind(this);
         this.unfoldEverything = this.unfoldEverything.bind(this);
         this.closeWidgetEditor = this.closeWidgetEditor.bind(this);
+        this.onDragEnd = this.onDragEnd.bind(this);
 
         // setting up...
         this.mode = ViewManagerMode.edit;
@@ -70,17 +75,22 @@ export class ViewManager implements IViewManager {
         this.widgetEditor = ko.observable<IEditorSession>();
         this.contextualEditors = ko.observableArray<IContextualEditor>([]);
         this.highlightedElement = ko.observable<IHighlightConfig>();
+        this.splitterElement = ko.observable<ISplitterConfig>();
         this.selectedElement = ko.observable<IHighlightConfig>();
         this.selectedElementContextualEditor = ko.observable<IContextualEditor>();
         this.viewport = ko.observable<string>("xl");
         this.shutter = ko.observable<boolean>(true);
+        this.dragSession = ko.observable();
 
         this.primaryToolboxVisible = ko.observable<boolean>(true);
 
         this.globalEventHandler.addDragEnterListener(this.foldEverything);
-        this.globalEventHandler.addDragDropListener(this.unfoldEverything);
-        this.globalEventHandler.addDragEndListener(this.unfoldEverything);
+        this.globalEventHandler.addDragDropListener(this.onDragEnd);
+        this.globalEventHandler.addDragEndListener(this.onDragEnd);
         this.globalEventHandler.addDragLeaveScreenListener(this.unfoldEverything);
+        
+
+        this.eventManager.addEventListener("virtualDragEnd", this.onDragEnd);
 
         this.routeHandler.addRouteChangeListener(this.onRouteChange.bind(this));
         globalEventHandler.appendDocument(document);
@@ -149,7 +159,6 @@ export class ViewManager implements IViewManager {
 
     public clearJourney(): void {
         this.journey([]);
-        this.mode = ViewManagerMode.edit;
     }
 
     public foldWorkshops(): void {
@@ -250,7 +259,7 @@ export class ViewManager implements IViewManager {
     public setContextualEditor(editorName: string, contextualEditor: IContextualEditor): void {
         this.contextualEditorsBag[editorName] = contextualEditor;
 
-        let editors = Object.keys(this.contextualEditorsBag).map(key => this.contextualEditorsBag[key]);
+        const editors = Object.keys(this.contextualEditorsBag).map(key => this.contextualEditorsBag[key]);
 
         this.contextualEditors(editors);
     }
@@ -271,12 +280,19 @@ export class ViewManager implements IViewManager {
         this.contextualEditorsBag = {};
         this.contextualEditors([]);
         this.highlightedElement(null);
+        this.setSplitter(null);
         this.selectedElement(null);
     }
 
     public setHighlight(config: IHighlightConfig): void {
         this.highlightedElement(null);
+        this.setSplitter(null);
         this.highlightedElement(config);
+    }
+
+    public setSplitter(config: ISplitterConfig): void {
+        this.splitterElement(null);
+        this.splitterElement(config);
     }
 
     public setSelectedElement(config: IHighlightConfig, ce: IContextualEditor): void {
@@ -318,4 +334,25 @@ export class ViewManager implements IViewManager {
     public removeShutter(): void {
         this.shutter(false);
     }
+
+
+
+
+
+    public beginDrag(session: DragSession): void {
+        this.clearContextualEditors();
+        this.closeWidgetEditor();
+        this.dragSession(session);
+        this.foldEverything();
+    }
+
+    public getDragSession(): DragSession {
+        return this.dragSession();
+    }
+
+    public onDragEnd(): void {
+        this.unfoldEverything();
+    }
 }
+
+

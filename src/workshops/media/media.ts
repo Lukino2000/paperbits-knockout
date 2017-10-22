@@ -9,9 +9,9 @@ import { IMedia } from "@paperbits/common/media/IMedia";
 import { ICreatedMedia } from "@paperbits/common/media/ICreatedMedia";
 import { IPermalinkService } from "@paperbits/common/permalinks/IPermalinkService";
 import { IWidgetOrder } from "@paperbits/common/editing/IWidgetOrder";
-import { LayoutEditor } from "../../editors/layout/layoutEditor";
 import { Component } from "../../decorators/component";
 import { IContentDescriptor } from "@paperbits/common/editing/IContentDescriptor";
+import { IEventManager } from "@paperbits/common/events/IEventManager";
 
 const DeleteKeyCode = 46; // TODO: Move to separate file;
 
@@ -22,10 +22,10 @@ const DeleteKeyCode = 46; // TODO: Move to separate file;
     injectable: "mediaWorkshop"
 })
 export class MediaWorkshop {
+    private readonly eventManager: IEventManager;
     private readonly mediaService: IMediaService;
     private readonly permalinkService: IPermalinkService;
     private readonly viewManager: IViewManager;
-    private layoutEditor: LayoutEditor; //TODO: Review usage and remove;
     private dropHandlers: Array<IContentDropHandler>; // TODO: Switch to IWidgetHandlers
     private searchTimeout: any;
 
@@ -34,12 +34,12 @@ export class MediaWorkshop {
     public selectedMediaItem: KnockoutObservable<MediaItem>;
     public readonly working: KnockoutObservable<boolean>;
 
-    constructor(mediaService: IMediaService, permalinkService: IPermalinkService, viewManager: IViewManager, layoutEditor: LayoutEditor, dropHandlers: Array<IContentDropHandler>) {
+    constructor(eventManager: IEventManager, mediaService: IMediaService, permalinkService: IPermalinkService, viewManager: IViewManager, dropHandlers: Array<IContentDropHandler>) {
         // initialization...
+        this.eventManager = eventManager;
         this.mediaService = mediaService;
         this.permalinkService = permalinkService;
         this.viewManager = viewManager;
-        this.layoutEditor = layoutEditor;
         this.dropHandlers = dropHandlers;
 
         // rebinding...
@@ -119,7 +119,7 @@ export class MediaWorkshop {
     }
 
     public async uploadMedia(): Promise<void> {
-        let files = await this.viewManager.openUploadDialog();
+        const files = await this.viewManager.openUploadDialog();
 
         this.working(true);
 
@@ -147,13 +147,28 @@ export class MediaWorkshop {
     }
 
     public onDragStart(item: MediaItem): HTMLElement {
-        this.viewManager.foldEverything();
-        var widgetElement = item.widgetOrder.createWidget().element;
-        item.element = widgetElement;
+        item.widgetFactoryResult = item.widgetOrder.createWidget();
+
+        const widgetElement = item.widgetFactoryResult.element;
+        const widgetModel = item.widgetFactoryResult.widgetModel;
+        const widgetBinding = item.widgetFactoryResult.widgetBinding;
+
+        this.viewManager.beginDrag({
+            type: "widget",
+            sourceModel: widgetModel,
+            sourceBinding: widgetBinding
+        });
+
         return widgetElement;
     }
 
     public onDragEnd(item: MediaItem): void {
-        this.layoutEditor.onWidgetDragEnd(item, item.element);
+        item.widgetFactoryResult.element.remove();
+        const dragSession = this.viewManager.getDragSession();
+        const acceptorBinding = dragSession.targetBinding;
+
+        acceptorBinding.onDragDrop(dragSession);
+
+        this.eventManager.dispatchEvent("virtualDragEnd");
     }
 }

@@ -3,6 +3,7 @@ import { SectionViewModel } from "./sectionViewModel";
 import { IntentionMapService } from "@paperbits/slate/intentionMapService";
 import { RowViewModelBinder } from "../row/rowViewModelBinder";
 import { IViewModelBinder } from "@paperbits/common/widgets/IViewModelBinder";
+import { DragSession } from "@paperbits/common/ui/draggables/dragManager";
 
 export class SectionViewModelBinder implements IViewModelBinder {
     private readonly rowViewModelBinder: RowViewModelBinder;
@@ -59,15 +60,18 @@ export class SectionViewModelBinder implements IViewModelBinder {
 
         sectionViewModel.css(sectionClasses.join(" "));
 
-        sectionViewModel["widgetBinding"] = {
+        const binding = {
             displayName: "Section",
             readonly: readonly,
             model: model,
+            flow: "liquid",
             editor: "layout-section-editor",
             applyChanges: () => {
                 this.modelToViewModel(model, readonly, sectionViewModel);
             }
         }
+
+        sectionViewModel["widgetBinding"] = binding;
 
         return sectionViewModel;
     }

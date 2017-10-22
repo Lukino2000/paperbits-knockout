@@ -13,7 +13,7 @@ export class PictureViewModelBinder implements IViewModelBinder {
         viewModel.animation(model.animation);
         viewModel.background(model.background);
 
-        let classes = [];
+        const classes = [];
         classes.push(model.layout);
         viewModel.css(classes.join(" "));
 

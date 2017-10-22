@@ -58,7 +58,7 @@ export class BalloonBindingHandler {
                     }
 
                     targetElement.style.top = `${balloonY}px`;
-                    targetElement.style.left = `${balloonX}px`;
+                    targetElement.style.left = `${balloonX + 10}px`;
                 }
 
                 let watch = () => { }

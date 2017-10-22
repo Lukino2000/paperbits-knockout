@@ -65,42 +65,7 @@ export class PagesWorkshop {
             "nodes": [
                 {
                     "kind": "block",
-                    "nodes": [
-                        {
-                            "align": {
-                                "md": "center"
-                            },
-                            "kind": "block",
-                            "nodes": [
-                                {
-                                    "kind": "block",
-                                    "nodes": [
-                                        {
-                                            "kind": "widget",
-                                            "nodes": [
-                                                {
-                                                    "kind": "block",
-                                                    "nodes": [
-                                                        {
-                                                            "kind": "text",
-                                                            "text": "New page"
-                                                        }
-                                                    ],
-                                                    "type": "paragraph"
-                                                }
-                                            ],
-                                            "type": "text"
-                                        }
-                                    ],
-                                    "size": {
-                                        "md": 12
-                                    },
-                                    "type": "layout-column"
-                                }
-                            ],
-                            "type": "layout-row"
-                        }
-                    ],
+                    "nodes": [],
                     "type": "layout-section"
                 }
             ],

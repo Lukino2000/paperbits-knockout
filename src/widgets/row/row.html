@@ -1,5 +1,8 @@
 <div class="row" data-bind="css: css, layoutrow: {}">
-    <!-- ko foreach: { data: columns, as: 'column'  } --><!-- ko widget: column --><!-- /ko --><!-- /ko -->
+    <!-- ko foreach: { data: columns, as: 'column'  } -->
+    <!-- ko widget: column -->
+    <!-- /ko -->
+    <!-- /ko -->
     <!-- ko if: columns().length === 0 -->
     <p class="empty-item">Empty row</p>
     <!-- /ko -->

@@ -12,6 +12,7 @@ import "../bindingHandlers/bindingHandlers.draggables";
 import "../bindingHandlers/bindingHandlers.googlemap";
 import "../bindingHandlers/bindingHandlers.grid";
 import "../bindingHandlers/bindingHandlers.highlight";
+import "../bindingHandlers/bindingHandlers.splitter";
 import "../bindingHandlers/bindingHandlers.lightbox";
 import "../bindingHandlers/bindingHandlers.resourcePicker";
 import "../bindingHandlers/bindingHandlers.hyperlink";

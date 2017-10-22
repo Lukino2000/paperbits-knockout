@@ -67,6 +67,16 @@ paperbits-text, paperbits-picture, paperbits-code, paperbits-video-player, paper
     }
 }
 
+.layout-editor-splitter {
+    position: fixed;
+    pointer-events: none;
+    z-index: $z-index-selection;
+    border-color: #ccc;
+    border-style: dashed;
+    border-width: 0;
+    opacity: .5;
+}
+
 
 .empty-column {
     min-height: 150px;
