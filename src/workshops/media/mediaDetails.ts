@@ -8,6 +8,7 @@ import { IRouteHandler } from "@paperbits/common/routing/IRouteHandler";
 import { IViewManager } from "@paperbits/common/ui/IViewManager";
 import { MediaItem } from "../../workshops/media/mediaItem";
 import { Component } from "../../decorators/component";
+import { Validators } from "../../validation/validators";
 
 @Component({
     selector: "media-details-workshop",
@@ -33,8 +34,8 @@ export class MediaDetailsWorkshop {
         //this.onFaviconUploaded = this.onFaviconUploaded.bind(this);
         this.deleteMedia = this.deleteMedia.bind(this);
         this.updateMetadata = this.updateMetadata.bind(this);
-        this.updatePermalink = this.updatePermalink.bind(this);
 
+        Validators.initValidation();
         this.init();
     }
 
@@ -44,19 +45,16 @@ export class MediaDetailsWorkshop {
         this.mediaPermalink = permalink;
         this.mediaItem.permalinkUrl(permalink.uri);
 
+        this.mediaItem.fileName.extend({required: true});
         this.mediaItem.fileName.subscribe(this.updateMetadata);
         this.mediaItem.description.subscribe(this.updateMetadata);
         this.mediaItem.keywords.subscribe(this.updateMetadata);
-        this.mediaItem.permalinkUrl.subscribe(this.updatePermalink);
+
+        Validators.setPermalinkValidatorWithUpdate(this.mediaItem.permalinkUrl, this.mediaPermalink, this.permalinkService);
     }
 
     private async updateMetadata(): Promise<void> {
         await this.mediaService.updateMedia(this.mediaItem.toMedia());
-    }
-
-    private async updatePermalink(): Promise<void> {
-        this.mediaPermalink.uri = this.mediaItem.permalinkUrl();
-        await this.permalinkService.updatePermalink(this.mediaPermalink);
     }
 
     public async deleteMedia(): Promise<void> {

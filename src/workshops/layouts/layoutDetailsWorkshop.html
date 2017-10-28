@@ -1,12 +1,12 @@
 <fieldset class="form">
     <label class="form-label"><span class="help"></span>Title</label>
-    <input type="text" class="form-control"  data-bind="textInput: layoutItem.title" placeholder="i.e. Orders" />
+    <input type="text" class="form-control"  data-bind="textInput: layoutItem.title" placeholder="i.e. Orders" maxlength="256"/>
 
     <label class="form-label"><span class="help"></span>Uri template</label>
-    <input type="text" class="form-control" data-bind="textInput: layoutItem.uriTemplate" placeholder="/" />
+    <input type="text" class="form-control" data-bind="textInput: layoutItem.uriTemplate" placeholder="/" maxlength="256"/>
 
     <label class="form-label"><span class="help"></span>Description</label>
-    <input type="text" class="form-control" data-bind="textInput: layoutItem.description" />
+    <input type="text" class="form-control" data-bind="textInput: layoutItem.description" maxlength="256"/>
 </fieldset>
 <div class="button-group">
     <!--ko if: isNotDefault-->

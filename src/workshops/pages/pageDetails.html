@@ -1,17 +1,16 @@
 <div class="flex-container flex-container-column fit">
     <fieldset class="flex-item flex-item-grow form" data-bind="scrollable: {}">
         <label class="form-label"><span class="help"></span>Title</label>
-        <input type="text" class="form-control" data-bind="textInput: pageItem.title" placeholder="i.e. Orders" />
-
-        <label class="form-label"><span class="help"></span>Permalink</label>
-        <input type="text" class="form-control" data-bind="textInput: pageItem.permalinkUrl" placeholder="http://www.site.com/"
-        />
+        <input type="text" class="form-control" data-bind="textInput: pageItem.title, validationElement: pageItem.title" placeholder="i.e. Orders" maxlength="256"/>
+        
+        <label class="form-label" ><span class="help"></span>Permalink</label>
+        <input type="text" class="form-control" data-bind="textInput: pageItem.permalinkUrl, validationElement: pageItem.permalinkUrl" placeholder="http://www.site.com/" maxlength="256"/>
 
         <label class="form-label"><span class="help"></span>Description</label>
-        <input type="text" class="form-control" data-bind="textInput: pageItem.description" />
+        <input type="text" class="form-control" data-bind="textInput: pageItem.description" maxlength="256"/>
 
         <label class="form-label"><span class="help"></span>Keywords</label>
-        <input type="text" class="form-control" data-bind="textInput: pageItem.keywords" />
+        <input type="text" class="form-control" data-bind="textInput: pageItem.keywords" maxlength="256"/>
     </fieldset>
 
     <div class="flex-item button-group">

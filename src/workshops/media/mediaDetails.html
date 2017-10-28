@@ -1,17 +1,16 @@
 <div class="flex-container flex-container-column fit">
     <fieldset class="flex-item flex-item-grow form" data-bind="scrollable: {}">
         <label class="form-label"><span class="help"></span>File name</label>
-        <input type="text" class="form-control" data-bind="textInput: mediaItem.fileName" placeholder="i.e. Orders" />
+        <input type="text" class="form-control" data-bind="textInput: mediaItem.fileName, validationElement: mediaItem.fileName" placeholder="i.e. Orders" maxlength="256"/>
 
         <label class="form-label"><span class="help"></span>Permalink</label>
-        <input type="text" class="form-control" data-bind="textInput: mediaItem.permalinkUrl" placeholder="http://www.site.com/"
-        />
+        <input type="text" class="form-control" data-bind="textInput: mediaItem.permalinkUrl, validationElement: mediaItem.permalinkUrl" placeholder="http://www.site.com/" maxlength="256"/>
 
         <label class="form-label"><span class="help"></span>Description</label>
-        <input type="text" class="form-control" data-bind="textInput: mediaItem.description" />
+        <input type="text" class="form-control" data-bind="textInput: mediaItem.description" maxlength="256"/>
 
         <label class="form-label"><span class="help"></span>Keywords</label>
-        <input type="text" class="form-control" data-bind="textInput: mediaItem.keywords" />
+        <input type="text" class="form-control" data-bind="textInput: mediaItem.keywords" maxlength="256"/>
     </fieldset>
 
     <div class="flex-item button-group">

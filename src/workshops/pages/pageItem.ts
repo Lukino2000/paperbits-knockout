@@ -29,8 +29,8 @@ export class PageItem {
     constructor(page: IPage) {
         this.contentKey = page.contentKey;
         this.permalinkKey = page.permalinkKey;
+        this.key = page.key;        
 
-        this.key = page.key;
         this.permalinkUrl = ko.observable<string>();
         this.title = ko.observable<string>(page.title);
         this.description = ko.observable<string>(page.description);

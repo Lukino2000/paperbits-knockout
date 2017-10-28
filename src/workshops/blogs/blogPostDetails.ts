@@ -8,6 +8,7 @@ import { IRouteHandler } from "@paperbits/common/routing/IRouteHandler";
 import { IViewManager } from "@paperbits/common/ui/IViewManager";
 import { BlogPostItem } from "../../workshops/blogs/blogPostItem";
 import { Component } from "../../decorators/component";
+import { Validators } from "../../validation/validators";
 
 
 @Component({
@@ -36,8 +37,8 @@ export class BlogPostDetailsWorkshop {
         //this.onFaviconUploaded = this.onFaviconUploaded.bind(this);
         this.deleteBlogPost = this.deleteBlogPost.bind(this);
         this.updateMetadata = this.updateMetadata.bind(this);
-        this.updatePermalink = this.updatePermalink.bind(this);
 
+        Validators.initValidation();
         this.init();
     }
 
@@ -48,21 +49,18 @@ export class BlogPostDetailsWorkshop {
         this.blogPostItem.permalinkUrl(permalink.uri);
         this.routeHandler.navigateTo(permalink.uri);
 
-
+        this.blogPostItem.title.extend({required: true});
         this.blogPostItem.title.subscribe(this.updateMetadata);
         this.blogPostItem.description.subscribe(this.updateMetadata);
         this.blogPostItem.keywords.subscribe(this.updateMetadata);
-        this.blogPostItem.permalinkUrl.subscribe(this.updatePermalink);
+
+        Validators.setPermalinkValidatorWithUpdate(this.blogPostItem.permalinkUrl, this.blogPostPermalink, this.permalinkService);
     }
 
     private async updateMetadata(): Promise<void> {
-        await this.blogService.updateBlogPost(this.blogPostItem.toBlogPost());
-    }
-
-    private async updatePermalink(): Promise<void> {
-        this.blogPostPermalink.uri = this.blogPostItem.permalinkUrl();
-        await this.permalinkService.updatePermalink(this.blogPostPermalink);
-        this.routeHandler.navigateTo(this.blogPostPermalink.uri, false);
+        if(this.blogPostItem.title.isValid()) {
+            await this.blogService.updateBlogPost(this.blogPostItem.toBlogPost());
+        }
     }
 
     public async deleteBlogPost(): Promise<void> {
