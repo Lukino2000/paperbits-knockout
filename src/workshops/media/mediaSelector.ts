@@ -77,16 +77,16 @@ export class MediaSelector implements IResourceSelector<IMedia> {
     }
 
     public async uploadMedia(): Promise<void> {
-        let files = await this.viewManager.openUploadDialog();
+        const files = await this.viewManager.openUploadDialog();
 
         this.working(true);
 
-        let uploadPromises = [];
+        const uploadPromises = [];
 
         for (var index = 0; index < files.length; index++) {
-            let file = files[index];
-            let content = await Utils.readFileAsByteArray(file);
-            let uploadPromise = this.mediaService.createMedia(file.name, content, file.type);
+            const file = files[index];
+            const content = await Utils.readFileAsByteArray(file);
+            const uploadPromise = this.mediaService.createMedia(file.name, content, file.type);
 
             this.viewManager.addPromiseProgressIndicator(uploadPromise, "Media library", `Uploading ${file.name}...`);
             uploadPromises.push(uploadPromise);

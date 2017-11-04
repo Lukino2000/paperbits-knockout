@@ -22,7 +22,7 @@ export class ButtonEditor implements IWidgetEditor {
     public readonly hyperlink: KnockoutObservable<HyperlinkModel>;
     public readonly hyperlinkTitle: KnockoutObservable<string>;
 
-    constructor() {
+    constructor(private viewManager: IViewManager) {
         this.onChange = this.onChange.bind(this);
         this.onHyperlinkChange = this.onHyperlinkChange.bind(this);
 
@@ -74,5 +74,9 @@ export class ButtonEditor implements IWidgetEditor {
         this.onHyperlinkChange(buttonModel.hyperlink);
 
         this.applyChangesCallback = applyChangesCallback;
+    }
+
+    public closeEditor(): void {
+        this.viewManager.closeWidgetEditor();
     }
 }

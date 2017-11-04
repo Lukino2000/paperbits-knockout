@@ -19,14 +19,17 @@
 
         <div class="flex-item button-group">
             <button class="button" data-bind="click: addSlide">
-                <span class="icon icon-plus">Add slide</span>
+                <i class="paperbits-icon paperbits-simple-add"></i>
+                Add slide
             </button>
             <button class="button" data-bind="click: deleteSlide">
-                <span class="icon icon-minus">Delete slide</span>
+                <i class="paperbits-icon paperbits-simple-remove"></i>
+                Delete slide
             </button>
         </div>
 
-        <label class="form-label"><span class="help"></span>Style</label>
+        <label class="form-label">
+            Style</label>
         <div class="form-group">
             <label class="form-label">
                 <input name="style" type="radio" value="style1" data-bind="checked: style" />Style 1
@@ -36,7 +39,8 @@
             </label>
         </div>
 
-        <label class="form-label"><span class="help"></span>Size</label>
+        <label class="form-label">
+            Size</label>
         <div class="form-group">
             <label class="form-label">
                 <input name="size" type="radio" value="small" data-bind="checked: size" />Small
@@ -49,37 +53,38 @@
             </label>
         </div>
 
-        <label class="form-label"><span class="help"></span>Background</label>
+        <label class="form-label">
+            Background</label>
         <div class="form-group">
             <div class="flex-container">
                 <div class="toolbox-button" data-bind="css: { 'toolbox-button-is-active': backgroundSourceType()=='none' }" title="No background">
                     <a href="#" data-bind="click: clearBackground">
-                    <span class="icon icon-clear"></span>
-                </a>
+                        <span class="icon icon-clear"></span>
+                    </a>
                 </div>
 
                 <div class="toolbox-button" data-bind="css: { 'toolbox-button-is-active': backgroundSourceType()=='picture' }" title="Background picture">
                     <a href="#" data-bind="click: setPictureBackground">
-                    <span class="icon icon-picture"></span>
-                </a>
+                        <span class="icon icon-picture"></span>
+                    </a>
                 </div>
 
                 <div class="toolbox-button" title="Background map">
                     <a href="#" data-bind="click: comingSoon">
-                    <span class="icon icon-map"></span>
-                </a>
+                        <span class="icon icon-map"></span>
+                    </a>
                 </div>
 
                 <div class="toolbox-button" title="Background video">
                     <a href="#" data-bind="click: comingSoon">
-                    <span class="icon icon-video"></span>
-                </a>
+                        <span class="icon icon-video"></span>
+                    </a>
                 </div>
 
                 <div class="toolbox-button pull-right" title="Background color">
                     <a href="#" data-bind="balloon: { target: '#colorSelector', position: 'top' }">
-                    <span class="icon icon-drop"></span>
-                </a>
+                        <span class="icon icon-drop"></span>
+                    </a>
                 </div>
             </div>
         </div>
@@ -89,7 +94,8 @@
         <div class="dropzone" data-bind="background: background, balloon: { target: '#mediaSelector', position: 'top' }">
         </div>
 
-        <label class="form-label"><span class="help"></span>Background picture sizing</label>
+        <label class="form-label">
+            Background picture sizing</label>
         <div class="form-group">
             <label class="form-label">
                 <input name="size" type="radio" value="contain" data-bind="checked: backgroundSize" />Contain
@@ -100,28 +106,48 @@
         </div>
 
         <div class="form-group">
-            <label class="form-label"><span class="help"></span>Background picture alignment</label>
+            <label class="form-label">
+                Background picture alignment</label>
             <table class="background-alignment">
                 <tr>
-                    <td><button class="icon icon-arrow-up-left" data-bind="click: backgroundPosition.bind($component, 'top left')"></button></td>
-                    <td><button class="icon icon-arrow-up" data-bind="click: backgroundPosition.bind($component, 'top center')"></button></td>
-                    <td><button class="icon icon-arrow-up-right" data-bind="click: backgroundPosition.bind($component, 'top right')"></button></td>
+                    <td>
+                        <button class="icon icon-arrow-up-left" data-bind="click: backgroundPosition.bind($component, 'top left')"></button>
+                    </td>
+                    <td>
+                        <button class="icon icon-arrow-up" data-bind="click: backgroundPosition.bind($component, 'top center')"></button>
+                    </td>
+                    <td>
+                        <button class="icon icon-arrow-up-right" data-bind="click: backgroundPosition.bind($component, 'top right')"></button>
+                    </td>
                 </tr>
                 <tr>
-                    <td><button class="icon icon-arrow-left" data-bind="click: backgroundPosition.bind($component, 'center left')"></button></td>
-                    <td><button class="icon icon-arrow-center" data-bind="click: backgroundPosition.bind($component, 'center center')"></button></td>
-                    <td><button class="icon icon-arrow-right" data-bind="click: backgroundPosition.bind($component, 'center right')"></button></td>
+                    <td>
+                        <button class="icon icon-arrow-left" data-bind="click: backgroundPosition.bind($component, 'center left')"></button>
+                    </td>
+                    <td>
+                        <button class="icon icon-arrow-center" data-bind="click: backgroundPosition.bind($component, 'center center')"></button>
+                    </td>
+                    <td>
+                        <button class="icon icon-arrow-right" data-bind="click: backgroundPosition.bind($component, 'center right')"></button>
+                    </td>
                 </tr>
                 <tr>
-                    <td><button class="icon icon-arrow-down-left" data-bind="click: backgroundPosition.bind($component, 'bottom left')"></button></td>
-                    <td><button class="icon icon-arrow-down" data-bind="click: backgroundPosition.bind($component, 'bottom center')"></button></td>
-                    <td><button class="icon icon-arrow-down-right" data-bind="click: backgroundPosition.bind($component, 'bottom right')"></button></td>
+                    <td>
+                        <button class="icon icon-arrow-down-left" data-bind="click: backgroundPosition.bind($component, 'bottom left')"></button>
+                    </td>
+                    <td>
+                        <button class="icon icon-arrow-down" data-bind="click: backgroundPosition.bind($component, 'bottom center')"></button>
+                    </td>
+                    <td>
+                        <button class="icon icon-arrow-down-right" data-bind="click: backgroundPosition.bind($component, 'bottom right')"></button>
+                    </td>
                 </tr>
             </table>
         </div>
         <!-- /ko -->
 
-        <label class="form-label"><span class="help"></span>Layout</label>
+        <label class="form-label">
+            Layout</label>
         <div class="form-group">
             <label class="form-label">
                 <input name="layout" type="radio" value="container" data-bind="checked: layout" />Container
@@ -131,7 +157,8 @@
             </label>
         </div>
 
-        <label class="form-label"><span class="help"></span>Padding</label>
+        <label class="form-label">
+            Padding</label>
         <div class="form-group">
             <label class="form-label">
                 <input name="padding" type="radio" value="with-padding" data-bind="checked: padding" />With padding

@@ -1,7 +1,8 @@
 <div class="flex-container flex-container-column fit">
     <fieldset class="flex-item flex-item-grow form" data-bind="scrollable: {}">
-        <label class="form-label"><span class="help"></span>Label</label>
-        <input class="form-control" type="text" autofocus data-bind="textInput: node.label" placeholder="i.e. Orders" maxlength="256"/>
+        <label class="form-label">
+            Label</label>
+        <input class="form-control" type="text" autofocus data-bind="textInput: node.label" placeholder="i.e. Orders" />
 
         <div class="form-group">
             <label class="form-label">Link to</label>
@@ -13,7 +14,10 @@
     </fieldset>
 
     <div class="flex-item button-group">
-        <button class="button" data-bind="click: deleteNavigationItem"><span class="icon icon-minus">Delete</span></button>
+        <button class="button" data-bind="click: deleteNavigationItem">
+            <i class="paperbits-icon paperbits-simple-remove"></i>
+            Delete
+        </button>
     </div>
 </div>
 

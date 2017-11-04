@@ -8,18 +8,11 @@
 }
 
 .tools-paragraph-style {
+    @include tabable();
     display: block;
     padding: 5px 10px;
     margin: -5px;
     text-decoration: none;
-
-    &:hover {
-        @include selection();
-    }
-
-    &:active, &:visited {
-        color: inherit;
-    }
 }
 
 .tools-paragraph-style {

@@ -29,7 +29,7 @@ export class PictureEditor implements IWidgetEditor {
     public readonly animation: KnockoutObservable<string>;
     public readonly background: KnockoutObservable<BackgroundModel>;
 
-    constructor() {
+    constructor(private viewManager: IViewManager) {
         this.onCaptionUpdate = this.onCaptionUpdate.bind(this);
         this.onLayoutUpdate = this.onLayoutUpdate.bind(this);
         this.onAnimationUpdate = this.onAnimationUpdate.bind(this);
@@ -79,5 +79,9 @@ export class PictureEditor implements IWidgetEditor {
 
         this.background.valueHasMutated();
         this.applyChangesCallback();
+    }
+
+    public closeEditor(): void {
+        this.viewManager.closeWidgetEditor();
     }
 }

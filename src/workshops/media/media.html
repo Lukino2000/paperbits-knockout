@@ -11,16 +11,19 @@
         <li class="list-item list-item-float" data-bind="css: { selected: hasFocus }, dragsource: { sticky: true, payload: $data, ondragstart: $parent.onDragStart, ondragend: $parent.onDragEnd }">
             <!--ko if: media.isImage -->
             <a class="thumbnail" href="#" data-bind="click: $component.selectMedia, hasFocus: hasFocus, style: { 'background-image': 'url('+media.downloadUrl()+')' }, attr: { title: media.fileName() }"></a>
-            <!--/ko-->    
+            <!--/ko-->
             <!--ko ifnot: media.isImage -->
             <a class="thumbnail" href="#" data-bind="click: $component.selectMedia, hasFocus: hasFocus, attr: { title: media.fileName() }">
                 <div class="icon icon-file"></div>
             </a>
-            <!--/ko-->        
+            <!--/ko-->
         </li>
     </ul>
 
     <div class="flex-item button-group">
-        <button class="button" data-bind="click: uploadMedia"><span class="icon icon-uploadmedia">Upload file</span></button>
+        <button class="button" data-bind="click: uploadMedia">
+            <i class="paperbits-icon paperbits-square-upload"></i>
+            Upload file
+        </button>
     </div>
 </div>

@@ -14,24 +14,22 @@
 .button {
     border: none;
     background: none;
+    color: $color-base;
     font-family: $font-family-base;
     font-size: $font-size-base;
     line-height: $workshop-button-height;
+    min-width: $workshop-button-height;
+    text-decoration: none;
+    text-align: center;
+    vertical-align: middle;
     @include no-select;
 
     &:hover,
     &:focus {
-        background: $hover-color;
-        outline: 1px dashed $button-border-color;
+        @include selection();
+        outline: none;
+        color: $color-base;
         cursor: pointer;
-    }
-
-    .icon {
-        display: inline-block;
-        height: $workshop-button-height;
-        padding: 0;
-        padding-left: $workshop-button-height;
-        background-position: left center;
     }
 
     &.button-tall {

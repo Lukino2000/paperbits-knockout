@@ -1,6 +1,7 @@
 import * as ko from "knockout";
 import * as _ from 'lodash';
 import * as $ from "jquery/dist/jquery";
+import * as Utils from "@paperbits/common/core/utils";
 import { PageModelBinder } from "@paperbits/common/widgets/page/pageModelBinder";
 import { PageModel } from "@paperbits/common/widgets/page/pageModel";
 import { IContextualEditor } from "@paperbits/common/ui/IContextualEditor";
@@ -343,8 +344,7 @@ export class GridEditor {
                 oncreate: (editorViewModel: IWidgetEditor) => {
                     editorViewModel.setWidgetModel(widgetBinding.model, widgetBinding.applyChanges);
                 }
-            },
-            hideCloseButton: widgetBinding.hideCloseButton
+            }
         }
 
         this.viewManager.setWidgetEditor(editorSession)
@@ -382,17 +382,7 @@ export class GridEditor {
             return [];
         }
 
-        if (this.ownerDocument.elementsFromPoint) {
-            elements = Array.prototype.slice.call(this.ownerDocument.elementsFromPoint(this.pointerX, this.pointerY));
-        }
-        else if (this.ownerDocument.msElementsFromPoint) {
-            elements = Array.prototype.slice.call(this.ownerDocument.msElementsFromPoint(this.pointerX, this.pointerY));
-        }
-        else {
-            throw `Method "elementsFromPoint" not supported by browser.`
-        }
-
-        return elements;
+        return Utils.elementsFromPoint(this.ownerDocument, this.pointerX, this.pointerY);
     }
 
     private renderHighlightedElements(): void {
@@ -555,8 +545,7 @@ export class GridEditor {
                             oncreate: (editorViewModel: IWidgetEditor) => {
                                 editorViewModel.setWidgetModel(widgetModel.model, widgetModel.applyChanges);
                             }
-                        },
-                        hideCloseButton: widgetModel.hideCloseButton
+                        }
                     }
 
                     this.viewManager.setWidgetEditor(editorSession);
@@ -701,8 +690,7 @@ export class GridEditor {
                             oncreate: (editorViewModel: IWidgetEditor) => {
                                 editorViewModel.setWidgetModel(widgetModel.model, widgetModel.applyChanges);
                             }
-                        },
-                        hideCloseButton: widgetModel.hideCloseButton
+                        }
                     }
 
                     this.viewManager.setWidgetEditor(editorSession);
@@ -799,8 +787,7 @@ export class GridEditor {
                             oncreate: (editorViewModel: IWidgetEditor) => {
                                 editorViewModel.setWidgetModel(widgetModel.model, widgetModel.applyChanges);
                             }
-                        },
-                        hideCloseButton: widgetModel.hideCloseButton
+                        }
                     }
 
                     this.viewManager.setWidgetEditor(editorSession);
@@ -902,8 +889,7 @@ export class GridEditor {
                             oncreate: (editorViewModel: IWidgetEditor) => {
                                 editorViewModel.setWidgetModel(widgetModel.model, widgetModel.applyChanges);
                             }
-                        },
-                        hideCloseButton: widgetModel.hideCloseButton
+                        }
                     }
 
                     this.viewManager.setWidgetEditor(editorSession);

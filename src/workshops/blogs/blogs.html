@@ -8,12 +8,16 @@
         <!--ko if: $component.working()-->
         <spinner></spinner>
         <!--/ko-->
-        <li class="list-item icon icon-blog-post" data-bind="css: { selected: hasFocus }">
+        <li class="list-item" data-bind="css: { selected: hasFocus }">
+            <i class="paperbits-icon paperbits-chat-45-2"></i>
             <a href="#" data-bind="click: $parent.selectBlogPost, text: title, hasFocus: hasFocus"></a>
         </li>
     </ul>
 
     <div class="flex-item button-group">
-        <button class="button" data-bind="click: addBlogPost"><span class="icon icon-plus">Add blog post</span></button>
+        <button class="button" data-bind="click: addBlogPost">
+            <i class="paperbits-icon paperbits-simple-add"></i>
+            Add blog post
+        </button>
     </div>
 </div>

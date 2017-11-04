@@ -17,7 +17,7 @@ export class BalloonBindingHandler {
                 let balloonX;
                 let balloonY;
 
-                let reposition = function (targetElement: HTMLElement) {
+                const reposition = function (targetElement: HTMLElement) {
                     let targetRect = triggerElement.getBoundingClientRect();
                     let balloonRect = targetElement.getBoundingClientRect();
                     let position = options.position;
@@ -65,9 +65,7 @@ export class BalloonBindingHandler {
 
                 const documentObserver = new MutationObserver(watch);
 
-                const onClick = (event) => {
-                    event.preventDefault();
-
+                const toggle = (): void => {
                     let targetElement: HTMLElement = document.querySelector(options.target);
 
                     if (!targetElement) {
@@ -89,25 +87,15 @@ export class BalloonBindingHandler {
                     }
                 }
 
-                const onScroll = (event) => {
+                const onPointerDown = (event: PointerEvent) => {
                     let targetElement: HTMLElement = document.querySelector(options.target);
 
                     if (!targetElement) {
                         return;
                     }
 
-                    reposition(targetElement);
-                }
-
-                const onPointerDown = (event) => {
-                    let targetElement: HTMLElement = document.querySelector(options.target);
-
-                    if (!targetElement) {
-                        return;
-                    }
-
-                    let it = $(event.target).closest(targetElement);
-                    let that = $(event.target).closest(triggerElement);
+                    const it = $(event.target).closest(targetElement);
+                    const that = $(event.target).closest(triggerElement);
 
                     if (it.length === 0 && that.length === 0) {
                         if (targetElement) {
@@ -122,13 +110,37 @@ export class BalloonBindingHandler {
                     }
                 }
 
+                const onKeyDown = (event: KeyboardEvent): void => {
+                    if (event.keyCode === 13 || event.keyCode === 32) {
+                        event.preventDefault();
+                        toggle();
+                    }
+                }
+
+                const onClick = (event: PointerEvent): void => {
+                    event.preventDefault();
+                    toggle();
+                }
+
+                const onScroll = (event: PointerEvent) => {
+                    let targetElement: HTMLElement = document.querySelector(options.target);
+
+                    if (!targetElement) {
+                        return;
+                    }
+
+                    reposition(targetElement);
+                }
+
                 triggerElement.addEventListener("click", onClick);
+                triggerElement.addEventListener("keydown", onKeyDown);
                 document.addEventListener("scroll", onScroll);
                 eventManager.addEventListener("onPointerDown", onPointerDown);
 
                 ko.utils.domNodeDisposal.addDisposeCallback(triggerElement, () => {
                     documentObserver.disconnect();
                     triggerElement.removeEventListener("click", onClick);
+                    triggerElement.removeEventListener("keydown", onKeyDown);
                     document.removeEventListener("scroll", onScroll);
                     eventManager.removeEventListener("onPointerDown", onPointerDown);
                 });

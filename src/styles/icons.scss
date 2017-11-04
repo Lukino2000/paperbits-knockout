@@ -7,44 +7,14 @@
     background-size: 35%;
 }
 
-.icon-search {
-    @extend .icon-box;
-    background-image: url(inline-image("src/svgs/outline-zoom.svg"));
-}
-
 .icon-clear {
     @extend .icon-box;
     background-image: url(inline-image("src/svgs/outline-clear.svg"));
 }
 
-.icon-hyperlink {
-    @extend .icon-box;
-    background-image: url(inline-image("src/svgs/outline-link.svg"));
-}
-
-.icon-drop {
-    @extend .icon-box;
-    background-image: url(inline-image("src/svgs/outline-drop.svg"));
-}
-
-.icon-map {
-    @extend .icon-box;
-    background-image: url(inline-image("src/svgs/outline-map-pin.svg"));
-}
-
 .icon-video {
     @extend .icon-box;
     background-image: url(inline-image("src/svgs/outline-video.svg"));
-}
-
-.icon-orderedlist {
-    @extend .icon-box;
-    background-image: url(inline-image("src/svgs/outline-list-numbers.svg"));
-}
-
-.icon-unorderedlist {
-    @extend .icon-box;
-    background-image: url(inline-image("src/svgs/outline-list-bullet.svg"));
 }
 
 .icon-picture {
@@ -55,46 +25,6 @@
 .icon-file {
     @extend .icon-box;
     background-image: url(inline-image("src/svgs/drawer.svg"));
-}
-
-.icon-bold {
-    @extend .icon-box;
-    background-image: url(inline-image("src/svgs/outline-bold.svg"));
-}
-
-.icon-italic {
-    @extend .icon-box;
-    background-image: url(inline-image("src/svgs/outline-italic.svg"));
-}
-
-.icon-underline {
-    @extend .icon-box;
-    background-image: url(inline-image("src/svgs/outline-underline.svg"));
-}
-
-.icon-alignleft {
-    @extend .icon-box;
-    background-image: url(inline-image("src/svgs/outline-align-left.svg"));
-}
-
-.icon-aligncenter {
-    @extend .icon-box;
-    background-image: url(inline-image("src/svgs/outline-align-center.svg"));
-}
-
-.icon-alignright {
-    @extend .icon-box;
-    background-image: url(inline-image("src/svgs/outline-align-right.svg"));
-}
-
-.icon-justify {
-    @extend .icon-box;
-    background-image: url(inline-image("src/svgs/outline-align-justify.svg"));
-}
-
-.icon-gears {
-    @extend .icon-box;
-    background-image: url(inline-image("src/svgs/outline-preferences.svg"));
 }
 
 .icon-plus {
@@ -112,108 +42,15 @@
     background-image: url(inline-image("src/svgs/outline-plus-inverted.svg"));
 }
 
-.icon-deletefolder {
-    @extend .icon-box;
-    background-image: url(inline-image("src/svgs/outline-minus.svg"));
-}
-
-.icon-uploadmedia {
-    @extend .icon-box;
-    background-image: url(inline-image("src/svgs/outline-upload.svg"));
-}
-
-.icon-menus {
-    @extend .icon-box;
-    background-image: url(inline-image("src/svgs/outline-menu.svg"));
-}
-
-.icon-pages {
-    @extend .icon-box;
-    background-image: url(inline-image("src/svgs/outline-page.svg"));
-}
-
-.icon-blogs {
-    @extend .icon-box;
-    background-image: url(inline-image("src/svgs/outline-blog.svg"));
-}
-
-.icon-blog-post {
-    @extend .icon-box;
-    background-image: url(inline-image("src/svgs/outline-blog.svg"));
-}
-
-.icon-minus {
-    @extend .icon-box;
-    background-image: url(inline-image("src/svgs/outline-minus.svg"));
-}
-
-.icon-news {
-    @extend .icon-box;
-    background-image: url(inline-image("src/svgs/outline-notification.svg"));
-}
-
-.icon-notification {
-    @extend .icon-box;
-    background-image: url(inline-image("src/svgs/outline-notification.svg"));
-}
-
 .icon-pen {
     @extend .icon-box;
     background-image: url(inline-image("src/svgs/outline-pen.svg"));
-}
-
-.icon-gear-inverted {
-    @extend .icon-box;
-    background-image: url(inline-image("src/svgs/outline-gear-inverted.svg"));
-}
-
-.icon-page {
-    @extend .icon-box;
-    background-image: url(inline-image("src/svgs/outline-page.svg"));
-}
-
-.icon-widget {
-    @extend .icon-box;
-    background-image: url(inline-image("src/svgs/outline-puzzle.svg"));
-}
-
-.icon-layout {
-    @extend .icon-box;
-    background-image: url(inline-image("src/svgs/outline-layout.svg"));
 }
 
 .icon-image {
     background-repeat: no-repeat;
     background-position: left center;
     background-image: url(inline-image("src/svgs/outline-picture.svg"));
-}
-
-.icons-draghandle {
-    @extend .icon-box;
-    background-image: url(inline-image("src/svgs/icons-draghandle.svg"));
-}
-
-.icons-success {
-    @extend .icon-box;
-    background-image: url(inline-image("src/svgs/icons-success.svg"));
-    background-size: auto 90%;
-}
-
-.icons-expand {
-    @extend .icon-box;
-    background-image: url(inline-image("src/svgs/icons-expand.svg"));
-    background-size: auto 90%;
-}
-
-.icons-collapse {
-    @extend .icon-box;
-    background-image: url(inline-image("src/svgs/icons-collapse.svg"));
-    background-size: auto 90%;
-}
-
-.icon-info {
-    @extend .icon-box;
-    background-image: url(inline-image("src/svgs/outline-info.svg"));
 }
 
 .icon-arrow-up-left {
@@ -261,44 +98,9 @@
     background-image: url(inline-image("src/svgs/outline-arrow-down-right.svg"));
 }
 
-.icon-desktop {
-    @extend .icon-box;
-    background-image: url(inline-image("src/svgs/outline-desktop.svg"));
-}
-
-.icon-tablet {
-    @extend .icon-box;
-    background-image: url(inline-image("src/svgs/outline-tablet.svg"));
-}
-
-.icon-tablet-landscape {
-    @extend .icon-box;
-    background-image: url(inline-image("src/svgs/outline-tablet-landscape.svg"));
-}
-
-.icon-phone {
-    @extend .icon-box;
-    background-image: url(inline-image("src/svgs/outline-phone.svg"));
-}
-
-.icon-tail-left {
-    @extend .icon-box;
-    background-image: url(inline-image("src/svgs/outline-tail-left.svg"));
-}
-
-.icon-tail-right {
-    @extend .icon-box;
-    background-image: url(inline-image("src/svgs/outline-tail-right.svg"));
-}
-
 .icon-video-player {
     @extend .icon-box;
     background-image: url(inline-image("src/svgs/outline-video.svg"));
-}
-
-.icon-text-block {
-    @extend .icon-box;
-    background-image: url(inline-image("src/svgs/outline-text.svg"));
 }
 
 .icon-button {
@@ -316,12 +118,271 @@
     background-image: url(inline-image("src/svgs/outline-menu.svg"));
 }
 
-.icon-anchor {
-    @extend .icon-box;
-    background-image: url(inline-image("src/svgs/outline-anchor.svg"));
+.paperbits-icon {
+    display: inline-block;
+    font-family: paperbits;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 1.3em;
+    vertical-align: middle;
+    speak: none;
+    text-transform: none;
+    /* Better Font Rendering */
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+
+}
+/*------------------------
+	font icons
+-------------------------*/
+.paperbits-icon.paperbits-chat-45:before {
+    content: "\ea02";
 }
 
-.icon-text-size {
-    @extend .icon-box;
-    background-image: url(inline-image("src/svgs/outline-text-size.svg"));
+.paperbits-icon.paperbits-layout-11:before {
+    content: "\ea03";
+}
+
+.paperbits-icon.paperbits-logo-youtube:before {
+    content: "\ea07";
+}
+
+.paperbits-icon.paperbits-action-74:before {
+    content: "\ea08";
+}
+
+.paperbits-icon.paperbits-align-center:before {
+    content: "\ea09";
+}
+
+.paperbits-icon.paperbits-align-justify:before {
+    content: "\ea0a";
+}
+
+.paperbits-icon.paperbits-align-left-2:before {
+    content: "\ea0b";
+}
+
+.paperbits-icon.paperbits-align-right-2:before {
+    content: "\ea0c";
+}
+
+.paperbits-icon.paperbits-size:before {
+    content: "\ea0d";
+}
+
+.paperbits-icon.paperbits-edit-2:before {
+    content: "\ea0e";
+}
+
+.paperbits-icon.paperbits-code:before {
+    content: "\ea0f";
+}
+
+.paperbits-icon.paperbits-list-bullet:before {
+    content: "\ea10";
+}
+
+.paperbits-icon.paperbits-list-numbers:before {
+    content: "\ea11";
+}
+
+.paperbits-icon.paperbits-bold:before {
+    content: "\ea12";
+}
+
+.paperbits-icon.paperbits-audio-91:before {
+    content: "\ea13";
+}
+
+.paperbits-icon.paperbits-quote:before {
+    content: "\ea14";
+}
+
+.paperbits-icon.paperbits-subscript:before {
+    content: "\ea15";
+}
+
+.paperbits-icon.paperbits-superscript:before {
+    content: "\ea16";
+}
+
+.paperbits-icon.paperbits-alert-circle-i:before {
+    content: "\ea17";
+}
+
+.paperbits-icon.paperbits-chat-45-2:before {
+    content: "\ea18";
+}
+
+.paperbits-icon.paperbits-cloud-25:before {
+    content: "\ea19";
+}
+
+.paperbits-icon.paperbits-drop:before {
+    content: "\ea1a";
+}
+
+.paperbits-icon.paperbits-database:before {
+    content: "\ea1b";
+}
+
+.paperbits-icon.paperbits-m-location:before {
+    content: "\ea1d";
+}
+
+.paperbits-icon.paperbits-map:before {
+    content: "\ea1e";
+}
+
+.paperbits-icon.paperbits-mobile:before {
+    content: "\ea1f";
+}
+
+.paperbits-icon.paperbits-desktop-screen:before {
+    content: "\ea20";
+}
+
+.paperbits-icon.paperbits-tv-2:before {
+    content: "\ea21";
+}
+
+.paperbits-icon.paperbits-mobile-landscape:before {
+    content: "\ea22";
+}
+
+.paperbits-icon.paperbits-player-48:before {
+    content: "\ea23";
+}
+
+.paperbits-icon.paperbits-tablet-2:before {
+    content: "\ea24";
+}
+
+.paperbits-icon.paperbits-wifi-off:before {
+    content: "\ea25";
+}
+
+.paperbits-icon.paperbits-wifi:before {
+    content: "\ea26";
+}
+
+.paperbits-icon.paperbits-ban:before {
+    content: "\ea27";
+}
+
+.paperbits-icon.paperbits-single-content-03:before {
+    content: "\ea28";
+}
+
+.paperbits-icon.paperbits-single-copy-04:before {
+    content: "\ea29";
+}
+
+.paperbits-icon.paperbits-single-copies:before {
+    content: "\ea2a";
+}
+
+.paperbits-icon.paperbits-mirror-2:before {
+    content: "\ea2b";
+}
+
+.paperbits-icon.paperbits-slider:before {
+    content: "\ea2c";
+}
+
+.paperbits-icon.paperbits-abc:before {
+    content: "\ea2f";
+}
+
+.paperbits-icon.paperbits-puzzle-10:before {
+    content: "\ea30";
+}
+
+.paperbits-icon.paperbits-image-2:before {
+    content: "\ea31";
+}
+
+.paperbits-icon.paperbits-paint-bucket-40:before {
+    content: "\ea32";
+}
+
+.paperbits-icon.paperbits-palette:before {
+    content: "\ea33";
+}
+
+.paperbits-icon.paperbits-transform-origin:before {
+    content: "\ea34";
+}
+
+.paperbits-icon.paperbits-menu-right:before {
+    content: "\ea35";
+}
+
+.paperbits-icon.paperbits-menu-34:before {
+    content: "\ea36";
+}
+
+.paperbits-icon.paperbits-menu-left:before {
+    content: "\ea37";
+}
+
+.paperbits-icon.paperbits-check-2:before {
+    content: "\ea38";
+}
+
+.paperbits-icon.paperbits-preferences-circle:before {
+    content: "\ea39";
+}
+
+.paperbits-icon.paperbits-underline:before {
+    content: "\ea3a";
+}
+
+.paperbits-icon.paperbits-link-69-2:before {
+    content: "\ea3d";
+}
+
+.paperbits-icon.paperbits-capitalize:before {
+    content: "\ea3e";
+}
+
+.paperbits-icon.paperbits-color:before {
+    content: "\ea3f";
+}
+
+.paperbits-icon.paperbits-anchor:before {
+    content: "\ea40";
+}
+
+.paperbits-icon.paperbits-italic:before {
+    content: "\ea41";
+}
+
+.paperbits-icon.paperbits-square-upload:before {
+    content: "\ea42";
+}
+
+.paperbits-icon.paperbits-square-download:before {
+    content: "\ea43";
+}
+
+.paperbits-icon.paperbits-simple-add:before {
+    content: "\ea44";
+}
+
+.paperbits-icon.paperbits-simple-remove:before {
+    content: "\ea45";
+}
+
+.paperbits-icon.paperbits-question:before {
+    content: "\ea46";
+}
+
+.paperbits-icon.paperbits-circle-delete:before {
+    content: "\ea47";
+}
+
+.paperbits-icon.paperbits-circle-add:before {
+    content: "\ea48";
 }

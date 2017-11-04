@@ -1,43 +1,61 @@
 ﻿@import "variables.scss";
-
 @import "mixins.scss";
-
 @import "icons.scss";
 
 .form {
     margin: 0;
     padding: 0;
     border: none;
-    min-width: 250px;
+    min-width: 280px;
+    max-height: 500px;
 
     .form-group {
         display: block;
         margin-bottom: 20px;
+        padding-bottom: 10px;
         overflow: hidden;
         width: 100%;
-    }
 
-    .help {
-        @extend .icon-info;
-        width: $workshop-help-button-size;
-        height: $workshop-help-button-size;
-        display: block;
-        float: right;
-        text-align: center;
-        cursor: pointer;
-        background-size: 70%;
+        &.form-group-collapsible {
+            .form-label {
+                position: unset;
+            }
+
+            .form-group-toggle {
+                position: unset;
+                padding: 3px;
+                text-decoration: none;
+                color: #BDBFC1;
+
+                &:after {
+                    content: "";
+                    position: absolute;
+                    top: 25px;
+                    bottom: -10px;
+                    left: 10px;
+                    border-left: 1px dotted #ddd;
+                }
+            }
+
+            .form-group-collapse {
+                padding-left: 25px;
+            }
+        }
     }
 
     label {
         width: 100%;
         display: block;
-        font-weight: $font-weight-base;
+        font-weight: 600;
     }
 
-    input[type=text], input[type=search], textarea {
+    input[type=search],
+    input[type=text],
+    textarea {
         font-family: $font-family-base;
         font-weight: $font-weight-base;
         font-size: $textbox-font-size;
+        border: .5px solid #BDBFC1;
 
         &::placeholder {
             font-style: italic;
@@ -47,9 +65,7 @@
             outline: none;
         }
 
-        @include box-shadow(inset 0px 0px 1px 1px rgba(0, 0, 0, 0.15));
         box-sizing: border-box;
-        border: none;
         margin-bottom: 20px;
         width: 100%;
         border-radius: 7px;
@@ -60,10 +76,10 @@
     }
 
     input[type=search] {
-        @extend .icon-search;
         background-position: 98% center;
         background-repeat: no-repeat;
         background-size: auto 60%;
+        background-blend-mode: exclusion;
     }
 
     input[type=radio] {
@@ -71,25 +87,12 @@
     }
 
     .dropzone {
+        margin-top: 10px;
         margin-bottom: 20px;
-        border-radius: 7px;
-    }
-
-    .textbox {
-        font-family: $font-family-base;
-        font-weight: $font-weight-base;
-        font-size: $textbox-font-size;
-
-        &::placeholder {
-            font-style: italic;
-        }
-        @include box-shadow(inset 0px 0px 1px 1px rgba(0, 0, 0, 0.15));
-        box-sizing: border-box;
-        border: none;
     }
 
     .form-control {
-        padding: 8px;
+        padding: 7px;
         width: 100%;
     }
 
@@ -98,12 +101,9 @@
     }
 
     textarea {
-        @extend .textbox;
         resize: vertical;
         min-height: 100px;
     }
-
-    
 }
 
 hr {
@@ -113,4 +113,31 @@ hr {
     height: 1px;
     width: 100%;
     margin: 12px 0;
+}
+
+.tabs {
+    border-bottom: 1px solid #E6E7E8;
+    display: flex;
+
+    .tab {
+        a {
+            width: 60px;
+            display: inline-block;
+            vertical-align: middle;
+            text-align: center;
+            line-height: 40px;
+            color: $color-base;
+
+            &:focus,
+            &:active,
+            &:hover {
+                outline: none;
+                @include selection();
+            }
+        }
+
+        &.tab-is-active {
+            border-bottom: 2px solid #727376;
+        }
+    }
 }

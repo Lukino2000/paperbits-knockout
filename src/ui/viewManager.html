@@ -10,12 +10,16 @@
     <!--ko if: complete()-->
     <div class="indicator">
         <div class="indicator-success">
+            <i class="paperbits-icon paperbits-check-2"></i>
         </div>
         <div class="indicator-text">
-            <h1 data-bind="text: title"></h1>
+            <h1>
+                <span data-bind="text: title"></span>
+                <button class="button pull-right">✖</button>
+            </h1>
             <p data-bind="text: content"></p>
         </div>
-        <button class="button-close">✖</button>
+
     </div>
     <!--/ko-->
     <!--ko if: !complete()-->
@@ -27,16 +31,13 @@
             <h1 data-bind="text: title"></h1>
             <p data-bind="text: content"></p>
         </div>
-        <button class="button-close">✖</button>
+        <button class="button pull-right">✖</button>
     </div>
     <!--/ko-->
 </div>
 
 <!-- ko with: widgetEditor() -->
 <div class="toolbox toolbox-position-left-offset" data-bind="surface: {}">
-    <!-- ko if: !hideCloseButton -->
-    <!--<a href="#" class="button-close" data-bind="click: $component.closeWidgetEditor">&#10006;</a>-->
-    <!-- /ko -->
     <div data-bind="component: { name: component.name, params: component.params, oncreate: component.oncreate }"></div>
 </div>
 <!-- /ko -->
@@ -67,7 +68,7 @@
     <!-- ko if: command.component -->
     <div class="balloon" data-bind="attr: { id: 'sc-'+command.component.name }, component: command.component"></div>
     <!-- /ko -->
-    
+
     <!-- /ko -->
 
     <!-- ko if: deleteCommand -->

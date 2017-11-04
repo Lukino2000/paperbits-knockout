@@ -253,4 +253,8 @@ export class ColumnEditor implements IWidgetEditor {
         this.horizontalAlignment = "end";
         this.align();
     }
+
+    public closeEditor(): void {
+        this.viewManager.closeWidgetEditor();
+    }
 }

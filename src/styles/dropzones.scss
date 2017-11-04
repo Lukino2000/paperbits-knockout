@@ -1,31 +1,45 @@
 ﻿@import "variables.scss";
-@import "icons.scss";
+@import "mixins.scss";
 
 .dropzone {
-    border: 1px dashed #BDBFC1;
     width: 100%;
     height: 150px;
     position: relative;
-    background-repeat: no-repeat;
-    background-position: center;
-    background-size: cover;
-    background-clip: padding-box;
+   
+    display: block;
+    @include tabable();
 
-    &:before {
-        @extend .icon-uploadmedia;
-        display: block;
-        content: "Click to change picture";
-        position: absolute;
-        top: 50%;
-        left: 50%;
-        transform: translate(-50%, -50%);
-        text-align: center;
-        width: 100%;
-        background-size: 2.5em;
-        background-position: top center;
-        padding-top: 3em;
-        text-transform: lowercase;
-        color: $color-watermark;
+    .dropzone-showbox {
+        &:before {
+            background-repeat: no-repeat;
+            background-position: center;
+            background-size: cover;
+            background-clip: padding-box;
+            position: absolute;
+            display: block;
+            color: $color-watermark;
+            content: "Click to change picture";
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            text-align: center;
+            padding-top: 4em;
+            white-space: nowrap;
+        }
+
+        &:after {
+            position: absolute;
+            font-family: paperbits;
+            font-style: normal;
+            font-weight: normal;
+            font-size: 2em;
+            content: "\ea42";
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            text-align: center;
+            color: $color-watermark;
+        }
     }
 }
 
@@ -34,21 +48,4 @@
     width: 100%;
     height: 3em;
     position: relative;
-
-    &:before {
-        @extend .icon-uploadmedia;
-        display: block;
-        content: "Click to change picture";
-        position: absolute;
-        top: 50%;
-        left: 50%;
-        transform: translate(-50%, -50%);
-        width: 100%;
-        background-size: 2.5em;
-        background-position: center left;
-        margin-left: 0.5em;
-        padding: 0.5em 0em 0.5em 3em;
-        text-transform: lowercase;
-        color: $color-watermark;
-    }
 }

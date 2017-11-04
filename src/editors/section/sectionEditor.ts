@@ -35,7 +35,7 @@ export class SectionEditor implements IWidgetEditor {
     public readonly background: KnockoutObservable<BackgroundModel>;
 
 
-    constructor() {
+    constructor(private viewManager: IViewManager) {
         this.setWidgetModel = this.setWidgetModel.bind(this);
         this.onMediaSelected = this.onMediaSelected.bind(this);
         this.clearBackground = this.clearBackground.bind(this);
@@ -133,5 +133,9 @@ export class SectionEditor implements IWidgetEditor {
 
     public comingSoon(): void {
         alert("This feature is coming soon!");
+    }
+
+    public closeEditor(): void {
+        this.viewManager.closeWidgetEditor();
     }
 }

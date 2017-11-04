@@ -3,7 +3,9 @@
         <div class="list-item-children" data-bind="foreach: nodes">
             <div class="list-item" data-bind="css: { selected: hasFocus }, dragtarget: { accept: canAccept, ondropbefore: insertBefore, ondropafter: insertAfter, flow: 'vertical', onacceptbefore: $component.navigationItemsTree().onAcceptNodeBefore, onacceptafter: $component.navigationItemsTree().onAcceptNodeAfter }">
                 <!--ko if: nodes().length > 0-->
-                <a href="#" class="list-item-collapse" data-bind="click: toggleCollapsed, css: { 'list-item-collapsed': collapsed() }">-</a>
+                <a href="#" class="list-item-collapse" data-bind="click: toggleCollapsed">
+                    <i class="paperbits-icon paperbits-circle-delete" data-bind="css: { 'paperbits-circle-add': collapsed() }"></i>
+                </a>
                 <!--/ko-->
 
                 <a href="#" data-bind="text: label, hasFocus: hasFocus, click: function(){ $data.hasFocus(true); $component.selectNavigationItem($data); }">-</a>
@@ -19,16 +21,23 @@
     </div>
 
     <div class="flex-item button-group">
-        <button class="button" data-bind="click: addNavigationItem, visible: isNodeSelected()"><span class="icon icon-plus">Add navigation item</span></button>
+        <button class="button" data-bind="click: addNavigationItem, visible: isNodeSelected()">
+            <i class="paperbits-icon paperbits-simple-add"></i>
+            Add navigation item
+        </button>
     </div>
 </div>
 
 
 <script id="node" type="text/html">
     <div class="list-item" data-bind="css: { selected: hasFocus }, dragsource: { payload: $data, sticky: true, ondragstart: $component.navigationItemsTree().onNodeDragStart, ondragend: $component.navigationItemsTree().onNodeDragEnd }, dragtarget: { accept: canAccept, ondropbefore: insertBefore, ondropafter: insertAfter, flow: 'vertical', onacceptbefore: $component.navigationItemsTree().onAcceptNodeBefore, onacceptafter: $component.navigationItemsTree().onAcceptNodeAfter }">
-        <span class="list-item-handle">=</span>
+        <span class="list-item-handle">
+            <i class="paperbits-icon paperbits-menu-34"></i>
+        </span>
         <!--ko if: nodes().length > 0-->
-        <a href="#" class="list-item-collapse" data-bind="click: toggleCollapsed, css: { 'list-item-collapsed': collapsed() }">-</a>
+        <a href="#" class="list-item-collapse" data-bind="click: toggleCollapsed">
+            <i class="paperbits-icon paperbits-circle-delete" data-bind="css: { 'paperbits-circle-add': collapsed() }"></i>
+        </a>
         <!--/ko-->
 
         <a href="#" data-bind="text: label, hasFocus: hasFocus, click: function(){ $data.hasFocus(true); $component.selectNavigationItem($data); }">-</a>
