@@ -37,7 +37,7 @@
 </div>
 
 <!-- ko with: widgetEditor() -->
-<div class="toolbox toolbox-position-left-offset" data-bind="surface: {}">
+<div class="toolbox toolbox-position-left-offset" data-bind="surface: $data">
     <div data-bind="component: { name: component.name, params: component.params, oncreate: component.oncreate }"></div>
 </div>
 <!-- /ko -->

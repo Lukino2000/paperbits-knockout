@@ -111,9 +111,19 @@ export class BalloonBindingHandler {
                 }
 
                 const onKeyDown = (event: KeyboardEvent): void => {
-                    if (event.keyCode === 13 || event.keyCode === 32) {
-                        event.preventDefault();
-                        toggle();
+                    switch (event.keyCode) {
+                        case 13:
+                        case 32:
+                            event.preventDefault();
+                            toggle();
+                            break;
+
+                        case 27:
+                            if (options.isOpen && options.isOpen()) {
+                                // TODO: ViewManager should have stack of open editors, so they need to be closed one by one.
+                                options.isOpen(false);
+                            }
+                            break;
                     }
                 }
 
