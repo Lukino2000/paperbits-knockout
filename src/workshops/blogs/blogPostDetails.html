@@ -2,26 +2,25 @@
     <fieldset class="flex-item flex-item-grow form" data-bind="scrollable: {}">
         <label class="form-label">
             Title</label>
-        <input type="text" class="form-control" data-bind="textInput: blogPostItem.title" placeholder="i.e. Orders" />
+        <input type="text" class="form-control" data-bind="textInput: blogPostItem.title, validationElement: blogPostItem.title" placeholder="i.e. Orders" maxlength="256"/>
 
         <label class="form-label">
             Permalink</label>
-        <input type="text" class="form-control" data-bind="textInput: blogPostItem.permalinkUrl" placeholder="http://www.site.com/"
-        />
+        <input type="text" class="form-control" data-bind="textInput: blogPostItem.permalinkUrl, validationElement: blogPostItem.permalinkUrl" placeholder="http://www.site.com/" maxlength="2000"/>
 
         <label class="form-label">
             Description</label>
-        <input type="text" class="form-control" data-bind="textInput: blogPostItem.description" />
+        <input type="text" class="form-control" data-bind="textInput: blogPostItem.description" maxlength="256"/>
 
         <label class="form-label">
             Keywords</label>
-        <input type="text" class="form-control" data-bind="textInput: blogPostItem.keywords" />
+        <input type="text" class="form-control" data-bind="textInput: blogPostItem.keywords" maxlength="256"/>
     </fieldset>
 
     <div class="flex-item button-group">
         <button class="button">
-            <i class="paperbits-icon paperbits-simple-remove"></i>
-            Delete blog post
+                <i class="paperbits-icon paperbits-simple-remove"></i>
+                Delete blog post
         </button>
     </div>
 </div>

@@ -84,7 +84,7 @@ export class LayoutsWorkshop {
 
     public async addLayout(): Promise<void> {
         this.working(true);
-        let layout = await this.layoutService.createLayout("New Layout", "", "");
+        let layout = await this.layoutService.createLayout("New Layout", "", LayoutItem.newLayoutUri);
         let content = await this.fileService.createFile(this.template);
 
         layout.contentKey = content.key;
@@ -95,8 +95,6 @@ export class LayoutsWorkshop {
 
         this.layouts.push(layoutItem);
         this.selectLayout(layoutItem);
-
-        this.routeHandler.navigateTo(layoutItem.uriTemplate());
         this.working(false);
     }
 

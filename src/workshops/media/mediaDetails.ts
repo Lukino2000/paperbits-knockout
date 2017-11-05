@@ -35,7 +35,7 @@ export class MediaDetailsWorkshop {
         this.deleteMedia = this.deleteMedia.bind(this);
         this.updateMetadata = this.updateMetadata.bind(this);
 
-        Validators.initValidation();
+        Validators.initPermalinkValidation();
         this.init();
     }
 

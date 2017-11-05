@@ -37,7 +37,7 @@ export class PageDetailsWorkshop {
         this.deletePage = this.deletePage.bind(this);
         this.updateMetadata = this.updateMetadata.bind(this);
         
-        Validators.initValidation();
+        Validators.initPermalinkValidation();
         this.init();
     }
 
@@ -46,7 +46,7 @@ export class PageDetailsWorkshop {
 
         this.pagePermalink = permalink;
         this.pageItem.permalinkUrl(permalink.uri);
-        this.routeHandler.navigateTo(permalink.uri, true, true);
+        this.routeHandler.navigateTo(permalink.uri);
 
         this.pageItem.title.extend({required: true});
         this.pageItem.title.subscribe(this.updateMetadata);

@@ -38,7 +38,7 @@ export class BlogPostDetailsWorkshop {
         this.deleteBlogPost = this.deleteBlogPost.bind(this);
         this.updateMetadata = this.updateMetadata.bind(this);
 
-        Validators.initValidation();
+        Validators.initPermalinkValidation();
         this.init();
     }
 

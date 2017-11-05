@@ -1,3 +1,5 @@
+import * as $ from "jquery";
+
 $(".sticky-top").each((index, element) => {
     let onScroll = () => {
         if (element.classList.contains("sticky-top")) {
