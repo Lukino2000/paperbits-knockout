@@ -37,16 +37,7 @@
 
     &.circle {
         border-radius: 50%;
-        width: 100%;
-
-        .content {
-            display: block;
-            padding-top: 100%;
-            background-position: center;
-            background-repeat: no-repeat;
-            background-size: auto 100%;
-            border-radius: 50%;
-        }
+        overflow: hidden;
     }
 }
 

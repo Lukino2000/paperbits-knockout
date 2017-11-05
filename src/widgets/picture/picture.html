@@ -7,7 +7,7 @@
     <!-- /ko -->
 
     <!-- ko if: layout() === "circle" -->
-    <div class="content" data-bind="background: background"></div>
+    <img class="content" data-bind="background: background, attr: { alt: caption }" />
     <!-- /ko -->
 
     <!-- ko if: layout() === "noframe" -->

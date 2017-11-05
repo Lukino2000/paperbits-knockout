@@ -118,7 +118,7 @@ export class ComponentRegistrationEditors implements IInjectorModule {
 
             return new NavigationDetailsWorkshop(node, navigationService, viewManager);
         });
-        
+
         injector.bindComponent("mediaDetailsWorkshop", (ctx: IInjector, mediaReference: MediaItem) => {
             var mediaService = ctx.resolve<IMediaService>("mediaService");
             var permalinkService = ctx.resolve<IPermalinkService>("permalinkService");
@@ -228,7 +228,7 @@ export class ComponentRegistrationEditors implements IInjectorModule {
 
         injector.bindComponent("colorSelector", (ctx: IInjector, params: {}) => {
             let intentionMapService = ctx.resolve<IntentionMapService>("intentionMapService");
-            return new ColorSelector(params["selectedColor"], params["setColorCallback"], intentionMapService);
+            return new ColorSelector(params["onSelect"], params["selectedColor"], intentionMapService);
         });
 
         injector.bindComponent("styleSelector", (ctx: IInjector, params: {}) => {

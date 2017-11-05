@@ -5,8 +5,9 @@
 .form {
     margin: 0;
     padding: 0;
+    padding-right: 10px;
     border: none;
-    min-width: 280px;
+    min-width: 300px;
     max-height: 500px;
 
     .form-group {
@@ -25,7 +26,7 @@
                 position: unset;
                 padding: 3px;
                 text-decoration: none;
-                color: #BDBFC1;
+                color: $surface-section-collapse-color;
 
                 &:after {
                     content: "";
@@ -68,7 +69,6 @@
         box-sizing: border-box;
         margin-bottom: 20px;
         width: 100%;
-        border-radius: 7px;
         
         &.has-error{
             color: red;
@@ -84,11 +84,6 @@
 
     input[type=radio] {
         margin: 0 5px;
-    }
-
-    .dropzone {
-        margin-top: 10px;
-        margin-bottom: 20px;
     }
 
     .form-control {
@@ -137,7 +132,7 @@ hr {
         }
 
         &.tab-is-active {
-            border-bottom: 2px solid #727376;
+            border-bottom: 2px solid $tab-selected-color;
         }
     }
 }

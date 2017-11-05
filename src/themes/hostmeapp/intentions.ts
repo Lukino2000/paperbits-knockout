@@ -56,7 +56,7 @@ export var intentions = {
         }
     },
 
-    section: {
+    container: {
         background: {
             "section-bg-default": {
                 category: "background",

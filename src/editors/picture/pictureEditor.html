@@ -9,7 +9,6 @@
             Picture
         </label>
 
-
         <a class="dropzone" tabindex="0" data-bind="balloon: { target: '#mediaSelector', position: 'top' }">
             <div class="fit dropzone-showbox" data-bind="background: background"></div>
         </a>
@@ -33,41 +32,6 @@
             </label>
             <label class="form-label">
                 <input name="layout" type="radio" value="circle" data-bind="checked: layout" />Circle
-            </label>
-            <!--<div class="picture-layout">
-                <a href="#" class="picture noframe" data-bind="background: { url: sourceUrl }, click: function(){ layout('noframe') }">
-                    No frame
-                </a>
-            </div>
-            <div class="picture-layout">
-                <a href="#" class="picture circle" title="Circle" data-bind="background: { url: sourceUrl }, click: function(){ layout('circle') }">
-                    Circle
-                </a>
-            </div>
-            <div class="picture-layout">
-                <a href="#" class="picture polaroid" title="Polaroid" data-bind="background: { url: sourceUrl }, click: function(){ layout('polaroid') }">
-                    Polaroid
-                </a>
-            </div>-->
-        </div>
-
-        <label class="form-label">
-
-            Animation
-        </label>
-
-        <div class="form-group">
-            <label class="form-label">
-                <input name="animation" type="radio" value="none" data-bind="checked: animation" />None
-            </label>
-            <label class="form-label">
-                <input name="animation" type="radio" value="animation-fadein" data-bind="checked: animation" />Fade-In
-            </label>
-            <label class="form-label">
-                <input name="animation" type="radio" value="animation-popin" data-bind="checked: animation" />Pop-In
-            </label>
-            <label class="form-label">
-                <input name="animation" type="radio" value="animation-shake" data-bind="checked: animation" />Shake
             </label>
         </div>
     </fieldset>
