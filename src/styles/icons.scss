@@ -119,6 +119,7 @@
 }
 
 .paperbits-icon {
+    color: $icon-base-color;
     display: inline-block;
     font-family: paperbits;
     font-style: normal;
@@ -130,7 +131,6 @@
     /* Better Font Rendering */
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
-
 }
 /*------------------------
 	font icons

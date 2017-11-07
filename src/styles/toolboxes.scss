@@ -16,7 +16,6 @@ h1 {
 .toolbox {
     position: fixed;
     display: flex;
-    border: 1px solid #ccc;
     @include surface();
 
     &.toolbox-position-left {
@@ -96,15 +95,6 @@ h1 {
         top: 0;
         left: 0;
         float: left;
-
-        .toolbox-button {
-            filter: grayscale(100%) brightness(0.4);
-
-            &.toolbox-button-is-open,
-            &:hover {
-                filter: grayscale(0%);
-            }
-        }
 
         li {
             list-style: none;
