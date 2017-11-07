@@ -34,6 +34,7 @@ h1 {
     }
 
     .toolbox-button {
+        color: $icon-base-color;
         line-height: $toolbox-button-size;
         min-width: $toolbox-button-size;
         height: $toolbox-button-size;
