@@ -16,6 +16,7 @@ import { IComponent } from "@paperbits/common/ui/IComponent";
 import { ProgressIndicator } from "../ui/progressIndicator";
 import { IRouteHandler } from "@paperbits/common/routing/IRouteHandler";
 import { Component } from "../decorators/component";
+import { DragSession } from "@paperbits/common/ui/draggables/dragManager";
 
 
 @Component({
@@ -317,5 +318,13 @@ export class ViewManager implements IViewManager {
 
     public removeShutter(): void {
         this.shutter(false);
+    }
+
+    beginDrag(session: DragSession): void {
+        throw new Error("Method not implemented.");
+    }
+    
+    getDragSession(): DragSession {
+        throw new Error("Method not implemented.");
     }
 }

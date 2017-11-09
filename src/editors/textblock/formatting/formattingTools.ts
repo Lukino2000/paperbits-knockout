@@ -10,6 +10,7 @@ import { IPageService } from "@paperbits/common/pages/IPageService";
 import { IRouteHandler } from "@paperbits/common/routing/IRouteHandler";
 import { IBag } from "@paperbits/common/core/IBag";
 import { intentions } from "../../../themes/hostmeapp/intentions";
+import { IViewManager } from "@paperbits/common/ui/IViewManager";
 
 
 @Component({
@@ -23,6 +24,7 @@ export class FormattingTools {
     private readonly permalinkService: IPermalinkService;
     private readonly pageService: IPageService;
     private readonly routeHandler: IRouteHandler;
+    private readonly viewManager: IViewManager;
 
     public bold: KnockoutObservable<boolean>;
     public italic: KnockoutObservable<boolean>;
@@ -39,7 +41,14 @@ export class FormattingTools {
     public styleIntentions: KnockoutObservable<Object>;
     public anchored: KnockoutObservable<boolean>;
 
-    constructor(htmlEditorProvider: IHtmlEditorProvider, eventManager: IEventManager, permalinkService: IPermalinkService, pageService: IPageService, routeHandler: IRouteHandler) {
+    constructor(
+        htmlEditorProvider: IHtmlEditorProvider, 
+        eventManager: IEventManager, 
+        permalinkService: IPermalinkService, 
+        pageService: IPageService, 
+        routeHandler: IRouteHandler,
+        viewManager: IViewManager) {
+
         this.htmlEditorProvider = htmlEditorProvider;
         this.eventManager = eventManager;
         this.permalinkService = permalinkService;
@@ -63,11 +72,13 @@ export class FormattingTools {
         this.justified = ko.observable<boolean>();
         this.styleIntentions = ko.observable<IBag<string>>({});
         this.anchored = ko.observable<boolean>();
+        this.viewManager = viewManager;
 
         eventManager.addEventListener("htmlEditorChanged", this.updateFormattingState)
     }
 
     private updateFormattingState(): void {
+        const viewport = this.viewManager.getViewport();
         const selectionState = this.htmlEditorProvider.getCurrentHtmlEditor().getSelectionState();
 
         this.bold(selectionState.bold);
@@ -76,10 +87,11 @@ export class FormattingTools {
         this.ul(selectionState.ul);
         this.ol(selectionState.ol);
         this.pre(selectionState.code);
-        this.alignedLeft(selectionState.intentions.alignment == "alignedLeft");
-        this.alignedCenter(selectionState.intentions.alignment == "alignedCenter");
-        this.alignedRight(selectionState.intentions.alignment == "alignedRight");
-        this.justified(selectionState.intentions.alignment == "justified");
+
+        this.alignedLeft(selectionState.intentions.alignment == "alignedLeft-" + viewport);
+        this.alignedCenter(selectionState.intentions.alignment == "alignedCenter-" + viewport);
+        this.alignedRight(selectionState.intentions.alignment == "alignedRight-" + viewport);
+        this.justified(selectionState.intentions.alignment == "justified-" + viewport);
         this.anchored(!!selectionState.intentions.anchorKey);
 
         if (!this.alignedLeft() && !this.alignedCenter() && !this.alignedRight() && !this.justified()) {
@@ -254,22 +266,26 @@ export class FormattingTools {
     }
 
     public toggleAlignLeft(): void {
-        this.htmlEditorProvider.getCurrentHtmlEditor().toggleAlignment("alignedLeft");
+        const viewport = this.viewManager.getViewport();
+        this.htmlEditorProvider.getCurrentHtmlEditor().toggleIntention("alignment", "alignedLeft-" + viewport, "block");
         this.updateFormattingState();
     }
 
     public toggleAlignCenter(): void {
-        this.htmlEditorProvider.getCurrentHtmlEditor().toggleAlignment("alignedCenter");
+        const viewport = this.viewManager.getViewport();
+        this.htmlEditorProvider.getCurrentHtmlEditor().toggleIntention("alignment", "alignedCenter-" + viewport, "block");
         this.updateFormattingState();
     }
 
     public toggleAlignRight(): void {
-        this.htmlEditorProvider.getCurrentHtmlEditor().toggleAlignment("alignedRight");
+        const viewport = this.viewManager.getViewport();
+        this.htmlEditorProvider.getCurrentHtmlEditor().toggleIntention("alignment", "alignedRight-" + viewport, "block");
         this.updateFormattingState();
     }
 
     public toggleJustify(): void {
-        this.htmlEditorProvider.getCurrentHtmlEditor().toggleAlignment("justified");
+        const viewport = this.viewManager.getViewport();
+        this.htmlEditorProvider.getCurrentHtmlEditor().toggleIntention("alignment", "justified-" + viewport, "block");
         this.updateFormattingState();
     }
 

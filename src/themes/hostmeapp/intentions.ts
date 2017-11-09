@@ -2,23 +2,25 @@
    Intention map should be registered/injected as all other components;
 */
 
+class Alignment {
+
+    constructor(viewPort: string) {
+        this["alignedLeft-" + viewPort] = (): string => "text-left-" + viewPort;
+        this["alignedRight-" + viewPort] = (): string => "text-right-" + viewPort;
+        this["alignedCenter-" + viewPort] = (): string => "text-center-" + viewPort;
+        this["justified-" + viewPort] = (): string => "text-justify-" + viewPort;
+    }
+}
+
 export var intentions = {
     text: {
         alignment: {
-            alignedLeft: (): string => {
-                return "text-left";
-            },
-            alignedRight: (): string => {
-                return "text-right";
-            },
-            alignedCenter: (): string => {
-                return "text-center";
-            },
-            justified: (): string => {
-                return "text-justify";
-            }
+            xs: new Alignment("xs"),
+            sm: new Alignment("sm"),
+            md: new Alignment("md"),
+            lg: new Alignment("lg"),
+            xl: new Alignment("xl")
         },
-
         size: {
             "text-lead": {
                 category: "lead",
