@@ -4,6 +4,8 @@ import { ILayout } from "@paperbits/common/layouts/ILayout";
 export class LayoutItem {
     contentKey?: string;
 
+    public static readonly newLayoutUri = "/new layout";
+
     public key: string;
     public title: KnockoutObservable<string>;
     public description: KnockoutObservable<string>;

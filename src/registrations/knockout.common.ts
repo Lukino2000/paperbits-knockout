@@ -12,12 +12,14 @@ import "../bindingHandlers/bindingHandlers.draggables";
 import "../bindingHandlers/bindingHandlers.googlemap";
 import "../bindingHandlers/bindingHandlers.grid";
 import "../bindingHandlers/bindingHandlers.highlight";
+import "../bindingHandlers/bindingHandlers.splitter";
 import "../bindingHandlers/bindingHandlers.lightbox";
 import "../bindingHandlers/bindingHandlers.resourcePicker";
 import "../bindingHandlers/bindingHandlers.hyperlink";
 import "../bindingHandlers/bindingHandlers.surface";
 import "../bindingHandlers/bindingHandlers.snapTo";
 import "../bindingHandlers/bindingHandlers.gridCommand";
+import "../bindingHandlers/bindingHandlers.align";
 
 import { WidgetBindingHandler } from "../bindingHandlers/bindingHandlers.widget";
 import { ContentBindingHandler } from "../bindingHandlers/bindingHandlers.content";

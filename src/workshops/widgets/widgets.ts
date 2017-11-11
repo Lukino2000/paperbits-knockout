@@ -4,7 +4,6 @@ import { IViewManager } from "@paperbits/common/ui/IViewManager";
 import { IWidgetOrder } from "@paperbits/common/editing/IWidgetOrder";
 import { IWidgetService } from "@paperbits/common/widgets/IWidgetService";
 import { WidgetItem } from "../../workshops/widgets/widgetItem";
-import { LayoutEditor } from "../../editors/layout/layoutEditor";
 import { Component } from "../../decorators/component";
 
 @Component({
@@ -14,16 +13,14 @@ import { Component } from "../../decorators/component";
 })
 export class WidgetsWorkshop {
     private readonly widgetService: IWidgetService;
-    private readonly layoutEditor: LayoutEditor;
     private readonly viewManager: IViewManager;
 
     public readonly widgets: KnockoutObservable<Array<WidgetItem>>;
     public readonly working: KnockoutObservable<boolean>;
 
-    constructor(widgetService: IWidgetService, layoutEditor: LayoutEditor, viewManager: IViewManager) {
+    constructor(widgetService: IWidgetService, viewManager: IViewManager) {
         // initialization...
         this.widgetService = widgetService;
-        this.layoutEditor = layoutEditor; //TODO: Review usage and remove;
         this.viewManager = viewManager;
 
         // rebinding...
@@ -48,7 +45,7 @@ export class WidgetsWorkshop {
             let widgetItem = new WidgetItem();
 
             widgetItem.css = `icon-${widgetOrder.name}`,
-            widgetItem.displayName = widgetOrder.displayName;
+                widgetItem.displayName = widgetOrder.displayName;
             widgetItem.widgetOrder = widgetOrder;
 
             items.push(widgetItem);
@@ -68,6 +65,6 @@ export class WidgetsWorkshop {
     }
 
     public onDragEnd(item: WidgetItem): void {
-        this.layoutEditor.onWidgetDragEnd(item, item.element);
+        
     }
 }

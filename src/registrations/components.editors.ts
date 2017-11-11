@@ -35,6 +35,8 @@ import { LayoutsWorkshop } from "../workshops/layouts/layoutsWorkshop";
 import { LityLightbox } from '@paperbits/common/ui/lityLightbox';
 import { MapEditor } from '../editors/map/mapEditor';
 import { MapHandlers } from '../editors/map/mapHandlers';
+import { MediaDetailsWorkshop } from '../workshops/media/mediaDetails';
+import { MediaItem } from '../workshops/media/mediaItem';
 import { MediaHandlers } from '../editors/mediaHandlers';
 import { MediaResourcePicker } from "../workshops/media/mediaResourcePicker";
 import { MediaSelector } from '../workshops/media/mediaSelector';
@@ -76,7 +78,6 @@ import { BlogResourcePicker } from "../workshops/blogs/blogResourcePicker";
 import { BlogSelector } from "../workshops/blogs/blogSelector";
 import { ViewportSelector } from "../workshops/viewports/viewport-selector";
 import { HostBindingHandler } from "../bindingHandlers/bindingHandlers.host";
-import { LayoutEditor } from "../editors/layout/layoutEditor";
 import { IntentionMapService } from "@paperbits/slate/intentionMapService";
 import { SliderEditor } from "../editors/slider/sliderEditor";
 import { SliderHandlers } from "../editors/slider/sliderHandlers";
@@ -116,6 +117,14 @@ export class ComponentRegistrationEditors implements IInjectorModule {
             var viewManager = ctx.resolve<IViewManager>("viewManager");
 
             return new NavigationDetailsWorkshop(node, navigationService, viewManager);
+        });
+
+        injector.bindComponent("mediaDetailsWorkshop", (ctx: IInjector, mediaReference: MediaItem) => {
+            var mediaService = ctx.resolve<IMediaService>("mediaService");
+            var permalinkService = ctx.resolve<IPermalinkService>("permalinkService");
+            var viewManager = ctx.resolve<IViewManager>("viewManager");
+
+            return new MediaDetailsWorkshop(mediaService, permalinkService, mediaReference, viewManager);
         });
 
         injector.bindComponent("layoutDetailsWorkshop", (ctx: IInjector, layoutReference: LayoutItem) => {
@@ -219,7 +228,7 @@ export class ComponentRegistrationEditors implements IInjectorModule {
 
         injector.bindComponent("colorSelector", (ctx: IInjector, params: {}) => {
             let intentionMapService = ctx.resolve<IntentionMapService>("intentionMapService");
-            return new ColorSelector(params["selectedColor"], params["setColorCallback"], intentionMapService);
+            return new ColorSelector(params["onSelect"], params["selectedColor"], intentionMapService);
         });
 
         injector.bindComponent("styleSelector", (ctx: IInjector, params: {}) => {
@@ -282,7 +291,6 @@ export class ComponentRegistrationEditors implements IInjectorModule {
         injector.bindSingleton("htmlEditorProvider", HtmlEditorProvider);
         injector.bindSingleton("formattingTools", FormattingTools);
         injector.bindSingleton("hyperlinkTools", HyperlinkTools);
-        injector.bind("layoutEditor", LayoutEditor);
         injector.bind("mapEditor", MapEditor);
         injector.bind("textblockEditor", TextblockEditor)
         injector.bind("audioPlayerEditor", AudioEditor);

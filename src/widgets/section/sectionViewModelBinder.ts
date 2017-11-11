@@ -3,6 +3,7 @@ import { SectionViewModel } from "./sectionViewModel";
 import { IntentionMapService } from "@paperbits/slate/intentionMapService";
 import { RowViewModelBinder } from "../row/rowViewModelBinder";
 import { IViewModelBinder } from "@paperbits/common/widgets/IViewModelBinder";
+import { DragSession } from "@paperbits/common/ui/draggables/dragManager";
 
 export class SectionViewModelBinder implements IViewModelBinder {
     private readonly rowViewModelBinder: RowViewModelBinder;
@@ -18,7 +19,7 @@ export class SectionViewModelBinder implements IViewModelBinder {
             sectionViewModel = new SectionViewModel();
         }
 
-        let rowViewModels = model.rows.map(rowModel => {
+        const rowViewModels = model.rows.map(rowModel => {
             let rowViewModel = this.rowViewModelBinder.modelToViewModel(rowModel, readonly);
             return rowViewModel;
         })
@@ -27,17 +28,20 @@ export class SectionViewModelBinder implements IViewModelBinder {
         sectionViewModel.layout(model.layout);
         sectionViewModel.background(model.background);
 
-        let sectionClasses = [];
-        let backgroundColorKey = model.background.colorKey;
-        let intentionMap = <any>this.intentionMapService.getMap();
+        const sectionClasses = [];
 
-        // TODO: Review background usage.
-        let backgroundIntention = intentionMap.section.background[backgroundColorKey];
+        if (model.background) {
+            let backgroundColorKey = model.background.colorKey;
+            let intentionMap = <any>this.intentionMapService.getMap();
 
-        if (!backgroundIntention) {
-            backgroundIntention = intentionMap.section.background["section-bg-default"];
+            // TODO: Review background usage.
+            let backgroundIntention = intentionMap.container.background[backgroundColorKey];
+
+            if (!backgroundIntention) {
+                backgroundIntention = intentionMap.container.background["section-bg-default"];
+            }
+            sectionClasses.push(backgroundIntention.styles());
         }
-        sectionClasses.push(backgroundIntention.styles());
 
         if (model.padding === "with-padding") {
             sectionClasses.push("with-padding");
@@ -59,15 +63,18 @@ export class SectionViewModelBinder implements IViewModelBinder {
 
         sectionViewModel.css(sectionClasses.join(" "));
 
-        sectionViewModel["widgetBinding"] = {
+        const binding = {
             displayName: "Section",
             readonly: readonly,
             model: model,
+            flow: "liquid",
             editor: "layout-section-editor",
             applyChanges: () => {
                 this.modelToViewModel(model, readonly, sectionViewModel);
             }
         }
+
+        sectionViewModel["widgetBinding"] = binding;
 
         return sectionViewModel;
     }

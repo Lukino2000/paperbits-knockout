@@ -1,6 +1,7 @@
 ﻿import * as $ from "jquery/dist/jquery";
 import * as ko from "knockout";
 import { BackgroundModel } from "@paperbits/common/widgets/background/backgroundModel";
+import { IntentionMapService } from "../../../paperbits-slate/src/intentionMapService";
 
 ko.bindingHandlers["style"] = {
     update(element, valueAccessor) {
@@ -20,11 +21,14 @@ ko.bindingHandlers["style"] = {
 };
 
 export class BackgroundBindingHandler {
-    constructor() {
+    constructor(intentionMapService: IntentionMapService) {
+        const intentionMap = <any>intentionMapService.getMap();
+
         ko.bindingHandlers["background"] = {
             init(element: HTMLElement, valueAccessor) {
                 var configuration = valueAccessor();
                 var styleObservable = ko.observable();
+                var cssObservable = ko.observable();
 
                 var setBackground = (backgroundModel: BackgroundModel) => {
                     if (element.nodeName === "IMG") {
@@ -34,10 +38,19 @@ export class BackgroundBindingHandler {
                         return;
                     }
 
-                    let style = {};
+                    const style = {};
+                    const css = [];
 
-                    // TODO: Consider intention usage.
-                    Object.assign(style, { "background-color": backgroundModel.color || null });
+                    if (backgroundModel.colorKey) {
+                        const colorIntention = intentionMap.container.background[backgroundModel.colorKey];
+
+                        if (colorIntention) {
+                            css.push(colorIntention.styles());
+                        }
+                    }
+                    else if (backgroundModel.color) {
+                        Object.assign(style, { "background-color": backgroundModel.color || null });
+                    }
 
                     if (backgroundModel.sourceUrl) {
                         Object.assign(style, { "background-image": `url("${ko.unwrap(backgroundModel.sourceUrl)}")` });
@@ -74,15 +87,15 @@ export class BackgroundBindingHandler {
                     // }
 
                     styleObservable(style);
+                    cssObservable(css.join(" "));
                 }
 
-                ko.applyBindingsToNode(element, { style: styleObservable });
+                ko.applyBindingsToNode(element, { style: styleObservable, css: cssObservable });
 
                 if (ko.isObservable(configuration)) {
                     configuration.subscribe((newConfiguration) => {
-
                         if (!newConfiguration) {
-                            newConfiguration = {};
+                            setBackground({});
                         }
                         else {
                             setBackground(ko.unwrap(newConfiguration));

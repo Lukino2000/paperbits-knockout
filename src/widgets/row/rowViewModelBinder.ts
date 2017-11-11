@@ -3,6 +3,8 @@ import { RowViewModel } from "./rowViewModel";
 import { IntentionMapService } from "@paperbits/slate/intentionMapService";
 import { ColumnViewModelBinder } from "../column/columnViewModelBinder";
 import { IViewModelBinder } from "@paperbits/common/widgets/IViewModelBinder";
+import { DragSession } from "@paperbits/common/ui/draggables/dragManager";
+import { ColumnModel } from "@paperbits/common/widgets/column/columnModel";
 
 
 export class RowViewModelBinder implements IViewModelBinder {
@@ -33,14 +35,34 @@ export class RowViewModelBinder implements IViewModelBinder {
         viewModel.justifyMd(model.justifyMd);
         viewModel.justifyLg(model.justifyLg);
 
-        viewModel["widgetBinding"] = {
+        const binding = {
             displayName: "Row",
             readonly: readonly,
             model: model,
             applyChanges: () => {
                 this.modelToViewModel(model, readonly, viewModel);
+            },
+            onDragOver: (dragSession: DragSession): boolean => {
+                return dragSession.type === "column" || dragSession.type === "widget";
+            },
+            onDragDrop: (dragSession: DragSession): void => {
+                switch (dragSession.type) {
+                    case "column":
+                        model.columns.splice(dragSession.insertIndex, 0, <ColumnModel>dragSession.sourceModel);
+                        break;
+
+                    case "widget":
+                        const columnToInsert = new ColumnModel();
+                        columnToInsert.sizeMd = 3;
+                        columnToInsert.widgets.push(dragSession.sourceModel);
+                        model.columns.splice(dragSession.insertIndex, 0, columnToInsert);
+                        break;
+                }
+                binding.applyChanges();
             }
         }
+
+        viewModel["widgetBinding"] = binding;
 
         return viewModel;
     }

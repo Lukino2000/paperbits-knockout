@@ -54,10 +54,10 @@ export class SliderViewModelBinder {
                 let classes = [];
                 let backgroundColorKey = slideModel.background.colorKey;
                 let intentionMap = <any>this.intentionMapService.getMap();
-                let backgroundIntention = intentionMap.section.background[backgroundColorKey];
+                let backgroundIntention = intentionMap.container.background[backgroundColorKey];
 
                 if (!backgroundIntention) {
-                    backgroundIntention = intentionMap.section.background["section-bg-default"];
+                    backgroundIntention = intentionMap.container.background["section-bg-default"];
                 }
                 classes.push(backgroundIntention.styles());
 

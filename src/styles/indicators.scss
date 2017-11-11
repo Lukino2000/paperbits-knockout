@@ -1,7 +1,7 @@
 ﻿@import "variables.scss";
-@import "icons.scss";
 @import "mixins.scss";
 @import "animation.scss";
+
 .indicators {
     position: fixed;
     right: 0;
@@ -24,9 +24,6 @@
             padding-right: 20px;
         }
         &.progress-indicator-success {
-            @extend .icons-success;
-            background-position: left center;
-            background-size: auto 80%;
             padding-left: 80px;
         }
     }
@@ -60,9 +57,6 @@
             position: relative;
         }
         .indicator-success {
-            @extend .icons-success;
-            background-position: center center;
-            background-size: auto 100%;
             width: 50px;
             height: 50px;
         }

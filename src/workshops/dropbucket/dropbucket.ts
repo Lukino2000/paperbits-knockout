@@ -13,8 +13,8 @@ import { GlobalEventHandler } from "@paperbits/common/events/globalEventHandler"
 import { ProgressPromise } from "@paperbits/common/core/progressPromise";
 import { DataTransferTypes } from "@paperbits/common/editing/dataTransferTypes";
 import { DropBucketItem } from "../../workshops/dropbucket/dropbucketItem";
-import { LayoutEditor } from "../../editors/layout/layoutEditor";
 import { Component } from "../../decorators/component";
+import { IEventManager } from "@paperbits/common/events/IEventManager";
 
 /*
    - Drop bucket introduces a special container for dropping content,
@@ -33,16 +33,16 @@ import { Component } from "../../decorators/component";
     injectable: "dropbucket"
 })
 export class DropBucket {
+    private readonly eventManager: IEventManager;
     private readonly dropHandlers: Array<IContentDropHandler>;
     private readonly mediaService: IMediaService;
     private readonly viewManager: IViewManager;
-    private readonly layoutEditor: LayoutEditor; //TODO: Review usage and remove;
     private readonly httpClient: IHttpClient;
 
     public droppedItems: KnockoutObservableArray<DropBucketItem>;
 
-    constructor(globalEventHandler: GlobalEventHandler, layoutEditor: LayoutEditor, mediaService: IMediaService, dropHandlers: Array<IContentDropHandler>, viewManager: IViewManager, httpClient: IHttpClient) {
-        this.layoutEditor = layoutEditor;
+    constructor(globalEventHandler: GlobalEventHandler, eventManager: IEventManager, mediaService: IMediaService, dropHandlers: Array<IContentDropHandler>, viewManager: IViewManager, httpClient: IHttpClient) {
+        this.eventManager = eventManager;
         this.mediaService = mediaService;
         this.viewManager = viewManager;
         this.httpClient = httpClient;
@@ -205,23 +205,38 @@ export class DropBucket {
     public onDragStart(item: DropBucketItem): HTMLElement {
         item.widgetFactoryResult = item.widgetOrder().createWidget();
 
-        let widgetElement = item.widgetFactoryResult.element;
+        const widgetElement = item.widgetFactoryResult.element;
+        const widgetModel = item.widgetFactoryResult.widgetModel;
+        const widgetBinding = item.widgetFactoryResult.widgetBinding;
 
         this.droppedItems.remove(item);
+
+        this.viewManager.beginDrag({
+            type: "widget",
+            sourceModel: widgetModel,
+            sourceBinding: widgetBinding
+        });
 
         return widgetElement;
     }
 
     public async onDragEnd(dropbucketItem: DropBucketItem): Promise<void> {
-        this.layoutEditor.onWidgetDragEnd(dropbucketItem, dropbucketItem.widgetFactoryResult.element);
+        dropbucketItem.widgetFactoryResult.element.remove();
         this.droppedItems.remove(dropbucketItem);
 
-        var uploadables = dropbucketItem.uploadables();
+        const uploadables = dropbucketItem.uploadables();
 
         if (uploadables && uploadables.length > 0) {
             this.uploadContentAsMedia(dropbucketItem);
             this.droppedItems.remove(dropbucketItem);
         }
+
+        const dragSession = this.viewManager.getDragSession();
+        const acceptorBinding = dragSession.targetBinding;
+
+        acceptorBinding.onDragDrop(dragSession);
+
+        this.eventManager.dispatchEvent("virtualDragEnd");
     }
 
     public uploadContentAsMedia(dropbucketItem: DropBucketItem): void {

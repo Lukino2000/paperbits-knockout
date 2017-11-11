@@ -4,8 +4,6 @@
 
 @import "animation.scss";
 
-@import "icons.scss";
-
 @import "buttons.scss";
 
 $droppedcontent-preview-size: 70px;
@@ -26,7 +24,6 @@ dropbucket {
     .droppedcontent-preview {
         width: $droppedcontent-preview-size;
         height: $droppedcontent-preview-size;
-        border-radius: 23px;
         background-image: data-uri("../svgs/icons-unknown.svg");
         background-repeat: no-repeat;
         background-position: center;

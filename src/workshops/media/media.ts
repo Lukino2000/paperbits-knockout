@@ -9,8 +9,9 @@ import { IMedia } from "@paperbits/common/media/IMedia";
 import { ICreatedMedia } from "@paperbits/common/media/ICreatedMedia";
 import { IPermalinkService } from "@paperbits/common/permalinks/IPermalinkService";
 import { IWidgetOrder } from "@paperbits/common/editing/IWidgetOrder";
-import { LayoutEditor } from "../../editors/layout/layoutEditor";
 import { Component } from "../../decorators/component";
+import { IContentDescriptor } from "@paperbits/common/editing/IContentDescriptor";
+import { IEventManager } from "@paperbits/common/events/IEventManager";
 
 const DeleteKeyCode = 46; // TODO: Move to separate file;
 
@@ -21,10 +22,10 @@ const DeleteKeyCode = 46; // TODO: Move to separate file;
     injectable: "mediaWorkshop"
 })
 export class MediaWorkshop {
+    private readonly eventManager: IEventManager;
     private readonly mediaService: IMediaService;
     private readonly permalinkService: IPermalinkService;
     private readonly viewManager: IViewManager;
-    private layoutEditor: LayoutEditor; //TODO: Review usage and remove;
     private dropHandlers: Array<IContentDropHandler>; // TODO: Switch to IWidgetHandlers
     private searchTimeout: any;
 
@@ -33,12 +34,12 @@ export class MediaWorkshop {
     public selectedMediaItem: KnockoutObservable<MediaItem>;
     public readonly working: KnockoutObservable<boolean>;
 
-    constructor(mediaService: IMediaService, permalinkService: IPermalinkService, viewManager: IViewManager, layoutEditor: LayoutEditor, dropHandlers: Array<IContentDropHandler>) {
+    constructor(eventManager: IEventManager, mediaService: IMediaService, permalinkService: IPermalinkService, viewManager: IViewManager, dropHandlers: Array<IContentDropHandler>) {
         // initialization...
+        this.eventManager = eventManager;
         this.mediaService = mediaService;
         this.permalinkService = permalinkService;
         this.viewManager = viewManager;
-        this.layoutEditor = layoutEditor;
         this.dropHandlers = dropHandlers;
 
         // rebinding...
@@ -49,7 +50,6 @@ export class MediaWorkshop {
         this.onDragStart = this.onDragStart.bind(this);
         this.onDragEnd = this.onDragEnd.bind(this);
         this.selectMedia = this.selectMedia.bind(this);
-        this.keydown = this.keydown.bind(this);
 
         // setting up...
         this.working = ko.observable(true);
@@ -70,28 +70,40 @@ export class MediaWorkshop {
 
         let mediaFiles = await this.mediaService.search(searchPattern);
 
-        mediaFiles.forEach(async media => {
-            for (var i = 0; i < drophandlers.length; i++) {
-                let handler = drophandlers[i];
+        mediaFiles.forEach(async media => {            
+            
+            //TODO: Move this logic to drag start. MediaItem can get descriptor byitself;
+            
+            let mediaItem = new MediaItem(media);
 
-                if (!handler.getContentDescriptorFromMedia) {
-                    continue;
-                }
-
-                let descriptor = handler.getContentDescriptorFromMedia(media);
-
-                //TODO: Move this logic to drag start. MediaItem can get descriptor byitself;
-
-                if (descriptor && descriptor.getWidgetOrder) {
-                    let order = await descriptor.getWidgetOrder();
-                    var mediaItem = new MediaItem(media);
-                    mediaItem.widgetOrder = order;
-                    this.mediaItems.push(mediaItem);
-                }
+            let descriptor = this.findContentDescriptor(media);
+            if (descriptor && descriptor.getWidgetOrder) {
+                let order = await descriptor.getWidgetOrder();
+                mediaItem.widgetOrder = order;
             }
+            
+            this.mediaItems.push(mediaItem);
         });
 
         this.working(false);
+    }
+
+    private findContentDescriptor(media: IMedia): IContentDescriptor {
+        let result: IContentDescriptor;
+        for (var i = 0; i < this.dropHandlers.length; i++) {
+            let handler = this.dropHandlers[i];
+
+            if (!handler.getContentDescriptorFromMedia) {
+                continue;
+            }
+
+            result = handler.getContentDescriptorFromMedia(media);
+
+            if (result) {
+                return result;
+            }
+        }
+        return result;
     }
 
     public async searchMedia(searchPattern: string = ""): Promise<void> {
@@ -107,7 +119,7 @@ export class MediaWorkshop {
     }
 
     public async uploadMedia(): Promise<void> {
-        let files = await this.viewManager.openUploadDialog();
+        const files = await this.viewManager.openUploadDialog();
 
         this.working(true);
 
@@ -128,36 +140,35 @@ export class MediaWorkshop {
         this.working(false);
     }
 
-    public async deleteMedia(): Promise<void> {
-        // TODO: Ask for confirmation.
-        this.working(true);
-        await this.mediaService.deleteMedia(this.selectedMediaItem().media);
-        this.selectedMediaItem(null);
-        await this.searchMedia();
-
-        this.viewManager.notifySuccess("Media library", "File deleted");
-        this.working(false);
-    }
-
     public selectMedia(mediaItem: MediaItem): void {
         mediaItem.hasFocus(true);
         this.selectedMediaItem(mediaItem);
+        this.viewManager.openWorkshop("media-details-workshop", mediaItem);
     }
 
     public onDragStart(item: MediaItem): HTMLElement {
-        this.viewManager.foldEverything();
-        var widgetElement = item.widgetOrder.createWidget().element;
-        item.element = widgetElement;
+        item.widgetFactoryResult = item.widgetOrder.createWidget();
+
+        const widgetElement = item.widgetFactoryResult.element;
+        const widgetModel = item.widgetFactoryResult.widgetModel;
+        const widgetBinding = item.widgetFactoryResult.widgetBinding;
+
+        this.viewManager.beginDrag({
+            type: "widget",
+            sourceModel: widgetModel,
+            sourceBinding: widgetBinding
+        });
+
         return widgetElement;
     }
 
     public onDragEnd(item: MediaItem): void {
-        this.layoutEditor.onWidgetDragEnd(item, item.element);
-    }
+        item.widgetFactoryResult.element.remove();
+        const dragSession = this.viewManager.getDragSession();
+        const acceptorBinding = dragSession.targetBinding;
 
-    public keydown(item: MediaItem, event: KeyboardEvent): void {
-        if (event.keyCode === DeleteKeyCode) {
-            this.deleteMedia();
-        }
+        acceptorBinding.onDragDrop(dragSession);
+
+        this.eventManager.dispatchEvent("virtualDragEnd");
     }
 }

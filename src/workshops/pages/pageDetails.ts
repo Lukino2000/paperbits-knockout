@@ -8,7 +8,7 @@ import { IRouteHandler } from "@paperbits/common/routing/IRouteHandler";
 import { IViewManager } from "@paperbits/common/ui/IViewManager";
 import { PageItem } from "../../workshops/pages/pageItem";
 import { Component } from "../../decorators/component";
-
+import { Validators } from "../../validation/validators";
 
 @Component({
     selector: "page-details-workshop",
@@ -36,8 +36,8 @@ export class PageDetailsWorkshop {
         //this.onFaviconUploaded = this.onFaviconUploaded.bind(this);
         this.deletePage = this.deletePage.bind(this);
         this.updateMetadata = this.updateMetadata.bind(this);
-        this.updatePermalink = this.updatePermalink.bind(this);
-
+        
+        Validators.initPermalinkValidation();
         this.init();
     }
 
@@ -46,22 +46,20 @@ export class PageDetailsWorkshop {
 
         this.pagePermalink = permalink;
         this.pageItem.permalinkUrl(permalink.uri);
-        this.routeHandler.navigateTo(permalink.uri, true, true);
+        this.routeHandler.navigateTo(permalink.uri);
 
+        this.pageItem.title.extend({required: true});
         this.pageItem.title.subscribe(this.updateMetadata);
         this.pageItem.description.subscribe(this.updateMetadata);
         this.pageItem.keywords.subscribe(this.updateMetadata);
-        this.pageItem.permalinkUrl.subscribe(this.updatePermalink);
+
+        Validators.setPermalinkValidatorWithUpdate(this.pageItem.permalinkUrl, this.pagePermalink, this.permalinkService);
     }
 
     private async updateMetadata(): Promise<void> {
-        await this.pageService.updatePage(this.pageItem.toPage());
-    }
-
-    private async updatePermalink(): Promise<void> {
-        this.pagePermalink.uri = this.pageItem.permalinkUrl();
-        await this.permalinkService.updatePermalink(this.pagePermalink);
-        this.routeHandler.navigateTo(this.pagePermalink.uri, false);
+        if(this.pageItem.title.isValid()) {
+            await this.pageService.updatePage(this.pageItem.toPage());
+        }
     }
 
     public async deletePage(): Promise<void> {

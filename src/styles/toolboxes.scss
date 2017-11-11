@@ -1,26 +1,22 @@
 ﻿@import "variables.scss";
-
 @import "mixins.scss";
-
 @import "icons.scss";
-
 @import "animation.scss";
-
 @import "layouts.scss";
+
+h1 {
+    font-family: $font-family-base;
+    font-size: $workshop-header-font-size;
+    color: $color-base;
+    display: block;
+    margin: 0;
+    padding-left: 5px;
+}
 
 .toolbox {
     position: fixed;
     display: flex;
-
     @include surface();
-
-    h1 {
-        font-family: $font-family-base;
-        font-size: $workshop-header-font-size;
-        color: $color-base;
-        display: block;
-        margin: 0;
-    }
 
     &.toolbox-position-left {
         top: 20px;
@@ -38,6 +34,7 @@
     }
 
     .toolbox-button {
+        color: $icon-base-color;
         line-height: $toolbox-button-size;
         min-width: $toolbox-button-size;
         height: $toolbox-button-size;
@@ -47,36 +44,37 @@
         border: none;
         background-color: transparent;
         text-decoration: none;
+        text-align: center;
         position: relative;
         cursor: pointer;
         @include no-select();
         @include no-drag();
-
-        &:focus,
-        &:hover {
-            outline: none;
-            @include selection();
-        }
+        @include tabable();
 
         &.toolbox-button-is-active {
             position: relative;
 
             &:before {
+                @include fit();
                 position: absolute;
                 background-color: $toolbox-button-active-bg;
                 border: 1px solid $toolbox-button-active-border;
                 border-radius: $toolbox-border-radius - 5px;
-                height: $toolbox-button-size;
-                width: $toolbox-button-size;
                 content: '';
             }
         }
 
-        .icon {
-            display: block;
-            width: 100%;
-            height: 100%;
-            overflow: hidden;
+        a {
+            display: inline-block;
+            height: $toolbox-button-size;
+            min-width: $toolbox-button-size;
+            line-height: $toolbox-button-size;
+            outline: none;
+            color: $color-base;
+            text-decoration: none;
+
+            @include tabable();
+
         }
 
         .text {
@@ -98,15 +96,6 @@
         top: 0;
         left: 0;
         float: left;
-
-        .toolbox-button {
-            filter: grayscale(100%) brightness(0.4);
-
-            &.toolbox-button-is-open,
-            &:hover {
-                filter: grayscale(0%);
-            }
-        }
 
         li {
             list-style: none;
@@ -141,4 +130,9 @@
 
 .no-pointer-events {
     pointer-events: none;
+}
+
+.editor {
+    padding: 10px;
+    z-index: $z-index-widgets;
 }

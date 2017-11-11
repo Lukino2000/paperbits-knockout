@@ -39,11 +39,11 @@ export class HostBindingHandler {
                     }
                 })
 
-                let hostElement: HTMLIFrameElement = document.createElement("iframe");
+                const hostElement: HTMLIFrameElement = document.createElement("iframe");
                 hostElement.src = "index-theme.html";
                 hostElement.classList.add("host");
 
-                let onPointerMove = (event) => {
+                const onPointerMove = (event) => {
                     let elements: HTMLElement[];
 
                     if (document.elementsFromPoint) {
@@ -64,7 +64,7 @@ export class HostBindingHandler {
                     }
                 }
 
-                let onLoad = () => {
+                const onLoad = () => {
                     globalEventHandler.appendDocument(hostElement.contentDocument);
 
                     let documentElement = document.createElement("paperbits-document");

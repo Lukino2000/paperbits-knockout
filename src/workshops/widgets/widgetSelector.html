@@ -7,12 +7,8 @@
     <hr/>
     <div class="flex-container flex-container-column list-container">
         <ul class="list" data-bind="foreach: widgets, scrollable: {}">
-            <!-- <li class="list-item icon icon-widget" data-bind="css: { selected: hasFocus }">
-            <a href="#" data-bind="text: displayName, hasFocus: hasFocus, click: $component.selectWidget"></a>
-            </li> -->
-
-            <li class="list-item list-item-large icon" data-bind="css: css">
-                <a href="#" data-bind="text: displayName, hasFocus: hasFocus, click: $component.selectWidget"></a>
+            <li class="list-item list-item-large">
+                <a href="#" class="icon" data-bind="css: css, text: displayName, hasFocus: hasFocus, click: $component.selectWidget"></a>
             </li>
         </ul>
     </div>

@@ -8,12 +8,16 @@
         <!--ko if: $component.working()-->
         <spinner></spinner>
         <!--/ko-->
-        <li class="list-item icon icon-page" data-bind="css: { selected: hasFocus }">
+        <li class="list-item" data-bind="css: { selected: hasFocus }">
+            <i class="paperbits-icon paperbits-single-content-03"></i>
             <a href="#" data-bind="click: $component.selectPage, text: title, hasFocus: hasFocus, event: { keydown: $component.keydown }"></a>
         </li>
     </ul>
 
     <div class="flex-item button-group">
-        <button class="button" data-bind="click: addPage"><span class="icon icon-plus">Add page</span></button>
+        <button class="button" data-bind="click: addPage">
+            <i class="paperbits-icon paperbits-simple-add"></i>
+            Add page
+        </button>
     </div>
 </div>

@@ -18,13 +18,13 @@ export interface IntentionItem {
 export class ColorSelector {
     private readonly intentionMapService: IntentionMapService;
     private readonly selectedColor: KnockoutObservable<string>;
-    private readonly setColorCallback: Function;
+    private readonly onSelect: Function;
 
     public intentions: IntentionItem[];
 
-    constructor(selectedColor: KnockoutObservable<string>, setColorCallback: Function, intentionMapService: IntentionMapService) {
+    constructor(onSelect: Function, selectedColor: KnockoutObservable<string>, intentionMapService: IntentionMapService) {
         this.selectedColor = selectedColor;
-        this.setColorCallback = setColorCallback;
+        this.onSelect = onSelect;
         this.intentionMapService = intentionMapService;
 
         this.selectIntention = this.selectIntention.bind(this);
@@ -32,8 +32,8 @@ export class ColorSelector {
         this.intentions = [];
         let intentionMap = <any>this.intentionMapService.getMap();
 
-        for (var key in intentionMap.section.background) {
-            let intention = intentionMap.section.background[key];
+        for (var key in intentionMap.container.background) {
+            let intention = intentionMap.container.background[key];
             this.intentions.push({ name: intention.name(), key: key, css: intention.styles() });
         }
     }
@@ -43,8 +43,8 @@ export class ColorSelector {
             this.selectedColor(intention.key);
         }
 
-        if (this.setColorCallback) {
-            this.setColorCallback(intention.key);
+        if (this.onSelect) {
+            this.onSelect(intention.key);
         }
     }
 
@@ -53,8 +53,8 @@ export class ColorSelector {
             this.selectedColor(null);
         }
 
-        if (this.setColorCallback) {
-            this.setColorCallback(null);
+        if (this.onSelect) {
+            this.onSelect(null);
         }
     }
 }

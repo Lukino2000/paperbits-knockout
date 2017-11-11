@@ -2,8 +2,7 @@
 
 <ul data-bind="foreach: droppedItems()">
     <li class="toolbox droppedcontent">
-        <div class="droppedcontent-preview"
-             data-bind="dragsource: { payload: $data, ondragstart: $parent.onDragStart, ondragend: $parent.onDragEnd }, background: background, lightbox: { url: previewUrl }">
+        <div class="droppedcontent-preview" data-bind="dragsource: { payload: $data, ondragstart: $parent.onDragStart, ondragend: $parent.onDragEnd }, background: background, lightbox: { url: previewUrl }">
         </div>
         <div class="droppedcontent-details">
             <div data-bind="text: title"></div>
@@ -11,10 +10,11 @@
         </div>
         <!--ko if: uploadables().length > 0 -->
         <button class="button button-tall" data-bind="click: $parent.uploadContentAsMedia">
-            <span class="icon icon-uploadmedia">Upload</span>
+            <i class="paperbits-icon paperbits-square-upload"></i>
+            Upload file
         </button>
         <!--/ko-->
-        <button class="button-close" data-bind="click: $parent.discardDroppedContent">✖</button>
+        <button class="button pull-right" data-bind="click: $parent.discardDroppedContent">✖</button>
         <div class="clearfix"></div>
     </li>
 </ul>

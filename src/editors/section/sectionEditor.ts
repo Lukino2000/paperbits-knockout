@@ -13,6 +13,7 @@ import { SectionModel } from "@paperbits/common/widgets/section/sectionModel";
 import { IEventManager } from '@paperbits/common/events/IEventManager';
 import { Component } from "../../decorators/component";
 import { BackgroundModel } from "@paperbits/common/widgets/background/backgroundModel";
+import { IntentionMapService } from "../../../../paperbits-slate/src/intentionMapService";
 
 
 @Component({
@@ -31,13 +32,16 @@ export class SectionEditor implements IWidgetEditor {
     public readonly backgroundPosition: KnockoutObservable<string>;
     public readonly backgroundColorKey: KnockoutObservable<string>;
     public readonly backgroundRepeat: KnockoutObservable<string>;
-    public readonly backgroundSourceType: KnockoutObservable<string>;
+    public readonly backgroundHasPicture: KnockoutComputed<boolean>;
+    public readonly backgroundHasColor: KnockoutComputed<boolean>;
     public readonly background: KnockoutObservable<BackgroundModel>;
 
-
-    constructor() {
+    constructor(
+        private readonly viewManager: IViewManager
+    ) {
         this.setWidgetModel = this.setWidgetModel.bind(this);
         this.onMediaSelected = this.onMediaSelected.bind(this);
+        this.onColorSelected = this.onColorSelected.bind(this);
         this.clearBackground = this.clearBackground.bind(this);
 
         this.layout = ko.observable<string>();
@@ -62,7 +66,17 @@ export class SectionEditor implements IWidgetEditor {
         this.backgroundRepeat.subscribe(this.onChange.bind(this));
 
         this.background = ko.observable<BackgroundModel>();
-        this.backgroundSourceType = ko.observable<string>();
+        this.backgroundHasPicture = ko.pureComputed(() =>
+            this.background() &&
+            this.background().sourceKey &&
+            this.background().sourceKey != null
+        );
+
+        this.backgroundHasColor = ko.pureComputed(() =>
+            this.background() &&
+            this.background().colorKey &&
+            this.background().colorKey != null
+        );
     }
 
 
@@ -77,41 +91,40 @@ export class SectionEditor implements IWidgetEditor {
         this.section.padding = this.padding();
         this.section.snap = this.snap();
 
-        this.section.background.colorKey = this.backgroundColorKey();
-        this.section.background.size = this.backgroundSize();
-        this.section.background.position = this.backgroundPosition();
-        this.section.background.repeat = this.backgroundRepeat();
+        if (this.section.background) {
+            this.section.background.colorKey = this.backgroundColorKey();
+            this.section.background.size = this.backgroundSize();
+            this.section.background.position = this.backgroundPosition();
+            this.section.background.repeat = this.backgroundRepeat();
+            this.background(this.section.background);
+        }
 
-        this.background.valueHasMutated();
         this.applyChangesCallback();
     }
 
     public onMediaSelected(media: IMedia): void {
+        this.section.background = this.section.background || {};
         this.section.background.sourceKey = media.permalinkKey;
         this.section.background.sourceUrl = media.downloadUrl;
+        this.section.background.sourceType = "picture";
 
-        this.background.valueHasMutated();
+        this.background(this.section.background);
+        this.applyChangesCallback();
+    }
+
+    public onColorSelected(colorKey: string): void {
+        this.section.background = this.section.background || {};
+        this.section.background.colorKey = colorKey;
+
+        this.background(this.section.background);
         this.applyChangesCallback();
     }
 
     public clearBackground(): void {
-        this.section.background.sourceKey = null;
-        this.section.background.sourceUrl = null;
-        this.section.background.sourceType = "none";
+        this.section.background = null;
 
-        this.backgroundSourceType("none");
-        this.background.valueHasMutated();
-        this.applyChangesCallback();
-    }
-
-    public setPictureBackground(): void {
-        this.section.background.sourceKey = null;
-        this.section.background.sourceUrl = null;
-        this.section.background.sourceType = "picture";
-
-        this.backgroundSourceType("picture");
-        this.background.valueHasMutated();
-
+        this.backgroundColorKey(null);
+        this.background(null);
         this.applyChangesCallback();
     }
 
@@ -121,17 +134,24 @@ export class SectionEditor implements IWidgetEditor {
         this.layout(this.section.layout);
         this.padding(this.section.padding);
         this.snap(this.section.snap);
-        this.backgroundColorKey(this.section.background.colorKey);
-        this.backgroundPosition(this.section.background.position);
-        this.backgroundSize(this.section.background.size);
-        this.backgroundSourceType(this.section.background.sourceType);
-        this.backgroundRepeat(this.section.background.repeat);
+
+        if (this.section.background) {
+            this.backgroundColorKey(this.section.background.colorKey);
+            this.backgroundPosition(this.section.background.position);
+            this.backgroundSize(this.section.background.size);
+            this.backgroundRepeat(this.section.background.repeat);
+        }
 
         this.background(this.section.background);
+
         this.applyChangesCallback = applyChangesCallback;
     }
 
     public comingSoon(): void {
         alert("This feature is coming soon!");
+    }
+
+    public closeEditor(): void {
+        this.viewManager.closeWidgetEditor();
     }
 }

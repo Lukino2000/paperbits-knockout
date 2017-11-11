@@ -1,12 +1,13 @@
 <div class="editor">
     <h1>
         Button
+        <a href="#" class="button pull-right" data-bind="click: closeEditor">✖</a>
     </h1>
     <hr />
     <fieldset class="form" data-bind="scrollable: {}">
-        <label class="form-label"><span class="help"></span>Label</label>
+        <label class="form-label">Label</label>
         <div class="form-group">
-            <input type="text" class="form-control" data-bind="textInput: label" />
+            <input type="text" class="form-control" data-bind="textInput: label" maxlength="256"/>
         </div>
 
         <div class="form-group">
@@ -17,7 +18,7 @@
             </div>
         </div>
 
-        <label class="form-label"><span class="help"></span>Style</label>
+        <label class="form-label">Style</label>
         <div class="form-group">
             <label class="form-label">
                 <input name="style" type="radio" value="default" data-bind="checked: style" />Default
@@ -30,7 +31,7 @@
             </label>
         </div>
 
-        <label class="form-label"><span class="help"></span>Size</label>
+        <label class="form-label">Size</label>
         <div class="form-group">
             <label class="form-label">
                 <input name="buttonSize" type="radio" value="default" data-bind="checked: size" />Default

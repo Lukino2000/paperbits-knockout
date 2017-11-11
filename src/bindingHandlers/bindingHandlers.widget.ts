@@ -1,12 +1,15 @@
 ﻿import * as ko from "knockout";
+import { IViewManager } from "@paperbits/common/ui/IViewManager";
+import { IEventManager } from "@paperbits/common/events/IEventManager";
+import { GridEditor } from "../editors/grid/gridEditor";
 
 
 export class WidgetBindingHandler {
-    public constructor() {
+    public constructor(viewManager: IViewManager, eventManager: IEventManager) {
         let componentLoadingOperationUniqueId = 0;
 
         ko.bindingHandlers["widget"] = {
-            "init": (element, valueAccessor, ignored1, ignored2, bindingContext) => {
+            init(element, valueAccessor, ignored1, ignored2, bindingContext) {
                 let currentViewModel,
                     currentLoadingOperationId,
                     disposeAssociatedComponentViewModel = () => {
@@ -79,6 +82,8 @@ export class WidgetBindingHandler {
                                     event.stopImmediatePropagation();
                                 }
                             }
+
+                            GridEditor.attachWidgetDragEvents(correctedElement, viewManager, eventManager);
                         }
                     });
                 }, null, { disposeWhenNodeIsRemoved: element });
@@ -89,7 +94,7 @@ export class WidgetBindingHandler {
 
         ko.virtualElements.allowedBindings['widget'] = true;
 
-        let makeArray = (arrayLikeObject) => {
+        const makeArray = (arrayLikeObject) => {
             let result = [];
             for (let i = 0, j = arrayLikeObject.length; i < j; i++) {
                 result.push(arrayLikeObject[i]);
@@ -97,7 +102,7 @@ export class WidgetBindingHandler {
             return result;
         };
 
-        let cloneNodes = (nodesArray, shouldCleanNodes) => {
+        const cloneNodes = (nodesArray, shouldCleanNodes) => {
             for (var i = 0, j = nodesArray.length, newNodesArray = []; i < j; i++) {
                 var clonedNode = nodesArray[i].cloneNode(true);
                 newNodesArray.push(shouldCleanNodes ? ko.cleanNode(clonedNode) : clonedNode);
@@ -106,19 +111,19 @@ export class WidgetBindingHandler {
         };
 
         function cloneTemplateIntoElement(componentName, componentDefinition, element, useShadow: boolean): HTMLElement {
-            let template = componentDefinition['template'];
+            const template = componentDefinition['template'];
 
             if (!template) {
                 return element;
             }
 
-            let clonedNodesArray = cloneNodes(template, false);
+            const clonedNodesArray = cloneNodes(template, false);
             ko.virtualElements.setDomNodeChildren(element, clonedNodesArray);
             return element;
         }
 
         function createViewModel(componentDefinition, element, originalChildNodes, componentParams) {
-            let componentViewModelFactory = componentDefinition['createViewModel'];
+            const componentViewModelFactory = componentDefinition['createViewModel'];
             return componentViewModelFactory
                 ? componentViewModelFactory.call(componentDefinition, componentParams, { 'element': element, 'templateNodes': originalChildNodes })
                 : componentParams; // Template-only component
