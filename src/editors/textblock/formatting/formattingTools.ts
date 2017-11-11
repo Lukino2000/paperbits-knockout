@@ -88,10 +88,18 @@ export class FormattingTools {
         this.ol(selectionState.ol);
         this.pre(selectionState.code);
 
-        this.alignedLeft(selectionState.intentions.alignment == "alignedLeft-" + viewport);
-        this.alignedCenter(selectionState.intentions.alignment == "alignedCenter-" + viewport);
-        this.alignedRight(selectionState.intentions.alignment == "alignedRight-" + viewport);
-        this.justified(selectionState.intentions.alignment == "justified-" + viewport);
+        if (typeof selectionState.intentions.alignment === 'string'){
+            //To support legacy formt
+            this.alignedLeft(<string><any>selectionState.intentions.alignment == "alignedLeft");
+            this.alignedCenter(<string><any>selectionState.intentions.alignment == "alignedCenter");
+            this.alignedRight(<string><any>selectionState.intentions.alignment == "alignedRight");
+            this.justified(<string><any>selectionState.intentions.alignment == "justified");
+        } else {
+            this.alignedLeft(!!selectionState.intentions.alignment.find(v => v == "alignedLeft-" + viewport));
+            this.alignedCenter(!!selectionState.intentions.alignment.find(v => v == "alignedCenter-" + viewport));
+            this.alignedRight(!!selectionState.intentions.alignment.find(v => v == "alignedRight-" + viewport));
+            this.justified(!!selectionState.intentions.alignment.find(v => v == "justified-" + viewport));
+        }
         this.anchored(!!selectionState.intentions.anchorKey);
 
         if (!this.alignedLeft() && !this.alignedCenter() && !this.alignedRight() && !this.justified()) {
@@ -182,7 +190,7 @@ export class FormattingTools {
     public async toggleAnchor(): Promise<void> {
         const htmlEditor = this.htmlEditorProvider.getCurrentHtmlEditor();
         const selectionState = htmlEditor.getSelectionState();
-        const anchorKey = selectionState.intentions.anchorKey;
+        const anchorKey = <string><any>selectionState.intentions.anchorKey;
         const currentUrl = this.routeHandler.getCurrentUrl();
         const permalink = await this.permalinkService.getPermalinkByUrl(currentUrl);
         const pageContract = await this.pageService.getPageByKey(permalink.targetKey);
