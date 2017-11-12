@@ -1,12 +1,7 @@
 ﻿@import "variables.scss";
-
 @import "toolboxes.scss";
-
 @import "animation.scss";
-
 @import "buttons.scss";
-
-$droppedcontent-preview-size: 70px;
 
 dropbucket {
     right: 20px;
@@ -16,31 +11,24 @@ dropbucket {
 
     .droppedcontent {
         @include surface();
+        @include animation-fadein();
         position: relative;
         border-radius: $toolbox-border-radius;
-        padding-right: 50px;
+    }
+
+    .droppedcontent-details {
+        @include text-overflow();
     }
 
     .droppedcontent-preview {
-        width: $droppedcontent-preview-size;
-        height: $droppedcontent-preview-size;
+        width: 280px;
+        height: 150px;
         background-image: data-uri("../svgs/icons-unknown.svg");
         background-repeat: no-repeat;
         background-position: center;
         background-size: contain;
         display: block;
-        float: left;
-    }
-
-    .droppedcontent-details {
-        margin: 10px;
-        float: left;
-
-        .droppedcontent-details-description {
-            display: inline-block;
-            max-width: 120px;
-            @include text-overflow();
-        }
+        margin: 10px 0;
     }
 
     .list-item {
@@ -48,6 +36,6 @@ dropbucket {
     }
 
     .button {
-        height: $droppedcontent-preview-size;
+        height: 100%;
     }
 }

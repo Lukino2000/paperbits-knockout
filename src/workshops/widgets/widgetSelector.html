@@ -3,11 +3,11 @@
 <!--/ko-->
 
 <div class="editor">
-    <h1>Add widget</h1>
+    <h1>Widgets</h1>
     <hr/>
     <div class="flex-container flex-container-column list-container">
         <ul class="list" data-bind="foreach: widgets, scrollable: {}">
-            <li class="list-item list-item-large">
+            <li class="list-item list-item-large list-item-float">
                 <a href="#" data-bind="hasFocus: hasFocus, click: $component.selectWidget">
                     <i class="paperbits-icon" data-bind="css: css"></i>
                     <span data-bind="text: displayName"></span>

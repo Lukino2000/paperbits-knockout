@@ -80,6 +80,8 @@ h1 {
 
     .toolbox-button-group {
         display: flex;
+        padding: 0;
+        margin: 0;
     }
 
     .toolbox-button-group-vertical {
@@ -101,12 +103,6 @@ h1 {
         outline: 1px dashed $button-border-color;
         cursor: pointer;
         padding: 10px;
-    }
-
-    ul {
-        padding: 0;
-        margin: 0;
-        list-style: none;
     }
 
     &::after {

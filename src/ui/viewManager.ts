@@ -95,7 +95,7 @@ export class ViewManager implements IViewManager {
         this.globalEventHandler.addDragDropListener(this.onDragEnd);
         this.globalEventHandler.addDragEndListener(this.onDragEnd);
         this.globalEventHandler.addDragLeaveScreenListener(this.unfoldEverything);
-        
+
 
         this.eventManager.addEventListener("virtualDragEnd", this.onDragEnd);
 
