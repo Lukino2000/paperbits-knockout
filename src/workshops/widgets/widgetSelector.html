@@ -8,8 +8,10 @@
     <div class="flex-container flex-container-column list-container">
         <ul class="list" data-bind="foreach: widgets, scrollable: {}">
             <li class="list-item list-item-large">
-                <i class="paperbits-icon" data-bind="css: css"></i>
-                <a href="#" data-bind="text: displayName, hasFocus: hasFocus, click: $component.selectWidget"></a>
+                <a href="#" data-bind="hasFocus: hasFocus, click: $component.selectWidget">
+                    <i class="paperbits-icon" data-bind="css: css"></i>
+                    <span data-bind="text: displayName"></span>
+                </a>
             </li>
         </ul>
     </div>
