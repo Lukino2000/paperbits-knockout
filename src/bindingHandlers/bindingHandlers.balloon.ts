@@ -18,9 +18,8 @@ export class BalloonBindingHandler {
                 let balloonX;
                 let balloonY;
 
-                const targetElement: HTMLElement = document.querySelector(options.target);
-
                 const reposition = () => {
+                    const targetElement: HTMLElement = document.querySelector(options.target);
                     const targetRect = triggerElement.getBoundingClientRect();
                     const balloonRect = targetElement.getBoundingClientRect();
 
@@ -66,15 +65,31 @@ export class BalloonBindingHandler {
                 }
 
                 const open = (): void => {
+                    const targetElement: HTMLElement = document.querySelector(options.target);
+
+                    if (!targetElement) {
+                        return;
+                    }
                     targetElement.classList.add(balloonActiveClassName);
                     reposition();
                 }
 
                 const close = (): void => {
+                    const targetElement: HTMLElement = document.querySelector(options.target);
+
+                    if (!targetElement) {
+                        return;
+                    }
                     targetElement.classList.remove(balloonActiveClassName);
                 }
 
                 const toggle = (): void => {
+                    const targetElement: HTMLElement = document.querySelector(options.target);
+
+                    if (!targetElement) {
+                        return;
+                    }
+
                     if (targetElement.classList.contains(balloonActiveClassName)) {
                         close();
                     }
@@ -84,6 +99,12 @@ export class BalloonBindingHandler {
                 }
 
                 const onPointerDown = (event: PointerEvent) => {
+                    if (!triggerElement) {
+                        return;
+                    }
+
+                    const targetElement: HTMLElement = document.querySelector(options.target);
+
                     if (!targetElement) {
                         return;
                     }
