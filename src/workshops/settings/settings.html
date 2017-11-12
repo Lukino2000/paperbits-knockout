@@ -17,6 +17,10 @@
         <input type="text" class="form-control" data-bind="value: keywords" maxlength="256"/>
         
         <label class="form-label">
+            Favicon</label>
+        <input type="text" class="form-control" data-bind="value: faviconFileName, balloon: { target: '#mediaSelector', position: 'top' }" readonly/>
+        
+        <label class="form-label">
             Google Maps API Key</label>
         <input type="text" class="form-control" data-bind="value: gmapsApiKey" maxlength="256"/>
 
@@ -27,12 +31,9 @@
         <label class="form-label">
             Intercom App ID</label>
         <input type="text" class="form-control" data-bind="value: intercomAppId" maxlength="256"/>
-    </fieldset>
+    </fieldset>    
 
     <div class="button-group">
-        <button class="button" data-bind="click: uploadFavicon">
-            <i class="paperbits-icon paperbits-square-upload"></i>
-            Upload favicon
-        </button>
+        <media-selector id="mediaSelector" class="balloon" params="onSelect: $component.onMediaSelected, mediaFilter: $component.mediaFilter"></media-selector>
     </div>
 </div>

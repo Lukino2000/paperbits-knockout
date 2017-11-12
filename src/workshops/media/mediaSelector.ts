@@ -9,6 +9,7 @@ import { IPermalinkService } from '@paperbits/common/permalinks/IPermalinkServic
 import { IMediaService } from '@paperbits/common/media/IMediaService';
 import { Component } from "../../decorators/component";
 import { IViewManager } from "@paperbits/common/ui/IViewManager";
+import { IMediaFilter } from "@paperbits/common/media/IMediaFilter";
 
 
 @Component({
@@ -21,6 +22,7 @@ export class MediaSelector implements IResourceSelector<IMedia> {
     private readonly permalinkService: IPermalinkService;
     private readonly viewManager: IViewManager;
     private readonly onMediaSelected: (media: IMedia) => void;
+    private readonly mediaFilter: IMediaFilter;
 
     public readonly searchPattern: KnockoutObservable<string>;
     public readonly mediaItems: KnockoutObservableArray<MediaItem>;
@@ -30,10 +32,11 @@ export class MediaSelector implements IResourceSelector<IMedia> {
 
     public onResourceSelected: (media: IMedia) => void;
 
-    constructor(mediaService: IMediaService, permalinkService: IPermalinkService, viewManager: IViewManager, onSelect: (media: IMedia) => void) {
+    constructor(mediaService: IMediaService, permalinkService: IPermalinkService, viewManager: IViewManager, onSelect: (media: IMedia) => void, mediaFilter:IMediaFilter) {
         this.mediaService = mediaService;
         this.permalinkService = permalinkService;
         this.viewManager = viewManager;
+        this.mediaFilter = mediaFilter;
 
         this.selectMedia = this.selectMedia.bind(this);
         this.mediaItems = ko.observableArray<MediaItem>();
@@ -57,8 +60,12 @@ export class MediaSelector implements IResourceSelector<IMedia> {
 
     public async searchMedia(searchPattern: string = ""): Promise<void> {
         this.working(true);
-
-        let mediaFiles = await this.mediaService.search(searchPattern);
+        let mediaFiles
+        if(this.mediaFilter) {
+            mediaFiles = await this.mediaService.searchByProperties(this.mediaFilter.propertyNames, this.mediaFilter.propertyValue, this.mediaFilter.startSearch);
+        } else {
+            mediaFiles = await this.mediaService.search(searchPattern);
+        }
         let mediaItems = mediaFiles.map(media => new MediaItem(media));
         this.mediaItems(mediaItems);
         this.working(false);

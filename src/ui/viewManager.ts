@@ -4,6 +4,7 @@ import * as ko from "knockout";
 import template from "./viewManager.html";
 import "@paperbits/common/core/extensions";
 import { IHighlightConfig } from "@paperbits/common/ui/IHighlightConfig";
+import { metaDataSetter } from "@paperbits/common/meta/metaDataSetter";
 import { IBag } from "@paperbits/common/core/IBag";
 import { IContextualEditor } from "@paperbits/common/ui/IContextualEditor";
 import { IEditorSession } from "@paperbits/common/ui/IEditorSession";
@@ -18,6 +19,8 @@ import { IRouteHandler } from "@paperbits/common/routing/IRouteHandler";
 import { Component } from "../decorators/component";
 import { DragSession } from "@paperbits/common/ui/draggables/dragManager";
 import { ISplitterConfig } from "../bindingHandlers/bindingHandlers.splitter";
+import { IMedia } from "@paperbits/common/media/IMedia";
+import { ISiteService } from "@paperbits/common/sites/ISiteService";
 
 
 @Component({
@@ -29,6 +32,8 @@ export class ViewManager implements IViewManager {
     private readonly eventManager: IEventManager;
     private readonly globalEventHandler: GlobalEventHandler;
     private readonly routeHandler: IRouteHandler;
+    private readonly mediaService: IMediaService;
+    private readonly siteService: ISiteService;
     private contextualEditorsBag: IBag<IContextualEditor> = {};
 
     public journey: KnockoutObservableArray<IComponent>;
@@ -48,10 +53,12 @@ export class ViewManager implements IViewManager {
 
     public mode: ViewManagerMode;
 
-    constructor(eventManager: IEventManager, globalEventHandler: GlobalEventHandler, routeHandler: IRouteHandler) {
+    constructor(eventManager: IEventManager, globalEventHandler: GlobalEventHandler, routeHandler: IRouteHandler, mediaService: IMediaService, siteService: ISiteService) {
         this.eventManager = eventManager;
         this.globalEventHandler = globalEventHandler;
         this.routeHandler = routeHandler;
+        this.mediaService = mediaService;
+        this.siteService = siteService;
 
         // rebinding...
         this.addProgressIndicator = this.addProgressIndicator.bind(this);
@@ -96,10 +103,21 @@ export class ViewManager implements IViewManager {
         globalEventHandler.appendDocument(document);
 
         eventManager.addEventListener("onEscape", this.closeWidgetEditor);
+        this.loadFavIcon();
     }
 
     private onRouteChange(): void {
         this.clearContextualEditors();
+    }
+
+    public async loadFavIcon(): Promise<void> {
+        let settings = await this.siteService.getSiteSettings();
+        if (settings && settings.iconPermalinkKey) {
+            let iconFile = await this.mediaService.getMediaByPermalink(settings.iconPermalinkKey);
+            if (iconFile && iconFile.downloadUrl) {
+                metaDataSetter.setFavIcon(iconFile.downloadUrl);
+            }
+        }
     }
 
     public getCurrentJourney(): string {

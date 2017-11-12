@@ -10,6 +10,8 @@ import { IPermalinkService } from '@paperbits/common/permalinks/IPermalinkServic
 import { IMedia } from '@paperbits/common/media/IMedia';
 import { ISiteSettings } from "@paperbits/common/sites/ISiteSettings";
 import { Component } from "../../decorators/component";
+import { IMediaFilter } from "@paperbits/common/media/IMediaFilter";
+import { metaDataSetter } from "@paperbits/common/meta/metaDataSetter";
 
 
 @Component({
@@ -22,6 +24,7 @@ export class SettingsWorkshop {
     private readonly permalinkService: IPermalinkService;
     private readonly siteService: ISiteService;
     private readonly viewManager: IViewManager;
+    private readonly mediaFilter: IMediaFilter;
 
     public readonly working: KnockoutObservable<boolean>;
 
@@ -32,6 +35,7 @@ export class SettingsWorkshop {
     public gtmContainerId: KnockoutObservable<string>;
     public intercomAppId: KnockoutObservable<string>;
     public faviconSourceKey: KnockoutObservable<string>;
+    public faviconFileName: KnockoutObservable<string>;
 
 
     constructor(mediaService: IMediaService, permalinkService: IPermalinkService, siteService: ISiteService, viewManager: IViewManager) {
@@ -41,11 +45,16 @@ export class SettingsWorkshop {
         this.siteService = siteService;
         this.viewManager = viewManager;
 
-        // rebinding...
-        this.uploadFavicon = this.uploadFavicon.bind(this);
+        // rebinding...     
+        this.onMediaSelected = this.onMediaSelected.bind(this);
 
         // setting up...
         this.working = ko.observable<boolean>();
+        this.mediaFilter = {
+            propertyNames: ["contentType"],
+            propertyValue: metaDataSetter.iconContentType,
+            startSearch: true
+        };
 
         this.loadSettings();
 
@@ -56,6 +65,7 @@ export class SettingsWorkshop {
         this.gtmContainerId = ko.observable<string>();
         this.intercomAppId = ko.observable<string>();
         this.faviconSourceKey = ko.observable<string>();
+        this.faviconFileName = ko.observable<string>();
     }
 
     private async loadSettings(): Promise<void> {
@@ -67,7 +77,8 @@ export class SettingsWorkshop {
             this.title(settings.title);
             this.description(settings.description);
             this.keywords(settings.keywords);
-
+            this.faviconSourceKey(settings.iconPermalinkKey);
+            this.setFaviconUri(settings.iconPermalinkKey);
 
             if (settings.config) {
                 if (settings.config.googlemaps) {
@@ -116,15 +127,23 @@ export class SettingsWorkshop {
         await this.siteService.setSiteSettings(config);
     }
 
-    public async uploadFavicon(): Promise<void> {
-        let files = await this.viewManager.openUploadDialog();
+    public onMediaSelected(media: IMedia) {
+        if(media) {
+            this.faviconSourceKey(media.permalinkKey);            
+            this.setFaviconUri(media.permalinkKey);
+        } else {
+            this.faviconFileName(null);
+            this.faviconSourceKey(null);
+        }
+    }
 
-        for (var index = 0; index < files.length; index++) {
-            let file = files[index];
-            let content = await Utils.readFileAsByteArray(file);
-            let media = await this.mediaService.createMedia(file.name, content)
-
-            this.faviconSourceKey(media.media.permalinkKey);
+    private async setFaviconUri(permalinkKey: string) {
+        if(permalinkKey) {
+            let iconPermalink = await this.permalinkService.getPermalinkByKey(permalinkKey);
+            if(iconPermalink){
+                this.faviconFileName(iconPermalink.uri);
+                this.viewManager.loadFavIcon();
+            }
         }
     }
 }
