@@ -41,6 +41,7 @@ export class PictureHandlers implements IWidgetHandler, IContentDropHandler {
         const widgetOrder: IWidgetOrder = {
             name: "picture",
             displayName: "Picture",
+            iconClass: "paperbits-image-2",
             createModel: () => {
                 return pictureModel;
             }
@@ -61,14 +62,12 @@ export class PictureHandlers implements IWidgetHandler, IContentDropHandler {
         let widgetOrder: IWidgetOrder = {
             name: "picture",
             displayName: "Picture",
+            iconClass: "paperbits-image-2",
             createWidget: (): IWidgetFactoryResult => {
                 // We create HTML element here just for dragging animation
-
-
-                //this.pictureModelBinder.nodeToModel
                 const pictureViewModel = this.pictureViewModelBinder.modelToViewModel(pictureModel, false);
-
                 const htmlElement = document.createElement("widget");
+                
                 htmlElement.style.width = "150px";
                 htmlElement.style.height = "150px";
                 htmlElement.style.overflow = "hidden";

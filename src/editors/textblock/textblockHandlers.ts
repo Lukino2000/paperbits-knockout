@@ -34,6 +34,7 @@ export class TextblockHandlers implements IWidgetHandler {
         let widgetOrder: IWidgetOrder = {
             name: "text-block",
             displayName: "Text block",
+            iconClass: "paperbits-edit-2",
 
             createWidget: () => {
                 throw "Not implemented.";

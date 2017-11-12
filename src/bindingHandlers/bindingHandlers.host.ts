@@ -1,4 +1,5 @@
 ﻿import * as ko from "knockout";
+import * as Utils from "@paperbits/common/core/utils";
 import { GlobalEventHandler } from "@paperbits/common/events/globalEventHandler";
 import { IViewManager } from "@paperbits/common/ui/IViewManager";
 
@@ -44,17 +45,7 @@ export class HostBindingHandler {
                 hostElement.classList.add("host");
 
                 const onPointerMove = (event) => {
-                    let elements: HTMLElement[];
-
-                    if (document.elementsFromPoint) {
-                        elements = Array.prototype.slice.call(element.ownerDocument.elementsFromPoint(event.clientX, event.clientY));
-                    }
-                    else if (element.ownerDocument.msElementsFromPoint) {
-                        elements = Array.prototype.slice.call(element.ownerDocument.msElementsFromPoint(event.clientX, event.clientY));
-                    }
-                    else {
-                        throw `Method "elementsFromPoint" not supported by browser.`
-                    }
+                    const elements = Utils.elementsFromPoint(element.ownerDocument, event.clientX, event.clientY);
 
                     if (elements.some(el => el.classList.contains("toolbox") || el.classList.contains("editor"))) {
                         hostElement.classList.add("no-pointer-events");

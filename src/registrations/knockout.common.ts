@@ -30,6 +30,7 @@ import { SlateBindingHandler } from "../bindingHandlers/bindingHandlers.slate";
 import { BalloonBindingHandler } from "../bindingHandlers/bindingHandlers.balloon";
 import { ViewManager } from "../ui/viewManager";
 import { BackgroundBindingHandler } from "../bindingHandlers/bindingHandlers.background";
+import { ResizableBindingHandler } from "../bindingHandlers/bindingHandlers.resizable";
 
 
 export class KnockoutRegistrationCommon implements IInjectorModule {
@@ -48,5 +49,6 @@ export class KnockoutRegistrationCommon implements IInjectorModule {
         injector.bindSingleton("slateBindingHandler", SlateBindingHandler);
         injector.bindSingleton("balloonBindingHandler", BalloonBindingHandler);
         injector.bindSingleton("backgroundBindingHandler", BackgroundBindingHandler);
+        injector.bindSingleton("resizableBindingHandler", ResizableBindingHandler);
     }
 }

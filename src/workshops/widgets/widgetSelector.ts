@@ -43,7 +43,7 @@ export class WidgetSelector implements IResourceSelector<Object> {
         widgetOrders.forEach((widgetOrder) => {
             let widgetItem = new WidgetItem();
 
-            widgetItem.css = `icon-${widgetOrder.name}`,
+            widgetItem.css = `${widgetOrder.iconClass}`,
             widgetItem.displayName = widgetOrder.displayName;
             widgetItem.widgetOrder = widgetOrder;
 

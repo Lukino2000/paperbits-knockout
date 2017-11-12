@@ -11,11 +11,12 @@ h1 {
     display: block;
     margin: 0;
     padding-left: 5px;
+    cursor: default;
 }
 
 .toolbox {
     position: fixed;
-    display: flex;
+    display: block;
     @include surface();
 
     &.toolbox-position-left {
@@ -31,6 +32,7 @@ h1 {
     &.toolbox-position-left-offset {
         top: 20px;
         left: 150px;
+        min-width: 320px;
     }
 
     .toolbox-button {
@@ -38,7 +40,7 @@ h1 {
         line-height: $toolbox-button-size;
         min-width: $toolbox-button-size;
         height: $toolbox-button-size;
-        display: block;
+        display: inline-block;
         padding: 0;
         box-sizing: border-box;
         border: none;
@@ -49,7 +51,6 @@ h1 {
         cursor: pointer;
         @include no-select();
         @include no-drag();
-        @include tabable();
 
         &.toolbox-button-is-active {
             position: relative;
@@ -72,37 +73,24 @@ h1 {
             outline: none;
             color: $color-base;
             text-decoration: none;
-
-            @include tabable();
-
-        }
-
-        .text {
-            display: block;
             width: 100%;
-            height: 100%;
-            overflow: hidden;
+            @include tabable();
         }
+    }
+
+    .toolbox-button-group {
+        display: flex;
+    }
+
+    .toolbox-button-group-vertical {
+        display: flex;
+        flex-direction: column;
     }
 
     .toolbox-splitter {
         height: 1px;
         border: none;
         border-bottom: 1px solid lightgray;
-    }
-
-    .toolbox-primary {
-        height: 100%;
-        top: 0;
-        left: 0;
-        float: left;
-
-        li {
-            list-style: none;
-            padding: 0;
-            margin: 0;
-            background: none;
-        }
     }
 
     &.toolbox-resizable {
@@ -126,6 +114,45 @@ h1 {
         content: '';
         display: block;
     }
+
+    .resize-handle {
+        background: transparent;
+
+        position: absolute;
+
+        &.resize-handle-right {
+            cursor: e-resize;
+            width: 5px;
+            right: 0;
+            top: 0;
+            bottom: 0;
+
+        }
+
+        &.resize-handle-left {
+            cursor: w-resize;
+            width: 5px;
+            left: 0;
+            top: 0;
+            bottom: 0;
+        }
+
+        &.resize-handle-top {
+            cursor: n-resize;
+            height: 5px;
+            left: 0;
+            right: 0;
+            top: 0;
+        }
+
+        &.resize-handle-bottom {
+            cursor: s-resize;
+            height: 5px;
+            left: 0;
+            right: 0;
+            bottom: 0;
+        }
+    }
 }
 
 .no-pointer-events {
@@ -134,5 +161,5 @@ h1 {
 
 .editor {
     padding: 10px;
-    z-index: $z-index-widgets;
+    overflow: hidden;
 }

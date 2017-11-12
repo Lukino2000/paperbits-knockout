@@ -26,9 +26,10 @@ export class YoutubeHandlers implements IWidgetHandler, IContentDropHandler {
 
         // let widgetModel = await this.youtubePlayerModelBinder.modelToWidgetModel(youtubePlayerModel);
 
-        let widgetOrder: IWidgetOrder = {
+        const widgetOrder: IWidgetOrder = {
             name: "youtube-player",
             displayName: "Youtube player",
+            iconClass: "paperbits-player-48",
             createWidget: () => {
                 throw "Not implemented.";
                 // let htmlElement = document.createElement("widget");
@@ -71,10 +72,10 @@ export class YoutubeHandlers implements IWidgetHandler, IContentDropHandler {
     }
 
     private getVideoId(dataTransfer: IDataTransfer): string {
-        let source = dataTransfer.source;
+        const source = dataTransfer.source;
 
         if (source && typeof source === "string") {
-            let lower = source.toLowerCase();
+            const lower = source.toLowerCase();
 
             if (lower.startsWith("https://www.youtube.com") || lower.startsWith("http://www.youtube.com")) {
                 var videoId = new RegExp("[?&](?:v=)(.*?)(?:$|&)").exec(source);

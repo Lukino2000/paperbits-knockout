@@ -25,7 +25,7 @@ export class NavbarHandlers implements IWidgetHandler {
     }
 
     private async getWidgetOrderByConfig(): Promise<IWidgetOrder> {
-        
+
 
         let node = {
             kind: "block",
@@ -34,11 +34,12 @@ export class NavbarHandlers implements IWidgetHandler {
         };
 
         let model = await this.navbarModelBinder.nodeToModel(node);
-        
+
 
         let widgetOrder: IWidgetOrder = {
             name: "navbar",
             displayName: "Navigation bar",
+            iconClass: "paperbits-menu-34",
             createWidget: () => {
                 throw "Not implemented.";
 

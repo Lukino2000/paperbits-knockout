@@ -181,6 +181,7 @@ $(() => {
     injector.resolve("slateBindingHandler");
     injector.resolve("balloonBindingHandler");
     injector.resolve("backgroundBindingHandler");
+    injector.resolve("resizableBindingHandler");
     injector.resolve("savingHandler");
 
     const offlineObjectStorage = injector.resolve<OfflineObjectStorage>("offlineObjectStorage");
