@@ -11,6 +11,7 @@ import { IRouteHandler } from "@paperbits/common/routing/IRouteHandler";
 import { IBag } from "@paperbits/common/core/IBag";
 import { intentions } from "../../../themes/hostmeapp/intentions";
 import { IViewManager } from "@paperbits/common/ui/IViewManager";
+import { IHtmlEditor } from "../../../../../paperbits-common/src/editing/IHtmlEditor";
 
 
 @Component({
@@ -88,7 +89,13 @@ export class FormattingTools {
         this.ol(selectionState.ol);
         this.pre(selectionState.code);
 
-        if (typeof selectionState.intentions.alignment === 'string'){
+        if (!selectionState.intentions.alignment){
+            this.alignedLeft(true);
+            this.alignedCenter(false);
+            this.alignedRight(false);
+            this.justified(false);
+        }
+        else if (typeof selectionState.intentions.alignment === 'string'){
             //To support legacy formt
             this.alignedLeft(<string><any>selectionState.intentions.alignment == "alignedLeft");
             this.alignedCenter(<string><any>selectionState.intentions.alignment == "alignedCenter");
@@ -274,27 +281,20 @@ export class FormattingTools {
     }
 
     public toggleAlignLeft(): void {
-        const viewport = this.viewManager.getViewport();
-        this.htmlEditorProvider.getCurrentHtmlEditor().toggleIntention("alignment", "alignedLeft-" + viewport, "block");
-        this.updateFormattingState();
+        this.toggleAlignment("alignedLeft");
+        
     }
 
     public toggleAlignCenter(): void {
-        const viewport = this.viewManager.getViewport();
-        this.htmlEditorProvider.getCurrentHtmlEditor().toggleIntention("alignment", "alignedCenter-" + viewport, "block");
-        this.updateFormattingState();
+        this.toggleAlignment("alignedCenter");
     }
 
     public toggleAlignRight(): void {
-        const viewport = this.viewManager.getViewport();
-        this.htmlEditorProvider.getCurrentHtmlEditor().toggleIntention("alignment", "alignedRight-" + viewport, "block");
-        this.updateFormattingState();
+        this.toggleAlignment("alignedRight");
     }
 
     public toggleJustify(): void {
-        const viewport = this.viewManager.getViewport();
-        this.htmlEditorProvider.getCurrentHtmlEditor().toggleIntention("alignment", "justified-" + viewport, "block");
-        this.updateFormattingState();
+        this.toggleAlignment("justified");
     }
 
     public resetToNormal(): void {
@@ -304,5 +304,29 @@ export class FormattingTools {
 
     public dispose(): void {
         this.eventManager.removeEventListener("htmlEditorChanged", this.updateFormattingState)
+    }
+
+    private toggleAlignment(alignmentIntention: string){
+        const viewport = this.viewManager.getViewport();
+        const htmlEditor : IHtmlEditor = this.htmlEditorProvider.getCurrentHtmlEditor();
+        const selectionState = htmlEditor.getSelectionState();
+        let alignmentIndex: number;
+        //if alignment category is empty or it is a string (old data) then update entire categoty
+        if (!selectionState.intentions.alignment || 
+            (typeof selectionState.intentions.alignment === 'string')){
+            htmlEditor.toggleCategory("alignment", alignmentIntention + "-" + viewport, "block");
+        //otherwise it is array; if it has category with current viewport - then replace it
+        } else if ((alignmentIndex = selectionState.intentions.alignment.findIndex(a => a.endsWith(viewport))) >= 0){
+            let newAlignment = JSON.parse(JSON.stringify(selectionState.intentions.alignment));
+            newAlignment.splice(alignmentIndex, 1);
+            newAlignment.push(alignmentIntention + "-" + viewport)
+            htmlEditor.toggleCategory("alignment", newAlignment, "block");
+        // otherwise append alignment with current viewport to the current category
+        } else {
+            let newAlignment = JSON.parse(JSON.stringify(selectionState.intentions.alignment));
+            newAlignment.push(alignmentIntention + "-" + viewport)
+            htmlEditor.toggleCategory("alignment", newAlignment, "block");
+        }
+        this.updateFormattingState();
     }
 }
