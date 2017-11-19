@@ -2,6 +2,7 @@
 import template from "./workshops.html";
 import { IViewManager } from '@paperbits/common/ui/IViewManager';
 import { Component } from "../decorators/component";
+import { IUserService } from "@paperbits/common/user/IUserService";
 
 
 @Component({
@@ -11,19 +12,29 @@ import { Component } from "../decorators/component";
 })
 export class Workshops {
     private readonly viewManager: IViewManager;
+    private readonly userService: IUserService;
 
     public journey: KnockoutObservable<string>;
-    public dragging: KnockoutObservable<boolean>;
+    public userPhotoUrl: KnockoutObservable<string>;
 
-    constructor(viewManager: IViewManager) {
+
+    constructor(viewManager: IViewManager, userService: IUserService) {
         this.viewManager = viewManager;
+        this.userService = userService;
 
         this.closeJourney = this.closeJourney.bind(this);
 
         this.journey = ko.observable<string>();
-        this.dragging = ko.observable<boolean>(false);
+        this.userPhotoUrl = ko.observable<string>(null);
+
+        this.init();
     }
-    
+
+    private async init(): Promise<void> {
+        const url = await this.userService.getUserPhotoUrl();
+        this.userPhotoUrl(url);
+    }
+
     public openLayouts(): void {
         this.viewManager.newJourney("Layouts", "layouts");
         this.journey("layouts");
@@ -54,9 +65,8 @@ export class Workshops {
         this.journey("settings");
     }
 
-    public openWidgets(): void {
-        this.viewManager.newJourney("Widgets", "widgets");
-        this.journey("widgets");
+    public openProfile(): void {
+       
     }
 
     public closeJourney(): void {

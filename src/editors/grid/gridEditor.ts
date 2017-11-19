@@ -344,7 +344,8 @@ export class GridEditor {
                 oncreate: (editorViewModel: IWidgetEditor) => {
                     editorViewModel.setWidgetModel(widgetBinding.model, widgetBinding.applyChanges);
                 }
-            }
+            },
+            resize: widgetBinding.editorResize || "both"
         }
 
         this.viewManager.setWidgetEditor(editorSession)

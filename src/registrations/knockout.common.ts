@@ -20,6 +20,7 @@ import "../bindingHandlers/bindingHandlers.surface";
 import "../bindingHandlers/bindingHandlers.snapTo";
 import "../bindingHandlers/bindingHandlers.gridCommand";
 import "../bindingHandlers/bindingHandlers.align";
+import "../bindingHandlers/bindingHandlers.validationMessageToggle";
 
 import { WidgetBindingHandler } from "../bindingHandlers/bindingHandlers.widget";
 import { ContentBindingHandler } from "../bindingHandlers/bindingHandlers.content";

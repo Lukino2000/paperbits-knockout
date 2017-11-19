@@ -3,25 +3,6 @@
     background-position: center center;
 }
 
-.icon-smaller {
-    background-size: 35%;
-}
-
-.icon-clear {
-    @extend .icon-box;
-    background-image: url(inline-image("src/svgs/outline-clear.svg"));
-}
-
-.icon-video {
-    @extend .icon-box;
-    background-image: url(inline-image("src/svgs/outline-video.svg"));
-}
-
-.icon-picture {
-    @extend .icon-box;
-    background-image: url(inline-image("src/svgs/outline-picture.svg"));
-}
-
 .icon-file {
     @extend .icon-box;
     background-image: url(inline-image("src/svgs/drawer.svg"));
@@ -45,77 +26,6 @@
 .icon-pen {
     @extend .icon-box;
     background-image: url(inline-image("src/svgs/outline-pen.svg"));
-}
-
-.icon-image {
-    background-repeat: no-repeat;
-    background-position: left center;
-    background-image: url(inline-image("src/svgs/outline-picture.svg"));
-}
-
-.icon-arrow-up-left {
-    @extend .icon-box;
-    background-image: url(inline-image("src/svgs/outline-arrow-up-left.svg"));
-}
-
-.icon-arrow-up {
-    @extend .icon-box;
-    background-image: url(inline-image("src/svgs/outline-arrow-up.svg"));
-}
-
-.icon-arrow-up-right {
-    @extend .icon-box;
-    background-image: url(inline-image("src/svgs/outline-arrow-up-right.svg"));
-}
-
-.icon-arrow-left {
-    @extend .icon-box;
-    background-image: url(inline-image("src/svgs/outline-arrow-left.svg"));
-}
-
-.icon-arrow-center {
-    @extend .icon-box;
-    background-image: url(inline-image("src/svgs/outline-enlarge.svg"));
-}
-
-.icon-arrow-right {
-    @extend .icon-box;
-    background-image: url(inline-image("src/svgs/outline-arrow-right.svg"));
-}
-
-.icon-arrow-down-left {
-    @extend .icon-box;
-    background-image: url(inline-image("src/svgs/outline-arrow-down-left.svg"));
-}
-
-.icon-arrow-down {
-    @extend .icon-box;
-    background-image: url(inline-image("src/svgs/outline-arrow-down.svg"));
-}
-
-.icon-arrow-down-right {
-    @extend .icon-box;
-    background-image: url(inline-image("src/svgs/outline-arrow-down-right.svg"));
-}
-
-.icon-video-player {
-    @extend .icon-box;
-    background-image: url(inline-image("src/svgs/outline-video.svg"));
-}
-
-.icon-button {
-    @extend .icon-box;
-    background-image: url(inline-image("src/svgs/outline-button.svg"));
-}
-
-.icon-youtube-player {
-    @extend .icon-box;
-    background-image: url(inline-image("src/svgs/youtube.svg"));
-}
-
-.icon-navbar {
-    @extend .icon-box;
-    background-image: url(inline-image("src/svgs/outline-menu.svg"));
 }
 
 .paperbits-icon {

@@ -19,7 +19,7 @@ export class BalloonBindingHandler {
                 let balloonY;
 
                 const reposition = () => {
-                    const targetElement: HTMLElement = document.querySelector(options.target);
+                    const targetElement: HTMLElement = options.element || document.querySelector(options.selector);
                     const targetRect = triggerElement.getBoundingClientRect();
                     const balloonRect = targetElement.getBoundingClientRect();
 
@@ -65,7 +65,7 @@ export class BalloonBindingHandler {
                 }
 
                 const open = (): void => {
-                    const targetElement: HTMLElement = document.querySelector(options.target);
+                    const targetElement: HTMLElement = options.element || document.querySelector(options.selector);
 
                     if (!targetElement) {
                         return;
@@ -75,7 +75,7 @@ export class BalloonBindingHandler {
                 }
 
                 const close = (): void => {
-                    const targetElement: HTMLElement = document.querySelector(options.target);
+                    const targetElement: HTMLElement = options.element || document.querySelector(options.selector);
 
                     if (!targetElement) {
                         return;
@@ -84,7 +84,7 @@ export class BalloonBindingHandler {
                 }
 
                 const toggle = (): void => {
-                    const targetElement: HTMLElement = document.querySelector(options.target);
+                    const targetElement: HTMLElement = options.element || document.querySelector(options.selector);
 
                     if (!targetElement) {
                         return;
@@ -103,7 +103,7 @@ export class BalloonBindingHandler {
                         return;
                     }
 
-                    const targetElement: HTMLElement = document.querySelector(options.target);
+                    const targetElement: HTMLElement = options.element || document.querySelector(options.selector);
 
                     if (!targetElement) {
                         return;
@@ -144,7 +144,7 @@ export class BalloonBindingHandler {
                 }
 
                 const onScroll = (event: PointerEvent) => {
-                    let targetElement: HTMLElement = document.querySelector(options.target);
+                    let targetElement: HTMLElement = options.element || document.querySelector(options.selector);
 
                     if (!targetElement) {
                         return;

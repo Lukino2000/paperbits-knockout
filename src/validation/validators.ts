@@ -1,75 +1,84 @@
 
+import * as ko from "knockout";
 import * as validation from "knockout.validation";
 import { IPermalinkService } from "@paperbits/common/permalinks/IPermalinkService";
 import { IPermalink } from "@paperbits/common/permalinks/IPermalink";
 import { ILayoutService } from "@paperbits/common/layouts/ILayoutService";
 import { LayoutItem } from "../workshops/layouts/layoutItem";
 
+const errorClassName = "is-invalid";
+
+
 export class Validators {
-    public static initPermalinkValidation() {
-        validation.init( { 
-            errorElementClass: 'has-error',
-            decorateInputElement : true,
+    public static initPermalinkValidation(): void {
+        validation.init({
+            errorElementClass: errorClassName,
+            decorateInputElement: true,
+            insertMessages: false
         }, true);
+
         validation.rules['uniquePermalink'] = {
             async: true,
             validator: async (permalinkUri, validatorParam, callback) => {
                 if (permalinkUri !== validatorParam.skipUri) {
-                    let permalinkService:IPermalinkService = validatorParam.service;
+                    let permalinkService: IPermalinkService = validatorParam.service;
                     let permalink = await permalinkService.getPermalinkByUrl(permalinkUri);
+
                     callback(!permalink);
-                } else {
+                }
+                else {
                     callback(true);
                 }
             },
             message: 'The permalink is already in use'
         };
-        validation.registerExtenders(); 
+        validation.registerExtenders();
     }
 
-    public static setPermalinkValidatorWithUpdate(permalinkUrl:KnockoutObservable<string>, permalink:IPermalink, permalinkService:IPermalinkService) {
-        let currentValue = permalink.uri;
+    public static setPermalinkValidatorWithUpdate(permalinkUrl: KnockoutObservable<string>, permalink: IPermalink, permalinkService: IPermalinkService) {
+        const currentValue = permalink.uri;
         permalinkUrl.extend(Validators.uniquePermalinkExtender(currentValue, permalinkService));
         permalinkUrl.isValidating.subscribe((isValidating) => Validators.updatePermalink(isValidating, permalinkUrl, permalink, permalinkService));
         permalinkUrl.subscribe(Validators.permalinkValidationFunction(currentValue, permalinkUrl));
         permalinkUrl.isValid();
     }
 
-    private static uniquePermalinkExtender(skipUri: string, permalinkService:IPermalinkService){
+    private static uniquePermalinkExtender(skipUri: string, permalinkService: IPermalinkService) {
         return {
             required: true,
-            uniquePermalink: {skipUri: skipUri === "/new" ? "" : skipUri, service: permalinkService}
+            uniquePermalink: { skipUri: skipUri === "/new" ? "" : skipUri, service: permalinkService }
         };
     }
 
-    private static permalinkValidationFunction(currentValue:string, permalinkUrl:KnockoutObservable<string>) {
+    private static permalinkValidationFunction(currentValue: string, permalinkUrl: KnockoutObservable<string>) {
         return (newValue) => {
-            if(currentValue !== permalinkUrl()){
+            if (currentValue !== permalinkUrl()) {
                 permalinkUrl.isValid();
             }
         }
     }
 
-    private static async updatePermalink(isValidating, permalinkUrl:KnockoutObservable<string>, permalink:IPermalink, permalinkService:IPermalinkService) {        
-        if(!isValidating && permalinkUrl.isValid()) {
+    private static async updatePermalink(isValidating, permalinkUrl: KnockoutObservable<string>, permalink: IPermalink, permalinkService: IPermalinkService) {
+        if (!isValidating && permalinkUrl.isValid()) {
             permalink.uri = permalinkUrl();
             await permalinkService.updatePermalink(permalink);
-        }  
+        }
     }
 
-    
-    public static initLayoutValidation() {
-        validation.init( { 
-            errorElementClass: 'has-error',
-            decorateInputElement : true,
-            insertMessages: false,
+    public static initLayoutValidation(): void {
+        validation.init({
+            errorElementClass: errorClassName,
+            decorateInputElement: true,
+            insertMessages: false
         }, true);
+
         validation.rules['uniqueLayoutUri'] = {
             async: true,
             validator: async (uriTemplate, validatorParam, callback) => {
                 if (uriTemplate !== validatorParam.skipUri) {
-                    let layoutService:ILayoutService = validatorParam.service;
+                    let layoutService: ILayoutService = validatorParam.service;
                     let layout = await layoutService.getLayoutByUriTemplate(uriTemplate);
+
                     callback(!layout);
                 } else {
                     callback(true);
@@ -77,10 +86,11 @@ export class Validators {
             },
             message: 'The uri template is already in use'
         };
-        validation.registerExtenders(); 
+
+        validation.registerExtenders();
     }
 
-    public static setLayoutValidatorWithUpdate(uriTemplate:KnockoutObservable<string>, layout:LayoutItem, layoutService:ILayoutService) {
+    public static setLayoutValidatorWithUpdate(uriTemplate: KnockoutObservable<string>, layout: LayoutItem, layoutService: ILayoutService) {
         let currentValue = layout.uriTemplate();
         uriTemplate.extend(Validators.uniqueLayoutExtender(currentValue, layoutService));
         uriTemplate.isValidating.subscribe((isValidating) => Validators.updateLayout(isValidating, uriTemplate, layout, layoutService));
@@ -88,24 +98,24 @@ export class Validators {
         uriTemplate.isValid();
     }
 
-    private static uniqueLayoutExtender(skipUri: string, layoutService:ILayoutService){
+    private static uniqueLayoutExtender(skipUri: string, layoutService: ILayoutService) {
         return {
             required: true,
-            uniqueLayoutUri: {skipUri: skipUri === LayoutItem.newLayoutUri ? "" : skipUri, service: layoutService}
+            uniqueLayoutUri: { skipUri: skipUri === LayoutItem.newLayoutUri ? "" : skipUri, service: layoutService }
         };
     }
 
-    private static layoutValidationFunction(currentValue:string, uriTemplate:KnockoutObservable<string>) {
+    private static layoutValidationFunction(currentValue: string, uriTemplate: KnockoutObservable<string>) {
         return (newValue) => {
-            if(currentValue !== uriTemplate()) {
+            if (currentValue !== uriTemplate()) {
                 uriTemplate.isValid();
             }
         }
     }
 
-    private static async updateLayout(isValidating, uriTemplate:KnockoutObservable<string>, layout:LayoutItem, layoutService:ILayoutService) {        
-        if(!isValidating && uriTemplate.isValid()) {
+    private static async updateLayout(isValidating, uriTemplate: KnockoutObservable<string>, layout: LayoutItem, layoutService: ILayoutService) {
+        if (!isValidating && uriTemplate.isValid()) {
             await layoutService.updateLayout(layout.toLayout());
-        }  
+        }
     }
 }

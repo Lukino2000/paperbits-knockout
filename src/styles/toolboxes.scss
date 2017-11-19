@@ -45,6 +45,7 @@ h1 {
         box-sizing: border-box;
         border: none;
         background-color: transparent;
+        
         text-decoration: none;
         text-align: center;
         position: relative;
@@ -65,11 +66,16 @@ h1 {
             }
         }
 
+        &.pull-down {
+            margin-top: auto;
+        }
+
         a {
             display: inline-block;
             height: $toolbox-button-size;
             min-width: $toolbox-button-size;
             line-height: $toolbox-button-size;
+            background-size: cover;
             outline: none;
             color: $color-base;
             text-decoration: none;
@@ -87,6 +93,8 @@ h1 {
     .toolbox-button-group-vertical {
         display: flex;
         flex-direction: column;
+
+       
     }
 
     .toolbox-splitter {
@@ -158,4 +166,9 @@ h1 {
 .editor {
     padding: 10px;
     overflow: hidden;
+}
+
+.photo {
+    @include fit;
+    background-size: cover;
 }

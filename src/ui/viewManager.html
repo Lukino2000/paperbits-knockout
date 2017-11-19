@@ -33,14 +33,14 @@
 </div>
 
 <!-- ko with: widgetEditor() -->
-<div class="toolbox toolbox-position-left-offset" data-bind="resizable: {}, surface: $data">
+<div class="toolbox toolbox-position-left-offset" data-bind="resizable: resize, surface: $data">
     <div data-bind="component: { name: component.name, params: component.params, oncreate: component.oncreate }"></div>
 </div>
 <!-- /ko -->
 
 <!-- ko foreach: { data: contextualEditors, as: 'contextualEditor' } -->
 <!-- ko if: contextualEditor.hoverCommand -->
-<button class="fixed button-standalone icon icon-plus-inverted" data-bind="stickTo: { target: element, position: hoverCommand.position }, balloon: { target: '#ce-'+hoverCommand.component.name, position: 'top' }, background: { color: hoverCommand.color }, attr: { title: hoverCommand.tooltip }"></button>
+<button class="fixed button-standalone icon icon-plus-inverted" data-bind="stickTo: { target: element, position: hoverCommand.position }, balloon: { selector: '#ce-'+hoverCommand.component.name, position: 'top' }, background: { color: hoverCommand.color }, attr: { title: hoverCommand.tooltip }"></button>
 <div class="balloon" data-bind="attr: { id: 'ce-'+hoverCommand.component.name }, component: hoverCommand.component"></div>
 <!-- /ko -->
 <!-- /ko -->

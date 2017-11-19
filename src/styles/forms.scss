@@ -4,7 +4,7 @@
 
 .form {
     margin: 0;
-    padding: 0;
+    padding: 0 15px 0 0;
     border: none;
     max-height: 500px;
 
@@ -42,12 +42,6 @@
         }
     }
 
-    label {
-        width: 100%;
-        display: block;
-        font-weight: 600;
-    }
-
     input[type=search],
     input[type=text],
     textarea {
@@ -65,11 +59,17 @@
         }
 
         box-sizing: border-box;
-        margin-bottom: 20px;
+
         width: 100%;
-        
-        &.has-error{
-            color: red;
+
+        &.is-invalid {
+            color: $color-danger;
+            border-color: $color-danger;
+
+            // :after {
+            //     content: attr(title);
+            //     display: 
+            // }
         }
     }
 
@@ -86,11 +86,14 @@
 
     .form-control {
         padding: 7px;
+        margin-bottom: 20px;
         width: 100%;
     }
 
-    .form-label {
+    label {
         padding: 5px 0;
+        display: block;
+        font-weight: 600;
     }
 
     textarea {
@@ -121,8 +124,8 @@ hr {
             line-height: 40px;
             color: $color-base;
 
-            &:focus,
             &:active,
+            &:focus,
             &:hover {
                 outline: none;
                 @include selection();
@@ -132,5 +135,40 @@ hr {
         &.tab-is-active {
             border-bottom: 2px solid $tab-selected-color;
         }
+    }
+}
+
+.input-group {
+    display: flex;
+    margin-bottom: 20px;
+
+    .form-control {
+        flex-grow: 1;
+        margin-bottom: 0;
+    }
+
+    .input-group-btn {
+        }
+}
+
+.validation-message-toggle {
+    position: relative;
+    background: $color-danger;
+    color: #fff;
+    font-weight: bold;
+    border: none;
+    cursor: pointer;
+    padding: 0 4px;
+
+    &.shown:after {
+        position: absolute;
+        background: #000;
+        content: attr(error);
+        color: #fff;
+        padding: 5px;
+        right: 0;
+        white-space: nowrap;
+        top: -2.5em;
+        font-weight: normal;
     }
 }

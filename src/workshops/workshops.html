@@ -1,4 +1,4 @@
-<div class="toolbox toolbox-position-left workshops-container flex-container flex-container-row" data-bind="visible: viewManager.primaryToolboxVisible">
+<div class="toolbox toolbox-position-left workshops-container flex-container flex-container-row" data-bind="visible: viewManager.primaryToolboxVisible, resizable: 'vertically'">
     <ul class="flex-item toolbox-button-group toolbox-button-group-vertical">
         <!--<li>
             <a title="Search" href="#" class="toolbox-button" role="button" data-bind="click: openPages, css: { 'toolbox-button-is-open': journey() == 'pages' }">
@@ -35,6 +35,12 @@
                 <i class="paperbits-icon paperbits-preferences-circle"></i>
             </a>
         </li>
+        <li class="toolbox-button pull-down">
+            <a href="#" title="Settings" role="button" data-bind="click: openProfile">
+                <div class="photo" data-bind="style: { 'background-image': 'url('+userPhotoUrl()+')' }">
+                </div>
+            </a>
+        </li>
     </ul>
 
     <!--ko if: viewManager.journey().length>0 -->
@@ -47,7 +53,7 @@
             <hr />
         </div>
         <div class="flex-item flex-item-grow flex-container flex-container-row workshop-journey" data-bind="foreach: viewManager.journey()">
-            <div class="flex-item workshop-journey-step" data-bind="component: { name: name, params: params }"></div>
+            <div class="flex-item flex-item-grow workshop-journey-step" data-bind="component: { name: name, params: params }"></div>
         </div>
     </div>
     <!--/ko-->

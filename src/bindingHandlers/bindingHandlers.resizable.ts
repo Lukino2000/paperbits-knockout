@@ -7,7 +7,9 @@ import { watch } from "fs";
 export class ResizableBindingHandler {
     constructor(eventManager: IEventManager) {
         ko.bindingHandlers.resizable = {
-            init: (element: HTMLElement) => {
+            init: (element: HTMLElement, valueAccessor: () => string) => {
+                const options = valueAccessor();
+
                 let resizing = false;
                 let initialOffsetX, initialOffsetY, initialWidth, initialHeight, initialEdge;
 
@@ -77,25 +79,29 @@ export class ResizableBindingHandler {
                     element.style.height = height;
                 }
 
-                const rightResizeHandle = element.ownerDocument.createElement("div");
-                rightResizeHandle.classList.add("resize-handle", "resize-handle-right");
-                element.appendChild(rightResizeHandle);
-                rightResizeHandle.addEventListener("pointerdown", (e) => onPointerDown(e, "right"))
+                if (options.contains("both") || options.contains("vertically")) {
+                    const topResizeHandle = element.ownerDocument.createElement("div");
+                    topResizeHandle.classList.add("resize-handle", "resize-handle-top");
+                    element.appendChild(topResizeHandle);
+                    topResizeHandle.addEventListener("pointerdown", (e) => onPointerDown(e, "top"))
 
-                const leftResizeHandle = element.ownerDocument.createElement("div");
-                leftResizeHandle.classList.add("resize-handle", "resize-handle-left");
-                element.appendChild(leftResizeHandle);
-                leftResizeHandle.addEventListener("pointerdown", (e) => onPointerDown(e, "left"))
+                    const bottomResizeHandle = element.ownerDocument.createElement("div");
+                    bottomResizeHandle.classList.add("resize-handle", "resize-handle-bottom");
+                    element.appendChild(bottomResizeHandle);
+                    bottomResizeHandle.addEventListener("pointerdown", (e) => onPointerDown(e, "bottom"));
+                }
 
-                const topResizeHandle = element.ownerDocument.createElement("div");
-                topResizeHandle.classList.add("resize-handle", "resize-handle-top");
-                element.appendChild(topResizeHandle);
-                topResizeHandle.addEventListener("pointerdown", (e) => onPointerDown(e, "top"))
+                if (options.contains("both") || options.contains("horizontally")) {
+                    const rightResizeHandle = element.ownerDocument.createElement("div");
+                    rightResizeHandle.classList.add("resize-handle", "resize-handle-right");
+                    element.appendChild(rightResizeHandle);
+                    rightResizeHandle.addEventListener("pointerdown", (e) => onPointerDown(e, "right"));
 
-                const bottomResizeHandle = element.ownerDocument.createElement("div");
-                bottomResizeHandle.classList.add("resize-handle", "resize-handle-bottom");
-                element.appendChild(bottomResizeHandle);
-                bottomResizeHandle.addEventListener("pointerdown", (e) => onPointerDown(e, "bottom"))
+                    const leftResizeHandle = element.ownerDocument.createElement("div");
+                    leftResizeHandle.classList.add("resize-handle", "resize-handle-left");
+                    element.appendChild(leftResizeHandle);
+                    leftResizeHandle.addEventListener("pointerdown", (e) => onPointerDown(e, "left"));
+                }
             }
         }
     }

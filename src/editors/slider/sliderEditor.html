@@ -11,7 +11,7 @@
                 <span data-bind="text: ($index() + 1)"></span>
 
                 <!-- ko if: $component.style() == "style1" -->
-                <span class="list-item-thumbnail" title="Slide thumbmail" data-bind="background: thumbnail, balloon: { target: '#thumbnailSelector', position: 'top' }"></span>
+                <span class="list-item-thumbnail" title="Slide thumbmail" data-bind="background: thumbnail, balloon: { selector: '#thumbnailSelector', position: 'top' }"></span>
                 <!-- /ko -->
             </li>
             <!-- /ko -->
@@ -59,7 +59,7 @@
             <div class="flex-container">
                 <div class="toolbox-button" data-bind="css: { 'toolbox-button-is-active': backgroundSourceType()=='none' }" title="No background">
                     <a href="#" data-bind="click: clearBackground">
-                        <span class="icon icon-clear"></span>
+                        <i class="paperbits-icon paperbits-ban"></i>
                     </a>
                 </div>
 
@@ -82,7 +82,7 @@
                 </div>
 
                 <div class="toolbox-button pull-right" title="Background color">
-                    <a href="#" data-bind="balloon: { target: '#colorSelector', position: 'bottom' }">
+                    <a href="#" data-bind="balloon: { selector: '#colorSelector', position: 'bottom' }">
                         <span class="icon icon-drop"></span>
                     </a>
                 </div>
@@ -91,7 +91,7 @@
 
         <!-- ko if: backgroundSourceType() == "picture" -->
 
-        <div class="dropzone" data-bind="background: background, balloon: { target: '#mediaSelector', position: 'bottom' }">
+        <div class="dropzone" data-bind="background: background, balloon: { selector: '#mediaSelector', position: 'bottom' }">
         </div>
 
         <label class="form-label">

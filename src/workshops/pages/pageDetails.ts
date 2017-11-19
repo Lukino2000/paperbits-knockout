@@ -33,31 +33,35 @@ export class PageDetailsWorkshop {
         this.pageItem = pageItem;
 
         // rebinding...
-        //this.onFaviconUploaded = this.onFaviconUploaded.bind(this);
         this.deletePage = this.deletePage.bind(this);
         this.updateMetadata = this.updateMetadata.bind(this);
-        
+
         Validators.initPermalinkValidation();
+
+        this.pageItem.title.extend({ required: true }).subscribe(this.updateMetadata);
+
+        this.pageItem.description.subscribe(this.updateMetadata);
+
+        this.pageItem.keywords.subscribe(this.updateMetadata);
+
+        //this.pageItem.permalinkUrl.extend({ uniquePermalink: true }).subscribe(this.updatePermalink);
+
+
         this.init();
     }
 
     private async init(): Promise<void> {
-        let permalink = await this.permalinkService.getPermalinkByKey(this.pageItem.permalinkKey);
+        const permalink = await this.permalinkService.getPermalinkByKey(this.pageItem.permalinkKey);
 
         this.pagePermalink = permalink;
         this.pageItem.permalinkUrl(permalink.uri);
         this.routeHandler.navigateTo(permalink.uri);
 
-        this.pageItem.title.extend({required: true});
-        this.pageItem.title.subscribe(this.updateMetadata);
-        this.pageItem.description.subscribe(this.updateMetadata);
-        this.pageItem.keywords.subscribe(this.updateMetadata);
-
         Validators.setPermalinkValidatorWithUpdate(this.pageItem.permalinkUrl, this.pagePermalink, this.permalinkService);
     }
 
     private async updateMetadata(): Promise<void> {
-        if(this.pageItem.title.isValid()) {
+        if (this.pageItem.title.isValid() && this.pageItem.permalinkUrl.isValid()) {
             await this.pageService.updatePage(this.pageItem.toPage());
         }
     }
