@@ -5,29 +5,52 @@
     </h1>
     <hr />
     <fieldset class="form" data-bind="scrollable: {}">
-        <div class="form-group">
-            <label class="form-label">Content alignment</label>
-            <table class="background-alignment">
-                <tr>
-                    <td><button class="icon icon-arrow-up-left" data-bind="click: topLeft"></button></td>
-                    <td><button class="icon icon-arrow-up" data-bind="click: top"></button></td>
-                    <td><button class="icon icon-arrow-up-right" data-bind="click: topRight"></button></td>
-                </tr>
-                <tr>
-                    <td><button class="icon icon-arrow-left" data-bind="click: left"></button></td>
-                    <td><button class="icon icon-arrow-center" data-bind="click: center"></button></td>
-                    <td><button class="icon icon-arrow-right" data-bind="click: right"></button></td>
-                </tr>
-                <tr>
-                    <td><button class="icon icon-arrow-down-left" data-bind="click: bottomLeft"></button></td>
-                    <td><button class="icon icon-arrow-down" data-bind="click: bottom"></button></td>
-                    <td><button class="icon icon-arrow-down-right" data-bind="click: bottomRight"></button></td>
-                </tr>
-            </table>
+        <div class="form-group form-group-collapsible">
+            <label class="form-label">
+                <a href="#" class="form-group-toggle" data-bind="collapse: '#alignmentCollapse'"></a>
+                <b>Content alignment</b>
+            </label>
+
+            <div id="alignmentCollapse" class="collapse form-group-collapse">
+                <div class="form-group">
+                    <label>Horizontal</label>
+                    <a href="#" class="toolbox-button" data-bind="click: alignLeft, css: { 'toolbox-button-is-active': horizontalAlignment() === 'start' }">
+                        <i class="paperbits-icon paperbits-align-left"></i>
+                    </a>
+                    <a href="#" class="toolbox-button" data-bind="click: alignCenter, css: { 'toolbox-button-is-active': horizontalAlignment() === 'center' || horizontalAlignment() === 'around' || horizontalAlignment() === 'between' }">
+                        <i class="paperbits-icon paperbits-align-center-horizontal"></i>
+                    </a>
+                    <a href="#" class="toolbox-button" data-bind="click: alignRight, css: { 'toolbox-button-is-active': horizontalAlignment() === 'end' }">
+                        <i class="paperbits-icon paperbits-align-right"></i>
+                    </a>
+                </div>
+
+                <div class="form-group">
+                    <label>Vertical</label>
+                    <a href="#" class="toolbox-button" data-bind="click: alignTop, css: { 'toolbox-button-is-active': verticalAlignment() === 'start' }">
+                        <i class="paperbits-icon paperbits-align-top"></i>
+                    </a>
+                    <a href="#" class="toolbox-button toolbox-button-is-active" data-bind="click: alignMiddle, css: { 'toolbox-button-is-active': verticalAlignment() === 'center' || verticalAlignment() === 'around' || verticalAlignment() === 'between' }">
+                        <i class="paperbits-icon paperbits-align-center-vertical"></i>
+                    </a>
+                    <a href="#" class="toolbox-button" data-bind="click: alignBottom, css: { 'toolbox-button-is-active': verticalAlignment() === 'end' }">
+                        <i class="paperbits-icon paperbits-align-bottom"></i>
+                    </a>
+                </div>
+            </div>
         </div>
-        <div class="form-group">
-            <label class="form-label">Order in row</label>
-            <input type="number" class="form-control" max="12" min="1" data-bind="value: order">
+
+        <div class="form-group form-group-collapsible">
+            <label class="form-label">
+                <a href="#" class="form-group-toggle" data-bind="collapse: '#orderCollapse'"></a>
+                <b>Miscellaneous</b>
+            </label>
+            <div id="orderCollapse" class="collapse form-group-collapse">
+                <label>Order in row</label>
+                <div class="form-group">
+                    <input type="number" class="form-control" max="12" min="1" data-bind="value: order">
+                </div>
+            </div>
         </div>
     </fieldset>
 </div>

@@ -135,50 +135,10 @@ export class ColumnViewModel {
     }
 
     private getAlignmentClass(alignmentString: string, targetSize: string): string {
-        let alignment = alignmentString.split(" ");
-        let vertical = alignment[0];
-        let horizontal = alignment[1];
+        const alignment = alignmentString.split(" ");
+        const vertical = alignment[0];
+        const horizontal = alignment[1];
         let size = "";
-
-        switch (vertical) {
-            case "top":
-                vertical = "start";
-                break;
-            case "middle":
-                vertical = "center";
-                break;
-            case "bottom":
-                vertical = "end";
-                break;
-            case "around":
-                vertical = "around";
-                break;
-            case "between":
-                vertical = "between";
-                break;
-            default:
-                throw `Unknown vertical metric "${vertical}".`;
-        }
-
-        switch (horizontal) {
-            case "start":
-                horizontal = "start";
-                break;
-            case "center":
-                horizontal = "center";
-                break;
-            case "end":
-                horizontal = "end";
-                break;
-            case "around":
-                horizontal = "around";
-                break;
-            case "between":
-                horizontal = "between";
-                break;
-            default:
-                throw `Unknown horizontal metric "${horizontal}."`;
-        }
 
         if (targetSize !== "xs") {
             size = targetSize + "-";

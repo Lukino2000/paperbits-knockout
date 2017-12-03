@@ -24,8 +24,8 @@ export class ColumnEditor implements IWidgetEditor {
 
     private column: ColumnModel;
     private applyChangesCallback: () => void;
-    private verticalAlignment: string;
-    private horizontalAlignment: string;
+    private readonly verticalAlignment: KnockoutObservable<string>;
+    private readonly horizontalAlignment: KnockoutObservable<string>;
 
     public readonly alignment: KnockoutObservable<string>;
     public readonly order: KnockoutObservable<number>;
@@ -37,18 +37,18 @@ export class ColumnEditor implements IWidgetEditor {
         this.alignment = ko.observable<string>();
         this.alignment.subscribe(this.onChange.bind(this));
 
+        this.verticalAlignment = ko.observable<string>();
+        this.horizontalAlignment = ko.observable<string>();
+
         this.order = ko.observable<number>();
         this.order.subscribe(this.onChange.bind(this));
 
-        this.topLeft.bind(this);
-        this.top.bind(this);
-        this.topRight.bind(this);
-        this.left.bind(this);
-        this.center.bind(this);
-        this.right.bind(this);
-        this.bottomLeft.bind(this);
-        this.bottom.bind(this);
-        this.bottomRight.bind(this);
+        this.alignLeft.bind(this);
+        this.alignRight.bind(this);
+        this.alignCenter.bind(this);
+        this.alignTop.bind(this);
+        this.alignBottom.bind(this);
+        this.alignMiddle.bind(this);
     }
 
     /**
@@ -59,14 +59,14 @@ export class ColumnEditor implements IWidgetEditor {
             return;
         }
 
-        let viewport = this.viewManager.getViewport();
+        const viewport = this.viewManager.getViewport();
 
         switch (viewport) {
             case "xl":
                 this.column.alignmentXl = this.alignment();
                 this.column.orderXl = this.order();
                 break;
-                
+
             case "lg":
                 this.column.alignmentLg = this.alignment();
                 this.column.orderLg = this.order();
@@ -99,158 +99,148 @@ export class ColumnEditor implements IWidgetEditor {
     }
 
     private align(): void {
-        this.alignment(`${this.verticalAlignment} ${this.horizontalAlignment}`);
+        this.alignment(`${this.verticalAlignment()} ${this.horizontalAlignment()}`);
     }
 
-    public setWidgetModel(column: ColumnModel, applyChangesCallback?: () => void): void {
-        this.column = column;
-
-        let viewport = this.viewManager.getViewport();
-
+    public determineAlignment(viewport: string, model: ColumnModel): string {
         switch (viewport) {
             case "xl":
-                this.alignment(this.column.alignmentXl);
-                this.order(this.column.orderXl);
+                return model.alignmentXl || this.determineAlignment("lg", model);
                 break;
 
             case "lg":
-                this.alignment(this.column.alignmentLg);
-                this.order(this.column.orderLg);
+                return model.alignmentLg || this.determineAlignment("md", model);
                 break;
 
             case "md":
-                this.alignment(this.column.alignmentMd);
-                this.order(this.column.orderMd);
+                return model.alignmentMd || this.determineAlignment("sm", model);
                 break;
 
             case "sm":
-                this.alignment(this.column.alignmentSm);
-                this.order(this.column.orderSm);
+                return model.alignmentSm || this.determineAlignment("xs", model);
                 break;
 
             case "xs":
-                this.alignment(this.column.alignmentXs);
-                this.order(this.column.orderXs);
+                return model.alignmentXs || "start start";
                 break;
 
             default:
                 throw "Unknown viewport";
         }
+    }
+
+    public determineOrder(viewport: string, model: ColumnModel): number {
+        switch (viewport) {
+            case "xl":
+                return model.orderXl || this.determineOrder("lg", model);
+                break;
+
+            case "lg":
+                return model.orderLg || this.determineOrder("md", model);
+                break;
+
+            case "md":
+                return model.orderMd || this.determineOrder("sm", model);
+                break;
+
+            case "sm":
+                return model.orderSm || this.determineOrder("xs", model);
+                break;
+
+            case "xs":
+                return model.orderXs || null;
+                break;
+
+            default:
+                throw "Unknown viewport";
+        }
+    }
+
+    public setWidgetModel(column: ColumnModel, applyChangesCallback?: () => void): void {
+        this.column = column;
+
+        const viewport = this.viewManager.getViewport();
+
+        const alignment = this.determineAlignment(viewport, column);
+        this.alignment(alignment);
+
+        const directions = this.alignment().split(" ");
+        this.verticalAlignment(directions[0]);
+        this.horizontalAlignment(directions[1]);
+
+        const order = this.determineOrder(viewport, column);
+        this.order(order);
 
         this.applyChangesCallback = applyChangesCallback;
     }
 
     public toggleHorizontal(): void {
-        switch (this.horizontalAlignment) {
+        switch (this.horizontalAlignment()) {
             case "center":
-                this.horizontalAlignment = "around";
+                this.horizontalAlignment("around");
                 break;
             case "around":
-                this.horizontalAlignment = "between";
+                this.horizontalAlignment("between");
                 break;
             case "between":
-                this.horizontalAlignment = "center";
+                this.horizontalAlignment("center");
                 break;
         }
     }
 
     public toggleVertical(): void {
-        switch (this.verticalAlignment) {
-            case "middle":
-                this.verticalAlignment = "around";
+        switch (this.verticalAlignment()) {
+            case "center":
+                this.verticalAlignment("around");
                 break;
             case "around":
-                this.verticalAlignment = "between";
+                this.verticalAlignment("between");
                 break;
             case "between":
-                this.verticalAlignment = "middle";
+                this.verticalAlignment("center");
                 break;
         }
     }
 
-    public topLeft(): void {
-        this.verticalAlignment = "top";
-        this.horizontalAlignment = "start";
+    public alignLeft(): void {
+        this.horizontalAlignment("start");
         this.align();
     }
 
-    public top(): void {
-        if (this.verticalAlignment === "top" && (this.horizontalAlignment === "center" || this.horizontalAlignment === "around" || this.horizontalAlignment === "between")) {
+    public alignRight(): void {
+        this.horizontalAlignment("end");
+        this.align();
+    }
+
+    public alignCenter(): void {
+        if (this.horizontalAlignment() === "center" || this.horizontalAlignment() === "around" || this.horizontalAlignment() === "between") {
             this.toggleHorizontal();
         }
         else {
-            this.verticalAlignment = "top";
-            this.horizontalAlignment = "center";
+            this.horizontalAlignment("center");
         }
+
         this.align();
     }
 
-    public topRight(): void {
-        this.verticalAlignment = "top";
-        this.horizontalAlignment = "end";
+    public alignTop(): void {
+        this.verticalAlignment("start");
         this.align();
     }
 
-    public left(): void {
-        // if (this.horizontalAlignment === "start") {  // This would work only with changing flex direction
-        //     this.toggleVertical();
-        // }
-        // else {
-        //     this.verticalAlignment = "middle";
-        //     this.horizontalAlignment = "start";
-        // }
-
-        this.verticalAlignment = "middle";
-        this.horizontalAlignment = "start";
+    public alignBottom(): void {
+        this.verticalAlignment("end");
         this.align();
     }
 
-    public center(): void {
-        if (this.verticalAlignment === "middle" && (this.horizontalAlignment === "center" || this.horizontalAlignment === "around" || this.horizontalAlignment === "between")) {
-            this.toggleHorizontal();
+    public alignMiddle(): void {
+        if (this.verticalAlignment() === "center" || this.verticalAlignment() === "around" || this.verticalAlignment() === "between") {
+            this.toggleVertical();
         }
         else {
-            this.verticalAlignment = "middle";
-            this.horizontalAlignment = "center";
+            this.verticalAlignment("center");
         }
 
-        this.align();
-    }
-
-    public right(): void {
-        // if (this.horizontalAlignment === "end") {
-        //     this.toggleVertical();
-        // }
-        // else {
-        //     this.verticalAlignment = "middle";
-        //     this.horizontalAlignment = "end";
-        // }
-
-        this.verticalAlignment = "middle";
-        this.horizontalAlignment = "end";
-        this.align();
-    }
-
-    public bottomLeft(): void {
-        this.verticalAlignment = "bottom";
-        this.horizontalAlignment = "start";
-        this.align();
-    }
-
-    public bottom(): void {
-        if (this.verticalAlignment === "bottom" && (this.horizontalAlignment === "center" || this.horizontalAlignment === "around" || this.horizontalAlignment === "between")) {
-            this.toggleHorizontal();
-        }
-        else {
-            this.verticalAlignment = "bottom";
-            this.horizontalAlignment = "center";
-        }
-        this.align();
-    }
-
-    public bottomRight(): void {
-        this.verticalAlignment = "bottom";
-        this.horizontalAlignment = "end";
         this.align();
     }
 

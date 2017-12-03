@@ -7,28 +7,25 @@
     <fieldset class="form" data-bind="scrollable: {}">
         <div class="form-group form-group-collapsible">
             <label class="form-label">
-                <a href="#" class="form-group-toggle" data-bind="collapse: '#backgroundCollapse'">
-                </a>
-                Background
+                <a href="#" class="form-group-toggle" data-bind="collapse: '#backgroundCollapse'"></a>
+                <b>Background</b>
             </label>
 
             <div id="backgroundCollapse" class="collapse form-group-collapse">
                 <div class="tabs">
                     <div class="tab" data-bind="css: { 'tab-is-active': !backgroundHasPicture() && !backgroundHasColor() }" title="No background">
-                        <a href="#" data-bind="click: clearBackground" >
+                        <a href="#" data-bind="click: clearBackground">
                             <i class="paperbits-icon paperbits-ban"></i>
                         </a>
                     </div>
 
-                    <div class="tab" data-bind="css: { 'tab-is-active': backgroundHasPicture }"
-                        title="Background picture">
+                    <div class="tab" data-bind="css: { 'tab-is-active': backgroundHasPicture }" title="Background picture">
                         <a href="#" data-bind="balloon: { selector: '#mediaSelector', position: 'bottom' }">
                             <i class="paperbits-icon paperbits-image-2"></i>
                         </a>
                     </div>
 
-                    <div class="tab" data-bind="css: { 'tab-is-active': backgroundHasColor }"
-                        title="Background color">
+                    <div class="tab" data-bind="css: { 'tab-is-active': backgroundHasColor }" title="Background color">
                         <a href="#" data-bind="balloon: { selector: '#colorSelector', position: 'bottom' }">
                             <i class="paperbits-icon paperbits-paint-bucket-40"></i>
                         </a>
@@ -83,10 +80,11 @@
             </div>
         </div>
 
-
-
         <label class="form-label">
-            <span class="help"></span>Snap to</label>
+            <span class="help"></span>
+            Snap to
+        </label>
+
         <div class="form-group">
             <label class="form-label">
                 <input name="snapping" type="radio" value="none" data-bind="checked: snap" />None
@@ -98,8 +96,10 @@
                 <input name="snapping" type="radio" value="bottom" data-bind="checked: snap" />Bottom
             </label>
         </div>
+        
         <label class="form-label">
-            <span class="help"></span>Layout</label>
+            <span class="help"></span>Layout
+        </label>
         <div class="form-group">
             <label class="form-label">
                 <input name="layout" type="radio" value="container" data-bind="checked: layout" />Container
@@ -110,7 +110,9 @@
         </div>
 
         <label class="form-label">
-            <span class="help"></span>Padding</label>
+            <span class="help"></span>Padding
+        </label>
+
         <div class="form-group">
             <label class="form-label">
                 <input name="padding" type="radio" value="with-padding" data-bind="checked: padding" />With padding
