@@ -26,8 +26,8 @@ export class UrlResourcePicker implements IHyperlinkProvider {
         return hyperlinkModel;
     }
 
-    public getHyperlinkFromUrl?(url: string, target: string = "_blank"): HyperlinkModel {
-        let hyperlinkModel = new HyperlinkModel();
+    public getHyperlinkFromUrl?(url: string, target: string = "blank"): HyperlinkModel {
+        const hyperlinkModel = new HyperlinkModel();
         hyperlinkModel.title = "External link";
         hyperlinkModel.target = target;
         hyperlinkModel.href = url;

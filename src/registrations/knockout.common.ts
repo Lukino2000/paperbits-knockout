@@ -21,6 +21,7 @@ import "../bindingHandlers/bindingHandlers.snapTo";
 import "../bindingHandlers/bindingHandlers.gridCommand";
 import "../bindingHandlers/bindingHandlers.align";
 import "../bindingHandlers/bindingHandlers.validationMessageToggle";
+import "../bindingHandlers/bindingHandlers.collapse";
 
 import { WidgetBindingHandler } from "../bindingHandlers/bindingHandlers.widget";
 import { ContentBindingHandler } from "../bindingHandlers/bindingHandlers.content";

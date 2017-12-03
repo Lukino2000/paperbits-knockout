@@ -1,8 +1,8 @@
 ﻿import * as ko from "knockout";
-import * as Ps from "perfect-scrollbar"
+import PerfectScrollbar from "perfect-scrollbar";
 
 ko.bindingHandlers["scrollable"] = {
     init: (element: HTMLElement, valueAccessor: any) => {
-        Ps.initialize(element);
+        const ps = new PerfectScrollbar(element);
     }
 }

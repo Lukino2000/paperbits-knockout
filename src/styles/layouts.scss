@@ -37,6 +37,7 @@ paperbits-text, paperbits-picture, paperbits-code, paperbits-video-player, paper
         transition: transform .5s ease-in-out, height .5s ease-in-out, width .5s ease-in-out;
         background: #fff;
         opacity: .9;
+        position: fixed;
     }
 
     &:hover {
@@ -180,7 +181,7 @@ paperbits-text, paperbits-picture, paperbits-code, paperbits-video-player, paper
     margin: 5px;
     display: inline-block;
     border-radius: 7px;
-    border: 3px solid #8da7ad;
+    border: 3px solid $color-base;
     line-height: 0;
     width: 120px;
     cursor: pointer;
@@ -195,8 +196,8 @@ paperbits-text, paperbits-picture, paperbits-code, paperbits-video-player, paper
     background: #ece7e7;
     display: block;
     height: 50px;
-    border-left: 2px solid #8da7ad;
-    border-right: 2px solid #8da7ad;
+    border-left: 2px solid $color-base;
+    border-right: 2px solid $color-base;
 }
 
 .section-fluid-cfg {

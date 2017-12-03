@@ -30,27 +30,3 @@
 @import "flex.scss";
 @import "substitutes.scss";
 @import "responsive.scss";
-
-// paperbits-document {
-//     &::before {
-//         position: fixed;
-//         top: 0;
-//         left: 0;
-//         background: #fff;
-//         content: "XS";
-//         z-index: 9999;
-//         @media (min-width: $breakpoint-sm) {
-//             content: "SM";
-//         }
-//         @media (min-width: $breakpoint-md) {
-//             content: "MD";
-//         }
-//         @media (min-width: $breakpoint-lg) {
-//             content: "LG";
-//         }
-//         @media (min-width: $breakpoint-xl) {
-//             content: "XL";
-//         }
-//     }
-
-// }

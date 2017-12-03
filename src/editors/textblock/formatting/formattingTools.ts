@@ -3,13 +3,11 @@ import template from "./formattingTools.html";
 import * as Utils from "@paperbits/common/core/utils";
 import { IEventManager } from "@paperbits/common/events/IEventManager";
 import { IHtmlEditorProvider } from "@paperbits/common/editing/htmlEditorProvider";
-import { Intention } from "@paperbits/common/ui/color";
 import { Component } from "../../../decorators/component";
 import { IPermalinkService } from "@paperbits/common/permalinks/IPermalinkService";
 import { IPageService } from "@paperbits/common/pages/IPageService";
 import { IRouteHandler } from "@paperbits/common/routing/IRouteHandler";
 import { IBag } from "@paperbits/common/core/IBag";
-import { intentions } from "../../../themes/hostmeapp/intentions";
 import { IViewManager } from "@paperbits/common/ui/IViewManager";
 import { IHtmlEditor } from "../../../../../paperbits-common/src/editing/IHtmlEditor";
 

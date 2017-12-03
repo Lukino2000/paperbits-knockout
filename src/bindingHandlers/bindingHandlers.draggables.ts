@@ -1,21 +1,21 @@
 ﻿import * as ko from "knockout";
 import { DragManager } from '@paperbits/common/ui/draggables/dragManager';
-import { IDragSourceConfig } from '@paperbits/common/ui/draggables/IDragSourceConfig';
-import { IDragTargetConfig } from '@paperbits/common/ui/draggables/IDragTargetConfig';
+import { DragSourceConfig } from '@paperbits/common/ui/draggables/dragSourceConfig';
+import { DragTargetConfig } from '@paperbits/common/ui/draggables/dragTargetConfig';
 
 
 export class DraggablesBindingHandler {
     public constructor(dragManager: DragManager) {
 
         ko.bindingHandlers["dragsource"] = {
-            init(element: HTMLElement, valueAccessor: () => IDragSourceConfig) {
+            init(element: HTMLElement, valueAccessor: () => DragSourceConfig) {
                 var config = valueAccessor();
                 dragManager.registerDragSource(element, config);
             }
         };
 
         ko.bindingHandlers["dragtarget"] = {
-            init(element: HTMLElement, valueAccessor: () => IDragTargetConfig) {
+            init(element: HTMLElement, valueAccessor: () => DragTargetConfig) {
                 var config = valueAccessor();
                 dragManager.registerDragTarget(element, config);
             }

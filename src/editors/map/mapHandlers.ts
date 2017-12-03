@@ -31,9 +31,9 @@ export class MapHandlers implements IWidgetHandler, IContentDropHandler {
 
         this.load(config["apiKey"]);
 
-        this.settingsProvider.onSettingChange(Settings.Config.GMaps, config => {
-            GoogleMapsLoader.release(() => { this.load(config["apiKey"]); });
-        });
+        // this.settingsProvider.addSettingChangeListener(Settings.Config.GMaps, config => {
+        //     GoogleMapsLoader.release(() => { this.load(config["apiKey"]); });
+        // });
     }
 
     private load(apiKey: string) {

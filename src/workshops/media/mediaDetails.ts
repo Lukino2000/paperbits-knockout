@@ -19,7 +19,6 @@ export class MediaDetailsWorkshop {
     private readonly mediaService: IMediaService;
     private readonly permalinkService: IPermalinkService;
     private readonly viewManager: IViewManager;
-    private mediaPermalink: IPermalink;
 
     public readonly mediaItem: MediaItem;
 
@@ -40,17 +39,16 @@ export class MediaDetailsWorkshop {
     }
 
     private async init(): Promise<void> {
-        let permalink = await this.permalinkService.getPermalinkByKey(this.mediaItem.permalinkKey);
+        const permalink = await this.permalinkService.getPermalinkByKey(this.mediaItem.permalinkKey);
 
-        this.mediaPermalink = permalink;
         this.mediaItem.permalinkUrl(permalink.uri);
 
-        this.mediaItem.fileName.extend({required: true});
+        this.mediaItem.fileName.extend({ required: true });
         this.mediaItem.fileName.subscribe(this.updateMetadata);
         this.mediaItem.description.subscribe(this.updateMetadata);
         this.mediaItem.keywords.subscribe(this.updateMetadata);
 
-        Validators.setPermalinkValidatorWithUpdate(this.mediaItem.permalinkUrl, this.mediaPermalink, this.permalinkService);
+        Validators.setPermalinkValidatorWithUpdate(this.mediaItem.permalinkUrl, permalink, this.permalinkService);
     }
 
     private async updateMetadata(): Promise<void> {
@@ -61,7 +59,7 @@ export class MediaDetailsWorkshop {
         //TODO: Show confirmation dialog according to mockup
         await this.mediaService.deleteMedia(this.mediaItem.toMedia());
         this.viewManager.notifySuccess("Media library", "File deleted");
-        
+
         this.viewManager.closeWorkshop("media-details-workshop");
         this.viewManager.openWorkshop("media");
     }

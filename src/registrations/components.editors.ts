@@ -38,7 +38,7 @@ import { MapHandlers } from '../editors/map/mapHandlers';
 import { MediaDetailsWorkshop } from '../workshops/media/mediaDetails';
 import { MediaItem } from '../workshops/media/mediaItem';
 import { MediaHandlers } from '../editors/mediaHandlers';
-import { MediaResourcePicker } from "../workshops/media/mediaResourcePicker";
+import { MediaHyperlinkProvider } from "../workshops/media/mediaHyperlinkProvider";
 import { MediaSelector } from '../workshops/media/mediaSelector';
 import { MediaWorkshop } from '../workshops/media/media';
 import { NavbarEditor } from "../editors/navbar/navbarEditor";
@@ -262,13 +262,13 @@ export class ComponentRegistrationEditors implements IInjectorModule {
 
         injector.bind("pageResourcePicker", PageResourcePicker);
         injector.bind("blogResourcePicker", BlogResourcePicker);
-        injector.bind("mediaResourcePicker", MediaResourcePicker);
+        injector.bind("mediaHyperlinkProvider", MediaHyperlinkProvider);
         injector.bind("urlResourcePicker", UrlResourcePicker);
 
         injector.bindFactory<IHyperlinkProvider[]>("resourcePickers", (ctx: IInjector) => {
             let pageReourcePicker = ctx.resolve<IHyperlinkProvider>("pageResourcePicker");
             let blogReourcePicker = ctx.resolve<IHyperlinkProvider>("blogResourcePicker");
-            let mediaReourcePicker = ctx.resolve<IHyperlinkProvider>("mediaResourcePicker");
+            let mediaReourcePicker = ctx.resolve<IHyperlinkProvider>("mediaHyperlinkProvider");
             let urlResourcePicker = ctx.resolve<IHyperlinkProvider>("urlResourcePicker");
 
             return [

@@ -17,10 +17,14 @@ import { GlobalEventHandler } from "@paperbits/common/events/globalEventHandler"
 import { IEventManager } from "@paperbits/common/events/IEventManager";
 import { SlateModule } from "@paperbits/slate/slate.module";
 import { IntentionMapService } from "@paperbits/slate/intentionMapService";
-import { intentions } from "./themes/hostmeapp/intentions";
 import { IModelBinder } from "@paperbits/common/editing/IModelBinder";
 import { ModelBinderSelector } from "@paperbits/common/widgets/modelBinderSelector";
-import { ThemeModule } from "./themes/hostmeapp/scripts/theme.module";
+
+// import { intentions } from "./themes/hostmeapp/intentions";
+// import { ThemeModule } from "./themes/hostmeapp/scripts/theme.module";
+
+import { intentions } from "./themes/paperbits/intentions";
+import { ThemeModule } from "./themes/paperbits/scripts/theme.module";
 
 import { PageViewModelBinder } from "./widgets/page/pageViewModelBinder";
 import { LayoutViewModelBinder } from "./widgets/layout/layoutViewModelBinder";

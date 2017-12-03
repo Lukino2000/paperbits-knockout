@@ -11,7 +11,6 @@ import { ICreatedMedia } from "@paperbits/common/media/ICreatedMedia";
 import { IWidgetOrder } from "@paperbits/common/editing/IWidgetOrder";
 import { GlobalEventHandler } from "@paperbits/common/events/globalEventHandler";
 import { ProgressPromise } from "@paperbits/common/core/progressPromise";
-import { DataTransferTypes } from "@paperbits/common/editing/dataTransferTypes";
 import { DropBucketItem } from "../../workshops/dropbucket/dropbucketItem";
 import { Component } from "../../decorators/component";
 import { IEventManager } from "@paperbits/common/events/IEventManager";

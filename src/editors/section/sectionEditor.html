@@ -7,16 +7,15 @@
     <fieldset class="form" data-bind="scrollable: {}">
         <div class="form-group form-group-collapsible">
             <label class="form-label">
-                <a href="#" class="form-group-toggle">
-                    <i class="paperbits-icon paperbits-circle-delete"></i>
+                <a href="#" class="form-group-toggle" data-bind="collapse: '#backgroundCollapse'">
                 </a>
                 Background
             </label>
 
-            <div class="form-group-collapse">
+            <div id="backgroundCollapse" class="collapse form-group-collapse">
                 <div class="tabs">
                     <div class="tab" data-bind="css: { 'tab-is-active': !backgroundHasPicture() && !backgroundHasColor() }" title="No background">
-                        <a href="#" data-bind="click: clearBackground">
+                        <a href="#" data-bind="click: clearBackground" >
                             <i class="paperbits-icon paperbits-ban"></i>
                         </a>
                     </div>
