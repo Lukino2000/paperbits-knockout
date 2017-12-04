@@ -77,6 +77,7 @@ export class ResizableBindingHandler {
 
                     element.style.top = top;
                     element.style.height = height;
+                    element.classList.add("h-resized");
                 }
 
                 if (options.contains("both") || options.contains("vertically")) {

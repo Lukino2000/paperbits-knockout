@@ -34,7 +34,8 @@
 
 <!-- ko with: widgetEditor() -->
 <div class="toolbox toolbox-position-left-offset" data-bind="resizable: resize, surface: $data">
-    <div data-bind="component: { name: component.name, params: component.params, oncreate: component.oncreate }"></div>
+    <!-- ko component: { name: component.name, params: component.params, oncreate: component.oncreate } -->
+    <!--/ko -->
 </div>
 <!-- /ko -->
 

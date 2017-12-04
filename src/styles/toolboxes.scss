@@ -17,6 +17,7 @@ h1 {
 .toolbox {
     position: fixed;
     display: block;
+    padding: 7px;
     @include surface();
 
     &.toolbox-position-left {
@@ -120,7 +121,6 @@ h1 {
 
     .resize-handle {
         background: transparent;
-
         position: absolute;
 
         &.resize-handle-right {
@@ -156,15 +156,20 @@ h1 {
             bottom: 0;
         }
     }
-}
 
-.no-pointer-events {
-    pointer-events: none;
+    &.h-resized {
+        .resizable-content {
+            height: 100%;
+        }
+    }
 }
 
 .editor {
     padding: 10px;
-    overflow: hidden;
+}
+
+.no-pointer-events {
+    pointer-events: none;
 }
 
 .photo {

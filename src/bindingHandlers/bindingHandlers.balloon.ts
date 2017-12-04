@@ -113,7 +113,7 @@ export class BalloonBindingHandler {
 
                     if (elements.contains(triggerElement)) {
                         event.preventDefault();
-                        event.stopImmediatePropagation();
+                        event.stopPropagation();
                         toggle();
                     }
                     else if (!elements.contains(targetElement)) {
@@ -140,7 +140,8 @@ export class BalloonBindingHandler {
 
                 const onClick = (event: PointerEvent): void => {
                     event.preventDefault();
-                    toggle();
+                    event.stopImmediatePropagation();
+                    // toggle();
                 }
 
                 const onScroll = (event: PointerEvent) => {
@@ -154,13 +155,13 @@ export class BalloonBindingHandler {
                 }
 
                 triggerElement.addEventListener("keydown", onKeyDown);
-                triggerElement.addEventListener("click", (event) => event.preventDefault())
+                triggerElement.addEventListener("click", onClick);
                 document.addEventListener("scroll", onScroll);
                 eventManager.addEventListener("onPointerDown", onPointerDown);
 
                 ko.utils.domNodeDisposal.addDisposeCallback(triggerElement, () => {
                     triggerElement.removeEventListener("keydown", onKeyDown);
-                    triggerElement.removeEventListener("click", onKeyDown)
+                    triggerElement.removeEventListener("click", onClick)
                     document.removeEventListener("scroll", onScroll);
                     eventManager.removeEventListener("onPointerDown", onPointerDown);
                 });
