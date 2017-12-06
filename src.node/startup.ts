@@ -93,7 +93,7 @@ export async function publish(): Promise<void> {
             rangeCount: 0,
             type: "None"
         }
-    }
+    };
 
     const injector = new InversifyInjector();
 

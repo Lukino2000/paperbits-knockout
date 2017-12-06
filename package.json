@@ -75,8 +75,8 @@
         "yargs": "^9.0.1"
     },
     "dependencies": {
-        "@paperbits/common": "0.0.23",
-        "@paperbits/slate": "0.0.14",
+        "@paperbits/common": "0.0.26",
+        "@paperbits/slate": "0.0.16",
         "es6-shim": "^0.35.3",
         "google-maps": "^3.2.1",
         "hasher": "^1.2.0",
@@ -85,6 +85,6 @@
         "knockout.validation": "^2.0.3",
         "lity": "^2.3.0",
         "lodash": "^4.17.4",
-        "perfect-scrollbar": "^0.8.1"
+        "perfect-scrollbar": "^1.2.0"
     }
 }
