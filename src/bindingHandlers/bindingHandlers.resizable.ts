@@ -2,13 +2,29 @@ import * as ko from "knockout";
 import { IEventManager } from "../../../paperbits-common/src/events/IEventManager";
 import { debug } from "util";
 import { watch } from "fs";
+import { optional } from "../../../node_modules/inversify/dts/annotation/optional";
 
+interface ResizableOptions {
+    directions: string;
+    onresize: () => void;
+}
 
 export class ResizableBindingHandler {
     constructor(eventManager: IEventManager) {
         ko.bindingHandlers.resizable = {
-            init: (element: HTMLElement, valueAccessor: () => string) => {
+            init: (element: HTMLElement, valueAccessor: () => string | ResizableOptions) => {
                 const options = valueAccessor();
+
+                let directions;
+                let onResizeCallback;
+
+                if (typeof (options) === "string") {
+                    directions = options;
+                }
+                else {
+                    directions = options.directions || "both"
+                    onResizeCallback = options.onresize;
+                }
 
                 let resizing = false;
                 let initialOffsetX, initialOffsetY, initialWidth, initialHeight, initialEdge;
@@ -38,6 +54,10 @@ export class ResizableBindingHandler {
                     resizing = false;
                     eventManager.removeEventListener("onPointerMove", onPointerMove);
                     eventManager.removeEventListener("onPointerUp", onPointerUp);
+
+                    if (onResizeCallback) {
+                        onResizeCallback();
+                    }
                 }
 
                 const onPointerMove = (event: PointerEvent): void => {
@@ -80,7 +100,7 @@ export class ResizableBindingHandler {
                     element.classList.add("h-resized");
                 }
 
-                if (options.contains("both") || options.contains("vertically")) {
+                if (directions.contains("both") || directions.contains("vertically")) {
                     const topResizeHandle = element.ownerDocument.createElement("div");
                     topResizeHandle.classList.add("resize-handle", "resize-handle-top");
                     element.appendChild(topResizeHandle);
@@ -92,7 +112,7 @@ export class ResizableBindingHandler {
                     bottomResizeHandle.addEventListener("pointerdown", (e) => onPointerDown(e, "bottom"));
                 }
 
-                if (options.contains("both") || options.contains("horizontally")) {
+                if (directions.contains("both") || directions.contains("horizontally")) {
                     const rightResizeHandle = element.ownerDocument.createElement("div");
                     rightResizeHandle.classList.add("resize-handle", "resize-handle-right");
                     element.appendChild(rightResizeHandle);
