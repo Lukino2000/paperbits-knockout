@@ -1,6 +1,8 @@
 ﻿@import "variables.scss";
 @import "mixins.scss";
 
+$tip-width: 10px;
+
 .balloon {
     @include surface();
     position: fixed;
@@ -14,34 +16,30 @@
     &:after {
         position: absolute;
         content: '';
-        width: 10px;
-        height: 10px;
+        width: $tip-width;
+        height: $tip-width;
         background: $balloon-background;
         z-index: $z-index-balloon;
-        transform: translateY(-50%) rotate(45deg);
         box-shadow: -2px -2px 2px rgba(0, 0, 0, 0.15);
-        left: $surface-padding;
         z-index: -100;
     }
 
     &.balloon-top {
-        margin-left: -$surface-padding*2;
-
         &:after {
             z-index: $z-index-balloon;
             transform: translateY(50%) rotate(45deg);
             box-shadow: 2px 2px 2px rgba(0, 0, 0, 0.15);
+            left: $tip-width + ($tip-width/2);
             bottom: 0;
         }
     }
 
     &.balloon-bottom {
-        margin-left: -$surface-padding*2;
-
         &:after {
             z-index: $z-index-balloon;
             transform: translateY(-50%) rotate(45deg);
             box-shadow: -2px -2px 2px rgba(0, 0, 0, 0.15);
+            left: $tip-width + ($tip-width/2);
             top: 0;
         }
     }

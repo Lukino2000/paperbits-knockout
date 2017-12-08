@@ -20,24 +20,24 @@ export class BalloonBindingHandler {
 
                 const reposition = () => {
                     const targetElement: HTMLElement = options.element || document.querySelector(options.selector);
-                    const targetRect = triggerElement.getBoundingClientRect();
-                    const balloonRect = targetElement.getBoundingClientRect();
+                    const triggerRect = triggerElement.getBoundingClientRect();
+                    const targetRect = targetElement.getBoundingClientRect();
 
                     let position = options.position;
 
                     switch (options.position) {
                         case "top":
-                            balloonY = targetRect.top;
+                            balloonY = triggerRect.top;
 
-                            if ((balloonY - balloonRect.height) < 0) {
+                            if ((balloonY - targetRect.height) < 0) {
                                 position = "bottom";
                             }
                             break;
 
                         case "bottom":
-                            balloonY = targetRect.top + targetRect.height;
+                            balloonY = triggerRect.top + triggerRect.height;
 
-                            if (balloonY + balloonRect.height > window.innerHeight) {
+                            if (balloonY + targetRect.height > window.innerHeight) {
                                 position = "top";
                             }
                             break;
@@ -48,20 +48,20 @@ export class BalloonBindingHandler {
 
                     switch (position) {
                         case "top":
-                            balloonY = targetRect.top - balloonRect.height;
-                            balloonX = targetRect.left + (targetRect.width / 2);
+                            balloonY = triggerRect.top - targetRect.height;
+                            balloonX = triggerRect.left + (triggerRect.width / 2) - 20;
                             targetElement.classList.add("balloon-top");
                             break;
 
                         case "bottom":
-                            balloonY = targetRect.top + targetRect.height;
-                            balloonX = targetRect.left + (targetRect.width / 2);
+                            balloonY = triggerRect.top + triggerRect.height;
+                            balloonX = triggerRect.left + (triggerRect.width / 2) - 20;
                             targetElement.classList.add("balloon-bottom");
                             break;
                     }
 
                     targetElement.style.top = `${balloonY}px`;
-                    targetElement.style.left = `${balloonX + 10}px`;
+                    targetElement.style.left = `${balloonX}px`;
                 }
 
                 const open = (): void => {
