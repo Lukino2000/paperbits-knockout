@@ -51,6 +51,10 @@ export class ResizableBindingHandler {
                 }
 
                 const onPointerUp = (event: PointerEvent): void => {
+                    if (!resizing) {
+                        return;
+                    }
+
                     resizing = false;
                     eventManager.removeEventListener("onPointerMove", onPointerMove);
                     eventManager.removeEventListener("onPointerUp", onPointerUp);
@@ -123,6 +127,11 @@ export class ResizableBindingHandler {
                     element.appendChild(leftResizeHandle);
                     leftResizeHandle.addEventListener("pointerdown", (e) => onPointerDown(e, "left"));
                 }
+
+                ko.utils.domNodeDisposal.addDisposeCallback(element, () => {
+                    eventManager.removeEventListener("onPointerMove", onPointerMove);
+                    eventManager.removeEventListener("onPointerUp", onPointerUp);
+                });
             }
         }
     }
