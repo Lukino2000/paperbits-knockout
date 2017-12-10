@@ -95,6 +95,16 @@ h1 {
         display: flex;
         flex-direction: column;
 
+        .toolbox-button-is-active:before {
+            position: absolute;
+            left: -7px;
+            content: '';
+            width: 4px;
+            background: $tab-selected-color;
+            top: 0;
+            bottom: 0;
+            border: none;
+        }
     }
 
     .toolbox-splitter {

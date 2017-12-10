@@ -178,6 +178,7 @@ export class ViewManager implements IViewManager {
     }
 
     public clearJourney(): void {
+        this.journeyName("");
         this.journey([]);
     }
 

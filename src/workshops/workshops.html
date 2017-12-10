@@ -5,33 +5,33 @@
                 <span class="icon icon-search"></span>
             </a>
         </li>-->
-        <li class="toolbox-button">
-            <a href="#" title="Pages" role="button" data-bind="click: openPages, css: { 'toolbox-button-is-open': journey() == 'pages' }">
+        <li class="toolbox-button" data-bind="css: { 'toolbox-button-is-active': viewManager.journeyName() == 'Pages' }">
+            <a href="#" title="Pages" role="button" data-bind="click: openPages">
                 <i class="paperbits-icon paperbits-menu-left"></i>
             </a>
         </li>
-        <li class="toolbox-button">
-            <a href="#" title="Media" role="button" data-bind="click: openMedia, css: { 'toolbox-button-is-open': journey() == 'media' }">
+        <li class="toolbox-button" data-bind="css: { 'toolbox-button-is-active': viewManager.journeyName() == 'Media' }">
+            <a href="#" title="Media" role="button" data-bind="click: openMedia">
                 <i class="paperbits-icon paperbits-image-2"></i>
             </a>
         </li>
-        <li class="toolbox-button">
-            <a href="#" title="Blog" role="button" data-bind="click: openBlogs, css: { 'toolbox-button-is-open': journey() == 'blogs' }">
+        <li class="toolbox-button" data-bind="css: { 'toolbox-button-is-active': viewManager.journeyName() == 'Blog' }">
+            <a href="#" title="Blog" role="button" data-bind="click: openBlogs">
                 <i class="paperbits-icon paperbits-chat-45-2"></i>
             </a>
         </li>
-        <li class="toolbox-button">
-            <a title="Layouts" href="#" role="button" data-bind="click: openLayouts, css: { 'toolbox-button-is-open': journey() == 'layouts' }">
+        <li class="toolbox-button" data-bind="css: { 'toolbox-button-is-active': viewManager.journeyName() == 'Layouts' }">
+            <a title="Layouts" href="#" role="button" data-bind="click: openLayouts">
                 <i class="paperbits-icon paperbits-layout-11"></i>
             </a>
         </li>
-        <li class="toolbox-button">
-            <a href="#" title="Navigation" role="button" data-bind="click: openNavigation, css: { 'toolbox-button-is-open': journey() == 'navigation' }">
+        <li class="toolbox-button" data-bind="css: { 'toolbox-button-is-active': viewManager.journeyName() == 'Navigation' }">
+            <a href="#" title="Navigation" role="button" data-bind="click: openNavigation">
                 <i class="paperbits-icon paperbits-menu-34"></i>
             </a>
         </li>
-        <li class="toolbox-button">
-            <a href="#" title="Settings" role="button" data-bind="click: openSettings, css: { 'toolbox-button-is-open': journey() == 'settings' }">
+        <li class="toolbox-button" data-bind="css: { 'toolbox-button-is-active': viewManager.journeyName() == 'Site settings' }">
+            <a href="#" title="Settings" role="button" data-bind="click: openSettings">
                 <i class="paperbits-icon paperbits-preferences-circle"></i>
             </a>
         </li>
