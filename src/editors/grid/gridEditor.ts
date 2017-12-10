@@ -924,7 +924,7 @@ export class GridEditor {
         return sliderContextualEditor;
     }
 
-    private getGridItemFor(model: Object): GridItem {
+    private getGridItemFor(model: Object, element: HTMLElement): GridItem {
         if (!model) {
             return null;
         }
@@ -932,11 +932,19 @@ export class GridEditor {
         let gridItem = this.gridItems.find(x => model instanceof x.type);
 
         if (!gridItem) {
-            gridItem = {
-                type: null,
-                highlightedColor: "#607d8b",
-                name: "widget",
-                getContextualEditor: this.getWidgetContextualEditor.bind(this)
+            const parent = GridHelper.getParentElementWithModel(element);
+
+            if (parent) {
+                const parentModel = GridHelper.getModel(parent);
+
+                if (parentModel instanceof ColumnModel) {
+                    gridItem = {
+                        type: null,
+                        highlightedColor: "#607d8b",
+                        name: "widget",
+                        getContextualEditor: this.getWidgetContextualEditor.bind(this)
+                    }
+                }
             }
         }
 
@@ -958,7 +966,7 @@ export class GridEditor {
                 continue;
             }
 
-            let gridItem = this.getGridItemFor(attachedModel);
+            let gridItem = this.getGridItemFor(attachedModel, element);
 
             if (gridItem) {
                 tobeDeleted.remove(gridItem.name);
