@@ -4,30 +4,36 @@
 
 <div class="flex-container flex-container-column fit">
     <fieldset class="flex-item flex-item-grow form" data-bind="scrollable: {}">
+        <div class="form-group">
+            <label class="form-label">Favicon</label>
+            <div class="flex-container">
+                <div class="flex-item dropzone-showbox dropzone-square" data-bind="background: favicon, balloon: { selector: '#mediaSelector', position: 'top' }"></div>
+
+                <button class="flex-item flex-item-grow button" data-bind="balloon: { selector: '#mediaSelector', position: 'top' }">
+                    <i class="paperbits-icon paperbits-square-upload"></i>
+                    Setup favicon
+                </button>
+            </div>
+        </div>
+
         <label class="form-label">Title</label>
-        <input type="text" class="form-control" data-bind="value: title" maxlength="256" />
+        <input type="text" class="form-control" data-bind="textInput: title" maxlength="256" />
 
         <label class="form-label">Description</label>
-        <textarea class="form-control" data-bind="value: description" maxlength="256"></textarea>
+        <textarea class="form-control" data-bind="textInput: description" maxlength="256"></textarea>
 
         <label class="form-label">Keywords</label>
-        <input type="text" class="form-control" data-bind="value: keywords" maxlength="256" />
-
-        <label class="form-label">Favicon</label>
-        <input type="text" class="form-control" data-bind="value: faviconFileName, balloon: { selector: '#mediaSelector', position: 'top' }"
-            readonly/>
+        <input type="text" class="form-control" data-bind="textInput: keywords" maxlength="256" />
 
         <label class="form-label">Google Maps API Key</label>
-        <input type="text" class="form-control" data-bind="value: gmapsApiKey" maxlength="256" spellcheck="false" />
+        <input type="text" class="form-control" data-bind="textInput: gmapsApiKey" maxlength="256" spellcheck="false" />
 
         <label class="form-label">Google Tag Manager Container ID</label>
-        <input type="text" class="form-control" data-bind="value: gtmContainerId" maxlength="256" spellcheck="false" />
+        <input type="text" class="form-control" data-bind="textInput: gtmContainerId" maxlength="256" spellcheck="false" />
 
         <label class="form-label">Intercom App ID</label>
-        <input type="text" class="form-control" data-bind="value: intercomAppId" maxlength="256" spellcheck="false" />
+        <input type="text" class="form-control" data-bind="textInput: intercomAppId" maxlength="256" spellcheck="false" />
     </fieldset>
-
-    <div class="button-group">
-        <media-selector id="mediaSelector" class="balloon" params="onSelect: $component.onMediaSelected, mediaFilter: $component.mediaFilter"></media-selector>
-    </div>
 </div>
+
+<media-selector id="mediaSelector" class="balloon" params="onSelect: $component.onMediaSelected, mediaFilter: $component.mediaFilter"></media-selector>

@@ -5,6 +5,14 @@ $breakpoint-md: 768px;
 $breakpoint-lg: 992px;
 $breakpoint-xl: 1200px;
 
+$grid-breakpoints: (
+    xs: 0,
+    sm: 576px,
+    md: 768px,
+    lg: 992px,
+    xl: 1200px
+  ) !default;
+
 /* Typography */
 $font-family-base: 'OpenSans', sans-serif;
 $font-size-base: 13px;
@@ -78,3 +86,5 @@ $color-watermark: #CCC;
 $link-color: #00AFEF;
 $arrow-active-color: #F58634;
 $icon-base-color: #57585a
+
+

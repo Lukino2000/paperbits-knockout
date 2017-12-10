@@ -5,7 +5,6 @@ import { LayoutModelBinder } from "@paperbits/common/widgets/layout/layoutModelB
 import { IPublisher } from "./IPublisher";
 import { IRouteHandler } from "@paperbits/common/routing/IRouteHandler";
 import { IBlobStorage } from "@paperbits/common/persistence/IBlobStorage";
-import { ISiteSettings } from "@paperbits/common/sites/ISiteSettings";
 import { ISiteService } from "@paperbits/common/sites/ISiteService";
 import { IPermalinkService } from "@paperbits/common/permalinks/IPermalinkService";
 import { IBlogPost } from "@paperbits/common/blogs/IBlogPost";
@@ -20,7 +19,6 @@ export class BlogPublisher implements IPublisher {
     private readonly outputBlobStorage: IBlobStorage;
     private readonly blogPostService: IBlogService;
     private readonly siteService: ISiteService;
-    private readonly siteSettings: ISiteSettings;
     private readonly layoutModelBinder: LayoutModelBinder;
     private readonly layoutViewModelBinder: LayoutViewModelBinder;
 

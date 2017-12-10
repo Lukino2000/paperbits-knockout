@@ -50,7 +50,7 @@ export class PagesWorkshop {
         // setting up...
         this.pages = ko.observableArray<PageItem>();
         this.selectedPage = ko.observable<PageItem>();
-        this.searchPattern = ko.observable<string>();
+        this.searchPattern = ko.observable<string>("");
         this.searchPattern.subscribe(this.searchPages);
         this.working = ko.observable(true);
         

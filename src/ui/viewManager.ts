@@ -112,8 +112,10 @@ export class ViewManager implements IViewManager {
 
     public async loadFavIcon(): Promise<void> {
         let settings = await this.siteService.getSiteSettings();
-        if (settings && settings.iconPermalinkKey) {
-            let iconFile = await this.mediaService.getMediaByPermalink(settings.iconPermalinkKey);
+
+        if (settings && settings.site.faviconPermalinkKey) {
+            let iconFile = await this.mediaService.getMediaByPermalink(settings.site.faviconPermalinkKey);
+            
             if (iconFile && iconFile.downloadUrl) {
                 metaDataSetter.setFavIcon(iconFile.downloadUrl);
             }

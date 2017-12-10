@@ -6,7 +6,7 @@ import * as XMLHttpRequest from "xhr2";
 import * as Utils from "./utils";
 
 import { IInjector, IInjectorModule } from "@paperbits/common/injection";
-import { ISiteSettings } from "@paperbits/common/sites/ISiteSettings";
+import { ISiteSettings } from "@paperbits/common/sites/ISettings";
 
 import { InversifyInjector } from "@paperbits/common/injection/inversifyInjector";
 import { FirebaseModule } from "@paperbits/common/firebase/firebase.module";

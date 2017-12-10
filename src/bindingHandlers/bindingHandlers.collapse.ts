@@ -23,7 +23,7 @@ ko.bindingHandlers["collapse"] = {
         triggerElement.addEventListener("pointerdown", onPointerDown);
 
         ko.applyBindingsToNode(targetElement, {
-            visible: visibleObservable
+            css: { collapsed: ko.pureComputed(() => !visibleObservable()) }
         });
 
         ko.applyBindingsToNode(triggerElement, {

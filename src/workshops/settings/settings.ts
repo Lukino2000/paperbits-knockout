@@ -8,10 +8,11 @@ import { IMediaService } from '@paperbits/common/media/IMediaService';
 import { IPermalink } from '@paperbits/common/permalinks/IPermalink';
 import { IPermalinkService } from '@paperbits/common/permalinks/IPermalinkService';
 import { IMedia } from '@paperbits/common/media/IMedia';
-import { ISiteSettings } from "@paperbits/common/sites/ISiteSettings";
+import { ISettings } from "@paperbits/common/sites/ISettings";
 import { Component } from "../../decorators/component";
 import { IMediaFilter } from "@paperbits/common/media/IMediaFilter";
 import { metaDataSetter } from "@paperbits/common/meta/metaDataSetter";
+import { BackgroundModel } from "../../../../paperbits-common/src/widgets/background/backgroundModel";
 
 
 @Component({
@@ -36,6 +37,7 @@ export class SettingsWorkshop {
     public intercomAppId: KnockoutObservable<string>;
     public faviconSourceKey: KnockoutObservable<string>;
     public faviconFileName: KnockoutObservable<string>;
+    public favicon: KnockoutObservable<BackgroundModel>;
 
 
     constructor(mediaService: IMediaService, permalinkService: IPermalinkService, siteService: ISiteService, viewManager: IViewManager) {
@@ -56,8 +58,6 @@ export class SettingsWorkshop {
             startSearch: true
         };
 
-        this.loadSettings();
-
         this.title = ko.observable<string>();
         this.description = ko.observable<string>();
         this.keywords = ko.observable<string>();
@@ -66,6 +66,9 @@ export class SettingsWorkshop {
         this.intercomAppId = ko.observable<string>();
         this.faviconSourceKey = ko.observable<string>();
         this.faviconFileName = ko.observable<string>();
+        this.favicon = ko.observable<BackgroundModel>();
+
+        this.loadSettings();
     }
 
     private async loadSettings(): Promise<void> {
@@ -74,21 +77,21 @@ export class SettingsWorkshop {
         let settings = await this.siteService.getSiteSettings();
 
         if (settings) {
-            this.title(settings.title);
-            this.description(settings.description);
-            this.keywords(settings.keywords);
-            this.faviconSourceKey(settings.iconPermalinkKey);
-            this.setFaviconUri(settings.iconPermalinkKey);
+            this.title(settings.site.title);
+            this.description(settings.site.description);
+            this.keywords(settings.site.keywords);
+            this.faviconSourceKey(settings.site.faviconPermalinkKey);
+            this.setFaviconUri(settings.site.faviconPermalinkKey);
 
-            if (settings.config) {
-                if (settings.config.googlemaps) {
-                    this.gmapsApiKey(settings.config.googlemaps.apiKey);
+            if (settings.integration) {
+                if (settings.integration.googlemaps) {
+                    this.gmapsApiKey(settings.integration.googlemaps.apiKey);
                 }
-                if (settings.config.gtm) {
-                    this.gtmContainerId(settings.config.gtm.containerId);
+                if (settings.integration.gtm) {
+                    this.gtmContainerId(settings.integration.gtm.containerId);
                 }
-                if (settings.config.intercom) {
-                    this.intercomAppId(settings.config.intercom.appId);
+                if (settings.integration.intercom) {
+                    this.intercomAppId(settings.integration.intercom.appId);
                 }
             }
         }
@@ -104,13 +107,14 @@ export class SettingsWorkshop {
     }
 
     private async onSettingChange(): Promise<void> {
-        let config: ISiteSettings = {
-            title: this.title(),
-            description: this.description(),
-            keywords: this.keywords(),
-            iconPermalinkKey: this.faviconSourceKey(),
-
-            config: {
+        const config: ISettings = {
+            site: {
+                title: this.title(),
+                description: this.description(),
+                keywords: this.keywords(),
+                faviconPermalinkKey: this.faviconSourceKey(),
+            },
+            integration: {
                 intercom: {
                     appId: this.intercomAppId()
                 },
@@ -127,22 +131,31 @@ export class SettingsWorkshop {
         await this.siteService.setSiteSettings(config);
     }
 
-    public onMediaSelected(media: IMedia) {
-        if(media) {
-            this.faviconSourceKey(media.permalinkKey);            
+    public onMediaSelected(media: IMedia): void {
+        if (media) {
+            this.faviconSourceKey(media.permalinkKey);
             this.setFaviconUri(media.permalinkKey);
-        } else {
+        }
+        else {
             this.faviconFileName(null);
             this.faviconSourceKey(null);
         }
     }
 
     private async setFaviconUri(permalinkKey: string) {
-        if(permalinkKey) {
-            let iconPermalink = await this.permalinkService.getPermalinkByKey(permalinkKey);
-            if(iconPermalink){
-                this.faviconFileName(iconPermalink.uri);
+        if (permalinkKey) {
+            const faviconPermalink = await this.permalinkService.getPermalinkByKey(permalinkKey);
+
+            if (faviconPermalink) {
+                this.faviconFileName(faviconPermalink.uri);
                 this.viewManager.loadFavIcon();
+
+                var faviconModel = new BackgroundModel();
+                var faviconMedia = await this.mediaService.getMediaByKey(faviconPermalink.targetKey);
+
+                faviconModel.sourceUrl = faviconMedia.downloadUrl;
+
+                this.favicon(faviconModel);
             }
         }
     }

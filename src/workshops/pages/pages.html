@@ -1,13 +1,29 @@
 <div class="flex-container flex-container-column fit">
     <fieldset class="flex-item form">
-        <input class="form-control" type="search" data-bind="value: searchPattern, valueUpdate: 'keyup'" placeholder="Search pages..."
+        <input class="form-control" type="search" data-bind="textInput: searchPattern, valueUpdate: 'keyup'" placeholder="Search pages..."
         />
     </fieldset>
 
+    <!-- ko if: !working() && pages().length === 0 -->
+
+    <!-- ko if: searchPattern() === "" -->
+    <p class="flex-item flex-item-grow text-center">It seems that you don't have pages yet. Would you like to
+        <a href="#" data-bind="click: addPage">create one</a>?
+    </p>
+    <!-- /ko -->
+
+    <!-- ko if: searchPattern() !== ""  -->
+    <p class="flex-item flex-item-grow text-center">Could not find anything. Try to change search criteria.</p>
+    <!-- /ko -->
+
+    <!-- /ko -->
+
+    <!--ko if: $component.working()-->
+    <spinner></spinner>
+    <!--/ko-->
+
     <ul class="flex-item flex-item-grow list" data-bind="foreach: pages, scrollable: {}">
-        <!--ko if: $component.working()-->
-        <spinner></spinner>
-        <!--/ko-->
+
         <li class="list-item" data-bind="css: { selected: hasFocus }">
             <i class="paperbits-icon paperbits-single-content-03"></i>
             <a href="#" data-bind="click: $component.selectPage, text: title, hasFocus: hasFocus, event: { keydown: $component.keydown }"></a>

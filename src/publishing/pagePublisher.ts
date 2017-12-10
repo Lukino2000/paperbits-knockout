@@ -5,7 +5,6 @@ import { IPermalinkService } from "@paperbits/common/permalinks/IPermalinkServic
 import { IBlobStorage } from "@paperbits/common/persistence/IBlobStorage";
 import { IPageService } from "@paperbits/common/pages/IPageService";
 import { ISiteService } from "@paperbits/common/sites/ISiteService";
-import { ISiteSettings } from "@paperbits/common/sites/ISiteSettings";
 import { IPage } from "@paperbits/common/pages/IPage";
 import * as Utils from "@paperbits/common/core/utils";
 import { LayoutViewModel } from "../widgets/layout/layoutViewModel";
@@ -20,7 +19,6 @@ export class PagePublisher implements IPublisher {
     private readonly outputBlobStorage: IBlobStorage;
     private readonly pageService: IPageService;
     private readonly siteService: ISiteService;
-    private readonly siteSettings: ISiteSettings;
     private readonly layoutModelBinder: LayoutModelBinder;
     private readonly layoutViewModelBinder: LayoutViewModelBinder;
 
@@ -122,7 +120,7 @@ export class PagePublisher implements IPublisher {
     
     public async loadFavIcon(): Promise<void> {
         let settings = await this.siteService.getSiteSettings();
-        if (settings && settings.iconPermalinkKey) {
+        if (settings && settings.site.faviconPermalinkKey) {
             // let iconFile = await this.mediaService.getMediaByPermalink(settings.iconPermalinkKey);
             // if (iconFile && iconFile.downloadUrl) {
             //     metaDataSetter.setFavIcon(iconFile.downloadUrl);

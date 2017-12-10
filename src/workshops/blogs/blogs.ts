@@ -51,7 +51,7 @@ export class BlogWorkshop {
         this.working = ko.observable(true);
         this.blogPosts = ko.observableArray<BlogPostItem>();
         this.selectedBlogPost = ko.observable<BlogPostItem>();
-        this.searchPattern = ko.observable<string>();
+        this.searchPattern = ko.observable<string>("");
         this.searchPattern.subscribe(this.searchBlogPosts);
         this.searchBlogPosts("");
         this.init();

@@ -54,7 +54,7 @@ export class MediaWorkshop {
         // setting up...
         this.working = ko.observable(true);
         this.mediaItems = ko.observableArray<MediaItem>();
-        this.searchPattern = ko.observable<string>();
+        this.searchPattern = ko.observable<string>("");
         this.selectedMediaItem = ko.observable<MediaItem>();
 
         this.searchPattern.subscribe(this.searchMedia);
@@ -64,24 +64,25 @@ export class MediaWorkshop {
     private async launchSearch(searchPattern: string = ""): Promise<void> {
         this.working(true);
 
-        var drophandlers = this.dropHandlers;
-        var result: Array<MediaItem> = [];
+        const drophandlers = this.dropHandlers;
+        const result: Array<MediaItem> = [];
+
         this.mediaItems(result);
 
-        let mediaFiles = await this.mediaService.search(searchPattern);
+        const mediaFiles = await this.mediaService.search(searchPattern);
 
-        mediaFiles.forEach(async media => {            
-            
+        mediaFiles.forEach(async media => {
             //TODO: Move this logic to drag start. MediaItem can get descriptor byitself;
-            
-            let mediaItem = new MediaItem(media);
 
-            let descriptor = this.findContentDescriptor(media);
+            const mediaItem = new MediaItem(media);
+
+            const descriptor = this.findContentDescriptor(media);
+
             if (descriptor && descriptor.getWidgetOrder) {
                 let order = await descriptor.getWidgetOrder();
                 mediaItem.widgetOrder = order;
             }
-            
+
             this.mediaItems.push(mediaItem);
         });
 
@@ -90,8 +91,9 @@ export class MediaWorkshop {
 
     private findContentDescriptor(media: IMedia): IContentDescriptor {
         let result: IContentDescriptor;
-        for (var i = 0; i < this.dropHandlers.length; i++) {
-            let handler = this.dropHandlers[i];
+        
+        for (let i = 0; i < this.dropHandlers.length; i++) {
+            const handler = this.dropHandlers[i];
 
             if (!handler.getContentDescriptorFromMedia) {
                 continue;
@@ -103,6 +105,7 @@ export class MediaWorkshop {
                 return result;
             }
         }
+        
         return result;
     }
 

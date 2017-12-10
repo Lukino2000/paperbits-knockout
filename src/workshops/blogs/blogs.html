@@ -1,18 +1,36 @@
 <div class="flex-container flex-container-column fit">
     <fieldset class="flex-item form">
-        <input class="form-control" type="search" data-bind="value: searchPattern, valueUpdate: 'keyup'" placeholder="Search blog posts..."
+        <input class="form-control" type="search" data-bind="textInput: searchPattern" placeholder="Search blog posts..."
         />
     </fieldset>
 
+    <!-- ko if: !working() && blogPosts().length === 0 -->
+
+    <!-- ko if: searchPattern() === "" -->
+    <p class="flex-item flex-item-grow text-center">It seems that you don't have blog posts yet. Would you like to
+        <a href="#" data-bind="click: addBlogPost">create one</a>?
+    </p>
+    <!-- /ko -->
+
+    <!-- ko if: searchPattern() !== ""  -->
+    <p class="flex-item flex-item-grow text-center">Could not find anything. Try to change search criteria.</p>
+    <!-- /ko -->
+
+    <!-- /ko -->
+
+    <!--ko if: $component.working()-->
+    <!-- <spinner class="flex-item"></spinner> -->
+    <p class="flex-item flex-item-grow text-center">Working...</p>
+    <!--/ko-->
+
     <ul class="flex-item flex-item-grow list" data-bind="foreach: blogPosts, scrollable: {}">
-        <!--ko if: $component.working()-->
-        <spinner></spinner>
-        <!--/ko-->
         <li class="list-item" data-bind="css: { selected: hasFocus }">
             <i class="paperbits-icon paperbits-chat-45-2"></i>
             <a href="#" data-bind="click: $parent.selectBlogPost, text: title, hasFocus: hasFocus"></a>
         </li>
     </ul>
+
+
 
     <div class="flex-item button-group">
         <button class="button" data-bind="click: addBlogPost">
