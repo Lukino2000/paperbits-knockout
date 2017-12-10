@@ -8,12 +8,15 @@ const OptimizeJsPlugin = require('optimize-js-plugin');
 const selectedTheme = "hostmeapp";
 
 module.exports = {
+    target: 'node',    
     entry: {
-        'assets/scripts/theme': `./src/themes/${selectedTheme}/scripts/index.ts`
+        'src.node/startup': './src.node/startup.ts'
     },
     output: {
         filename: '[name].js',
-        path: path.resolve(__dirname, 'dist/server')
+        path: path.resolve(__dirname, 'dist/server'),
+        library: 'serverPublisher',
+        libraryTarget: 'commonjs2'
     },
     devtool: 'source-map',
     module: {
@@ -22,7 +25,7 @@ module.exports = {
                 test: /\.tsx?$/,
                 loader: 'ts-loader',
                 options: {
-                    configFile: 'main-tsconfig.json'
+                    configFile: 'tsconfig.json'
                 },
                 exclude: /node_modules/
             },
@@ -34,11 +37,6 @@ module.exports = {
         ]
     },
     plugins: [
-        new CleanWebpackPlugin(['dist/server']),
-        new CopyWebpackPlugin([       
-            { from: `src/themes/${selectedTheme}/assets`, to: 'assets'},
-            { from: `src/themes/${selectedTheme}/config.publishing.json`}      
-        ]),
         //new webpack.optimize.ModuleConcatenationPlugin(),        
         /**
          * Webpack plugin to optimize a JavaScript file for faster initial load

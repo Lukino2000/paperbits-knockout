@@ -65,7 +65,7 @@ export class PagePublisher implements IPublisher {
 
             this.routeHandler.navigateTo(resourceUri);
 
-            const layoutModel = await this.layoutModelBinder.getLayoutModel(resourceUri);
+            const layoutModel = await this.layoutModelBinder.getLayoutModel(resourceUri, true);
             const viewModel = await this.layoutViewModelBinder.modelToViewModel(layoutModel, true);
 
             const element = document.createElement("div");
@@ -87,7 +87,7 @@ export class PagePublisher implements IPublisher {
                 layoutElement.innerHTML = element.innerHTML;
                 htmlContent = document.documentElement.outerHTML;
                 resolve();
-            }, 1000);
+            }, 10);
         });
 
         await Promise.all([siteSettingsPromise, buildContentPromise]);

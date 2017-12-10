@@ -1,6 +1,3 @@
-import * as stringify from "stringify";
-(<any>stringify).registerWithRequire({ extensions: [".html"] });
-
 import "setimmediate";
 import * as fs from "fs";
 import * as ko from "knockout";

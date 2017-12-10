@@ -12,18 +12,14 @@
         "experimentalDecorators": true,
         "emitDecoratorMetadata": true,
         "allowUnreachableCode": true,
+        "allowSyntheticDefaultImports": true,
         "listFiles": false,
-        "sourceMap": true
-        // "inlineSourceMap": true,
-        // "inlineSources": true
+        "sourceMap": false
     },
-    "compileOnSave": false,
     "include": [
-        "src/**/*.ts"
+        "src.node/**/*.ts"
     ],
     "exclude": [
-        "bower_components",
-        "node_modules",
-        "functions"
+        "node_modules"
     ]
 }

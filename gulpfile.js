@@ -193,6 +193,19 @@ gulp.task("webpack-publish", (callback) => {
         callback();        
     });
 });
+gulp.task("webpack-server", (callback) => {
+    var webPackConfig = require("./webpack.config.server.js");
+    webpack(webPackConfig, function(err, stats) {
+        if (err) throw new gutil.PluginError('webpack', err);
+        
+        gutil.log('[webpack-server]', stats.toString({        
+            colors: true,        
+            progress: true        
+        }));
+    
+        callback();        
+    });
+});
 
 gulp.task("cloud-typescript", function () {
     const typescriptProject = typescriptCompiler.createProject("tsconfig.publishing.json", {
@@ -222,8 +235,8 @@ gulp.task("cloud-templates", function () {
 });
 
 gulp.task("publish", () => {
-    runSeq("webpack-publish", 
-        ["cloud-typescript", "cloud-templates", "cloud-theme-scss"], 
+    runSeq("webpack-publish",
+        ["webpack-server", "cloud-theme-scss"], 
         () => {
         const publishing = require("./dist/server/src.node/startup.js");
         const publishPromise = publishing.publish();
