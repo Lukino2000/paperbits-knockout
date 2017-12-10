@@ -18,6 +18,7 @@ h1 {
     position: fixed;
     display: block;
     padding: 7px;
+    z-index: $z-index-base;
     @include surface();
 
     &.toolbox-position-left {
@@ -132,6 +133,7 @@ h1 {
     .resize-handle {
         background: transparent;
         position: absolute;
+        z-index: $z-index-base + 1;
 
         &.resize-handle-right {
             cursor: e-resize;
@@ -139,7 +141,6 @@ h1 {
             right: 0;
             top: 0;
             bottom: 0;
-
         }
 
         &.resize-handle-left {

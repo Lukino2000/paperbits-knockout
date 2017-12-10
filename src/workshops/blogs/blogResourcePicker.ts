@@ -17,8 +17,8 @@ export class BlogResourcePicker implements IHyperlinkProvider {
         this.blogPermalinkResolver = blogPermalinkResolver;
     }
 
-    public canHandleHyperlink(hyperlink: HyperlinkModel): boolean {
-        return hyperlink.type === "post";
+    public canHandleHyperlink(permalink: IPermalink): boolean {
+        return permalink.targetKey.startsWith("posts/");
     }
 
     public getHyperlinkFromLinkable(blogPost: IBlogPost): HyperlinkModel {

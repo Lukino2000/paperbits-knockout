@@ -5,6 +5,7 @@ import { IHyperlinkProvider } from "@paperbits/common/ui/IHyperlinkProvider";
 import { HyperlinkModel } from "@paperbits/common/permalinks/hyperlinkModel";
 import { IHyperlink } from "@paperbits/common/permalinks/IHyperlink";
 import { Component } from "../../decorators/component";
+import { UrlResourcePicker } from "./urlResourcePicker";
 
 
 @Component({
@@ -62,11 +63,14 @@ export class HyperlinkSelector {
         }
 
         let resourcePicker: IHyperlinkProvider;
-        resourcePicker = this.resourcePickers.find(x => x.canHandleHyperlink(hyperlink));
+
+        if (hyperlink.permalinkKey) {
+            const permalink = await this.permalinkService.getPermalinkByKey(hyperlink.permalinkKey);
+            resourcePicker = this.resourcePickers.find(x => x.canHandleHyperlink(permalink));
+        }
 
         if (!resourcePicker) {
-            console.warn(hyperlink);
-            throw `Could not find handler for hyperlink.`;
+            resourcePicker = this.resourcePickers[this.resourcePickers.length - 1];
         }
 
         this.hyperlink(hyperlink);

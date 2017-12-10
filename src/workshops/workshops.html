@@ -1,10 +1,5 @@
 <div class="toolbox toolbox-position-left workshops-container flex-container flex-container-row" data-bind="visible: viewManager.primaryToolboxVisible, resizable: 'vertically'">
     <ul class="flex-item toolbox-button-group toolbox-button-group-vertical">
-        <!--<li>
-            <a title="Search" href="#" class="toolbox-button" role="button" data-bind="click: openPages, css: { 'toolbox-button-is-open': journey() == 'pages' }">
-                <span class="icon icon-search"></span>
-            </a>
-        </li>-->
         <li class="toolbox-button" data-bind="css: { 'toolbox-button-is-active': viewManager.journeyName() == 'Pages' }">
             <a href="#" title="Pages" role="button" data-bind="click: openPages">
                 <i class="paperbits-icon paperbits-menu-left"></i>
@@ -43,7 +38,7 @@
         </li>
     </ul>
 
-    <!--ko if: viewManager.journey().length > 0 -->
+    <!-- ko if: viewManager.journey().length > 0 -->
     <div class="flex-container flex-container-column flex-item flex-item-grow workshop">
         <div class="flex-item">
             <h1>
@@ -56,5 +51,5 @@
             <div class="flex-item flex-item-grow workshop-journey-step" data-bind="component: { name: name, params: params }"></div>
         </div>
     </div>
-    <!--/ko-->
+    <!-- /ko -->
 </div>

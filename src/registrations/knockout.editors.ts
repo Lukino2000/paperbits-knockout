@@ -3,6 +3,6 @@ import "../bindingHandlers/bindingHandlers.stickTo";
 import "../bindingHandlers/bindingHandlers.scrollable";
 
 ko.components.register("spinner", {
-    template: `<div class="spinner spinner-signal"></div>`,
+    template: `<div class="text-center">Working...</div>`,
     viewModel: () => null
 });

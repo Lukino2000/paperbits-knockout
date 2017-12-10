@@ -65,7 +65,6 @@ import { UrlSelector } from '../workshops/hyperlinks/urlSelector';
 import { VideoEditor } from '../editors/video-player/videoEditor';
 import { VideoHandlers } from '../editors/video-player/videoHandlers';
 import { WidgetSelector } from '../workshops/widgets/widgetSelector';
-import { WidgetsWorkshop } from '../workshops/widgets/widgets';
 import { Workshops } from '../workshops/workshops';
 import { YoutubeHandlers } from '../editors/youtube-player/youtubeHandlers';
 import { PermalinkResolver } from "@paperbits/common/permalinks/permalinkResolver";
@@ -89,7 +88,6 @@ export class ComponentRegistrationEditors implements IInjectorModule {
         /*** Workshops ***/
         injector.bind("workshops", Workshops);
         injector.bind("settingsWorkshop", SettingsWorkshop);
-        injector.bind("widgetsWorkshop", WidgetsWorkshop);
         injector.bind("mediaWorkshop", MediaWorkshop);
         injector.bind("layoutsWorkshop", LayoutsWorkshop);
         injector.bind("pagesWorkshop", PagesWorkshop);

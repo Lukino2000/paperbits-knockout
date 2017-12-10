@@ -4,21 +4,15 @@ import { IHyperlinkProvider } from "@paperbits/common/ui/IHyperlinkProvider";
 import { HyperlinkModel } from "@paperbits/common/permalinks/hyperlinkModel";
 
 export class UrlResourcePicker implements IHyperlinkProvider {
-    private readonly permalinkService: IPermalinkService;
-
     public readonly name = "Web URL";
     public readonly componentName = "url-selector";
 
-    constructor(permalinkService: IPermalinkService) {
-        this.permalinkService = permalinkService;
-    }
-
-    public canHandleHyperlink(hyperlink: HyperlinkModel): boolean {
-        return hyperlink.type === "url";
+    public canHandleHyperlink(permalink: IPermalink): boolean {
+        return !permalink;
     }
 
     public getHyperlinkFromResource(url: string): HyperlinkModel {
-        let hyperlinkModel = new HyperlinkModel();
+        const hyperlinkModel = new HyperlinkModel();
         hyperlinkModel.title = "External link";
         hyperlinkModel.href = url;
         hyperlinkModel.target = "_blank";

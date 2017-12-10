@@ -5,25 +5,28 @@ import { IHyperlinkProvider } from "@paperbits/common/ui/IHyperlinkProvider";
 import { HyperlinkModel } from "@paperbits/common/permalinks/hyperlinkModel";
 import { PagePermalinkResolver } from "@paperbits/common/pages/pagePermalinkResolver";
 import { PageSelection } from "./pageSelector";
+import { IPermalinkService } from "@paperbits/common/permalinks/IPermalinkService";
 
 export class PageResourcePicker implements IHyperlinkProvider {
     private readonly pageService: IPageService;
+    private readonly permalinkService: IPermalinkService;
     private readonly pagePermalinkResolver: PagePermalinkResolver;
 
     public readonly name: string = "Pages";
     public readonly componentName = "page-selector";
 
-    constructor(pageService: IPageService, pagePermalinkResolver: PagePermalinkResolver) {
+    constructor(pageService: IPageService, permalinkService: IPermalinkService, pagePermalinkResolver: PagePermalinkResolver) {
         this.pageService = pageService;
+        this.permalinkService = permalinkService;
         this.pagePermalinkResolver = pagePermalinkResolver;
     }
 
-    public canHandleHyperlink(hyperlink: HyperlinkModel): boolean {
-        return hyperlink.type === "page" || hyperlink.type === "anchor"
+    public canHandleHyperlink(permalink: IPermalink): boolean {
+        return permalink.targetKey.startsWith("pages/");
     }
 
     public getHyperlinkFromLinkable(page: IPage): HyperlinkModel {
-        let hyperlinkModel = new HyperlinkModel();
+        const hyperlinkModel = new HyperlinkModel();
         hyperlinkModel.title = page.title;
         hyperlinkModel.target = "_blank";
         hyperlinkModel.permalinkKey = page.permalinkKey;
@@ -45,7 +48,7 @@ export class PageResourcePicker implements IHyperlinkProvider {
     }
 
     public getHyperlinkFromResource(pageSelection: PageSelection): HyperlinkModel {
-        let hyperlinkModel = new HyperlinkModel();
+        const hyperlinkModel = new HyperlinkModel();
         hyperlinkModel.title = pageSelection.title;
         hyperlinkModel.target = "_blank";
         hyperlinkModel.permalinkKey = pageSelection.permalinkKey;

@@ -17,8 +17,8 @@ export class MediaHyperlinkProvider implements IHyperlinkProvider {
         this.mediaService = mediaService;
     }
 
-    public canHandleHyperlink(hyperlink: HyperlinkModel): boolean {
-        return hyperlink.type === "media";
+    public canHandleHyperlink(permalink: IPermalink): boolean {
+        return permalink.targetKey.startsWith("uploads/");
     }
 
     public getHyperlinkFromLinkable(media: IMedia): HyperlinkModel {
