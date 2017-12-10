@@ -1,6 +1,3 @@
-import * as stringify from "stringify";
-(<any>stringify).registerWithRequire({ extensions: [".html"] });
-
 import "setimmediate";
 import * as fs from "fs";
 import * as ko from "knockout";
@@ -93,7 +90,7 @@ export async function publish(): Promise<void> {
             rangeCount: 0,
             type: "None"
         }
-    }
+    };
 
     const injector = new InversifyInjector();
 

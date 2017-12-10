@@ -11,6 +11,7 @@ import * as Utils from "@paperbits/common/core/utils";
 import { LayoutViewModel } from "../widgets/layout/layoutViewModel";
 import { LayoutModelBinder } from "@paperbits/common/widgets/layout/layoutModelBinder";
 import { LayoutViewModelBinder } from "../widgets/layout/layoutViewModelBinder";
+import { metaDataSetter } from "@paperbits/common/meta/metaDataSetter";
 
 
 export class PagePublisher implements IPublisher {
@@ -64,7 +65,7 @@ export class PagePublisher implements IPublisher {
 
             this.routeHandler.navigateTo(resourceUri);
 
-            const layoutModel = await this.layoutModelBinder.getLayoutModel(resourceUri);
+            const layoutModel = await this.layoutModelBinder.getLayoutModel(resourceUri, true);
             const viewModel = await this.layoutViewModelBinder.modelToViewModel(layoutModel, true);
 
             const element = document.createElement("div");
@@ -117,6 +118,16 @@ export class PagePublisher implements IPublisher {
         }
 
         await Promise.all(results);
+    }
+    
+    public async loadFavIcon(): Promise<void> {
+        let settings = await this.siteService.getSiteSettings();
+        if (settings && settings.iconPermalinkKey) {
+            // let iconFile = await this.mediaService.getMediaByPermalink(settings.iconPermalinkKey);
+            // if (iconFile && iconFile.downloadUrl) {
+            //     metaDataSetter.setFavIcon(iconFile.downloadUrl);
+            // }
+        }
     }
 }
 

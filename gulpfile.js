@@ -5,6 +5,8 @@ const autoprefixer = require("gulp-autoprefixer");
 const sass = require("gulp-sass");
 const less = require("gulp-less");
 const concat = require("gulp-concat");
+const typescript = require("typescript");
+const typescriptCompiler = require("gulp-typescript");
 const del = require("del");
 const path = require('path');
 const runSeq = require("run-sequence");
@@ -92,7 +94,7 @@ gulp.task("theme-styles", () => {
             outputStyle: "compressed",
             functions: sassFunctions()
         })
-            .on("error", sass.logError))
+        .on("error", sass.logError))
         .pipe(autoprefixer())
         .pipe(concat("style.css"))
         .pipe(sourcemaps.write())
@@ -163,16 +165,92 @@ gulp.task('server', ["build", "watch"], () => {
     });
 });
 
-gulp.task('build-clean',() => {
-    return del(["dist/client/**"]);
+gulp.task('build-clean',(done) => {
+    return del(["dist/client/**"], done);
 });
 
 gulp.task("build-theme", ["theme-assets", "theme-styles", "theme-styles-less", "theme-config"]);
 
 gulp.task("build", (done) => runSeq('build-clean', ["assets", "styles", "fonts", "build-theme", "webpack-dev"], done));
 
-gulp.task("build-prod", (done) => runSeq('build-clean', ["styles", "theme-styles", "webpack-prod"], done));
+gulp.task("build-prod", (done) => runSeq("webpack-prod", ["styles", "theme-styles"], done));
 
 gulp.task("default", ["server"]);
+
+
+/*** CLOUD FUNCTIONS PACKAGE ***/
+
+gulp.task("webpack-publish", (callback) => {
+    var webPackConfig = require("./webpack.config.publish.js");
+    webpack(webPackConfig, function(err, stats) {
+        if (err) throw new gutil.PluginError('webpack', err);
+        
+        gutil.log('[webpack-publish]', stats.toString({        
+            colors: true,        
+            progress: true        
+        }));
+    
+        callback();        
+    });
+});
+gulp.task("webpack-server", (callback) => {
+    var webPackConfig = require("./webpack.config.server.js");
+    webpack(webPackConfig, function(err, stats) {
+        if (err) throw new gutil.PluginError('webpack', err);
+        
+        gutil.log('[webpack-server]', stats.toString({        
+            colors: true,        
+            progress: true        
+        }));
+    
+        callback();        
+    });
+});
+
+gulp.task("cloud-typescript", function () {
+    const typescriptProject = typescriptCompiler.createProject("tsconfig.publishing.json", {
+        typescript: typescript
+    });
+
+    const tsResult = typescriptProject.src().pipe(typescriptProject())
+
+    return tsResult.js.pipe(gulp.dest("dist/server"));
+});
+
+gulp.task("cloud-theme-scss", () => {
+    return gulp.src(`src/themes/${selectedTheme}/styles/styles.scss`)
+        .pipe(sass({
+            outputStyle: "compressed",
+            functions: sassFunctions()
+        }).on("error", sass.logError))
+        .pipe(autoprefixer())
+        .pipe(concat("style.css"))
+        .on("error", handleError)
+        .pipe(gulp.dest("dist/server/assets/css"));
+});
+
+gulp.task("cloud-templates", function () {
+    return gulp.src(["./src/**/*.html"])
+        .pipe(gulp.dest("dist/server/src"));
+});
+
+gulp.task("publish", () => {
+    runSeq("webpack-publish",
+        ["webpack-server", "cloud-theme-scss"], 
+        () => {
+        const publishing = require("./dist/server/src.node/startup.js");
+        const publishPromise = publishing.publish();
+
+        publishPromise.then((result) => {
+            console.log("DONE");
+            process.exit();
+        });
+
+        publishPromise.catch((error) => {
+            console.log(error);
+            process.exit();
+        });
+    });
+});
 
 

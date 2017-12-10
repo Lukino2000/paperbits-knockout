@@ -65,7 +65,7 @@ export class BlogPublisher implements IPublisher {
 
             this.routeHandler.navigateTo(resourceUri);
 
-            const layoutModel = await this.layoutModelBinder.getLayoutModel(resourceUri);
+            const layoutModel = await this.layoutModelBinder.getLayoutModel(resourceUri, true);
             const viewModel = await this.layoutViewModelBinder.modelToViewModel(layoutModel, true);
 
             const element = document.createElement("div");

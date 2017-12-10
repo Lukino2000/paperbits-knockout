@@ -3,7 +3,7 @@ import { StaticSettingsProvider } from "./staticSettingsProvider";
 import { IBlobStorage } from "@paperbits/common/persistence/IBlobStorage";
 import { FileSystemBlobStorage } from "./filesystemBlobStorage";
 import { IInjector, IInjectorModule } from "@paperbits/common/injection";
-import { AssetPublisher } from "@paperbits/common/publishing/assetPublisher";
+import { AssetPublisher } from "../src/publishing/assetPublisher";
 import { StaticRouteHandler } from "./routeHandler";
 import { IPermalinkService } from "@paperbits/common/permalinks/IPermalinkService";
 import { PermalinkResolver } from "@paperbits/common/permalinks/permalinkResolver";
