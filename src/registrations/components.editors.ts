@@ -1,6 +1,5 @@
 import { IBlogService } from "@paperbits/common/blogs/IBlogService";
 import { IContentDropHandler } from '@paperbits/common/editing/IContentDropHandler';
-import { IHyperlinkProvider } from "@paperbits/common/ui/IHyperlinkProvider";
 import { IInjector, IInjectorModule } from "@paperbits/common/injection";
 import { ILayoutService } from "@paperbits/common/layouts/ILayoutService";
 import { IMediaService } from '@paperbits/common/media/IMediaService';
@@ -11,6 +10,17 @@ import { IRouteHandler } from '@paperbits/common/routing/IRouteHandler';
 import { IViewManager } from '@paperbits/common/ui/IViewManager';
 import { IWidgetHandler } from '@paperbits/common/editing/IWidgetHandler';
 import { IWidgetService } from "@paperbits/common/widgets/IWidgetService";
+import { PermalinkResolver } from "@paperbits/common/permalinks/permalinkResolver";
+import { MediaPermalinkResolver } from "@paperbits/common/media/mediaPermalinkResolver";
+import { IPermalinkResolver } from "@paperbits/common/permalinks/IPermalinkResolver";
+import { PagePermalinkResolver } from "@paperbits/common/pages/pagePermalinkResolver";
+import { BlogPermalinkResolver } from "@paperbits/common/blogs/blogPermalinkResolver";
+import { HtmlEditorProvider } from "@paperbits/common/editing/htmlEditorProvider";
+import { IHyperlinkProvider } from "@paperbits/common/ui/IHyperlinkProvider";
+import { PageHyperlinkProvider } from "@paperbits/common/pages/pageHyperlinkProvider";
+import { BlogHyperlinkProvider } from "@paperbits/common/blogs/blogHyperlinkProvider";
+import { MediaHyperlinkProvider } from "@paperbits/common/media/mediaHyperlinkProvider";
+import { UrlHyperlinkProvider } from "@paperbits/common/permalinks/urlHyperlinkProvider";
 import { AudioEditor } from '../editors/audio-player/audioEditor';
 import { AudioHandlers } from '../editors/audio-player/audioHandlers';
 import { BlogPostDetailsWorkshop } from "../workshops/blogs/blogPostDetails";
@@ -38,7 +48,6 @@ import { MapHandlers } from '../editors/map/mapHandlers';
 import { MediaDetailsWorkshop } from '../workshops/media/mediaDetails';
 import { MediaItem } from '../workshops/media/mediaItem';
 import { MediaHandlers } from '../editors/mediaHandlers';
-import { MediaHyperlinkProvider } from "../workshops/media/mediaHyperlinkProvider";
 import { MediaSelector } from '../workshops/media/mediaSelector';
 import { MediaWorkshop } from '../workshops/media/media';
 import { NavbarEditor } from "../editors/navbar/navbarEditor";
@@ -48,7 +57,6 @@ import { NavigationWorkshop } from '../workshops/navigation/navigation';
 import { PageDetailsWorkshop } from '../workshops/pages/pageDetails';
 import { PageItem } from '../workshops/pages/pageItem';
 import { PlaceholderViewModel } from "../editors/placeholder/placeholderViewModel";
-import { PageResourcePicker } from "../workshops/pages/pageResourcePicker";
 import { PageSelector } from '../workshops/pages/pageSelector';
 import { PagesWorkshop } from '../workshops/pages/pages';
 import { HyperlinkSelector } from "../workshops/hyperlinks/hyperlinkSelector";
@@ -60,20 +68,12 @@ import { SectionLayoutSelector } from '../workshops/sections/sectionLayoutSelect
 import { SettingsWorkshop } from '../workshops/settings/settings';
 import { TextblockEditor } from '../editors/textblock/textblockEditor';
 import { TextblockHandlers } from '../editors/textblock/textblockHandlers';
-import { UrlResourcePicker } from "../workshops/hyperlinks/urlResourcePicker";
 import { UrlSelector } from '../workshops/hyperlinks/urlSelector';
 import { VideoEditor } from '../editors/video-player/videoEditor';
 import { VideoHandlers } from '../editors/video-player/videoHandlers';
 import { WidgetSelector } from '../workshops/widgets/widgetSelector';
 import { Workshops } from '../workshops/workshops';
 import { YoutubeHandlers } from '../editors/youtube-player/youtubeHandlers';
-import { PermalinkResolver } from "@paperbits/common/permalinks/permalinkResolver";
-import { MediaPermalinkResolver } from "@paperbits/common/media/mediaPermalinkResolver";
-import { IPermalinkResolver } from "@paperbits/common/permalinks/IPermalinkResolver";
-import { PagePermalinkResolver } from "@paperbits/common/pages/pagePermalinkResolver";
-import { BlogPermalinkResolver } from "@paperbits/common/blogs/blogPermalinkResolver";
-import { HtmlEditorProvider } from "@paperbits/common/editing/htmlEditorProvider";
-import { BlogResourcePicker } from "../workshops/blogs/blogResourcePicker";
 import { BlogSelector } from "../workshops/blogs/blogSelector";
 import { ViewportSelector } from "../workshops/viewports/viewport-selector";
 import { HostBindingHandler } from "../bindingHandlers/bindingHandlers.host";
@@ -258,22 +258,22 @@ export class ComponentRegistrationEditors implements IInjectorModule {
             return new UrlSelector(params["onSelect"]);
         });
 
-        injector.bind("pageResourcePicker", PageResourcePicker);
-        injector.bind("blogResourcePicker", BlogResourcePicker);
+        injector.bind("pageHyperlinkProvider", PageHyperlinkProvider);
+        injector.bind("blogHyperlinkProvider", BlogHyperlinkProvider);
         injector.bind("mediaHyperlinkProvider", MediaHyperlinkProvider);
-        injector.bind("urlResourcePicker", UrlResourcePicker);
+        injector.bind("urlHyperlinkProvider", UrlHyperlinkProvider);
 
         injector.bindFactory<IHyperlinkProvider[]>("resourcePickers", (ctx: IInjector) => {
-            let pageReourcePicker = ctx.resolve<IHyperlinkProvider>("pageResourcePicker");
-            let blogReourcePicker = ctx.resolve<IHyperlinkProvider>("blogResourcePicker");
+            let pageReourcePicker = ctx.resolve<IHyperlinkProvider>("pageHyperlinkProvider");
+            let blogReourcePicker = ctx.resolve<IHyperlinkProvider>("blogHyperlinkProvider");
             let mediaReourcePicker = ctx.resolve<IHyperlinkProvider>("mediaHyperlinkProvider");
-            let urlResourcePicker = ctx.resolve<IHyperlinkProvider>("urlResourcePicker");
+            let urlHyperlinkProvider = ctx.resolve<IHyperlinkProvider>("urlHyperlinkProvider");
 
             return [
                 pageReourcePicker,
                 blogReourcePicker,
                 mediaReourcePicker,
-                urlResourcePicker
+                urlHyperlinkProvider
             ]
         })
 

@@ -5,7 +5,6 @@ import { IHyperlinkProvider } from "@paperbits/common/ui/IHyperlinkProvider";
 import { HyperlinkModel } from "@paperbits/common/permalinks/hyperlinkModel";
 import { IHyperlink } from "@paperbits/common/permalinks/IHyperlink";
 import { Component } from "../../decorators/component";
-import { UrlResourcePicker } from "./urlResourcePicker";
 
 
 @Component({

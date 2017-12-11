@@ -5,13 +5,14 @@ import { HyperlinkModel } from "@paperbits/common/permalinks/hyperlinkModel";
 
 ko.bindingHandlers["resourcePicker"] = {
     init: (element: HTMLElement, valueAccessor) => {
-        let config = valueAccessor();
-        let resourcePicker: IHyperlinkProvider = ko.unwrap(config["resourcePicker"]);
-        let onSelect = ko.unwrap(config["onSelect"]);
-        let hyperlink: HyperlinkModel = ko.unwrap(config["hyperlink"]);
+        const config = valueAccessor();
+        const resourcePicker: IHyperlinkProvider = ko.unwrap(config["resourcePicker"]);
+        const onSelect = ko.unwrap(config["onSelect"]);
+        const hyperlink: HyperlinkModel = ko.unwrap(config["hyperlink"]);
 
         let onSelectCallback;
-        let onSelectCallbackProxy = (newResource) => {
+        
+        const onSelectCallbackProxy = (newResource) => {
             if (onSelectCallback) {
                 onSelectCallback(newResource);
             }
@@ -27,7 +28,7 @@ ko.bindingHandlers["resourcePicker"] = {
                     }
 
                     onSelectCallback = (newResource) => {
-                        let hyperlink = resourcePicker.getHyperlinkFromResource(newResource);
+                        const hyperlink = resourcePicker.getHyperlinkFromResource(newResource);
                         onSelect(hyperlink);
                     }
                 }

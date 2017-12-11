@@ -2,16 +2,13 @@ import * as ko from "knockout";
 import template from "./pageSelector.html";
 import { IResourceSelector } from "@paperbits/common/ui/IResourceSelector";
 import { PageItem, AnchorItem } from "./pageItem";
+import { PageSelection } from '@paperbits/common/pages/pageSelection';
 import { IPage } from '@paperbits/common/pages/IPage';
 import { IPermalink } from '@paperbits/common/permalinks/IPermalink';
 import { IPermalinkService } from '@paperbits/common/permalinks/IPermalinkService';
 import { IPageService } from '@paperbits/common/pages/IPageService';
 import { Component } from "../../decorators/component";
 
-export interface PageSelection {
-    title: string;
-    permalinkKey: string;
-}
 
 @Component({
     selector: "page-selector",
