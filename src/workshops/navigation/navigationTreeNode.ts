@@ -13,6 +13,7 @@ export class NavigationTreeNode {
     public dragged: KnockoutObservable<boolean>;
     public hasFocus: KnockoutObservable<boolean>;
     public onUpdate: KnockoutSubscribable<void>;
+    // public permalinkKey: 
 
     constructor(navitem: INavigationItem) {
         this.moveNodeLeft = this.moveNodeLeft.bind(this);
@@ -34,7 +35,7 @@ export class NavigationTreeNode {
 
         document.addEventListener("keydown", this.onKeyDown, false);
 
-
+        // TODO : Move to Navigation Details to resolve up-to-date hyperlink
         let hyperlink = new HyperlinkModel();
         hyperlink.permalinkKey = navitem.permalinkKey;
         hyperlink.href = navitem.externalUrl;

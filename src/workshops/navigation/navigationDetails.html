@@ -2,15 +2,17 @@
     <fieldset class="flex-item flex-item-grow form" data-bind="scrollable: {}">
         <label class="form-label">
             Label</label>
-        <input class="form-control" type="text" autofocus data-bind="textInput: node.label" placeholder="i.e. Orders" maxlength="256"/>
+        <input class="form-control" type="text" autofocus data-bind="textInput: node.label" placeholder="i.e. Orders" maxlength="256"
+        />
 
         <div class="form-group">
             <label class="form-label">Link to</label>
-            <div data-bind="text: hyperlinkTitle" class="pull-left"></div>
-            <div class="toolbox-button pull-right" data-bind="css: { 'toolbox-button-is-active': hyperlink }" title="Hyperlink">
-                <a href="#" class="paperbits-icon paperbits-link-69-2" data-bind="balloon: { selector: '#hyperlinkSelector', position: 'bottom' }"></a>
-            </div>
+            <a href="#" class="form-control" data-bind="balloon: { component: { name: 'hyperlink-selector', params: { hyperlink: $component.hyperlink, onChange: $component.onHyperlinkChange } }, position: 'bottom' }">
+                <i class="paperbits-icon paperbits-link-69-2 pull-right"></i>
+                <span data-bind="text: hyperlinkTitle"></span>
+            </a>
         </div>
+
     </fieldset>
 
     <div class="flex-item button-group">
@@ -20,5 +22,3 @@
         </button>
     </div>
 </div>
-
-<hyperlink-selector id="hyperlinkSelector" class="balloon" params="hyperlink: $component.hyperlink, onChange: $component.onHyperlinkChange"></hyperlink-selector>

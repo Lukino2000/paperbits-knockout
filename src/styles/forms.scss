@@ -93,13 +93,16 @@
         }
     }
 
+    .form-control,
     input[type=search],
     input[type=text],
     textarea {
         font-family: $font-family-base;
         font-weight: $font-weight-base;
         font-size: $textbox-font-size;
+        color: $color-base;
         border: .5px solid #BDBFC1;
+        display: block;
 
         &::placeholder {
             font-style: italic;
@@ -116,11 +119,6 @@
         &.is-invalid {
             color: $color-danger;
             border-color: $color-danger;
-
-            // :after {
-            //     content: attr(title);
-            //     display: 
-            // }
         }
     }
 

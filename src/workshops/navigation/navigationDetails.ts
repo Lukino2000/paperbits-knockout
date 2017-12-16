@@ -18,12 +18,10 @@ import { Component } from "../../decorators/component";
 export class NavigationDetailsWorkshop {
     private navigationService: INavigationService;
 
-    public readonly hyperlinkTitle: KnockoutObservable<string>;
+    public readonly hyperlinkTitle: KnockoutComputed<string>;
     public readonly hyperlink: KnockoutObservable<HyperlinkModel>;
-
-    public viewManager: IViewManager;
-    public node: NavigationTreeNode;
-
+    public readonly viewManager: IViewManager;
+    public readonly node: NavigationTreeNode;
 
     constructor(navigationTreeNode: NavigationTreeNode, navigationService: INavigationService, viewManager: IViewManager) {
         this.node = navigationTreeNode;
@@ -38,26 +36,22 @@ export class NavigationDetailsWorkshop {
 
         this.hyperlink = navigationTreeNode.hyperlink;
 
-        let label;
+        this.hyperlinkTitle = ko.pureComputed<string>(() => {
+            const hyperlink = this.hyperlink();
 
-        if (this.hyperlink) {
-            label = navigationTreeNode.hyperlink().title;
-        }
-        else {
-            label = "Add a link...";
-        }
-        this.hyperlinkTitle = ko.observable<string>(label);
+            if (hyperlink) {
+                //return `${hyperlink.type}: ${hyperlink.title}`;
+
+                return `${hyperlink.title}`;
+            }
+
+            return "Click to select a link...";
+        });
     }
 
     public onHyperlinkChange(hyperlink: HyperlinkModel): void {
-        if (hyperlink) {
-            this.hyperlinkTitle(hyperlink.title);
-            this.hyperlink(hyperlink);
-            this.node.hyperlink(hyperlink);
-        }
-        else {
-            this.hyperlinkTitle("Add a link...");
-        }
+        this.hyperlink(hyperlink);
+        this.node.hyperlink(hyperlink);
     }
 
     public deleteNavigationItem() {

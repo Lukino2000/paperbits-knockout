@@ -13,29 +13,27 @@ import { Component } from "../../decorators/component";
     injectable: "hyperlinkSelector"
 })
 export class HyperlinkSelector {
-    private readonly permalinkService: IPermalinkService;
-    private readonly hyperlinkSubscription: KnockoutSubscription;
-
-    public readonly resourcePickers: IHyperlinkProvider[];
-    public readonly onHyperlinkChange: (hyperlink: HyperlinkModel) => void;
-    public readonly hyperlink: KnockoutObservable<HyperlinkModel>;
     public readonly selectedResourcePicker: KnockoutObservable<IHyperlinkProvider>;
 
-    constructor(permalinkService: IPermalinkService, resourcePickers: IHyperlinkProvider[], hyperlink: KnockoutObservable<HyperlinkModel>, onHyperlinkChange: (hyperlink: HyperlinkModel) => void) {
+    constructor(
+        private readonly permalinkService: IPermalinkService,
+        private readonly resourcePickers: IHyperlinkProvider[],
+        private readonly hyperlink: KnockoutObservable<HyperlinkModel>,
+        private readonly onHyperlinkChange: (hyperlink: HyperlinkModel) => void) {
+
         this.permalinkService = permalinkService;
         this.resourcePickers = resourcePickers;
         this.onHyperlinkChange = onHyperlinkChange;
 
+        // rebinding...
         this.updateHyperlinkState = this.updateHyperlinkState.bind(this);
         this.onResourceSelected = this.onResourceSelected.bind(this);
         this.onResourcePickerChange = this.onResourcePickerChange.bind(this);
 
+        // setting up...
         this.hyperlink = ko.observable<HyperlinkModel>(ko.unwrap(hyperlink));
         this.selectedResourcePicker = ko.observable<IHyperlinkProvider>(null);
-
         this.updateHyperlinkState(hyperlink());
-        this.hyperlinkSubscription = hyperlink.subscribe(this.updateHyperlinkState);
-
         this.selectedResourcePicker.subscribe(this.onResourcePickerChange);
     }
 
@@ -74,9 +72,5 @@ export class HyperlinkSelector {
 
         this.hyperlink(hyperlink);
         this.selectedResourcePicker(resourcePicker);
-    }
-
-    public dispose(): void {
-        this.hyperlinkSubscription.dispose();
     }
 }

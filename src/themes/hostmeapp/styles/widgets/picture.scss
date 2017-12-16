@@ -45,10 +45,6 @@ img:not([src]) {
     min-width: 270px;
     height: 200px;
     line-height: 200px;
-    border: 3px dashed #444444;
-    border-radius: 10px;
-    background-position: center;
-    background-repeat: no-repeat;
-    background-size: 30%;
+    border: 1px dashed #444444;
     opacity: .3;
 }

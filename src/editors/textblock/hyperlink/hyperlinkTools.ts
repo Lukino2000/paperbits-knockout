@@ -71,7 +71,7 @@ export class HyperlinkTools {
     }
 
     public onClick(): void {
-        let htmlEditor = this.htmlEditorProvider.getCurrentHtmlEditor();
+        const htmlEditor = this.htmlEditorProvider.getCurrentHtmlEditor();
         htmlEditor.expandSelection();
     }
 
