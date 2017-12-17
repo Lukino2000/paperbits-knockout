@@ -6,11 +6,11 @@ import { IBlogService } from "@paperbits/common/blogs/IBlogService";
 import { IRouteHandler } from "@paperbits/common/routing/IRouteHandler";
 import { IPermalinkService } from "@paperbits/common/permalinks/IPermalinkService";
 import { IViewManager } from "@paperbits/common/ui/IViewManager";
+import { Keys } from "@paperbits/common/core/keys";
 import { BlogPostItem } from "../../workshops/blogs/blogPostItem";
 import { IFileService } from "@paperbits/common/files/IFileService";
 import { Component } from "../../decorators/component";
 
-const DeleteKeyCode = 46; // TODO: Move to separate file;
 
 
 @Component({
@@ -127,7 +127,6 @@ export class BlogWorkshop {
 
     public selectBlogPost(blogpost: BlogPostItem): void {
         this.selectedBlogPost(blogpost);
-        this.viewManager.openWorkshop("blog-post-details-workshop", blogpost);
     }
 
     public async addBlogPost(): Promise<void> {
@@ -158,12 +157,10 @@ export class BlogWorkshop {
         await this.blogService.deleteBlogPost(this.selectedBlogPost().toBlogPost());
 
         this.routeHandler.navigateTo("/");
-        this.viewManager.closeWorkshop("blog-post-details-workshop");
-        this.viewManager.openWorkshop("blogs");
     }
 
     public keydown(item: BlogPostItem, event: KeyboardEvent): void {
-        if (event.keyCode === DeleteKeyCode) {
+        if (event.keyCode === Keys.Delete) {
             this.deleteSelectedBlogPost();
         }
     }

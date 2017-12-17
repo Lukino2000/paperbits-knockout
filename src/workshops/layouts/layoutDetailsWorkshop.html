@@ -1,16 +1,23 @@
 <fieldset class="form">
     <label class="form-label">
-        Title</label>
-    <input type="text" class="form-control" data-bind="textInput: layoutItem.title, validationElement: layoutItem.title" placeholder="i.e. Orders" maxlength="256"/>
+        Title
+    </label>
+
+    <input type="text" class="form-control" data-bind="textInput: layoutItem.title, validationElement: layoutItem.title" placeholder="i.e. Orders"
+        maxlength="256" />
 
     <label class="form-label">
-        Uri template</label>
-    <input type="text" class="form-control" data-bind="textInput: layoutItem.uriTemplate, validationElement: layoutItem.uriTemplate" placeholder="/" maxlength="2000"/>
+        URL template
+    </label>
+    <input type="text" class="form-control" data-bind="textInput: layoutItem.uriTemplate, validationElement: layoutItem.uriTemplate"
+        placeholder="/" maxlength="2000" />
 
     <label class="form-label">
-        Description</label>
-    <input type="text" class="form-control" data-bind="textInput: layoutItem.description" />
+        Description
+    </label>
+    <textarea class="form-control" data-bind="textInput: layoutItem.description"></textarea>
 </fieldset>
+
 <div class="button-group">
     <!--ko if: isNotDefault-->
     <button class="button" data-bind="click: deleteLayout">

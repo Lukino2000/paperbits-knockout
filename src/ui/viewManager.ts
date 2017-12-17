@@ -36,8 +36,8 @@ export class ViewManager implements IViewManager {
     private readonly siteService: ISiteService;
     private contextualEditorsBag: IBag<IContextualEditor> = {};
 
-    public journey: KnockoutObservableArray<IComponent>;
-    public journeyName: KnockoutObservable<string>;
+    public journey: KnockoutObservableArray<IEditorSession>;
+    public journeyName: KnockoutComputed<string>;
     public itemSelectorName: KnockoutObservable<string>;
     public progressIndicators: KnockoutObservableArray<ProgressIndicator>;
     public primaryToolboxVisible: KnockoutObservable<boolean>;
@@ -74,10 +74,16 @@ export class ViewManager implements IViewManager {
         this.onDragEnd = this.onDragEnd.bind(this);
 
         // setting up...
-        this.mode = ViewManagerMode.edit;
+        this.mode = ViewManagerMode.selecting;
         this.progressIndicators = ko.observableArray<ProgressIndicator>();
-        this.journey = ko.observableArray<IComponent>();
-        this.journeyName = ko.observable<string>();
+        this.journey = ko.observableArray<IEditorSession>();
+        this.journeyName = ko.pureComputed<string>(() => {
+            if (this.journey().length === 0) {
+                return null;
+            }
+
+            return this.journey()[0].heading;
+        });
         this.itemSelectorName = ko.observable<string>(null);
         this.widgetEditor = ko.observable<IEditorSession>();
         this.contextualEditors = ko.observableArray<IContextualEditor>([]);
@@ -115,15 +121,11 @@ export class ViewManager implements IViewManager {
 
         if (settings && settings.site.faviconPermalinkKey) {
             let iconFile = await this.mediaService.getMediaByPermalink(settings.site.faviconPermalinkKey);
-            
+
             if (iconFile && iconFile.downloadUrl) {
                 metaDataSetter.setFavIcon(iconFile.downloadUrl);
             }
         }
-    }
-
-    public getCurrentJourney(): string {
-        return this.journeyName();
     }
 
     public addProgressIndicator(title: string, content: string): ProgressIndicator {
@@ -157,29 +159,22 @@ export class ViewManager implements IViewManager {
         });
     }
 
-    public newJourney(journeyName: string, componentName: string, parameters?: any): void {
-        this.clearJourney();
-        this.journeyName(journeyName);
-        this.openWorkshop(componentName, parameters);
-        this.widgetEditor(null);
-    }
+    public updateJourneyComponent(editorSession: IEditorSession): void {
+        let journey = this.journey();
 
-    public updateJourneyComponent(component: IComponent): void {
-        var result = this.journey();
-
-        var existingComponent = result.first(c => { return c.name === component.name; });
+        let existingComponent = journey.first(c => { return c.component.name === editorSession.component.name; });
 
         if (existingComponent) {
-            result = result.splice(0, result.indexOf(existingComponent));
+            journey = journey.splice(0, journey.indexOf(existingComponent));
         }
-        result.push(component);
+        journey.push(editorSession);
 
-        this.journey(result);
+        this.journey(journey);
     }
 
     public clearJourney(): void {
-        this.journeyName("");
         this.journey([]);
+        this.widgetEditor(null);
     }
 
     public foldWorkshops(): void {
@@ -193,39 +188,54 @@ export class ViewManager implements IViewManager {
 
     public foldEverything(): void {
         this.foldWorkshops();
-        this.mode = ViewManagerMode.fold;
+        this.mode = ViewManagerMode.dragging;
         this.clearContextualEditors();
     }
 
     public unfoldEverything(): void {
         this.primaryToolboxVisible(true);
-        this.mode = ViewManagerMode.edit;
+        this.mode = ViewManagerMode.selecting;
     }
 
-    public openWorkshop(componentName: string, parameters?: any): void {
+    public openWorkshop(heading: string, componentName: string, parameters?: any): IEditorSession {
         this.clearContextualEditors();
 
-        var component: IComponent = {
-            name: componentName,
-            params: parameters
-        };
-        this.updateJourneyComponent(component);
-
-        this.mode = ViewManagerMode.configure;
-    }
-
-    public closeWorkshop(componentName: string): void {
-        var result = this.journey();
-
-        var existingComponent = result.first(c => { return c.name === componentName; });
-
-        if (existingComponent) {
-            result = result.splice(0, result.indexOf(existingComponent));
+        const session: IEditorSession = {
+            heading: heading,
+            component: {
+                name: componentName,
+                params: parameters
+            }
         }
 
-        this.journey(result);
+        this.updateJourneyComponent(session);
 
-        this.mode = ViewManagerMode.edit;
+        this.mode = ViewManagerMode.configure;
+
+        return session;
+    }
+
+    /**
+     * Deletes specified editors and all editors after.
+     * @param editorSession IEditorSession
+     */
+    public closeWorkshop(editor: IEditorSession | string): void {
+        const journey = this.journey();
+        let editorSession;
+
+        if (typeof editor === "string") {
+            editorSession = journey.find(x => x.component.name === editor);
+        }
+        else {
+            editorSession = editor;
+        }
+
+        const indexOfClosingEditor = journey.indexOf(editorSession);
+
+        journey.length = indexOfClosingEditor;
+
+        this.journey(journey);
+        this.mode = ViewManagerMode.selecting;
     }
 
     public scheduleIndicatorRemoval(indicator: ProgressIndicator): void {
@@ -273,7 +283,7 @@ export class ViewManager implements IViewManager {
         this.clearContextualEditors();
         this.clearJourney();
 
-        this.mode = ViewManagerMode.edit;
+        this.mode = ViewManagerMode.selecting;
         this.unfoldWorkshop();
     }
 
@@ -318,12 +328,13 @@ export class ViewManager implements IViewManager {
 
     public setSelectedElement(config: IHighlightConfig, ce: IContextualEditor): void {
         this.clearContextualEditors();
+        this.closeWidgetEditor();
         this.selectedElement(null);
         this.selectedElement(config);
         this.selectedElementContextualEditor(ce);
 
         if (this.mode != ViewManagerMode.configure) {
-            this.mode = ViewManagerMode.select;
+            this.mode = ViewManagerMode.selected;
         }
 
         this.clearJourney();
@@ -345,7 +356,7 @@ export class ViewManager implements IViewManager {
     public switchToEditing(): void {
         this.clearContextualEditors();
         this.closeWidgetEditor();
-        this.mode = ViewManagerMode.edit;
+        this.mode = ViewManagerMode.selecting;
     }
 
     public setShutter(): void {

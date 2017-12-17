@@ -71,7 +71,5 @@ export class PageDetailsWorkshop {
         await this.pageService.deletePage(this.pageItem.toPage());
 
         this.routeHandler.navigateTo("/");
-        this.viewManager.closeWorkshop("page-details-workshop");
-        this.viewManager.openWorkshop("pages");
     }
 }

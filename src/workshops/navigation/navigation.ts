@@ -82,6 +82,6 @@ export class NavigationWorkshop {
         // }
 
         this.selectedNavigationItem(navigationItem);
-        this.viewManager.openWorkshop("navigation-details-workshop", navigationItem);
+        this.viewManager.openWorkshop("Navigation item", "navigation-details-workshop", navigationItem);
     }
 }

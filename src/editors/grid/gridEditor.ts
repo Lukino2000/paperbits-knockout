@@ -18,6 +18,7 @@ import { LayoutModel } from "@paperbits/common/widgets/layout/layoutModel";
 import { LayoutModelBinder } from "@paperbits/common/widgets/layout/layoutModelBinder";
 import { IHighlightConfig } from "@paperbits/common/ui/IHighlightConfig";
 import { SliderModel, SlideModel } from "@paperbits/common/widgets/slider/sliderModel";
+import { Keys } from "@paperbits/common/core/keys";
 import { GridItem } from "./gridItem";
 import { GridHelper } from "./gridHelper";
 import { ViewManager } from "../../ui/viewManager";
@@ -124,8 +125,8 @@ export class GridEditor {
             return;
         }
 
-        if (this.viewManager.mode !== ViewManagerMode.edit &&
-            this.viewManager.mode !== ViewManagerMode.select &&
+        if (this.viewManager.mode !== ViewManagerMode.selecting &&
+            this.viewManager.mode !== ViewManagerMode.selected &&
             this.viewManager.mode !== ViewManagerMode.configure) {
             return;
         }
@@ -206,11 +207,12 @@ export class GridEditor {
         }
 
         switch (this.viewManager.mode) {
-            case ViewManagerMode.edit:
+            case ViewManagerMode.selecting:
+            case ViewManagerMode.selected:
                 this.renderHighlightedElements();
                 break;
 
-            case ViewManagerMode.fold:
+            case ViewManagerMode.dragging:
                 this.renderDropHandlers();
 
                 break;
@@ -331,13 +333,13 @@ export class GridEditor {
     }
 
     private onKeyDown(event: KeyboardEvent): void {
-        if (this.viewManager.mode == ViewManagerMode.select && event.keyCode === 46 && this.selectedWidgetContextualEditor && this.selectedWidgetContextualEditor.deleteCommand) {
+        if (this.viewManager.mode == ViewManagerMode.selected && event.keyCode === Keys.Delete && this.selectedWidgetContextualEditor && this.selectedWidgetContextualEditor.deleteCommand) {
             this.selectedWidgetContextualEditor.deleteCommand.callback();
         }
     }
 
     private setWidgetEditorSession(widgetBinding: IWidgetBinding): void {
-        let editorSession: IEditorSession = {
+        const editorSession: IEditorSession = {
             component: {
                 name: widgetBinding.editor,
                 params: {},
@@ -352,7 +354,7 @@ export class GridEditor {
     }
 
     private onWindowScroll(): void {
-        if (this.viewManager.mode === ViewManagerMode.fold) {
+        if (this.viewManager.mode === ViewManagerMode.dragging) {
             return;
         }
 
@@ -387,7 +389,7 @@ export class GridEditor {
     }
 
     private renderHighlightedElements(): void {
-        if (this.scrolling || this.viewManager.mode !== ViewManagerMode.edit) {
+        if (this.scrolling || (this.viewManager.mode !== ViewManagerMode.selecting && this.viewManager.mode !== ViewManagerMode.selected)) {
             return;
         }
 
@@ -538,18 +540,8 @@ export class GridEditor {
                 position: "top right",
                 color: "#2b87da",
                 callback: () => {
-                    let widgetModel = GridHelper.getWidgetBinding(activeSectionElement);
-                    let editorSession: IEditorSession = {
-                        component: {
-                            name: widgetModel.editor,
-                            params: {},
-                            oncreate: (editorViewModel: IWidgetEditor) => {
-                                editorViewModel.setWidgetModel(widgetModel.model, widgetModel.applyChanges);
-                            }
-                        }
-                    }
-
-                    this.viewManager.setWidgetEditor(editorSession);
+                    const binding = GridHelper.getWidgetBinding(activeSectionElement);
+                    this.setWidgetEditorSession(binding);
                 }
             }]
         }
@@ -683,18 +675,8 @@ export class GridEditor {
                 position: "top right",
                 color: "#4c5866",
                 callback: () => {
-                    let widgetModel = GridHelper.getWidgetBinding(activeColumnElement);
-                    let editorSession: IEditorSession = {
-                        component: {
-                            name: widgetModel.editor,
-                            params: {},
-                            oncreate: (editorViewModel: IWidgetEditor) => {
-                                editorViewModel.setWidgetModel(widgetModel.model, widgetModel.applyChanges);
-                            }
-                        }
-                    }
-
-                    this.viewManager.setWidgetEditor(editorSession);
+                    const binding = GridHelper.getWidgetBinding(activeColumnElement);
+                    this.setWidgetEditorSession(binding);
                 }
             }]
         }
@@ -780,18 +762,8 @@ export class GridEditor {
                 position: "top right",
                 color: "#607d8b",
                 callback: () => {
-                    let widgetModel = GridHelper.getWidgetBinding(activeWidgetElement);
-                    let editorSession: IEditorSession = {
-                        component: {
-                            name: widgetModel.editor,
-                            params: {},
-                            oncreate: (editorViewModel: IWidgetEditor) => {
-                                editorViewModel.setWidgetModel(widgetModel.model, widgetModel.applyChanges);
-                            }
-                        }
-                    }
-
-                    this.viewManager.setWidgetEditor(editorSession);
+                    const binding = GridHelper.getWidgetBinding(activeWidgetElement);
+                    this.setWidgetEditorSession(binding);
                 }
             }]
         }
@@ -882,18 +854,8 @@ export class GridEditor {
                 iconClass: "icon icon-pen",
                 color: "#607d8b",
                 callback: () => {
-                    let widgetModel = GridHelper.getWidgetBinding(widgetElement);
-                    let editorSession: IEditorSession = {
-                        component: {
-                            name: widgetModel.editor,
-                            params: {},
-                            oncreate: (editorViewModel: IWidgetEditor) => {
-                                editorViewModel.setWidgetModel(widgetModel.model, widgetModel.applyChanges);
-                            }
-                        }
-                    }
-
-                    this.viewManager.setWidgetEditor(editorSession);
+                    const binding = GridHelper.getWidgetBinding(widgetElement);
+                    this.setWidgetEditorSession(binding);
                 }
             }]
         }

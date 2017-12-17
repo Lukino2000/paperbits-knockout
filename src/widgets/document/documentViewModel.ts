@@ -52,7 +52,7 @@ export class DocumentViewModel {
 
         this.layoutModel(null);
 
-        let layoutMode = this.viewManager.getCurrentJourney() == "Layouts";
+        let layoutMode = this.viewManager.journeyName() == "Layouts";
         let readonly = !layoutMode;
         let layoutModel = await this.layoutModelBinder.getLayoutModel(this.routeHandler.getCurrentUrl(), readonly);
         let layoutViewModel = this.layoutViewModelBinder.modelToViewModel(layoutModel, readonly);

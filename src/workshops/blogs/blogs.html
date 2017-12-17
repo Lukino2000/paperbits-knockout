@@ -1,14 +1,13 @@
 <div class="flex-container flex-container-column fit">
     <fieldset class="flex-item form">
-        <input class="form-control" type="search" data-bind="textInput: searchPattern" placeholder="Search blog posts..."
-        />
+        <input class="form-control" type="search" data-bind="textInput: searchPattern" placeholder="Search blog posts..." />
     </fieldset>
 
     <!-- ko if: !working() && blogPosts().length === 0 -->
 
     <!-- ko if: searchPattern() === "" -->
     <p class="flex-item flex-item-grow text-center">It seems that you don't have blog posts yet. Would you like to
-        <a href="#" data-bind="click: addBlogPost">create one</a>?
+        <a href="#" class="btn-link" data-bind="click: addBlogPost">create one</a>?
     </p>
     <!-- /ko -->
 

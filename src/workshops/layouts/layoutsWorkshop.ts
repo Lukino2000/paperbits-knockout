@@ -6,10 +6,9 @@ import { IPermalinkService } from '@paperbits/common/permalinks/IPermalinkServic
 import { IViewManager } from '@paperbits/common/ui/IViewManager';
 import { IFileService } from '@paperbits/common/files/IFileService';
 import { ILayoutService } from "@paperbits/common/layouts/ILayoutService";
+import { Keys } from "@paperbits/common/core/keys";
 import { LayoutItem } from "./layoutItem";
 import { Component } from "../../decorators/component";
-
-const DeleteKeyCode = 46; // TODO: Move to separate file;
 
 
 @Component({
@@ -43,7 +42,7 @@ export class LayoutsWorkshop {
         this.searchLayouts = this.searchLayouts.bind(this);
         this.addLayout = this.addLayout.bind(this);
         this.selectLayout = this.selectLayout.bind(this);
-        this.keydown = this.keydown.bind(this);
+        this.onKeyDown = this.onKeyDown.bind(this);
 
         // setting up...
         this.layouts = ko.observableArray<LayoutItem>();
@@ -58,12 +57,12 @@ export class LayoutsWorkshop {
 
     public async init(): Promise<void> {
         this.template = {
-            "kind" : "block",
-            "nodes" : [ {
-                "kind" : "block",
-                "type" : "page"
-            } ],
-            "type" : "layout"
+            "kind": "block",
+            "nodes": [{
+                "kind": "block",
+                "type": "page"
+            }],
+            "type": "layout"
         }
     }
 
@@ -79,19 +78,19 @@ export class LayoutsWorkshop {
 
     public selectLayout(layout: LayoutItem): void {
         this.selectedLayout(layout);
-        this.viewManager.openWorkshop("layout-details-workshop", layout);
+        this.viewManager.openWorkshop("Layout", "layout-details-workshop", layout);
     }
 
     public async addLayout(): Promise<void> {
         this.working(true);
-        let layout = await this.layoutService.createLayout("New Layout", "", LayoutItem.newLayoutUri);
-        let content = await this.fileService.createFile(this.template);
+        const layout = await this.layoutService.createLayout("New Layout", "", LayoutItem.newLayoutUri);
+        const content = await this.fileService.createFile(this.template);
 
         layout.contentKey = content.key;
 
         await this.layoutService.updateLayout(layout);
 
-        let layoutItem = new LayoutItem(layout);
+        const layoutItem = new LayoutItem(layout);
 
         this.layouts.push(layoutItem);
         this.selectLayout(layoutItem);
@@ -100,15 +99,16 @@ export class LayoutsWorkshop {
 
     public async deleteSelectedLayout(): Promise<void> {
         //TODO: Show confirmation dialog according to mockup
+        this.viewManager.closeWorkshop("layout-details-workshop");
+
         await this.layoutService.deleteLayout(this.selectedLayout().toLayout());
+        await this.searchLayouts();
 
         this.routeHandler.navigateTo("/");
-        this.viewManager.closeWorkshop("layout-details-workshop");
-        this.viewManager.openWorkshop("layouts");
     }
 
-    public keydown(item: LayoutItem, event: KeyboardEvent): void {
-        if (event.keyCode === DeleteKeyCode) {
+    public onKeyDown(item: LayoutItem, event: KeyboardEvent): void {
+        if (event.keyCode === Keys.Delete) {
             this.deleteSelectedLayout();
         }
     }

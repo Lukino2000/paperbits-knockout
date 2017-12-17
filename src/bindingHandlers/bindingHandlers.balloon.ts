@@ -2,6 +2,7 @@
 import * as ko from "knockout";
 import * as Utils from "@paperbits/common/core/utils";
 import { IEventManager } from "@paperbits/common/events/IEventManager";
+import { Keys } from "@paperbits/common/core/keys";
 
 const balloonActiveClassName = "balloon-is-active";
 
@@ -159,13 +160,13 @@ export class BalloonBindingHandler {
 
                 const onKeyDown = (event: KeyboardEvent): void => {
                     switch (event.keyCode) {
-                        case 13:
-                        case 32:
+                        case Keys.Enter:
+                        case Keys.Space:
                             event.preventDefault();
                             toggle();
                             break;
 
-                        case 27:
+                        case Keys.Esc:
                             if (options.isOpen && options.isOpen()) {
                                 // TODO: ViewManager should have stack of open editors, so they need to be closed one by one.
                                 options.isOpen(false);

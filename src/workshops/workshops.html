@@ -1,4 +1,4 @@
-<div class="toolbox toolbox-position-left workshops-container flex-container flex-container-row" data-bind="visible: viewManager.primaryToolboxVisible, resizable: 'vertically'">
+<div class="toolbox toolbox-position-left workshops-container flex-container flex-container-row" data-bind="visible: viewManager.primaryToolboxVisible">
     <ul class="flex-item toolbox-button-group toolbox-button-group-vertical">
         <li class="toolbox-button" data-bind="css: { 'toolbox-button-is-active': viewManager.journeyName() == 'Pages' }">
             <a href="#" title="Pages" role="button" data-bind="click: openPages">
@@ -39,16 +39,14 @@
     </ul>
 
     <!-- ko if: viewManager.journey().length > 0 -->
-    <div class="flex-container flex-container-column flex-item flex-item-grow workshop">
-        <div class="flex-item">
+    <div class="flex-container flex-item flex-item-grow workshop" data-bind="foreach: viewManager.journey()">
+        <div class="flex-item flex-item-grow flex-container flex-container-column workshop-journey-step">
             <h1>
-                <span data-bind="text: viewManager.journeyName"></span>
-                <a href="#" class="button pull-right" data-bind="click: closeJourney">✖</a>
+                <span data-bind="text: heading"></span>
+                <a href="#" class="button pull-right" data-bind="click: $component.closeWorkshop">✖</a>
             </h1>
             <hr />
-        </div>
-        <div class="flex-item flex-item-grow flex-container flex-container-row workshop-journey" data-bind="foreach: viewManager.journey()">
-            <div class="flex-item flex-item-grow workshop-journey-step" data-bind="component: { name: name, params: params }"></div>
+            <div class="flex-item flex-item-grow" data-bind="component: { name: component.name, params: component.params }"></div>
         </div>
     </div>
     <!-- /ko -->

@@ -1,16 +1,7 @@
 ﻿@import "variables.scss";
-
 @import "mixins.scss";
 
-.button-round {
-    border-radius: 50px;
-    width: 70px;
-    height: 70px;
-    border: 1px dashed #ccc;
-    display: inline-block;
-    font-weight: bold;
-}
-
+.btn,
 .button {
     border: none;
     background: none;
@@ -24,28 +15,25 @@
     vertical-align: middle;
     @include no-select;
 
-    &:hover,
-    &:focus {
+    &:focus,
+    &:hover {
         @include selection();
         outline: none;
         color: $color-base;
         cursor: pointer;
     }
-
-    &.button-tall {
-        .icon {
-            height: auto;
-            padding: 0;
-            padding-top: $workshop-button-height;
-            background-position: top center;
-        }
-    }
 }
 
+.btn-group,
 .button-group {
     padding-top: $workshop-padding;
 
     .button {
         margin-right: 20px;
     }
+}
+
+.btn-link {
+    color: #99C248;
+    text-decoration: none;
 }

@@ -38,10 +38,10 @@ export class LayoutDetailsWorkshop {
     }
 
     private async init(): Promise<void> {
-        this.layoutItem.title.extend({required: true});
+        this.layoutItem.title.extend({ required: true });
         this.layoutItem.title.subscribe(this.updateMetadata);
         this.layoutItem.description.subscribe(this.updateMetadata);
-        
+
         let uri = this.layoutItem.uriTemplate();
         this.isNotDefault = (uri !== "/");
         this.routeHandler.navigateTo(uri);
@@ -50,7 +50,7 @@ export class LayoutDetailsWorkshop {
     }
 
     private async updateMetadata(): Promise<void> {
-        if(this.layoutItem.title.isValid()) {
+        if (this.layoutItem.title.isValid()) {
             await this.layoutService.updateLayout(this.layoutItem.toLayout());
         }
     }
@@ -60,7 +60,5 @@ export class LayoutDetailsWorkshop {
         await this.layoutService.deleteLayout(this.layoutItem.toLayout());
 
         this.routeHandler.navigateTo("/");
-        this.viewManager.closeWorkshop("layout-details-workshop");
-        this.viewManager.openWorkshop("layouts");
     }
 }

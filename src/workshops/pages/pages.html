@@ -8,7 +8,7 @@
 
     <!-- ko if: searchPattern() === "" -->
     <p class="flex-item flex-item-grow text-center">It seems that you don't have pages yet. Would you like to
-        <a href="#" data-bind="click: addPage">create one</a>?
+        <a href="#" class="btn-link" data-bind="click: addPage">create one</a>?
     </p>
     <!-- /ko -->
 
@@ -26,7 +26,7 @@
 
         <li class="list-item" data-bind="css: { selected: hasFocus }">
             <i class="paperbits-icon paperbits-single-content-03"></i>
-            <a href="#" data-bind="click: $component.selectPage, text: title, hasFocus: hasFocus, event: { keydown: $component.keydown }"></a>
+            <a href="#" data-bind="click: $component.selectPage, text: title, hasFocus: hasFocus, event: { keydown: $component.onKeyDown }"></a>
         </li>
     </ul>
 

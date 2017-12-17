@@ -59,8 +59,5 @@ export class MediaDetailsWorkshop {
         //TODO: Show confirmation dialog according to mockup
         await this.mediaService.deleteMedia(this.mediaItem.toMedia());
         this.viewManager.notifySuccess("Media library", "File deleted");
-
-        this.viewManager.closeWorkshop("media-details-workshop");
-        this.viewManager.openWorkshop("media");
     }
 }

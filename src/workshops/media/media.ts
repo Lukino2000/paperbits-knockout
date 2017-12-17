@@ -9,11 +9,10 @@ import { IMedia } from "@paperbits/common/media/IMedia";
 import { ICreatedMedia } from "@paperbits/common/media/ICreatedMedia";
 import { IPermalinkService } from "@paperbits/common/permalinks/IPermalinkService";
 import { IWidgetOrder } from "@paperbits/common/editing/IWidgetOrder";
+import { Keys } from "@paperbits/common/core/keys";
 import { Component } from "../../decorators/component";
 import { IContentDescriptor } from "@paperbits/common/editing/IContentDescriptor";
 import { IEventManager } from "@paperbits/common/events/IEventManager";
-
-const DeleteKeyCode = 46; // TODO: Move to separate file;
 
 
 @Component({
@@ -91,7 +90,7 @@ export class MediaWorkshop {
 
     private findContentDescriptor(media: IMedia): IContentDescriptor {
         let result: IContentDescriptor;
-        
+
         for (let i = 0; i < this.dropHandlers.length; i++) {
             const handler = this.dropHandlers[i];
 
@@ -105,7 +104,7 @@ export class MediaWorkshop {
                 return result;
             }
         }
-        
+
         return result;
     }
 
@@ -146,7 +145,15 @@ export class MediaWorkshop {
     public selectMedia(mediaItem: MediaItem): void {
         mediaItem.hasFocus(true);
         this.selectedMediaItem(mediaItem);
-        this.viewManager.openWorkshop("media-details-workshop", mediaItem);
+        this.viewManager.openWorkshop("Media file", "media-details-workshop", mediaItem);
+    }
+
+    public async deleteSelectedMedia(): Promise<void> {
+        //TODO: Show confirmation dialog according to mockup
+        this.viewManager.closeWorkshop("media-details-workshop");
+
+        await this.mediaService.deleteMedia(this.selectedMediaItem().toMedia());
+        await this.searchMedia();
     }
 
     public onDragStart(item: MediaItem): HTMLElement {
@@ -173,5 +180,11 @@ export class MediaWorkshop {
         acceptorBinding.onDragDrop(dragSession);
 
         this.eventManager.dispatchEvent("virtualDragEnd");
+    }
+
+    public onKeyDown(item: MediaItem, event: KeyboardEvent): void {
+        if (event.keyCode === Keys.Delete) {
+            this.deleteSelectedMedia();
+        }
     }
 }

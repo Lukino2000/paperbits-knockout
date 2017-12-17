@@ -56,6 +56,5 @@ export class NavigationDetailsWorkshop {
 
     public deleteNavigationItem() {
         this.node.remove();
-        this.viewManager.closeWorkshop("navigation-details-workshop");
     }
 }

@@ -18,12 +18,12 @@ export class GridBindingHandler {
                 const gridEditor = new GridEditor(<any>viewManager, gridElement.ownerDocument, eventManager);
 
                 const observer = new MutationObserver(mutations => {
-                    if (viewManager.mode === ViewManagerMode.fold) {
+                    if (viewManager.mode === ViewManagerMode.dragging) {
                         return;
                     }
 
-                    const layoutModel = GridHelper.getModel(gridElement);
-                    layoutModelBinder.updateContent(layoutModel);
+                    // const layoutModel = GridHelper.getModel(gridElement);
+                    // layoutModelBinder.updateContent(layoutModel);
                 });
 
                 observer.observe(gridElement, {
@@ -45,12 +45,12 @@ export class GridBindingHandler {
         ko.bindingHandlers["content-grid"] = {
             init(gridElement: HTMLElement, valueAccessor) {
                 var observer = new MutationObserver(mutations => {
-                    if (viewManager.mode === ViewManagerMode.fold) {
+                    if (viewManager.mode === ViewManagerMode.dragging) {
                         return;
                     }
 
-                    let model = GridHelper.getModel(gridElement);
-                    pageModelBinder.updateContent(model);
+                    // let model = GridHelper.getModel(gridElement);
+                    // pageModelBinder.updateContent(model);
                 });
 
                 observer.observe(gridElement, {

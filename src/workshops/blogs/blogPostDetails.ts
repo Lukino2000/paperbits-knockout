@@ -49,7 +49,7 @@ export class BlogPostDetailsWorkshop {
         this.blogPostItem.permalinkUrl(permalink.uri);
         this.routeHandler.navigateTo(permalink.uri);
 
-        this.blogPostItem.title.extend({required: true});
+        this.blogPostItem.title.extend({ required: true });
         this.blogPostItem.title.subscribe(this.updateMetadata);
         this.blogPostItem.description.subscribe(this.updateMetadata);
         this.blogPostItem.keywords.subscribe(this.updateMetadata);
@@ -58,7 +58,7 @@ export class BlogPostDetailsWorkshop {
     }
 
     private async updateMetadata(): Promise<void> {
-        if(this.blogPostItem.title.isValid()) {
+        if (this.blogPostItem.title.isValid()) {
             await this.blogService.updateBlogPost(this.blogPostItem.toBlogPost());
         }
     }
@@ -68,7 +68,5 @@ export class BlogPostDetailsWorkshop {
         await this.blogService.deleteBlogPost(this.blogPostItem.toBlogPost());
 
         this.routeHandler.navigateTo("/");
-        this.viewManager.closeWorkshop("blog-post-details-workshop");
-        this.viewManager.openWorkshop("blogs");
     }
 }

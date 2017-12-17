@@ -28,17 +28,19 @@ export class LayoutViewModelBinder {
 
                 let widgetViewModel;
 
-                if (!readonly && widgetModel instanceof PageModel) {
-                    widgetViewModel = new PlaceholderViewModel();
+                // if (!readonly && widgetModel instanceof PageModel) {
+                //     widgetViewModel = new PlaceholderViewModel();
 
-                    widgetViewModel["widgetBinding"] = {
-                        readonly: readonly,
-                        model: new PlaceholderModel()
-                    }
-                }
-                else {
-                    widgetViewModel = widgetViewModelBinder.modelToViewModel(widgetModel, readonly);
-                }
+                //     widgetViewModel["widgetBinding"] = {
+                //         readonly: readonly,
+                //         model: new PlaceholderModel()
+                //     }
+                // }
+                // else {
+                //     widgetViewModel = widgetViewModelBinder.modelToViewModel(widgetModel, readonly);
+                // }
+
+                widgetViewModel = widgetViewModelBinder.modelToViewModel(widgetModel, readonly);
 
                 return widgetViewModel;
             })

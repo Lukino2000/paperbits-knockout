@@ -11,7 +11,7 @@
         <div class="droppedcontent-preview" data-bind="dragsource: { payload: $data, ondragstart: $parent.onDragStart, ondragend: $parent.onDragEnd }, background: background, lightbox: { url: previewUrl }">
         </div>
         <!--ko if: uploadables().length > 0 -->
-        <button class="button button-tall" data-bind="click: $parent.uploadContentAsMedia">
+        <button class="button" data-bind="click: $parent.uploadContentAsMedia">
             <i class="paperbits-icon paperbits-square-upload"></i>
             Upload to media library
         </button>

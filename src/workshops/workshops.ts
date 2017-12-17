@@ -3,6 +3,7 @@ import template from "./workshops.html";
 import { IViewManager } from '@paperbits/common/ui/IViewManager';
 import { Component } from "../decorators/component";
 import { IUserService } from "@paperbits/common/user/IUserService";
+import { IEditorSession } from "../../../paperbits-common/src/ui/IEditorSession";
 
 
 @Component({
@@ -22,7 +23,7 @@ export class Workshops {
         this.viewManager = viewManager;
         this.userService = userService;
 
-        this.closeJourney = this.closeJourney.bind(this);
+        this.closeWorkshop = this.closeWorkshop.bind(this);
 
         this.journey = ko.observable<string>();
         this.userPhotoUrl = ko.observable<string>(null);
@@ -36,40 +37,40 @@ export class Workshops {
     }
 
     public openLayouts(): void {
-        this.viewManager.newJourney("Layouts", "layouts");
-        this.journey("layouts");
+        this.viewManager.clearJourney();
+        this.viewManager.openWorkshop("Layouts", "layouts")
     }
 
     public openPages(): void {
-        this.viewManager.newJourney("Pages", "pages");
-        this.journey("pages");
+        this.viewManager.clearJourney();
+        this.viewManager.openWorkshop("Pages", "pages");
     }
 
     public openBlogs(): void {
-        this.viewManager.newJourney("Blog", "blogs");
-        this.journey("blogs");
+        this.viewManager.clearJourney();
+        this.viewManager.openWorkshop("Blog", "blogs");
     }
 
     public openMedia(): void {
-        this.viewManager.newJourney("Media", "media");
-        this.journey("media");
+        this.viewManager.clearJourney();
+        this.viewManager.openWorkshop("Media", "media");
     }
 
     public openNavigation(): void {
-        this.viewManager.newJourney("Navigation", "navigation");
-        this.journey("navigation");
+        this.viewManager.clearJourney();
+        this.viewManager.openWorkshop("Navigation", "navigation");
     }
 
     public openSettings(): void {
-        this.viewManager.newJourney("Site settings", "settings");
-        this.journey("settings");
+        this.viewManager.clearJourney();
+        this.viewManager.openWorkshop("Site settings", "settings");
     }
 
     public openProfile(): void {
        
     }
 
-    public closeJourney(): void {
-        this.viewManager.clearJourney();
+    public closeWorkshop(editorSession: IEditorSession): void {
+        this.viewManager.closeWorkshop(editorSession);
     }
 }
