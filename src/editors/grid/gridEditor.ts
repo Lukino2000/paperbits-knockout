@@ -90,30 +90,30 @@ export class GridEditor {
         }]
     }
 
-    private isModelBeingEdited(widgetModel: IWidgetBinding): boolean {
-        let session = this.viewManager.getWidgetEditorSession();
+    private isModelBeingEdited(binding: IWidgetBinding): boolean {
+        const session = this.viewManager.getWidgetEditorSession();
 
         if (!session) {
             return false;
         }
 
-        if (session.component.name !== widgetModel.editor) {
+        if (session.component.name !== binding.editor) {
             return false;
         }
 
         return true;
     }
 
-    private isModelSelected(widgetModel: IWidgetBinding): boolean {
-        let selectedElement = this.viewManager.getSelectedElement();
+    private isModelSelected(binding: IWidgetBinding): boolean {
+        const selectedElement = this.viewManager.getSelectedElement();
 
         if (!selectedElement) {
             return false;
         }
 
-        let selectedWidgetModel = GridHelper.getWidgetBinding(selectedElement.element);
+        const selectedBinding = GridHelper.getWidgetBinding(selectedElement.element);
 
-        if (widgetModel != selectedWidgetModel) {
+        if (binding != selectedBinding) {
             return false;
         }
 
@@ -338,16 +338,16 @@ export class GridEditor {
         }
     }
 
-    private setWidgetEditorSession(widgetBinding: IWidgetBinding): void {
+    private setWidgetEditorSession(binding: IWidgetBinding): void {
         const editorSession: IEditorSession = {
             component: {
-                name: widgetBinding.editor,
+                name: binding.editor,
                 params: {},
                 oncreate: (editorViewModel: IWidgetEditor) => {
-                    editorViewModel.setWidgetModel(widgetBinding.model, widgetBinding.applyChanges);
+                    editorViewModel.setWidgetModel(binding.model, binding.applyChanges);
                 }
             },
-            resize: widgetBinding.editorResize || "both"
+            resize: binding.editorResize || "both"
         }
 
         this.viewManager.setWidgetEditor(editorSession)
