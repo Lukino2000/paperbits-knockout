@@ -30,5 +30,6 @@
 .col-flex {
     display: flex;
     flex-wrap: wrap;
-    align-content: center;
+    align-content: start;
+    align-items: start;
 }
