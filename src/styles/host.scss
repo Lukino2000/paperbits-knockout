@@ -41,8 +41,9 @@
         padding-right: calc((100% - #{$breakpoint-sm - 1})/2);
     }
 
-
     &.viewport-zoomout .host {
         transform: scale(0.5);
+        transform-origin: center top 0;
+        height: 200%;
     }
 }

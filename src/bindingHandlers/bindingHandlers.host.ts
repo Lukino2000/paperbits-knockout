@@ -1,20 +1,31 @@
 ﻿import * as ko from "knockout";
 import * as Utils from "@paperbits/common/core/utils";
 import { GlobalEventHandler } from "@paperbits/common/events/globalEventHandler";
-import { IViewManager } from "@paperbits/common/ui/IViewManager";
+import { IViewManager, ViewManagerMode } from "@paperbits/common/ui/IViewManager";
 
 
 export class HostBindingHandler {
     constructor(globalEventHandler: GlobalEventHandler, viewManager: IViewManager) {
         ko.bindingHandlers["host"] = {
             init: (element: HTMLElement, valueAccessor: any) => {
-                let config = valueAccessor();
-                let css = ko.observable<string>("desktop");
+                const config = valueAccessor();
+                const css = ko.observable<string>("desktop");
 
                 ko.applyBindingsToNode(element, { css: css });
 
+                const hostElement: HTMLIFrameElement = document.createElement("iframe");
+                hostElement.src = "index-theme.html";
+                hostElement.classList.add("host");
+
                 config.viewport.subscribe((viewport) => {
+                    viewManager.mode = ViewManagerMode.selecting;
+                    
                     switch (viewport) {
+                        case "zoomout":
+                            css("viewport-zoomout");
+                            viewManager.mode = ViewManagerMode.zoomout;
+                            break;
+
                         case "xl":
                             css("viewport-xl");
                             break;
@@ -40,9 +51,6 @@ export class HostBindingHandler {
                     }
                 })
 
-                const hostElement: HTMLIFrameElement = document.createElement("iframe");
-                hostElement.src = "index-theme.html";
-                hostElement.classList.add("host");
 
                 const onPointerMove = (event) => {
                     const elements = Utils.elementsFromPoint(element.ownerDocument, event.clientX, event.clientY);

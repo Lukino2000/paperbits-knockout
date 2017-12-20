@@ -121,6 +121,12 @@ export class GridEditor {
     }
 
     private onPointerDown(event: PointerEvent): void {
+        if (this.viewManager.mode === ViewManagerMode.zoomout) {
+            event.preventDefault();
+            event.stopPropagation();
+            return;
+        }
+
         if (event.button !== 0) {
             return;
         }
@@ -197,6 +203,12 @@ export class GridEditor {
     }
 
     private onPointerMove(event: PointerEvent): void {
+        if (this.viewManager.mode === ViewManagerMode.zoomout) {
+            event.preventDefault();
+            event.stopPropagation();
+            return;
+        }
+
         this.pointerX = event.clientX;
         this.pointerY = event.clientY;
 
@@ -354,7 +366,7 @@ export class GridEditor {
     }
 
     private onWindowScroll(): void {
-        if (this.viewManager.mode === ViewManagerMode.dragging) {
+        if (this.viewManager.mode === ViewManagerMode.dragging || this.viewManager.mode === ViewManagerMode.zoomout) {
             return;
         }
 
