@@ -309,6 +309,7 @@ export class FormattingTools {
         const htmlEditor : IHtmlEditor = this.htmlEditorProvider.getCurrentHtmlEditor();
         const selectionState = htmlEditor.getSelectionState();
         let alignmentIndex: number;
+        alignmentIntention = alignmentIntention + "-" + viewport;
         //if alignment category is empty or it is a string (old data) then update entire categoty
         if (!selectionState.intentions.alignment || 
             (typeof selectionState.intentions.alignment === 'string')){
