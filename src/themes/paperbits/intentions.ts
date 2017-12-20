@@ -5,10 +5,10 @@
 class Alignment {
 
     constructor(viewPort: string) {
-        this["alignedLeft-" + viewPort] = (): string => "text-left-" + viewPort;
-        this["alignedRight-" + viewPort] = (): string => "text-right-" + viewPort;
-        this["alignedCenter-" + viewPort] = (): string => "text-center-" + viewPort;
-        this["justified-" + viewPort] = (): string => "text-justify-" + viewPort;
+        this["alignedLeft-" + viewPort] = (): string => "text-" + viewPort + "-left";
+        this["alignedRight-" + viewPort] = (): string => "text-" + viewPort + "-right";
+        this["alignedCenter-" + viewPort] = (): string => "text-" + viewPort + "-center";
+        this["justified-" + viewPort] = (): string => "text-" + viewPort + "-justify";
     }
 }
 
