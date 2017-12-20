@@ -15,9 +15,9 @@
     left: 0;
     bottom: 0;
     top: 0;
-    opacity: 0.5;
+    opacity: .5;
     border: 1px dashed #eee;
-    opacity: 0.5;
+    opacity: .5;
 }
 
 .widget-selection {
@@ -28,7 +28,14 @@
     }
 }
 
-paperbits-text, paperbits-picture, paperbits-code, paperbits-video-player, paperbits-audio-player, paperbits-youtube-player, paperbits-map, widget {
+paperbits-audio-player,
+paperbits-code,
+paperbits-map,
+paperbits-picture,
+paperbits-text,
+paperbits-video-player,
+paperbits-youtube-player,
+widget {
     display: block;
 
     &.dragged {
@@ -53,6 +60,7 @@ paperbits-text, paperbits-picture, paperbits-code, paperbits-video-player, paper
     position: fixed;
     pointer-events: none;
     z-index: $z-index-selection;
+
     &:before {
         content: attr(title);
         background: #3c3c3c;
@@ -78,7 +86,6 @@ paperbits-text, paperbits-picture, paperbits-code, paperbits-video-player, paper
     opacity: .5;
 }
 
-
 .empty-column {
     min-height: 150px;
     padding-top: 65px;
@@ -97,16 +104,20 @@ paperbits-text, paperbits-picture, paperbits-code, paperbits-video-player, paper
 }
 
 .button-standalone {
-    //@extend .animation-popin;
+    color: #ececec;
     display: inline-block;
-    background-color: #fff;
-    box-shadow: 0px 0px 5px 1px rgba(0, 0, 0, 0.15);
+    box-shadow: 0 0 5px 1px rgba(0, 0, 0, 0.15);
     border: none;
     border-radius: 50%;
     width: 30px;
     height: 30px;
     cursor: pointer;
     z-index: $z-index-selection+1;
+    line-height: 1em;
+
+    .paperbits-icon {
+        font-size: .9em;
+    }
 
     &:hover {
         transform: scale(1.2);

@@ -41,7 +41,9 @@
 
 <!-- ko foreach: { data: contextualEditors, as: 'contextualEditor' } -->
 <!-- ko if: contextualEditor.hoverCommand -->
-<button class="fixed button-standalone icon icon-plus-inverted" data-bind="stickTo: { target: element, position: hoverCommand.position }, balloon: { selector: '#ce-'+hoverCommand.component.name, position: 'top' }, background: { color: hoverCommand.color }, attr: { title: hoverCommand.tooltip }"></button>
+<button class="fixed button-standalone" data-bind="stickTo: { target: element, position: hoverCommand.position }, balloon: { selector: '#ce-'+hoverCommand.component.name, position: 'top' }, background: { color: hoverCommand.color }, attr: { title: hoverCommand.tooltip }">
+    <i class="paperbits-icon paperbits-simple-add"></i>
+</button>
 <div class="balloon" data-bind="attr: { id: 'ce-'+hoverCommand.component.name }, component: hoverCommand.component"></div>
 <!-- /ko -->
 <!-- /ko -->
@@ -60,8 +62,9 @@
 <!-- ko with: selectedElementContextualEditor() -->
 <div class="fixed" data-bind="stickTo: { target: element, position: 'top right' }">
     <!-- ko foreach: { data: selectionCommands, as: 'command' } -->
-
-    <button class="button-standalone icon icon-plus-inverted" data-bind="gridCommand: command"></button>
+    <button class="button-standalone" data-bind="gridCommand: command">
+        <i class="paperbits-icon" data-bind="css: command.iconClass"></i>
+    </button>
     <!-- ko if: command.component -->
     <div class="balloon" data-bind="attr: { id: 'sc-'+command.component.name }, component: command.component"></div>
     <!-- /ko -->
@@ -69,7 +72,9 @@
     <!-- /ko -->
 
     <!-- ko if: deleteCommand -->
-    <button class="button-standalone icon icon-trash-inverted" data-bind="click: deleteCommand.callback, background: { color: deleteCommand.color }, attr: { title: deleteCommand.tooltip }"></button>
+    <button class="button-standalone" data-bind="click: deleteCommand.callback, background: { color: deleteCommand.color }, attr: { title: deleteCommand.tooltip }">
+        <i class="paperbits-icon paperbits-trash-simple"></i>
+    </button>
     <!-- /ko -->
 </div>
 <!-- /ko -->

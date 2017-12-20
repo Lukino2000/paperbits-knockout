@@ -548,7 +548,7 @@ export class GridEditor {
             },
             selectionCommands: [{
                 tooltip: "Edit section",
-                iconClass: "icon icon-pen",
+                iconClass: "paperbits-edit-72",
                 position: "top right",
                 color: "#2b87da",
                 callback: () => {
@@ -683,7 +683,7 @@ export class GridEditor {
             },
             selectionCommands: [{
                 tooltip: "Edit column",
-                iconClass: "icon icon-pen",
+                iconClass: "paperbits-edit-72",
                 position: "top right",
                 color: "#4c5866",
                 callback: () => {
@@ -770,7 +770,7 @@ export class GridEditor {
             },
             selectionCommands: [{
                 tooltip: "Edit widget",
-                iconClass: "icon-pen",
+                iconClass: "paperbits-edit-72",
                 position: "top right",
                 color: "#607d8b",
                 callback: () => {
@@ -863,7 +863,7 @@ export class GridEditor {
             },
             {
                 tooltip: "Edit slider",
-                iconClass: "icon icon-pen",
+                iconClass: "paperbits-edit-72",
                 color: "#607d8b",
                 callback: () => {
                     const binding = GridHelper.getWidgetBinding(widgetElement);
