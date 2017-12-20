@@ -312,17 +312,17 @@ export class FormattingTools {
         //if alignment category is empty or it is a string (old data) then update entire categoty
         if (!selectionState.intentions.alignment || 
             (typeof selectionState.intentions.alignment === 'string')){
-            htmlEditor.toggleCategory("alignment", alignmentIntention + "-" + viewport, "block");
+            htmlEditor.toggleCategory("alignment", alignmentIntention, "block");
         //otherwise it is array; if it has category with current viewport - then replace it
         } else if ((alignmentIndex = selectionState.intentions.alignment.findIndex(a => a.endsWith(viewport))) >= 0){
             let newAlignment = JSON.parse(JSON.stringify(selectionState.intentions.alignment));
             newAlignment.splice(alignmentIndex, 1);
-            newAlignment.push(alignmentIntention + "-" + viewport)
+            newAlignment.push(alignmentIntention)
             htmlEditor.toggleCategory("alignment", newAlignment, "block");
         // otherwise append alignment with current viewport to the current category
         } else {
             let newAlignment = JSON.parse(JSON.stringify(selectionState.intentions.alignment));
-            newAlignment.push(alignmentIntention + "-" + viewport)
+            newAlignment.push(alignmentIntention)
             htmlEditor.toggleCategory("alignment", newAlignment, "block");
         }
         this.updateFormattingState();
