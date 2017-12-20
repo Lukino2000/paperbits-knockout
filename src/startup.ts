@@ -174,8 +174,6 @@ $(() => {
 
 
     /*** Autostart ***/
-    injector.resolve("formattingTools");
-    injector.resolve("hyperlinkTools");
     injector.resolve("contentBindingHandler");
     injector.resolve("gridBindingHandler");
     injector.resolve("lighboxBindingHandler");

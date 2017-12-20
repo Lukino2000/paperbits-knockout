@@ -15,9 +15,8 @@ export class Workshops {
     private readonly viewManager: IViewManager;
     private readonly userService: IUserService;
 
-    public journey: KnockoutObservable<string>;
     public userPhotoUrl: KnockoutObservable<string>;
-
+    public resizing: KnockoutComputed<string>;
 
     constructor(viewManager: IViewManager, userService: IUserService) {
         this.viewManager = viewManager;
@@ -25,49 +24,48 @@ export class Workshops {
 
         this.closeWorkshop = this.closeWorkshop.bind(this);
 
-        this.journey = ko.observable<string>();
         this.userPhotoUrl = ko.observable<string>(null);
+        this.resizing = ko.pureComputed(() => this.viewManager.journeyName() ? "all" : "all suspended");
 
-        this.init();
+        this.loadUserProfile();
     }
 
-    private async init(): Promise<void> {
+    private async loadUserProfile(): Promise<void> {
         const url = await this.userService.getUserPhotoUrl();
         this.userPhotoUrl(url);
     }
 
-    public openLayouts(): void {
+    private openWorkshop(label: string, componentName: string): void {
         this.viewManager.clearJourney();
-        this.viewManager.openWorkshop("Layouts", "layouts")
+        this.viewManager.openWorkshop(label, componentName);
+    }
+
+    public openLayouts(): void {
+        this.openWorkshop("Layouts", "layouts");
     }
 
     public openPages(): void {
-        this.viewManager.clearJourney();
-        this.viewManager.openWorkshop("Pages", "pages");
+        this.openWorkshop("Pages", "pages");
     }
 
     public openBlogs(): void {
-        this.viewManager.clearJourney();
-        this.viewManager.openWorkshop("Blog", "blogs");
+        this.openWorkshop("Blog", "blogs");
     }
 
     public openMedia(): void {
-        this.viewManager.clearJourney();
-        this.viewManager.openWorkshop("Media", "media");
+        this.openWorkshop("Media", "media");
     }
 
     public openNavigation(): void {
-        this.viewManager.clearJourney();
-        this.viewManager.openWorkshop("Navigation", "navigation");
+        this.openWorkshop("Navigation", "navigation");
     }
 
     public openSettings(): void {
-        this.viewManager.clearJourney();
-        this.viewManager.openWorkshop("Site settings", "settings");
+        this.openWorkshop("Site settings", "settings");
     }
 
     public openProfile(): void {
-       
+        // TODO:
     }
 
     public closeWorkshop(editorSession: IEditorSession): void {

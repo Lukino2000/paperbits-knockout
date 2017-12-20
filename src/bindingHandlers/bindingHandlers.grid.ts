@@ -22,8 +22,8 @@ export class GridBindingHandler {
                         return;
                     }
 
-                    // const layoutModel = GridHelper.getModel(gridElement);
-                    // layoutModelBinder.updateContent(layoutModel);
+                    const layoutModel = GridHelper.getModel(gridElement);
+                    layoutModelBinder.updateContent(layoutModel);
                 });
 
                 observer.observe(gridElement, {
@@ -49,8 +49,8 @@ export class GridBindingHandler {
                         return;
                     }
 
-                    // let model = GridHelper.getModel(gridElement);
-                    // pageModelBinder.updateContent(model);
+                    const model = GridHelper.getModel(gridElement);
+                    pageModelBinder.updateContent(model);
                 });
 
                 observer.observe(gridElement, {

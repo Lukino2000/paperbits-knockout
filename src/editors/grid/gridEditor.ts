@@ -359,7 +359,7 @@ export class GridEditor {
                     editorViewModel.setWidgetModel(binding.model, binding.applyChanges);
                 }
             },
-            resize: binding.editorResize || "both"
+            resize: binding.editorResize || "all"
         }
 
         this.viewManager.setWidgetEditor(editorSession)

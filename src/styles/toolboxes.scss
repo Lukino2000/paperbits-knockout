@@ -168,7 +168,13 @@ h1 {
         }
     }
 
-    &.h-resized {
+    &.resize-suspended {
+        .resize-handle {
+            pointer-events: none;
+        }
+    }
+
+    &.resized-vertically {
         .resizable-content {
             height: 100%;
         }

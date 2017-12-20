@@ -86,11 +86,11 @@ ko.bindingHandlers["surface"] = {
                         settings = JSON.parse(settingsString);
                     }
 
-                    if (editorSession.resize === "horizontally" || editorSession.resize === "both") {
+                    if (editorSession.resize === "horizontally" || editorSession.resize === "all") {
                         Utils.setValue(`${editorSession.component.name}/width`, settings, element.clientWidth);
                     }
 
-                    if (editorSession.resize === "vertically" || editorSession.resize === "both") {
+                    if (editorSession.resize === "vertically" || editorSession.resize === "all") {
                         Utils.setValue(`${editorSession.component.name}/height`, settings, element.clientHeight)
                     }
 

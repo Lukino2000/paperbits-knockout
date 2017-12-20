@@ -287,8 +287,8 @@ export class ComponentRegistrationEditors implements IInjectorModule {
 
         /*** Editors ***/
         injector.bindSingleton("htmlEditorProvider", HtmlEditorProvider);
-        injector.bindSingleton("formattingTools", FormattingTools);
-        injector.bindSingleton("hyperlinkTools", HyperlinkTools);
+        injector.bind("formattingTools", FormattingTools);
+        injector.bind("hyperlinkTools", HyperlinkTools);
         injector.bind("mapEditor", MapEditor);
         injector.bind("textblockEditor", TextblockEditor)
         injector.bind("audioPlayerEditor", AudioEditor);
