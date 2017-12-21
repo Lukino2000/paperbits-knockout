@@ -7,10 +7,30 @@
 .workshop {
     .workshop-journey-step {
         min-width: 300px;
-        padding: 0 10px;
+        padding: 0 20px;
+
+        &:first-child {
+            padding-left: 0;
+        }
+
+        &:last-child {
+            padding-right: 0;
+        }
 
         &:not(:last-child) {
-            margin-right: 10px;
+            position: relative;
+
+            &:after {
+                content: '';
+                position: absolute;
+                top: 40px;
+                bottom: 40px;
+                right: 0;
+                width: 1px;
+                border: 0;
+                background: #eceaea;
+                background: radial-gradient(#eceaea,white);
+            }
         }
 
         &:first-child {

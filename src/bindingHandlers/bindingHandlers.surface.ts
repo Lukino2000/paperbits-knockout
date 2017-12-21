@@ -21,7 +21,7 @@ ko.bindingHandlers["surface"] = {
 
                 if (Number.isInteger(editorSettings.height)) {
                     element.style.height = editorSettings.height + "px";
-                    element.classList.add("h-resized");
+                    element.classList.add("resized-vertically");
                 }
 
                 if (Number.isInteger(editorSettings.left)) {
