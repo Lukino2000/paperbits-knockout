@@ -127,6 +127,7 @@ export class BlogWorkshop {
 
     public selectBlogPost(blogpost: BlogPostItem): void {
         this.selectedBlogPost(blogpost);
+        this.viewManager.openWorkshop("Blog post", "blog-post-details-workshop", blogpost);
     }
 
     public async addBlogPost(): Promise<void> {
