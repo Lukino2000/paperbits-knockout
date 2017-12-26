@@ -90,7 +90,8 @@ export class PagesWorkshop {
     }
 
     public selectPage(page: PageItem): void {
-        this.selectedPage(page);
+        this.selectedPage(page);        
+        this.viewManager.setTitle(null, page.toPage());
         this.viewManager.openWorkshop("Page", "page-details-workshop", page);
     }
 

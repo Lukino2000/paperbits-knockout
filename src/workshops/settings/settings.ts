@@ -32,6 +32,7 @@ export class SettingsWorkshop {
     public title: KnockoutObservable<string>;
     public description: KnockoutObservable<string>;
     public keywords: KnockoutObservable<string>;
+    public author: KnockoutObservable<string>;
     public gmapsApiKey: KnockoutObservable<string>;
     public gtmContainerId: KnockoutObservable<string>;
     public intercomAppId: KnockoutObservable<string>;
@@ -61,6 +62,7 @@ export class SettingsWorkshop {
         this.title = ko.observable<string>();
         this.description = ko.observable<string>();
         this.keywords = ko.observable<string>();
+        this.author = ko.observable<string>();
         this.gmapsApiKey = ko.observable<string>();
         this.gtmContainerId = ko.observable<string>();
         this.intercomAppId = ko.observable<string>();
@@ -79,7 +81,8 @@ export class SettingsWorkshop {
         if (settings) {
             this.title(settings.site.title);
             this.description(settings.site.description);
-            this.keywords(settings.site.keywords);
+            this.keywords(settings.site.keywords);            
+            this.author(settings.site.author);
             this.faviconSourceKey(settings.site.faviconPermalinkKey);
             this.setFaviconUri(settings.site.faviconPermalinkKey);
 
@@ -100,6 +103,7 @@ export class SettingsWorkshop {
         this.title.subscribe(this.onSettingChange.bind(this));
         this.description.subscribe(this.onSettingChange.bind(this));
         this.keywords.subscribe(this.onSettingChange.bind(this));
+        this.author.subscribe(this.onSettingChange.bind(this));
         this.gmapsApiKey.subscribe(this.onSettingChange.bind(this));
         this.gtmContainerId.subscribe(this.onSettingChange.bind(this));
         this.intercomAppId.subscribe(this.onSettingChange.bind(this));
@@ -113,6 +117,7 @@ export class SettingsWorkshop {
                 description: this.description(),
                 keywords: this.keywords(),
                 faviconPermalinkKey: this.faviconSourceKey(),
+                author: this.author()
             },
             integration: {
                 intercom: {
@@ -129,6 +134,7 @@ export class SettingsWorkshop {
         }
 
         await this.siteService.setSiteSettings(config);
+        await this.viewManager.setTitle(config, null);
     }
 
     public onMediaSelected(media: IMedia): void {

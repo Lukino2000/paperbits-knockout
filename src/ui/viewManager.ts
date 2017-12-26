@@ -21,6 +21,10 @@ import { DragSession } from "@paperbits/common/ui/draggables/dragManager";
 import { ISplitterConfig } from "../bindingHandlers/bindingHandlers.splitter";
 import { IMedia } from "@paperbits/common/media/IMedia";
 import { ISiteService } from "@paperbits/common/sites/ISiteService";
+import { IPageService } from "@paperbits/common/pages/IPageService";
+import { IPermalinkService } from "@paperbits/common/permalinks/IPermalinkService";
+import { IPage } from "@paperbits/common/pages/IPage";
+import { ISettings } from "@paperbits/common/sites/ISettings";
 
 
 @Component({
@@ -33,11 +37,16 @@ export class ViewManager implements IViewManager {
     private readonly globalEventHandler: GlobalEventHandler;
     private readonly routeHandler: IRouteHandler;
     private readonly mediaService: IMediaService;
+    private readonly pageService: IPageService;
+    private readonly permalinkService: IPermalinkService;
     private readonly siteService: ISiteService;
     private contextualEditorsBag: IBag<IContextualEditor> = {};
 
+    private currentPage: IPage;
+
     public journey: KnockoutObservableArray<IEditorSession>;
     public journeyName: KnockoutComputed<string>;
+    
     public itemSelectorName: KnockoutObservable<string>;
     public progressIndicators: KnockoutObservableArray<ProgressIndicator>;
     public primaryToolboxVisible: KnockoutObservable<boolean>;
@@ -53,11 +62,14 @@ export class ViewManager implements IViewManager {
 
     public mode: ViewManagerMode;
 
-    constructor(eventManager: IEventManager, globalEventHandler: GlobalEventHandler, routeHandler: IRouteHandler, mediaService: IMediaService, siteService: ISiteService) {
+    constructor(eventManager: IEventManager, globalEventHandler: GlobalEventHandler, routeHandler: IRouteHandler, 
+                mediaService: IMediaService, pageService: IPageService, permalinkService: IPermalinkService, siteService: ISiteService) {
         this.eventManager = eventManager;
         this.globalEventHandler = globalEventHandler;
         this.routeHandler = routeHandler;
         this.mediaService = mediaService;
+        this.pageService = pageService;
+        this.permalinkService = permalinkService;
         this.siteService = siteService;
 
         // rebinding...
@@ -110,6 +122,7 @@ export class ViewManager implements IViewManager {
 
         eventManager.addEventListener("onEscape", this.closeWidgetEditor);
         this.loadFavIcon();
+        this.setTitle();
     }
 
     private onRouteChange(): void {
@@ -126,6 +139,65 @@ export class ViewManager implements IViewManager {
                 metaDataSetter.setFavIcon(iconFile.downloadUrl);
             }
         }
+    }
+
+    public async setTitle(settings?:ISettings, page?: IPage): Promise<void> {
+        let siteTitle, pageTitle;
+        if (settings && settings.site) {
+            siteTitle = settings.site.title;
+        } else {
+            let settings = await this.siteService.getSiteSettings();
+            if (settings && settings.site) {
+                siteTitle = settings.site.title;
+            }
+        }
+        if (!page) {
+            page = await this.getCurrentPage();
+            pageTitle = page.title;
+        }
+
+        let pageType;
+        pageType = this.getPageType(page.key);        
+        
+        switch (pageType) {
+            case "page":
+                pageTitle = page.title;
+                break;
+            case "post":
+                pageTitle = `Blog - ${page.title}`;
+                break;
+            case "news":
+                pageTitle = `News - ${page.title}`;
+                break;
+        }
+
+        document.title = [siteTitle, pageTitle].join(" | ");
+    }
+
+    private getPageType(pageKey: string) : string {
+        let pageType = "page";
+        if (pageKey.startsWith("posts")) {
+            pageType = "post";
+        }
+        if (pageKey.startsWith("news")) {
+            pageType = "news";
+        }
+        return pageType;
+    }
+
+    private async getCurrentPage() : Promise<IPage> {
+        let url = this.routeHandler.getCurrentUrl();
+        let permalink = await this.permalinkService.getPermalinkByUrl(url);
+        let pageKey = permalink.targetKey;
+        if (this.currentPage && this.currentPage.permalinkKey === pageKey) {
+            return this.currentPage;
+        }
+        this.currentPage = await this.pageService.getPageByKey(pageKey);
+        return this.currentPage;
+    }
+
+    public getCurrentJourney(): string {
+        return this.journeyName();
     }
 
     public addProgressIndicator(title: string, content: string): ProgressIndicator {

@@ -35,10 +35,11 @@ export class PageDetailsWorkshop {
         // rebinding...
         this.deletePage = this.deletePage.bind(this);
         this.updateMetadata = this.updateMetadata.bind(this);
+        this.updateTitle = this.updateTitle.bind(this);
 
         Validators.initPermalinkValidation();
 
-        this.pageItem.title.extend({ required: true }).subscribe(this.updateMetadata);
+        this.pageItem.title.extend({ required: true }).subscribe(this.updateTitle);
 
         this.pageItem.description.subscribe(this.updateMetadata);
 
@@ -59,11 +60,20 @@ export class PageDetailsWorkshop {
 
         Validators.setPermalinkValidatorWithUpdate(this.pageItem.permalinkUrl, this.pagePermalink, this.permalinkService);
     }
+    
+    private async updateTitle(): Promise<void> {
+        let isUpdated = await this.updateMetadata();
+        if (isUpdated) {
+            this.viewManager.setTitle(null, this.pageItem.toPage());
+        }
+    }
 
-    private async updateMetadata(): Promise<void> {
+    private async updateMetadata(): Promise<boolean> {
         if (this.pageItem.title.isValid() && this.pageItem.permalinkUrl.isValid()) {
             await this.pageService.updatePage(this.pageItem.toPage());
+            return true;
         }
+        return false;
     }
 
     public async deletePage(): Promise<void> {
