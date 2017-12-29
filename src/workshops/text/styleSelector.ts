@@ -2,8 +2,8 @@ import * as ko from "knockout";
 import template from "./styleSelector.html";
 import { Intention } from "@paperbits/common/ui/color";
 import { Component } from "../../decorators/component";
-import { IntentionMapService } from "@paperbits/slate/intentionMapService";
 import { IBag } from "@paperbits/common/core/IBag";
+import { IAppIntentionsProvider } from "../../application/interface";
 
 
 export interface IntentionItem {
@@ -21,22 +21,23 @@ export interface IntentionItem {
     injectable: "styleSelector"
 })
 export class StyleSelector {
-    private readonly intentionMapService: IntentionMapService;
+    private readonly intentionsProvider: IAppIntentionsProvider;
     private readonly selectedStyle: KnockoutObservable<Object>;
     private readonly setStyleCallback: Function;
 
     public intentions: IntentionItem[];
 
-    constructor(selectedStyle: KnockoutObservable<Object>, setStyleCallback: Function, intentionMapService: IntentionMapService) {
+    constructor(selectedStyle: KnockoutObservable<Object>, setStyleCallback: Function, 
+        intentionsProvider: IAppIntentionsProvider) {
         this.selectedStyle = selectedStyle;
         this.setStyleCallback = setStyleCallback;
-        this.intentionMapService = intentionMapService;
+        this.intentionsProvider = intentionsProvider;
 
         this.selectIntention = this.selectIntention.bind(this);
         this.onStyleChange = this.onStyleChange.bind(this);
 
         this.intentions = [];
-        let intentionMap = <any>this.intentionMapService.getMap();
+        let intentionMap = this.intentionsProvider.getIntentions();
 
         for (var key in intentionMap.text.style) {
             const intention = intentionMap.text.style[key];

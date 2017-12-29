@@ -1,6 +1,5 @@
 import { RowModel } from "@paperbits/common/widgets/row/rowModel";
 import { RowViewModel } from "./rowViewModel";
-import { IntentionMapService } from "@paperbits/slate/intentionMapService";
 import { ColumnViewModelBinder } from "../column/columnViewModelBinder";
 import { IViewModelBinder } from "@paperbits/common/widgets/IViewModelBinder";
 import { DragSession } from "@paperbits/common/ui/draggables/dragManager";
@@ -9,9 +8,8 @@ import { ColumnModel } from "@paperbits/common/widgets/column/columnModel";
 
 export class RowViewModelBinder implements IViewModelBinder {
     private readonly columnViewModelBinder: ColumnViewModelBinder;
-    private readonly intentionMapService: IntentionMapService;
 
-    constructor(columnViewModelBinder: ColumnViewModelBinder, intentionMapService: IntentionMapService) {
+    constructor(columnViewModelBinder: ColumnViewModelBinder) {
         this.columnViewModelBinder = columnViewModelBinder;
     }
 

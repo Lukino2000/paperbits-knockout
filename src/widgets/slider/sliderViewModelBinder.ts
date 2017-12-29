@@ -2,16 +2,16 @@ import { SliderModel } from "@paperbits/common/widgets/slider/sliderModel";
 import { SliderViewModel } from "./sliderViewModel";
 import { SlideViewModel } from "./slideViewModel";
 import { RowViewModelBinder } from "../row/rowViewModelBinder";
-import { IntentionMapService } from "@paperbits/slate/intentionMapService";
+import { IAppIntentionsProvider } from "../../application/interface";
 
 
 export class SliderViewModelBinder {
     private readonly rowViewModelBinder: RowViewModelBinder;
-    private readonly intentionMapService: IntentionMapService;
+    private readonly intentionsProvider: IAppIntentionsProvider;
 
-    constructor(rowViewModelBinder: RowViewModelBinder, intentionMapService: IntentionMapService) {
+    constructor(rowViewModelBinder: RowViewModelBinder, intentionsProvider: IAppIntentionsProvider) {
         this.rowViewModelBinder = rowViewModelBinder;
-        this.intentionMapService = intentionMapService;
+        this.intentionsProvider = intentionsProvider;
     }
 
     public modelToViewModel(model: SliderModel, readonly: boolean, viewModel?: SliderViewModel): SliderViewModel {
@@ -53,11 +53,11 @@ export class SliderViewModelBinder {
 
                 let classes = [];
                 let backgroundColorKey = slideModel.background.colorKey;
-                let intentionMap = <any>this.intentionMapService.getMap();
+                let intentionMap = this.intentionsProvider.getIntentions();
                 let backgroundIntention = intentionMap.container.background[backgroundColorKey];
 
                 if (!backgroundIntention) {
-                    backgroundIntention = intentionMap.container.background["section-bg-default"];
+                    backgroundIntention = intentionMap.container.background.section_bg_default;
                 }
                 classes.push(backgroundIntention.styles());
 

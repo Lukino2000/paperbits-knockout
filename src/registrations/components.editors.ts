@@ -77,7 +77,7 @@ import { YoutubeHandlers } from '../editors/youtube-player/youtubeHandlers';
 import { BlogSelector } from "../workshops/blogs/blogSelector";
 import { ViewportSelector } from "../workshops/viewports/viewport-selector";
 import { HostBindingHandler } from "../bindingHandlers/bindingHandlers.host";
-import { IntentionMapService } from "@paperbits/slate/intentionMapService";
+import { IAppIntentionsProvider } from "../application/interface";
 import { SliderEditor } from "../editors/slider/sliderEditor";
 import { SliderHandlers } from "../editors/slider/sliderHandlers";
 
@@ -225,12 +225,12 @@ export class ComponentRegistrationEditors implements IInjectorModule {
         });
 
         injector.bindComponent("colorSelector", (ctx: IInjector, params: {}) => {
-            let intentionMapService = ctx.resolve<IntentionMapService>("intentionMapService");
+            let intentionMapService = ctx.resolve<IAppIntentionsProvider>("intentionsProvider");
             return new ColorSelector(params["onSelect"], params["selectedColor"], intentionMapService);
         });
 
         injector.bindComponent("styleSelector", (ctx: IInjector, params: {}) => {
-            let intentionMapService = ctx.resolve<IntentionMapService>("intentionMapService");
+            let intentionMapService = ctx.resolve<IAppIntentionsProvider>("intentionsProvider");
             return new StyleSelector(params["selectedStyle"], params["setStyleCallback"], intentionMapService);
         });
 
