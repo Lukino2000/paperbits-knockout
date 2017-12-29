@@ -115,6 +115,7 @@ export class FormattingTools {
                 this.alignedCenter(false);
                 this.alignedRight(false);
                 this.justified(false);
+                return;
             }
             const alignInTheCurrentViewport = alignment.find(v => v.indexOf("." + viewport + ".") > -1);
             if (alignInTheCurrentViewport){
@@ -342,7 +343,7 @@ export class FormattingTools {
             (typeof selectionState.intentions.alignment === 'string')){
             htmlEditor.toggleCategory("alignment", alignmentIntention, "block");
         //otherwise it is array; if it has category with current viewport - then replace it
-        } else if ((alignmentIndex = selectionState.intentions.alignment.findIndex(a => a.endsWith(viewport))) >= 0){
+        } else if ((alignmentIndex = selectionState.intentions.alignment.findIndex(a => a.indexOf("alignment.viewports." + viewport) >= 0)) >= 0){
             let newAlignment = JSON.parse(JSON.stringify(selectionState.intentions.alignment));
             newAlignment.splice(alignmentIndex, 1);
             newAlignment.push(alignmentIntention)

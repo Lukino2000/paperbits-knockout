@@ -3,12 +3,12 @@ export var theme =
     text: {
         alignment: {
             "alignedLeft": "text-left",
-            "alignedRight": "text-left",
+            "alignedRight": "text-right",
             "alignedCenter": "text-center",
             "justified": "text-justify",
             "viewports": {
                 "alignedLeft": "text-%viewport%-left",
-                "alignedRight": "text-%viewport%-left",
+                "alignedRight": "text-%viewport%-right",
                 "alignedCenter": "text-%viewport%-center",
                 "justified": "text-%viewport%-justify"
             }
