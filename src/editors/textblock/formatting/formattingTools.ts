@@ -10,6 +10,8 @@ import { IRouteHandler } from "@paperbits/common/routing/IRouteHandler";
 import { IBag } from "@paperbits/common/core/IBag";
 import { IViewManager } from "@paperbits/common/ui/IViewManager";
 import { IHtmlEditor } from "../../../../../paperbits-common/src/editing/IHtmlEditor";
+import { IAppIntentionsProvider } from "../../../application/interface";
+import { Intentions } from "../../../application/codegen/intentionContracts";
 
 
 @Component({
@@ -24,6 +26,7 @@ export class FormattingTools {
     private readonly pageService: IPageService;
     private readonly routeHandler: IRouteHandler;
     private readonly viewManager: IViewManager;
+    private readonly intentions: Intentions;
 
     public bold: KnockoutObservable<boolean>;
     public italic: KnockoutObservable<boolean>;
@@ -46,13 +49,15 @@ export class FormattingTools {
         permalinkService: IPermalinkService, 
         pageService: IPageService, 
         routeHandler: IRouteHandler,
-        viewManager: IViewManager) {
+        viewManager: IViewManager,
+        intentionsProvider: IAppIntentionsProvider) {
 
         this.htmlEditorProvider = htmlEditorProvider;
         this.eventManager = eventManager;
         this.permalinkService = permalinkService;
         this.pageService = pageService;
         this.routeHandler = routeHandler;
+        this.intentions = intentionsProvider.getIntentions();
 
         this.updateFormattingState = this.updateFormattingState.bind(this);
         this.setStyle = this.setStyle.bind(this);
@@ -87,23 +92,43 @@ export class FormattingTools {
         this.ol(selectionState.ol);
         this.pre(selectionState.code);
 
-        if (!selectionState.intentions.alignment){
-            this.alignedLeft(true);
-            this.alignedCenter(false);
-            this.alignedRight(false);
-            this.justified(false);
-        }
-        else if (typeof selectionState.intentions.alignment === 'string'){
-            //To support legacy formt
-            this.alignedLeft(<string><any>selectionState.intentions.alignment == "alignedLeft");
-            this.alignedCenter(<string><any>selectionState.intentions.alignment == "alignedCenter");
-            this.alignedRight(<string><any>selectionState.intentions.alignment == "alignedRight");
-            this.justified(<string><any>selectionState.intentions.alignment == "justified");
+        const alignment: string[] = <any>selectionState.intentions.alignment
+
+        //To support legacy format
+        if (typeof alignment === 'string'){
+            if (!alignment){
+                this.alignedLeft(true);
+                this.alignedCenter(false);
+                this.alignedRight(false);
+                this.justified(false);
+            }
+            else { 
+                this.alignedLeft(<string><any>alignment == "alignedLeft");
+                this.alignedCenter(<string><any>alignment == "alignedCenter");
+                this.alignedRight(<string><any>alignment == "alignedRight");
+                this.justified(<string><any>alignment == "justified");
+            }
         } else {
-            this.alignedLeft(!!selectionState.intentions.alignment.find(v => v == "alignedLeft-" + viewport));
-            this.alignedCenter(!!selectionState.intentions.alignment.find(v => v == "alignedCenter-" + viewport));
-            this.alignedRight(!!selectionState.intentions.alignment.find(v => v == "alignedRight-" + viewport));
-            this.justified(!!selectionState.intentions.alignment.find(v => v == "justified-" + viewport));
+            const aligned = alignment && alignment.find(v => v.startsWith("text.alignment"));
+            if (!aligned){
+                this.alignedLeft(true);
+                this.alignedCenter(false);
+                this.alignedRight(false);
+                this.justified(false);
+            }
+            const alignInTheCurrentViewport = alignment.find(v => v.indexOf("." + viewport + ".") > -1);
+            if (alignInTheCurrentViewport){
+                this.alignedLeft(!!alignment.find(v => v.endsWith(viewport + ".alignedLeft")));
+                this.alignedCenter(!!alignment.find(v => v.endsWith(viewport + ".alignedCenter")));
+                this.alignedRight(!!alignment.find(v => v.endsWith(viewport + ".alignedRight")));
+                this.justified(!!alignment.find(v => v.endsWith(viewport + ".justified")));
+            }
+            else{
+                this.alignedLeft(!!alignment.find(v => v.endsWith("text.alignment.")));
+                this.alignedCenter(!!alignment.find(v => v.startsWith("text.alignment.alignedCenter")));
+                this.alignedRight(!!alignment.find(v => v.startsWith("text.alignment.alignedRight")));
+                this.justified(!!alignment.find(v => v.startsWith("text.alignment.justified")));
+            }
         }
         this.anchored(!!selectionState.intentions.anchorKey);
 
@@ -309,20 +334,23 @@ export class FormattingTools {
         const htmlEditor : IHtmlEditor = this.htmlEditorProvider.getCurrentHtmlEditor();
         const selectionState = htmlEditor.getSelectionState();
         let alignmentIndex: number;
+        alignmentIntention = viewport ? 
+            this.intentions.text.alignment.viewports[viewport][alignmentIntention].fullId :
+            this.intentions.text.alignment[alignmentIntention].fullId;
         //if alignment category is empty or it is a string (old data) then update entire categoty
         if (!selectionState.intentions.alignment || 
             (typeof selectionState.intentions.alignment === 'string')){
-            htmlEditor.toggleCategory("alignment", alignmentIntention + "-" + viewport, "block");
+            htmlEditor.toggleCategory("alignment", alignmentIntention, "block");
         //otherwise it is array; if it has category with current viewport - then replace it
         } else if ((alignmentIndex = selectionState.intentions.alignment.findIndex(a => a.endsWith(viewport))) >= 0){
             let newAlignment = JSON.parse(JSON.stringify(selectionState.intentions.alignment));
             newAlignment.splice(alignmentIndex, 1);
-            newAlignment.push(alignmentIntention + "-" + viewport)
+            newAlignment.push(alignmentIntention)
             htmlEditor.toggleCategory("alignment", newAlignment, "block");
         // otherwise append alignment with current viewport to the current category
         } else {
             let newAlignment = JSON.parse(JSON.stringify(selectionState.intentions.alignment));
-            newAlignment.push(alignmentIntention + "-" + viewport)
+            newAlignment.push(alignmentIntention)
             htmlEditor.toggleCategory("alignment", newAlignment, "block");
         }
         this.updateFormattingState();

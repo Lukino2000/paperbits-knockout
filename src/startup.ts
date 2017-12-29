@@ -16,15 +16,13 @@ import { FirebaseModule } from "@paperbits/common/firebase/firebase.module";
 import { GlobalEventHandler } from "@paperbits/common/events/globalEventHandler";
 import { IEventManager } from "@paperbits/common/events/IEventManager";
 import { SlateModule } from "@paperbits/slate/slate.module";
-import { IntentionMapService } from "@paperbits/slate/intentionMapService";
 import { IModelBinder } from "@paperbits/common/editing/IModelBinder";
 import { ModelBinderSelector } from "@paperbits/common/widgets/modelBinderSelector";
 
 // import { intentions } from "./themes/hostmeapp/intentions";
 // import { ThemeModule } from "./themes/hostmeapp/scripts/theme.module";
-
-import { intentions } from "./themes/paperbits/intentions";
 import { ThemeModule } from "./themes/paperbits/scripts/theme.module";
+import { theme } from "./application/theme";
 
 import { PageViewModelBinder } from "./widgets/page/pageViewModelBinder";
 import { LayoutViewModelBinder } from "./widgets/layout/layoutViewModelBinder";
@@ -61,12 +59,17 @@ import { Substitute8ModelBinder } from "./widgets/substitute8/substitute8ModelBi
 import { Substitute8ViewModelBinder } from "./widgets/substitute8/substitute8ViewModelBinder";
 import { OfflineObjectStorage } from "@paperbits/common/persistence/offlineObjectStorage";
 import { AnchorMiddleware } from "@paperbits/common/persistence/AnchorMiddleware";
+import { IntentionsBuilder } from "@paperbits/common/appearence/intentionsBuilder";
+import { IntentionsProvider } from "./application/intentionsProvider";
+import { IIntentionsBuilder } from "@paperbits/common/appearence/intention";
 
 
 $(() => {
     var injector = new InversifyInjector();
 
-    injector.bindInstance("intentionMapService", new IntentionMapService(intentions));
+    const intentionsBuilder: IIntentionsBuilder = new IntentionsBuilder(theme);
+    injector.bindInstance("intentionsProvider", new IntentionsProvider(intentionsBuilder));
+
     injector.bindModule(new SlateModule());
     injector.bindModule(new ComponentRegistrationCommon());
     injector.bindModule(new ComponentRegistrationEditors());

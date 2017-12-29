@@ -1,7 +1,7 @@
 ﻿import * as $ from "jquery/dist/jquery";
 import * as ko from "knockout";
 import { BackgroundModel } from "@paperbits/common/widgets/background/backgroundModel";
-import { IntentionMapService } from "../../../paperbits-slate/src/intentionMapService";
+import { IAppIntentionsProvider } from "../application/interface";
 
 ko.bindingHandlers["style"] = {
     update(element, valueAccessor) {
@@ -21,8 +21,8 @@ ko.bindingHandlers["style"] = {
 };
 
 export class BackgroundBindingHandler {
-    constructor(intentionMapService: IntentionMapService) {
-        const intentionMap = <any>intentionMapService.getMap();
+    constructor(intentionsProvider: IAppIntentionsProvider) {
+        const intentions = intentionsProvider.getIntentions();
 
         ko.bindingHandlers["background"] = {
             init(element: HTMLElement, valueAccessor) {
@@ -42,7 +42,7 @@ export class BackgroundBindingHandler {
                     const css = [];
 
                     if (backgroundModel.colorKey) {
-                        const colorIntention = intentionMap.container.background[backgroundModel.colorKey];
+                        const colorIntention = intentions.container.background[backgroundModel.colorKey];
 
                         if (colorIntention) {
                             css.push(colorIntention.styles());

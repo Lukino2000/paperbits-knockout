@@ -13,7 +13,6 @@ import { SectionModel } from "@paperbits/common/widgets/section/sectionModel";
 import { IEventManager } from '@paperbits/common/events/IEventManager';
 import { Component } from "../../decorators/component";
 import { BackgroundModel } from "@paperbits/common/widgets/background/backgroundModel";
-import { IntentionMapService } from "../../../../paperbits-slate/src/intentionMapService";
 
 
 @Component({

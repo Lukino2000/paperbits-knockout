@@ -21,7 +21,7 @@ import { KnockoutRegistrationWidgets } from "../src/registrations/knockout.widge
 import { KnockoutRegistrationLoaders } from "./knockout.loaders";
 import { ComponentRegistrationNode } from "./components.node";
 import { StaticSettingsProvider } from "./staticSettingsProvider";
-import { intentions } from "../src/themes/hostmeapp/intentions";
+import { intentionsBuilder } from "../src/application/intentions";
 import { IModelBinder } from "@paperbits/common/editing/IModelBinder";
 import { ModelBinderSelector } from "@paperbits/common/widgets/modelBinderSelector";
 import { IntentionMapService } from "@paperbits/slate/intentionMapService";
@@ -93,8 +93,10 @@ export async function publish(): Promise<void> {
     };
 
     const injector = new InversifyInjector();
+    console.log(intentionsBuilder.build());
+    console.log(intentionsBuilder.generateContracts());
 
-    injector.bindInstance("intentionMapService", new IntentionMapService(intentions));
+    injector.bindInstance("intentionMapService", new IntentionMapService(intentionsBuilder.build()));
     injector.bindModule(new SlateModule());
     injector.bindModule(new ComponentRegistrationCommon());
     injector.bindModule(new KnockoutRegistrationCommon());

@@ -1,17 +1,17 @@
 import { SectionModel } from "@paperbits/common/widgets/section/sectionModel";
 import { SectionViewModel } from "./sectionViewModel";
-import { IntentionMapService } from "@paperbits/slate/intentionMapService";
 import { RowViewModelBinder } from "../row/rowViewModelBinder";
 import { IViewModelBinder } from "@paperbits/common/widgets/IViewModelBinder";
 import { DragSession } from "@paperbits/common/ui/draggables/dragManager";
+import { IAppIntentionsProvider } from "../../application/interface";
 
 export class SectionViewModelBinder implements IViewModelBinder {
     private readonly rowViewModelBinder: RowViewModelBinder;
-    private readonly intentionMapService: IntentionMapService;
+    private readonly intentionsProvider: IAppIntentionsProvider;
 
-    constructor(rowViewModelBinder: RowViewModelBinder, intentionMapService: IntentionMapService) {
+    constructor(rowViewModelBinder: RowViewModelBinder, intentionsProvider: IAppIntentionsProvider) {
         this.rowViewModelBinder = rowViewModelBinder;
-        this.intentionMapService = intentionMapService;
+        this.intentionsProvider = intentionsProvider;
     }
 
     public modelToViewModel(model: SectionModel, readonly: boolean, sectionViewModel?: SectionViewModel): SectionViewModel {
@@ -32,13 +32,13 @@ export class SectionViewModelBinder implements IViewModelBinder {
 
         if (model.background) {
             let backgroundColorKey = model.background.colorKey;
-            let intentionMap = <any>this.intentionMapService.getMap();
+            let intentions = this.intentionsProvider.getIntentions();
 
             // TODO: Review background usage.
-            let backgroundIntention = intentionMap.container.background[backgroundColorKey];
-
+            let backgroundIntention = intentions.container.background[backgroundColorKey];
+``
             if (!backgroundIntention) {
-                backgroundIntention = intentionMap.container.background["section-bg-default"];
+                backgroundIntention = intentions.container.background.section_bg_default;
             }
             sectionClasses.push(backgroundIntention.styles());
         }
