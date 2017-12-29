@@ -12,7 +12,7 @@ import { ComponentRegistrationEditors } from "./registrations/components.editors
 import { KnockoutRegistrationCommon } from "./registrations/knockout.common";
 import { KnockoutRegistrationWidgets } from "./registrations/knockout.widgets";
 import { KnockoutRegistrationLoaders } from "./registrations/knockout.loaders";
-import { FirebaseModule } from "@paperbits/common/firebase/firebase.module";
+import { FirebaseModule } from "@paperbits/firebase/firebase.module";
 import { GlobalEventHandler } from "@paperbits/common/events/globalEventHandler";
 import { IEventManager } from "@paperbits/common/events/IEventManager";
 import { SlateModule } from "@paperbits/slate/slate.module";
