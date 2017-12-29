@@ -337,15 +337,6 @@ export class FormattingTools {
         const htmlEditor: IHtmlEditor = this.htmlEditorProvider.getCurrentHtmlEditor();
         const selectionState = htmlEditor.getSelectionState();
         let alignmentIndex: number;
-<<<<<<< HEAD
-        alignmentIntention = alignmentIntention + "-" + viewport;
-        //if alignment category is empty or it is a string (old data) then update entire categoty
-        if (!selectionState.intentions.alignment ||
-            (typeof selectionState.intentions.alignment === 'string')) {
-            htmlEditor.toggleCategory("alignment", alignmentIntention, "block");
-            //otherwise it is array; if it has category with current viewport - then replace it
-        } else if ((alignmentIndex = selectionState.intentions.alignment.findIndex(a => a.endsWith(viewport))) >= 0) {
-=======
         alignmentIntention = viewport ? 
             this.intentions.text.alignment.viewports[viewport][alignmentIntention].fullId :
             this.intentions.text.alignment[alignmentIntention].fullId;
@@ -355,7 +346,6 @@ export class FormattingTools {
             htmlEditor.toggleCategory("alignment", alignmentIntention, "block");
         //otherwise it is array; if it has category with current viewport - then replace it
         } else if ((alignmentIndex = selectionState.intentions.alignment.findIndex(a => a.indexOf("alignment.viewports." + viewport) >= 0)) >= 0){
->>>>>>> intentions-codegen
             let newAlignment = JSON.parse(JSON.stringify(selectionState.intentions.alignment));
             newAlignment.splice(alignmentIndex, 1);
             newAlignment.push(alignmentIntention)
