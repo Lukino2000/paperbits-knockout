@@ -9,7 +9,7 @@ import { IInjector, IInjectorModule } from "@paperbits/common/injection";
 import { ISiteSettings } from "@paperbits/common/sites/ISettings";
 
 import { InversifyInjector } from "@paperbits/common/injection/inversifyInjector";
-import { FirebaseModule } from "@paperbits/common/firebase/firebase.module";
+import { FirebaseModule } from "@paperbits/firebase/firebase.module";
 //import { GithubRegistration } from "@paperbits/common/github/registrations.github";
 import { ISiteService } from "@paperbits/common/sites/ISiteService";
 import { ISettingsProvider, Settings } from "@paperbits/common/configuration/ISettingsProvider";
