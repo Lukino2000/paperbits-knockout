@@ -21,10 +21,12 @@ import { KnockoutRegistrationWidgets } from "../src/registrations/knockout.widge
 import { KnockoutRegistrationLoaders } from "./knockout.loaders";
 import { ComponentRegistrationNode } from "./components.node";
 import { StaticSettingsProvider } from "./staticSettingsProvider";
-import { intentionsBuilder } from "../src/application/intentions";
 import { IModelBinder } from "@paperbits/common/editing/IModelBinder";
 import { ModelBinderSelector } from "@paperbits/common/widgets/modelBinderSelector";
-import { IntentionMapService } from "@paperbits/slate/intentionMapService";
+import { IntentionsProvider } from "../src/application/intentionsProvider";
+import { IntentionsBuilder } from "@paperbits/common/appearence/intentionsBuilder";
+import { IIntentionsBuilder } from "@paperbits/common/appearence/intention";
+import { theme } from "../src/application/theme";
 
 import { PageViewModelBinder } from "../src/widgets/page/pageViewModelBinder";
 import { LayoutViewModelBinder } from "../src/widgets/layout/layoutViewModelBinder";
@@ -93,10 +95,12 @@ export async function publish(): Promise<void> {
     };
 
     const injector = new InversifyInjector();
-    console.log(intentionsBuilder.build());
-    console.log(intentionsBuilder.generateContracts());
+    // console.log(intentionsBuilder.build());
+    // console.log(intentionsBuilder.generateContracts());
 
-    injector.bindInstance("intentionMapService", new IntentionMapService(intentionsBuilder.build()));
+    const intentionsBuilder: IIntentionsBuilder = new IntentionsBuilder(theme);
+    injector.bindInstance("intentionsProvider", new IntentionsProvider(intentionsBuilder));
+
     injector.bindModule(new SlateModule());
     injector.bindModule(new ComponentRegistrationCommon());
     injector.bindModule(new KnockoutRegistrationCommon());
