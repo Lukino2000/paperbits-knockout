@@ -5,6 +5,7 @@ import { IViewModelBinder } from "@paperbits/common/widgets/IViewModelBinder";
 import { DragSession } from "@paperbits/common/ui/draggables/dragManager";
 import { IAppIntentionsProvider } from "../../application/interface";
 
+
 export class SectionViewModelBinder implements IViewModelBinder {
     private readonly rowViewModelBinder: RowViewModelBinder;
     private readonly intentionsProvider: IAppIntentionsProvider;
@@ -14,9 +15,9 @@ export class SectionViewModelBinder implements IViewModelBinder {
         this.intentionsProvider = intentionsProvider;
     }
 
-    public modelToViewModel(model: SectionModel, readonly: boolean, sectionViewModel?: SectionViewModel): SectionViewModel {
-        if (!sectionViewModel) {
-            sectionViewModel = new SectionViewModel();
+    public modelToViewModel(model: SectionModel, readonly: boolean, existingViewModel?: SectionViewModel): SectionViewModel {
+        if (!existingViewModel) {
+            existingViewModel = new SectionViewModel();
         }
 
         const rowViewModels = model.rows.map(rowModel => {
@@ -24,11 +25,16 @@ export class SectionViewModelBinder implements IViewModelBinder {
             return rowViewModel;
         })
 
-        sectionViewModel.rows(rowViewModels);
-        sectionViewModel.layout(model.layout);
-        sectionViewModel.background(model.background);
+        existingViewModel.rows(rowViewModels);
+        existingViewModel.layout(model.layout);
+        existingViewModel.background(model.background);
 
         const sectionClasses = [];
+
+        /*
+            TODO: What we do here is, in fact, converting intentions to classes.
+            Most of the Box styling can be defined through universal intentions, e.g. background.
+        */
 
         if (model.background) {
             let backgroundColorKey = model.background.colorKey;
@@ -43,6 +49,7 @@ export class SectionViewModelBinder implements IViewModelBinder {
             sectionClasses.push(backgroundIntention.styles());
         }
 
+        
         if (model.padding === "with-padding") {
             sectionClasses.push("with-padding");
         }
@@ -61,7 +68,7 @@ export class SectionViewModelBinder implements IViewModelBinder {
                 throw `Unkown snap value "${model.snap}".`;
         }
 
-        sectionViewModel.css(sectionClasses.join(" "));
+        existingViewModel.css(sectionClasses.join(" "));
 
         const binding = {
             displayName: "Section",
@@ -70,13 +77,13 @@ export class SectionViewModelBinder implements IViewModelBinder {
             flow: "liquid",
             editor: "layout-section-editor",
             applyChanges: () => {
-                this.modelToViewModel(model, readonly, sectionViewModel);
+                this.modelToViewModel(model, readonly, existingViewModel);
             }
         }
 
-        sectionViewModel["widgetBinding"] = binding;
+        existingViewModel["widgetBinding"] = binding;
 
-        return sectionViewModel;
+        return existingViewModel;
     }
 
     public canHandleModel(model: SectionModel): boolean {

@@ -10,6 +10,7 @@ import { IRouteHandler } from '@paperbits/common/routing/IRouteHandler';
 import { IViewManager } from '@paperbits/common/ui/IViewManager';
 import { IWidgetHandler } from '@paperbits/common/editing/IWidgetHandler';
 import { IWidgetService } from "@paperbits/common/widgets/IWidgetService";
+import { IBlockService } from "@paperbits/common/blocks/IBlockService";
 import { PermalinkResolver } from "@paperbits/common/permalinks/permalinkResolver";
 import { MediaPermalinkResolver } from "@paperbits/common/media/mediaPermalinkResolver";
 import { IPermalinkResolver } from "@paperbits/common/permalinks/IPermalinkResolver";
@@ -76,10 +77,12 @@ import { Workshops } from '../workshops/workshops';
 import { YoutubeHandlers } from '../editors/youtube-player/youtubeHandlers';
 import { BlogSelector } from "../workshops/blogs/blogSelector";
 import { ViewportSelector } from "../workshops/viewports/viewport-selector";
+import { BlockSelector } from "../workshops/blocks/blockSelector";
 import { HostBindingHandler } from "../bindingHandlers/bindingHandlers.host";
 import { IAppIntentionsProvider } from "../application/interface";
 import { SliderEditor } from "../editors/slider/sliderEditor";
 import { SliderHandlers } from "../editors/slider/sliderHandlers";
+import { ModelBinderSelector } from "@paperbits/common/widgets/modelBinderSelector";
 
 
 export class ComponentRegistrationEditors implements IInjectorModule {
@@ -246,7 +249,8 @@ export class ComponentRegistrationEditors implements IInjectorModule {
         });
 
         injector.bindComponent("sectionLayoutSelector", (ctx: IInjector, params: {}) => {
-            return new SectionLayoutSelector(params["onSelect"]);
+            const modelBinderSelector = ctx.resolve<ModelBinderSelector>("modelBinderSelector");
+            return new SectionLayoutSelector(params["onSelect"], modelBinderSelector);
         });
 
         injector.bindComponent("widgetSelector", (ctx: IInjector, params: {}) => {
@@ -256,6 +260,11 @@ export class ComponentRegistrationEditors implements IInjectorModule {
 
         injector.bindComponent("urlSelector", (ctx: IInjector, params: {}) => {
             return new UrlSelector(params["onSelect"]);
+        });
+
+        injector.bindComponent("blockSelector", (ctx: IInjector, params: {}) => {
+            var blockService = ctx.resolve<IBlockService>("blockService");
+            return new BlockSelector(blockService, params["onSelect"]);
         });
 
         injector.bind("pageHyperlinkProvider", PageHyperlinkProvider);

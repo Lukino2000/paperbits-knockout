@@ -12,8 +12,8 @@ import { LayoutModelBinder } from "@paperbits/common/widgets/layout/layoutModelB
 import { LayoutViewModelBinder } from "../widgets/layout/layoutViewModelBinder";
 import { metaDataSetter } from "@paperbits/common/meta/metaDataSetter";
 import { IMediaService } from "@paperbits/common/media/IMediaService";
-import { ISiteSettings, ISettings } from "../../../paperbits-common/src/sites/ISettings";
-import { IMedia } from "../../../paperbits-common/src/media/IMedia";
+import { ISiteSettings, ISettings } from "@paperbits/common/sites/ISettings";
+import { IMedia } from "@paperbits/common/media/IMedia";
 import { resolve } from "path";
 
 export class PagePublisher implements IPublisher {

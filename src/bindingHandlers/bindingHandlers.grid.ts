@@ -12,11 +12,10 @@ import { ColumnModel } from "@paperbits/common/widgets/column/columnModel";
 export class GridBindingHandler {
     constructor(viewManager: IViewManager, eventManager: IEventManager, pageModelBinder: PageModelBinder, layoutModelBinder: LayoutModelBinder) {
         ko.bindingHandlers["layout-grid"] = {
-            init(gridElement: HTMLElement, valueAccessor) {
-                const options = valueAccessor();
-
+            init(gridElement: HTMLElement) {
                 const gridEditor = new GridEditor(<any>viewManager, gridElement.ownerDocument, eventManager);
 
+                // TODO: Replace active observer with some reactive logic.
                 const observer = new MutationObserver(mutations => {
                     if (viewManager.mode === ViewManagerMode.dragging) {
                         return;
@@ -43,8 +42,9 @@ export class GridBindingHandler {
         }
 
         ko.bindingHandlers["content-grid"] = {
-            init(gridElement: HTMLElement, valueAccessor) {
-                var observer = new MutationObserver(mutations => {
+            init(gridElement: HTMLElement) {
+                // TODO: Replace active observer with some reactive logic.
+                const observer = new MutationObserver(mutations => {
                     if (viewManager.mode === ViewManagerMode.dragging) {
                         return;
                     }
@@ -67,15 +67,15 @@ export class GridBindingHandler {
         }
 
         ko.bindingHandlers["layoutsection"] = {
-            init(sourceElement: HTMLElement, valueAccessor) {
+            init(sourceElement: HTMLElement) {
                 GridEditor.attachSectionDragEvents(sourceElement, viewManager, eventManager);
             }
         }
 
         ko.bindingHandlers["layoutcolumn"] = {
-            init(sourceElement: HTMLElement, valueAccessor) {
+            init(sourceElement: HTMLElement) {
                 GridEditor.attachColumnDragEvents(sourceElement, viewManager, eventManager);
             }
-        };
+        }
     }
 }

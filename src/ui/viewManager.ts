@@ -17,7 +17,6 @@ import { IComponent } from "@paperbits/common/ui/IComponent";
 import { ProgressIndicator } from "../ui/progressIndicator";
 import { IRouteHandler } from "@paperbits/common/routing/IRouteHandler";
 import { Component } from "../decorators/component";
-import { DragSession } from "@paperbits/common/ui/draggables/dragManager";
 import { ISplitterConfig } from "../bindingHandlers/bindingHandlers.splitter";
 import { IMedia } from "@paperbits/common/media/IMedia";
 import { ISiteService } from "@paperbits/common/sites/ISiteService";
@@ -25,6 +24,7 @@ import { IPageService } from "@paperbits/common/pages/IPageService";
 import { IPermalinkService } from "@paperbits/common/permalinks/IPermalinkService";
 import { IPage } from "@paperbits/common/pages/IPage";
 import { ISettings } from "@paperbits/common/sites/ISettings";
+import { DragSession } from "@paperbits/common/ui/draggables/dragSession";
 
 
 @Component({

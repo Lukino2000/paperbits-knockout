@@ -9,9 +9,9 @@ import { IPageService } from "@paperbits/common/pages/IPageService";
 import { IRouteHandler } from "@paperbits/common/routing/IRouteHandler";
 import { IBag } from "@paperbits/common/core/IBag";
 import { IViewManager } from "@paperbits/common/ui/IViewManager";
-import { IHtmlEditor } from "../../../../../paperbits-common/src/editing/IHtmlEditor";
 import { IAppIntentionsProvider } from "../../../application/interface";
 import { Intentions } from "../../../application/codegen/intentionContracts";
+import { IHtmlEditor } from "@paperbits/common/editing/IHtmlEditor";
 
 
 @Component({

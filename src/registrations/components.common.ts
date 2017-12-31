@@ -12,6 +12,7 @@ import { PageService } from "@paperbits/common/pages/pageService";
 import { BlogService } from "@paperbits/common/blogs/blogService";
 import { FileService } from "@paperbits/common/files/fileService";
 import { MediaService } from "@paperbits/common/media/mediaService";
+import { BlockService } from "@paperbits/common/blocks/blockService";
 import { NavigationService } from "@paperbits/common/navigation/navigationService";
 import { SiteService } from "@paperbits/common/sites/siteService";
 import { IntercomService } from "@paperbits/common/intercom/intercomService";
@@ -57,6 +58,7 @@ export class ComponentRegistrationCommon implements IInjectorModule {
         injector.bindSingleton("blogService", BlogService);
         injector.bindSingleton("fileService", FileService);
         injector.bindSingleton("mediaService", MediaService);
+        injector.bindSingleton("blockService", BlockService);
         injector.bindSingleton("navigationService", NavigationService);
         injector.bindSingleton("siteService", SiteService);
         injector.bindSingleton("intercomService", IntercomService);

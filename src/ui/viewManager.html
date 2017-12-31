@@ -1,3 +1,6 @@
+<workshops></workshops>
+<dropbucket></dropbucket>
+
 <div class="viewport" data-bind="host: { viewport: viewport }"></div>
 
 <!--ko if: shutter()-->
@@ -41,10 +44,11 @@
 
 <!-- ko foreach: { data: contextualEditors, as: 'contextualEditor' } -->
 <!-- ko if: contextualEditor.hoverCommand -->
-<button class="fixed button-standalone" data-bind="stickTo: { target: element, position: hoverCommand.position }, balloon: { selector: '#ce-'+hoverCommand.component.name, position: 'top' }, background: { color: hoverCommand.color }, attr: { title: hoverCommand.tooltip }">
+
+<button class="fixed button-standalone" data-bind="stickTo: { target: element, position: hoverCommand.position }, balloon: { component: hoverCommand.component, position: 'bottom' }, background: { color: hoverCommand.color }, attr: { title: hoverCommand.tooltip }">
     <i class="paperbits-icon paperbits-simple-add"></i>
 </button>
-<div class="balloon" data-bind="attr: { id: 'ce-'+hoverCommand.component.name }, component: hoverCommand.component"></div>
+
 <!-- /ko -->
 <!-- /ko -->
 

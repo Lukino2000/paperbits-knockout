@@ -3,7 +3,7 @@ import template from "./workshops.html";
 import { IViewManager } from '@paperbits/common/ui/IViewManager';
 import { Component } from "../decorators/component";
 import { IUserService } from "@paperbits/common/user/IUserService";
-import { IEditorSession } from "../../../paperbits-common/src/ui/IEditorSession";
+import { IEditorSession } from "@paperbits/common/ui/IEditorSession";
 
 
 @Component({

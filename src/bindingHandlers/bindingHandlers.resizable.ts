@@ -1,5 +1,5 @@
 import * as ko from "knockout";
-import { IEventManager } from "../../../paperbits-common/src/events/IEventManager";
+import { IEventManager } from "@paperbits/common/events/IEventManager";
 import { debug, isNumber } from "util";
 import { watch } from "fs";
 import { optional } from "../../../node_modules/inversify/dts/annotation/optional";

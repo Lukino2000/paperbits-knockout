@@ -4,14 +4,21 @@
 @import "animation.scss";
 @import "layouts.scss";
 
-h1 {
+h1, h2 {
     font-family: $font-family-base;
-    font-size: $workshop-header-font-size;
     color: $color-base;
     display: block;
     margin: 0;
     padding-left: 5px;
     cursor: default;
+}
+
+h1 {
+    font-size: 1.2em;
+}
+
+h2 {
+    font-size: 1em;
 }
 
 .toolbox {

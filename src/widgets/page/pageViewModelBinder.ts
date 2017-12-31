@@ -2,8 +2,9 @@ import { PageModel } from "@paperbits/common/widgets/page/pageModel";
 import { PageViewModel } from "./pageViewModel";
 import { ViewModelBinderSelector } from "../viewModelBinderSelector";
 import { IViewModelBinder } from "@paperbits/common/widgets/IViewModelBinder";
-import { DragSession } from "@paperbits/common/ui/draggables/dragManager";
 import { SectionModel } from "@paperbits/common/widgets/section/sectionModel";
+import { DragSession } from "@paperbits/common/ui/draggables/dragSession";
+
 
 export class PageViewModelBinder implements IViewModelBinder {
     private readonly viewModelBinderSelector: ViewModelBinderSelector;
@@ -17,9 +18,9 @@ export class PageViewModelBinder implements IViewModelBinder {
             pageViewModel = new PageViewModel();
         }
 
-        let widgetViewModels = model.sections
+        const widgetViewModels = model.sections
             .map(widgetModel => {
-                let widgetViewModelBinder = this.viewModelBinderSelector.getViewModelBinderByModel(widgetModel);
+                const widgetViewModelBinder = this.viewModelBinderSelector.getViewModelBinderByModel(widgetModel);
 
                 if (!widgetViewModelBinder) {
                     return null;

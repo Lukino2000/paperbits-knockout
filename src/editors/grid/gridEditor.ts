@@ -589,52 +589,22 @@ export class GridEditor {
         let rowContextualEditor: IContextualEditor = {
             element: activeRowElement,
             color: "#29c4a9",
-            hoverCommand: {
-                color: "#29c4a9",
-                position: activeRowHalf,
-                tooltip: "Add row",
-                component: {
-                    name: "row-layout-selector",
-                    params: {
-                        onSelect: (newRowModel: RowModel) => {
-                            let parentElement = GridHelper.getParentElementWithModel(activeRowElement);
-                            let parentModel = GridHelper.getModel(parentElement);
+            hoverCommand: null,
+            selectionCommands: null,
+            // selectionCommands: [{
+            //     color: "#29c4a9",
+            //     position: activeRowHalf,
+            //     tooltip: "Add row",
+            //     callback: null,
+            //     component: {
+            //         name: "row-layout-selector",
+            //         params: {
+            //             onSelect: (newRowModel: RowModel) => {
 
-                            if (parentModel instanceof SliderModel) {
-                                let sliderModel = <SliderModel>parentModel;
-                                parentModel = sliderModel.slides[sliderModel.activeSlideNumber];
-                            }
-
-                            let parentWidgetModel = GridHelper.getWidgetBinding(parentElement);
-                            let rowModel = GridHelper.getModel(activeRowElement);
-                            let index = parentModel.rows.indexOf(rowModel);
-
-                            if (activeRowHalf === "bottom") {
-                                index++;
-                            }
-
-                            parentModel.rows.splice(index, 0, newRowModel);
-                            parentWidgetModel.applyChanges();
-
-                            this.cleanActiveElements();
-                        }
-                    }
-                },
-            },
-            selectionCommands: [{
-                color: "#29c4a9",
-                position: activeRowHalf,
-                tooltip: "Add row",
-                callback: null,
-                component: {
-                    name: "row-layout-selector",
-                    params: {
-                        onSelect: (newRowModel: RowModel) => {
-
-                        }
-                    }
-                }
-            }],
+            //             }
+            //         }
+            //     }
+            // }],
             deleteCommand: {
                 tooltip: "Delete row",
                 color: "#29c4a9",
@@ -995,7 +965,7 @@ export class GridEditor {
 
 
     public static attachWidgetDragEvents(sourceElement: HTMLElement, viewManager: IViewManager, eventManager: IEventManager): void {
-        var onDragStart = (item): HTMLElement => {
+        const onDragStart = (item): HTMLElement => {
             if (viewManager.mode === ViewManagerMode.configure) {
                 return;
             }
@@ -1028,7 +998,7 @@ export class GridEditor {
             return sourceElement;
         }
 
-        var onDragEnd = () => {
+        const onDragEnd = () => {
             const dragSession = viewManager.getDragSession();
             const parentBinding = dragSession.parentBinding;
             const acceptorElement = dragSession.targetElement;
@@ -1050,7 +1020,7 @@ export class GridEditor {
             eventManager.dispatchEvent("virtualDragEnd");
         }
 
-        var preventDragging = (): boolean => {
+        const preventDragging = (): boolean => {
             return viewManager.mode === ViewManagerMode.configure;
         }
 
@@ -1150,7 +1120,7 @@ export class GridEditor {
             return sourceElement;
         }
 
-        var onDragEnd = () => {
+        const onDragEnd = () => {
             const dragSession = viewManager.getDragSession();
             const parentBinding = dragSession.parentBinding;
             const acceptorElement = dragSession.targetElement;
@@ -1172,7 +1142,7 @@ export class GridEditor {
             eventManager.dispatchEvent("virtualDragEnd");
         }
 
-        var preventDragging = (): boolean => {
+        const preventDragging = (): boolean => {
             return viewManager.mode === ViewManagerMode.configure;
         }
 

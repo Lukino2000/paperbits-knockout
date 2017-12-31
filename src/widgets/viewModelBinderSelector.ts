@@ -8,7 +8,7 @@ export class ViewModelBinderSelector {
         this.viewModelBinders = modelBinders;
     }
 
-    public getViewModelBinderByModel(model): IViewModelBinder {
+    public getViewModelBinderByModel<TModel>(model: TModel): IViewModelBinder {
         let viewModelBinder = this.viewModelBinders.find(x => x.canHandleModel(model));
 
         if (!viewModelBinder) {

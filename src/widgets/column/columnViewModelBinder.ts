@@ -2,7 +2,7 @@ import { ColumnModel } from "@paperbits/common/widgets/column/columnModel";
 import { ColumnViewModel } from "./columnViewModel";
 import { ViewModelBinderSelector } from "../viewModelBinderSelector";
 import { IViewModelBinder } from "@paperbits/common/widgets/IViewModelBinder";
-import { DragSession } from "@paperbits/common/ui/draggables/dragManager";
+import { DragSession } from "@paperbits/common/ui/draggables/dragSession";
 
 
 export class ColumnViewModelBinder implements IViewModelBinder {
