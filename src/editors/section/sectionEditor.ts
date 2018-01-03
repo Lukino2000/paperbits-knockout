@@ -1,7 +1,7 @@
 import * as ko from "knockout";
 import template from "./sectionEditor.html";
 import { MediaContract } from "@paperbits/common/media/mediaContract";
-import * as Utils from '@paperbits/common/core/utils';
+import * as Utils from '@paperbits/common/utils';
 import { SectionViewModel } from "../../widgets/section/sectionViewModel";
 import { IMediaService } from '@paperbits/common/media/IMediaService';
 import { ICreatedMedia } from '@paperbits/common/media/ICreatedMedia';

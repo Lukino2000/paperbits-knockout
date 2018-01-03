@@ -1,6 +1,6 @@
 ﻿import * as ko from "knockout";
 import template from "./settings.html";
-import * as Utils from '@paperbits/common/core/utils';
+import * as Utils from '@paperbits/common/utils';
 import { IViewManager } from '@paperbits/common/ui/IViewManager';
 import { ISiteService } from '@paperbits/common/sites/ISiteService';
 import { ICreatedMedia } from '@paperbits/common/media/ICreatedMedia';

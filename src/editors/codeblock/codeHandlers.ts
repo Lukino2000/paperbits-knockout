@@ -1,8 +1,8 @@
 ﻿import * as ko from "knockout";
 import { Code } from "../../widgets/codeblock/code";
 import { IWidgetBinding } from "@paperbits/common/editing/IWidgetBinding";
-import * as Utils from '@paperbits/common/core/utils';
-import { ProgressPromise } from '@paperbits/common/core/progressPromise';
+import * as Utils from '@paperbits/common/utils';
+import { ProgressPromise } from '@paperbits/common/progressPromise';
 import { IWidgetOrder } from '@paperbits/common/editing/IWidgetOrder';
 import { IContentDropHandler } from '@paperbits/common/editing/IContentDropHandler';
 import { IContentDescriptor } from '@paperbits/common/editing/IContentDescriptor';

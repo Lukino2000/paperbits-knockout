@@ -1,13 +1,13 @@
 import * as ko from "knockout";
 import template from "./formattingTools.html";
-import * as Utils from "@paperbits/common/core/utils";
+import * as Utils from "@paperbits/common/utils";
 import { IEventManager } from "@paperbits/common/events/IEventManager";
 import { IHtmlEditorProvider } from "@paperbits/common/editing/htmlEditorProvider";
 import { Component } from "../../../decorators/component";
 import { IPermalinkService } from "@paperbits/common/permalinks/IPermalinkService";
 import { IPageService } from "@paperbits/common/pages/IPageService";
 import { IRouteHandler } from "@paperbits/common/routing/IRouteHandler";
-import { IBag } from "@paperbits/common/core/IBag";
+import { IBag } from "@paperbits/common/IBag";
 import { IViewManager } from "@paperbits/common/ui/IViewManager";
 import { IAppIntentionsProvider } from "../../../application/interface";
 import { Intentions } from "../../../application/codegen/intentionContracts";

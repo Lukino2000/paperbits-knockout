@@ -1,6 +1,6 @@
 import * as ko from "knockout";
 import template from "./slider.html";
-import * as Utils from "@paperbits/common/core/utils";
+import * as Utils from "@paperbits/common/utils";
 import { SlideViewModel } from "./slideViewModel";
 import { Component } from "../../decorators/component";
 

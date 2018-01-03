@@ -1,6 +1,6 @@
 ﻿import * as ko from "knockout";
 import template from "./dropbucket.html";
-import * as Utils from "@paperbits/common/core/utils";
+import * as Utils from "@paperbits/common/utils";
 import { IViewManager, ViewManagerMode } from "@paperbits/common/ui/IViewManager";
 import { IHttpClient } from "@paperbits/common/http/IHttpClient";
 import { IMediaService } from "@paperbits/common/media/IMediaService";
@@ -10,7 +10,7 @@ import { IDataTransfer } from "@paperbits/common/editing/IDataTransfer";
 import { ICreatedMedia } from "@paperbits/common/media/ICreatedMedia";
 import { IWidgetOrder } from "@paperbits/common/editing/IWidgetOrder";
 import { GlobalEventHandler } from "@paperbits/common/events/globalEventHandler";
-import { ProgressPromise } from "@paperbits/common/core/progressPromise";
+import { ProgressPromise } from "@paperbits/common/progressPromise";
 import { DropBucketItem } from "../../workshops/dropbucket/dropbucketItem";
 import { Component } from "../../decorators/component";
 import { IEventManager } from "@paperbits/common/events/IEventManager";

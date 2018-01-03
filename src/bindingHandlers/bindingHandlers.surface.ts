@@ -1,6 +1,6 @@
 ﻿import * as $ from "jquery/dist/jquery";
 import * as ko from "knockout";
-import * as Utils from '@paperbits/common/core/utils';
+import * as Utils from '@paperbits/common/utils';
 import { IEditorSession } from "@paperbits/common/ui/IEditorSession";
 import { debug } from "util";
 import { Number } from "es6-shim";

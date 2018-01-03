@@ -6,7 +6,7 @@ import { IPermalinkService } from '@paperbits/common/permalinks/IPermalinkServic
 import { IViewManager } from '@paperbits/common/ui/IViewManager';
 import { IFileService } from '@paperbits/common/files/IFileService';
 import { ILayoutService } from "@paperbits/common/layouts/ILayoutService";
-import { Keys } from "@paperbits/common/core/keys";
+import { Keys } from "@paperbits/common/keyboard";
 import { LayoutItem } from "./layoutItem";
 import { Component } from "../../decorators/component";
 

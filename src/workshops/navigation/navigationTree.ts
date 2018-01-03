@@ -1,6 +1,6 @@
 ﻿import * as $ from "jquery/dist/jquery";
 import * as ko from "knockout";
-import * as Utils from "@paperbits/common/core/utils";
+import * as Utils from "@paperbits/common/utils";
 import { INavigationItem } from "@paperbits/common/navigation/INavigationItem";
 import { NavigationTreeNode } from "../../workshops/navigation/navigationTreeNode";
 

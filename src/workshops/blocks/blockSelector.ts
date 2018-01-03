@@ -1,6 +1,6 @@
 import template from "./blockSelector.html";
 import * as ko from "knockout";
-import * as Utils from "@paperbits/common/core/utils";
+import * as Utils from "@paperbits/common/utils";
 import { IResourceSelector } from "@paperbits/common/ui/IResourceSelector";
 import { BlockItem } from "./blockItem";
 import { IBlock } from '@paperbits/common/blocks/IBlock';

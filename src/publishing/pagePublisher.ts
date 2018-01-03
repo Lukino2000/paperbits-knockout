@@ -6,7 +6,7 @@ import { IBlobStorage } from "@paperbits/common/persistence/IBlobStorage";
 import { IPageService } from "@paperbits/common/pages/IPageService";
 import { ISiteService } from "@paperbits/common/sites/ISiteService";
 import { PageContract } from "@paperbits/common/pages/pageContract";
-import * as Utils from "@paperbits/common/core/utils";
+import * as Utils from "@paperbits/common/utils";
 import { LayoutViewModel } from "../widgets/layout/layoutViewModel";
 import { LayoutModelBinder } from "@paperbits/common/widgets/layout/layoutModelBinder";
 import { LayoutViewModelBinder } from "../widgets/layout/layoutViewModelBinder";

@@ -1,5 +1,5 @@
 ﻿import * as ko from "knockout";
-import * as Utils from '@paperbits/common/core/utils';
+import * as Utils from '@paperbits/common/utils';
 import { MapModelBinder } from "@paperbits/common/widgets/map/mapModelBinder";
 import { IWidgetBinding } from "@paperbits/common/editing/IWidgetBinding";
 import { MapViewModel } from "../../widgets/map/mapViewModel";

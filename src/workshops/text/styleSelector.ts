@@ -2,7 +2,7 @@ import * as ko from "knockout";
 import template from "./styleSelector.html";
 import { Intention } from "@paperbits/common/ui/color";
 import { Component } from "../../decorators/component";
-import { IBag } from "@paperbits/common/core/IBag";
+import { IBag } from "@paperbits/common/IBag";
 import { IAppIntentionsProvider } from "../../application/interface";
 
 

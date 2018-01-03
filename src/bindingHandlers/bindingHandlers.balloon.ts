@@ -1,8 +1,8 @@
 ﻿import * as $ from "jquery/dist/jquery";
 import * as ko from "knockout";
-import * as Utils from "@paperbits/common/core/utils";
+import * as Utils from "@paperbits/common/utils";
 import { IEventManager } from "@paperbits/common/events/IEventManager";
-import { Keys } from "@paperbits/common/core/keys";
+import { Keys } from "@paperbits/common/keyboard";
 
 const balloonActiveClassName = "balloon-is-active";
 

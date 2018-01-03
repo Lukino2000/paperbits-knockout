@@ -6,7 +6,7 @@ import { IBlogService } from "@paperbits/common/blogs/IBlogService";
 import { IRouteHandler } from "@paperbits/common/routing/IRouteHandler";
 import { IPermalinkService } from "@paperbits/common/permalinks/IPermalinkService";
 import { IViewManager } from "@paperbits/common/ui/IViewManager";
-import { Keys } from "@paperbits/common/core/keys";
+import { Keys } from "@paperbits/common/keyboard";
 import { BlogPostItem } from "../../workshops/blogs/blogPostItem";
 import { IFileService } from "@paperbits/common/files/IFileService";
 import { Component } from "../../decorators/component";

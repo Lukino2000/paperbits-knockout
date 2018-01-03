@@ -1,6 +1,6 @@
 ﻿import * as ko from "knockout";
 import { IWidgetBinding } from "@paperbits/common/editing/IWidgetBinding";
-import * as Utils from "@paperbits/common/core/utils";
+import * as Utils from "@paperbits/common/utils";
 import { IWidgetOrder } from '@paperbits/common/editing/IWidgetOrder';
 import { IContentDropHandler } from '@paperbits/common/editing/IContentDropHandler';
 import { IContentDescriptor } from '@paperbits/common/editing/IContentDescriptor';

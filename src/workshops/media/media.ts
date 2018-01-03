@@ -1,6 +1,6 @@
 ﻿import * as ko from "knockout";
 import template from "./media.html";
-import * as Utils from "@paperbits/common/core/utils";
+import * as Utils from "@paperbits/common/utils";
 import { IMediaService } from "@paperbits/common/media/IMediaService";
 import { IViewManager } from "@paperbits/common/ui/IViewManager";
 import { IContentDropHandler } from "@paperbits/common/editing/IContentDropHandler";
@@ -9,7 +9,7 @@ import { MediaContract } from "@paperbits/common/media/mediaContract";
 import { ICreatedMedia } from "@paperbits/common/media/ICreatedMedia";
 import { IPermalinkService } from "@paperbits/common/permalinks/IPermalinkService";
 import { IWidgetOrder } from "@paperbits/common/editing/IWidgetOrder";
-import { Keys } from "@paperbits/common/core/keys";
+import { Keys } from "@paperbits/common/keyboard";
 import { Component } from "../../decorators/component";
 import { IContentDescriptor } from "@paperbits/common/editing/IContentDescriptor";
 import { IEventManager } from "@paperbits/common/events/IEventManager";

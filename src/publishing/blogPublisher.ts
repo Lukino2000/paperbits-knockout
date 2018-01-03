@@ -8,7 +8,7 @@ import { IBlobStorage } from "@paperbits/common/persistence/IBlobStorage";
 import { ISiteService } from "@paperbits/common/sites/ISiteService";
 import { IPermalinkService } from "@paperbits/common/permalinks/IPermalinkService";
 import { BlogPostContract } from "@paperbits/common/blogs/BlogPostContract";
-import * as Utils from "@paperbits/common/core/utils";
+import * as Utils from "@paperbits/common/utils";
 import { LayoutViewModelBinder } from "../widgets/layout/layoutViewModelBinder";
 import { ISettings } from "@paperbits/common/sites/ISettings";
 import { MediaContract } from "@paperbits/common/media/mediaContract";

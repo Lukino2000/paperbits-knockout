@@ -8,7 +8,7 @@ import { IPermalinkService } from "@paperbits/common/permalinks/IPermalinkServic
 import { IViewManager } from "@paperbits/common/ui/IViewManager";
 import { PageItem } from "../../workshops/pages/pageItem";
 import { IFileService } from "@paperbits/common/files/IFileService";
-import { Keys } from "@paperbits/common/core/keys";
+import { Keys } from "@paperbits/common/keyboard";
 import { Component } from "../../decorators/component";
 
 

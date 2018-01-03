@@ -1,7 +1,7 @@
 import * as ko from "knockout";
 import * as _ from 'lodash';
 import * as $ from "jquery/dist/jquery";
-import * as Utils from "@paperbits/common/core/utils";
+import * as Utils from "@paperbits/common/utils";
 import { PageModelBinder } from "@paperbits/common/widgets/page/pageModelBinder";
 import { PageModel } from "@paperbits/common/widgets/page/pageModel";
 import { IContextualEditor } from "@paperbits/common/ui/IContextualEditor";
@@ -18,7 +18,7 @@ import { LayoutModel } from "@paperbits/common/widgets/layout/layoutModel";
 import { LayoutModelBinder } from "@paperbits/common/widgets/layout/layoutModelBinder";
 import { IHighlightConfig } from "@paperbits/common/ui/IHighlightConfig";
 import { SliderModel, SlideModel } from "@paperbits/common/widgets/slider/sliderModel";
-import { Keys } from "@paperbits/common/core/keys";
+import { Keys } from "@paperbits/common/keyboard";
 import { GridItem } from "./gridItem";
 import { GridHelper } from "./gridHelper";
 import { ViewManager } from "../../ui/viewManager";

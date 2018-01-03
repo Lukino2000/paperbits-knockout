@@ -3,7 +3,7 @@ import { YoutubeModelBinder } from "@paperbits/common/widgets/youtube-player/you
 import { YoutubePlayerModel } from "@paperbits/common/widgets/youtube-player/youtubePlayerModel";
 import { YoutubePlayerViewModel } from "../../widgets/youtube-player/youtubePlayerViewModel";
 import { IWidgetBinding } from "@paperbits/common/editing/IWidgetBinding";
-import * as Utils from '@paperbits/common/core/utils';
+import * as Utils from '@paperbits/common/utils';
 import { IWidgetOrder } from '@paperbits/common/editing/IWidgetOrder';
 import { IContentDropHandler } from '@paperbits/common/editing/IContentDropHandler';
 import { IDataTransfer } from '@paperbits/common/editing/IDataTransfer';

@@ -1,5 +1,5 @@
 ﻿import * as ko from "knockout";
-import * as Utils from "@paperbits/common/core/utils";
+import * as Utils from "@paperbits/common/utils";
 import { TextblockModel } from "@paperbits/common/widgets/textblock/textblockModel";
 import { TextblockModelBinder } from "@paperbits/common/widgets/textblock/textblockModelBinder";
 import { IWidgetOrder } from "@paperbits/common/editing/IWidgetOrder";

@@ -1,4 +1,4 @@
-﻿import { ProgressPromise } from '@paperbits/common/core/progressPromise';
+﻿import { ProgressPromise } from '@paperbits/common/progressPromise';
 
 export interface ICodeConfig {
     theme: string;

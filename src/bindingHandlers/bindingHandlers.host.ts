@@ -1,5 +1,5 @@
 ﻿import * as ko from "knockout";
-import * as Utils from "@paperbits/common/core/utils";
+import * as Utils from "@paperbits/common/utils";
 import { GlobalEventHandler } from "@paperbits/common/events/globalEventHandler";
 import { IViewManager, ViewManagerMode } from "@paperbits/common/ui/IViewManager";
 
