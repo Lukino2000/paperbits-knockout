@@ -2,7 +2,7 @@ import * as ko from "knockout";
 import template from "./blogSelector.html";
 import { IResourceSelector } from "@paperbits/common/ui/IResourceSelector";
 import { BlogPostItem } from "./blogPostItem";
-import { IBlogPost } from '@paperbits/common/blogs/IBlogPost';
+import { BlogPostContract } from '@paperbits/common/blogs/BlogPostContract';
 import { IPermalink } from '@paperbits/common/permalinks/IPermalink';
 import { IPermalinkService } from '@paperbits/common/permalinks/IPermalinkService';
 import { IBlogService } from '@paperbits/common/blogs/IBlogService';
@@ -14,7 +14,7 @@ import { Component } from "../../decorators/component";
     template: template,
     injectable: "blogSelector"
 })
-export class BlogSelector implements IResourceSelector<IBlogPost> {
+export class BlogSelector implements IResourceSelector<BlogPostContract> {
     private readonly blogService: IBlogService;
     private readonly permalinkService: IPermalinkService;
 
@@ -23,9 +23,9 @@ export class BlogSelector implements IResourceSelector<IBlogPost> {
     public readonly working: KnockoutObservable<boolean>;
 
     public selectedPost: KnockoutObservable<BlogPostItem>;
-    public onResourceSelected: (blog: IBlogPost) => void;
+    public onResourceSelected: (blog: BlogPostContract) => void;
 
-    constructor(blogService: IBlogService, permalinkService: IPermalinkService, onSelect: (blogPost: IBlogPost) => void) {
+    constructor(blogService: IBlogService, permalinkService: IPermalinkService, onSelect: (blogPost: BlogPostContract) => void) {
         this.blogService = blogService;
         this.permalinkService = permalinkService;
 

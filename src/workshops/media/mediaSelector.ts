@@ -3,7 +3,7 @@ import template from "./mediaSelector.html";
 import * as Utils from "@paperbits/common/core/utils";
 import { IResourceSelector } from "@paperbits/common/ui/IResourceSelector";
 import { MediaItem } from "./mediaItem";
-import { IMedia } from '@paperbits/common/media/IMedia';
+import { MediaContract } from '@paperbits/common/media/mediaContract';
 import { IPermalink } from '@paperbits/common/permalinks/IPermalink';
 import { IPermalinkService } from '@paperbits/common/permalinks/IPermalinkService';
 import { IMediaService } from '@paperbits/common/media/IMediaService';
@@ -17,11 +17,11 @@ import { IMediaFilter } from "@paperbits/common/media/IMediaFilter";
     template: template,
     injectable: "mediaSelector"
 })
-export class MediaSelector implements IResourceSelector<IMedia> {
+export class MediaSelector implements IResourceSelector<MediaContract> {
     private readonly mediaService: IMediaService;
     private readonly permalinkService: IPermalinkService;
     private readonly viewManager: IViewManager;
-    private readonly onMediaSelected: (media: IMedia) => void;
+    private readonly onMediaSelected: (media: MediaContract) => void;
     private readonly mediaFilter: IMediaFilter;
 
     public readonly searchPattern: KnockoutObservable<string>;
@@ -30,9 +30,9 @@ export class MediaSelector implements IResourceSelector<IMedia> {
 
     public selectedMediaItem: KnockoutObservable<MediaItem>;
 
-    public onResourceSelected: (media: IMedia) => void;
+    public onResourceSelected: (media: MediaContract) => void;
 
-    constructor(mediaService: IMediaService, permalinkService: IPermalinkService, viewManager: IViewManager, onSelect: (media: IMedia) => void, mediaFilter:IMediaFilter) {
+    constructor(mediaService: IMediaService, permalinkService: IPermalinkService, viewManager: IViewManager, onSelect: (media: MediaContract) => void, mediaFilter:IMediaFilter) {
         this.mediaService = mediaService;
         this.permalinkService = permalinkService;
         this.viewManager = viewManager;

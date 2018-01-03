@@ -7,7 +7,7 @@ import { ICreatedMedia } from '@paperbits/common/media/ICreatedMedia';
 import { IMediaService } from '@paperbits/common/media/IMediaService';
 import { IPermalink } from '@paperbits/common/permalinks/IPermalink';
 import { IPermalinkService } from '@paperbits/common/permalinks/IPermalinkService';
-import { IMedia } from '@paperbits/common/media/IMedia';
+import { MediaContract } from '@paperbits/common/media/mediaContract';
 import { ISettings } from "@paperbits/common/sites/ISettings";
 import { Component } from "../../decorators/component";
 import { IMediaFilter } from "@paperbits/common/media/IMediaFilter";
@@ -137,7 +137,7 @@ export class SettingsWorkshop {
         await this.viewManager.setTitle(config, null);
     }
 
-    public onMediaSelected(media: IMedia): void {
+    public onMediaSelected(media: MediaContract): void {
         if (media) {
             this.faviconSourceKey(media.permalinkKey);
             this.setFaviconUri(media.permalinkKey);

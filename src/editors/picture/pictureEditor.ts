@@ -9,7 +9,7 @@ import { IViewManager } from '@paperbits/common/ui/IViewManager';
 import { IWidgetEditor } from '@paperbits/common/widgets/IWidgetEditor';
 import { PictureModel } from "@paperbits/common/widgets/picture/pictureModel";
 import { IEventManager } from '@paperbits/common/events/IEventManager';
-import { IMedia } from "@paperbits/common/media/IMedia";
+import { MediaContract } from "@paperbits/common/media/mediaContract";
 import { Component } from "../../decorators/component";
 import { BackgroundModel } from "@paperbits/common/widgets/background/backgroundModel";
 
@@ -73,7 +73,7 @@ export class PictureEditor implements IWidgetEditor {
         this.animation(picture.animation);
     }
 
-    public onMediaSelected(media: IMedia): void {
+    public onMediaSelected(media: MediaContract): void {
         this.picture.background.sourceKey = media.permalinkKey;
         this.picture.background.sourceUrl = media.downloadUrl;
 

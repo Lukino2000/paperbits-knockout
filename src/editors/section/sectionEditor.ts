@@ -1,6 +1,6 @@
 import * as ko from "knockout";
 import template from "./sectionEditor.html";
-import { IMedia } from "@paperbits/common/media/IMedia";
+import { MediaContract } from "@paperbits/common/media/mediaContract";
 import * as Utils from '@paperbits/common/core/utils';
 import { SectionViewModel } from "../../widgets/section/sectionViewModel";
 import { IMediaService } from '@paperbits/common/media/IMediaService';
@@ -101,7 +101,7 @@ export class SectionEditor implements IWidgetEditor {
         this.applyChangesCallback();
     }
 
-    public onMediaSelected(media: IMedia): void {
+    public onMediaSelected(media: MediaContract): void {
         this.section.background = this.section.background || {};
         this.section.background.sourceKey = media.permalinkKey;
         this.section.background.sourceUrl = media.downloadUrl;

@@ -1,10 +1,10 @@
 ﻿import * as ko from "knockout";
 import { AudioPlayerViewModel } from "../../widgets/audio-player/audioViewModel";
 import { AudioPlayerModelBinder } from "@paperbits/common/widgets/audio-player/audioPlayerModelBinder";
-import { IAudioPlayerNode } from "@paperbits/common/widgets/audio-player/IAudioPlayerNode";
+import { AudioPlayerContract } from "@paperbits/common/widgets/audio-player/audioPlayerContract";
 import { IWidgetFactoryResult } from "@paperbits/common/editing/IWidgetFactoryResult";
 import { IWidgetBinding } from "@paperbits/common/editing/IWidgetBinding";
-import { IMedia } from "@paperbits/common/media/IMedia";
+import { MediaContract } from "@paperbits/common/media/mediaContract";
 import { IWidgetOrder } from '@paperbits/common/editing/IWidgetOrder';
 import { IContentDropHandler } from '@paperbits/common/editing/IContentDropHandler';
 import { IWidgetHandler } from '@paperbits/common/editing/IWidgetHandler';
@@ -61,10 +61,10 @@ export class AudioHandlers extends MediaHandlers implements IWidgetHandler, ICon
         return Promise.resolve(this.getWidgetOrderByConfig(AudioHandlers.DefaultAudioUri));
     }
 
-    public getContentDescriptorFromMedia(media: IMedia): IContentDescriptor {
+    public getContentDescriptorFromMedia(media: MediaContract): IContentDescriptor {
         let getWidgetOrderFunction: () => Promise<IWidgetOrder> = () => {
             return new Promise<IWidgetOrder>(async (resolve, reject) => {
-                let config: IAudioPlayerNode = {
+                let config: AudioPlayerContract = {
                     kind: "block",
                     type: "audio-player",
                     sourceKey: media.permalinkKey,

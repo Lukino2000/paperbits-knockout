@@ -5,7 +5,7 @@ import { IPermalinkService } from "@paperbits/common/permalinks/IPermalinkServic
 import { IBlobStorage } from "@paperbits/common/persistence/IBlobStorage";
 import { IPageService } from "@paperbits/common/pages/IPageService";
 import { ISiteService } from "@paperbits/common/sites/ISiteService";
-import { IPage } from "@paperbits/common/pages/IPage";
+import { PageContract } from "@paperbits/common/pages/pageContract";
 import * as Utils from "@paperbits/common/core/utils";
 import { LayoutViewModel } from "../widgets/layout/layoutViewModel";
 import { LayoutModelBinder } from "@paperbits/common/widgets/layout/layoutModelBinder";
@@ -13,7 +13,7 @@ import { LayoutViewModelBinder } from "../widgets/layout/layoutViewModelBinder";
 import { metaDataSetter } from "@paperbits/common/meta/metaDataSetter";
 import { IMediaService } from "@paperbits/common/media/IMediaService";
 import { ISiteSettings, ISettings } from "@paperbits/common/sites/ISettings";
-import { IMedia } from "@paperbits/common/media/IMedia";
+import { MediaContract } from "@paperbits/common/media/mediaContract";
 import { resolve } from "path";
 
 export class PagePublisher implements IPublisher {
@@ -41,7 +41,7 @@ export class PagePublisher implements IPublisher {
         this.setSiteSettings = this.setSiteSettings.bind(this);
     }
 
-    private async renderPage(page: IPage, settings: ISettings, iconFile: IMedia): Promise<{ name, bytes }> {
+    private async renderPage(page: PageContract, settings: ISettings, iconFile: MediaContract): Promise<{ name, bytes }> {
         console.log(`Publishing page ${page.title}...`);
 
         const documentModel = {
@@ -127,7 +127,7 @@ export class PagePublisher implements IPublisher {
         await Promise.all(results);
     }
     
-    public setSiteSettings(settings: ISettings, iconFile: IMedia, page: IPage) {
+    public setSiteSettings(settings: ISettings, iconFile: MediaContract, page: PageContract) {
         if (settings && page) {
             if (settings.site.faviconPermalinkKey) {
                 if (iconFile && iconFile.downloadUrl) {

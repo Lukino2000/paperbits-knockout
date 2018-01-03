@@ -18,11 +18,11 @@ import { ProgressIndicator } from "../ui/progressIndicator";
 import { IRouteHandler } from "@paperbits/common/routing/IRouteHandler";
 import { Component } from "../decorators/component";
 import { ISplitterConfig } from "../bindingHandlers/bindingHandlers.splitter";
-import { IMedia } from "@paperbits/common/media/IMedia";
+import { MediaContract } from "@paperbits/common/media/mediaContract";
 import { ISiteService } from "@paperbits/common/sites/ISiteService";
 import { IPageService } from "@paperbits/common/pages/IPageService";
 import { IPermalinkService } from "@paperbits/common/permalinks/IPermalinkService";
-import { IPage } from "@paperbits/common/pages/IPage";
+import { PageContract } from "@paperbits/common/pages/pageContract";
 import { ISettings } from "@paperbits/common/sites/ISettings";
 import { DragSession } from "@paperbits/common/ui/draggables/dragSession";
 
@@ -42,7 +42,7 @@ export class ViewManager implements IViewManager {
     private readonly siteService: ISiteService;
     private contextualEditorsBag: IBag<IContextualEditor> = {};
 
-    private currentPage: IPage;
+    private currentPage: PageContract;
 
     public journey: KnockoutObservableArray<IEditorSession>;
     public journeyName: KnockoutComputed<string>;
@@ -141,7 +141,7 @@ export class ViewManager implements IViewManager {
         }
     }
 
-    public async setTitle(settings?:ISettings, page?: IPage): Promise<void> {
+    public async setTitle(settings?:ISettings, page?: PageContract): Promise<void> {
         let siteTitle, pageTitle;
         if (settings && settings.site) {
             siteTitle = settings.site.title;
@@ -185,7 +185,7 @@ export class ViewManager implements IViewManager {
         return pageType;
     }
 
-    private async getCurrentPage() : Promise<IPage> {
+    private async getCurrentPage() : Promise<PageContract> {
         let url = this.routeHandler.getCurrentUrl();
         let permalink = await this.permalinkService.getPermalinkByUrl(url);
         let pageKey = permalink.targetKey;

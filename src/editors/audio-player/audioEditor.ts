@@ -3,7 +3,7 @@ import template from "./audioEditor.html";
 import { AudioPlayerViewModel } from "../../widgets/audio-player/audioViewModel";
 import { IWidgetEditor } from '@paperbits/common/widgets/IWidgetEditor';
 import { IViewManager } from '@paperbits/common/ui/IViewManager';
-import { IMedia } from '@paperbits/common/media/IMedia';
+import { MediaContract } from '@paperbits/common/media/mediaContract';
 import { Component } from "../../decorators/component";
 
 
@@ -64,7 +64,7 @@ export class AudioEditor implements IWidgetEditor {
         //this.viewManager.openUploadDialog(this.onMediaUploaded);
     }
 
-    private onMediaUploaded(media: IMedia): void {
+    private onMediaUploaded(media: MediaContract): void {
         //this.sourceUrl(media.content);
     }
 }

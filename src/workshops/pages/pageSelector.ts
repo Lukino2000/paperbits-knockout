@@ -3,7 +3,7 @@ import template from "./pageSelector.html";
 import { IResourceSelector } from "@paperbits/common/ui/IResourceSelector";
 import { PageItem, AnchorItem } from "./pageItem";
 import { PageSelection } from '@paperbits/common/pages/pageSelection';
-import { IPage } from '@paperbits/common/pages/IPage';
+import { PageContract } from '@paperbits/common/pages/pageContract';
 import { IPermalink } from '@paperbits/common/permalinks/IPermalink';
 import { IPermalinkService } from '@paperbits/common/permalinks/IPermalinkService';
 import { IPageService } from '@paperbits/common/pages/IPageService';

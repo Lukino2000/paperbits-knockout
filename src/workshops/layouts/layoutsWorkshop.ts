@@ -1,6 +1,6 @@
 ﻿import * as ko from "knockout";
 import template from "./layoutsWorkshop.html";
-import { Contract } from "@paperbits/common/editing/contentNode";
+import { Contract } from "@paperbits/common/contract";
 import { IRouteHandler } from '@paperbits/common/routing/IRouteHandler';
 import { IPermalinkService } from '@paperbits/common/permalinks/IPermalinkService';
 import { IViewManager } from '@paperbits/common/ui/IViewManager';

@@ -1,5 +1,5 @@
 import { IModelBinder } from "@paperbits/common/editing/IModelBinder";
-import { Contract } from "@paperbits/common/editing/contentNode";
+import { Contract } from "@paperbits/common/contract";
 import { Substitute6Model } from "./substitute6Model";
 
 

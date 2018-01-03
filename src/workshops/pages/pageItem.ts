@@ -1,5 +1,5 @@
 import * as ko from "knockout";
-import { IPage } from "@paperbits/common/pages/IPage";
+import { PageContract } from "@paperbits/common/pages/pageContract";
 
 export class AnchorItem {
     public hasFocus: KnockoutObservable<boolean>;
@@ -26,7 +26,7 @@ export class PageItem {
 
     public anchors: AnchorItem[];
 
-    constructor(page: IPage) {
+    constructor(page: PageContract) {
         this.contentKey = page.contentKey;
         this.permalinkKey = page.permalinkKey;
         this.key = page.key;        
@@ -49,7 +49,7 @@ export class PageItem {
         }
     }
 
-    toPage(): IPage {
+    toPage(): PageContract {
         return {
             key: this.key,
             title: this.title(),

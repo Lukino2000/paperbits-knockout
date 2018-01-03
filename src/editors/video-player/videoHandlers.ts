@@ -1,9 +1,9 @@
 ﻿import * as ko from "knockout";
-import { IVideoPlayerNode } from "@paperbits/common/widgets/video-player/IVideoPlayerNode";
+import { VideoPlayerContract } from "@paperbits/common/widgets/video-player/VideoPlayerContract";
 import { VideoPlayerModelBinder } from "@paperbits/common/widgets/video-player/videoPlayerModelBinder";
 import { ICreatedMedia } from "@paperbits/common/media/ICreatedMedia";
 import { IWidgetFactoryResult } from "@paperbits/common/editing/IWidgetFactoryResult";
-import { IMedia } from "@paperbits/common/media/IMedia";
+import { MediaContract } from "@paperbits/common/media/mediaContract";
 import { IWidgetBinding } from "@paperbits/common/editing/IWidgetBinding";
 import { IEventManager } from "@paperbits/common/events/IEventManager";
 import { IWidgetOrder } from "@paperbits/common/editing/IWidgetOrder";
@@ -31,7 +31,7 @@ export class VideoHandlers implements IWidgetHandler, IContentDropHandler {
         return true;
     }
 
-    private async prepareWidgetOrder(config: IVideoPlayerNode): Promise<IWidgetOrder> {
+    private async prepareWidgetOrder(config: VideoPlayerContract): Promise<IWidgetOrder> {
         let model = await this.videoPlayerModelBinder.nodeToModel(config);
 
         let factoryFunction: () => IWidgetFactoryResult = () => {
@@ -68,7 +68,7 @@ export class VideoHandlers implements IWidgetHandler, IContentDropHandler {
     }
 
     private async getWidgetOrderByConfig(sourceUrl: string): Promise<IWidgetOrder> {
-        let config: IVideoPlayerNode = {
+        let config: VideoPlayerContract = {
             kind: "block",
             type: "video-player",
             sourceUrl: sourceUrl,
@@ -82,13 +82,13 @@ export class VideoHandlers implements IWidgetHandler, IContentDropHandler {
         return await this.getWidgetOrderByConfig(url);
     }
 
-    public getContentDescriptorFromMedia(media: IMedia): IContentDescriptor {
+    public getContentDescriptorFromMedia(media: MediaContract): IContentDescriptor {
         if (!this.matches(media.filename)) {
             return null;
         }
 
         let getWidgetOrderFunction: () => Promise<IWidgetOrder> = async () => {
-            let config: IVideoPlayerNode = {
+            let config: VideoPlayerContract = {
                 kind: "block",
                 type: "video-player",
                 sourceKey: media.permalinkKey,

@@ -7,7 +7,7 @@ import { IContentDescriptor } from '@paperbits/common/editing/IContentDescriptor
 import { IWidgetHandler } from '@paperbits/common/editing/IWidgetHandler';
 import { IWidgetFactoryResult } from '@paperbits/common/editing/IWidgetFactoryResult';
 import { ButtonModelBinder } from "@paperbits/common/widgets/button/buttonModelBinder";
-import { Contract } from "@paperbits/common/editing/contentNode";
+import { Contract } from "@paperbits/common/contract";
 
 
 export class ButtonHandlers implements IWidgetHandler {

@@ -2,12 +2,12 @@ import * as ko from "knockout";
 import { IResourceSelector } from "@paperbits/common/ui/IResourceSelector";
 import { IPermalink } from '@paperbits/common/permalinks/IPermalink';
 import { IPermalinkService } from '@paperbits/common/permalinks/IPermalinkService';
-import { ILayout } from "@paperbits/common/layouts/ILayout";
+import { LayoutContract } from "@paperbits/common/layouts/layoutContract";
 import { ILayoutService } from "@paperbits/common/layouts/ILayoutService";
 import { LayoutItem } from "./layoutItem";
 
 
-export class LayoutSelector implements IResourceSelector<ILayout> {
+export class LayoutSelector implements IResourceSelector<LayoutContract> {
     private readonly layoutService: ILayoutService;
     private readonly permalinkService: IPermalinkService;
 
@@ -16,9 +16,9 @@ export class LayoutSelector implements IResourceSelector<ILayout> {
     public readonly working: KnockoutObservable<boolean>;
 
     public selectedLayout: KnockoutObservable<LayoutItem>;
-    public onResourceSelected: (layout: ILayout) => void;
+    public onResourceSelected: (layout: LayoutContract) => void;
 
-    constructor(layoutService: ILayoutService, permalinkService: IPermalinkService, onSelect: (media: ILayout) => void) {
+    constructor(layoutService: ILayoutService, permalinkService: IPermalinkService, onSelect: (media: LayoutContract) => void) {
         this.layoutService = layoutService;
         this.permalinkService = permalinkService;
 

@@ -1,7 +1,7 @@
 import * as ko from "knockout";
 import template from "./columnEditor.html";
 import * as Utils from "@paperbits/common/core/utils";
-import { IMedia } from "@paperbits/common/media/IMedia";
+import { MediaContract } from "@paperbits/common/media/mediaContract";
 import { ColumnViewModel } from "../../widgets/column/columnViewModel";
 import { IMediaService } from "@paperbits/common/media/IMediaService";
 import { ICreatedMedia } from "@paperbits/common/media/ICreatedMedia";

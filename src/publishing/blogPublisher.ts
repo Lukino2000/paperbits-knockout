@@ -7,11 +7,11 @@ import { IRouteHandler } from "@paperbits/common/routing/IRouteHandler";
 import { IBlobStorage } from "@paperbits/common/persistence/IBlobStorage";
 import { ISiteService } from "@paperbits/common/sites/ISiteService";
 import { IPermalinkService } from "@paperbits/common/permalinks/IPermalinkService";
-import { IBlogPost } from "@paperbits/common/blogs/IBlogPost";
+import { BlogPostContract } from "@paperbits/common/blogs/BlogPostContract";
 import * as Utils from "@paperbits/common/core/utils";
 import { LayoutViewModelBinder } from "../widgets/layout/layoutViewModelBinder";
 import { ISettings } from "@paperbits/common/sites/ISettings";
-import { IMedia } from "@paperbits/common/media/IMedia";
+import { MediaContract } from "@paperbits/common/media/mediaContract";
 import { IMediaService } from "@paperbits/common/media/IMediaService";
 import { metaDataSetter } from "@paperbits/common/meta/metaDataSetter";
 
@@ -41,7 +41,7 @@ export class BlogPublisher implements IPublisher {
         this.renderBlogPost = this.renderBlogPost.bind(this);
     }
 
-    private async renderBlogPost(post: IBlogPost, settings: ISettings, iconFile: IMedia): Promise<{ name, bytes }> {
+    private async renderBlogPost(post: BlogPostContract, settings: ISettings, iconFile: MediaContract): Promise<{ name, bytes }> {
         console.log(`Publishing blog post ${post.title}...`);
 
         let documentModel = {
@@ -125,7 +125,7 @@ export class BlogPublisher implements IPublisher {
         await Promise.all(results);
     }
 
-    public setSiteSettings(settings: ISettings, iconFile: IMedia, post: IBlogPost) {
+    public setSiteSettings(settings: ISettings, iconFile: MediaContract, post: BlogPostContract) {
         if (settings && post) {
             if (settings.site.faviconPermalinkKey) {
                 if (iconFile && iconFile.downloadUrl) {

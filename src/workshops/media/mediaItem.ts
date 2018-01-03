@@ -1,5 +1,5 @@
 ﻿import * as ko from "knockout";
-import { IMedia } from "@paperbits/common/media/IMedia";
+import { MediaContract } from "@paperbits/common/media/mediaContract";
 import { IWidgetOrder } from '@paperbits/common/editing/IWidgetOrder';
 import { PictureHandlers } from "../../editors/picture/pictureHandlers";
 import { IWidgetFactoryResult } from "@paperbits/common/editing/IWidgetFactoryResult";
@@ -21,7 +21,7 @@ export class MediaItem {
     public contentType: KnockoutObservable<string>;
     public widgetFactoryResult: IWidgetFactoryResult;
 
-    constructor(media: IMedia) {
+    constructor(media: MediaContract) {
         this.permalinkKey = media.permalinkKey;
 
         this.key = media.key;
@@ -36,7 +36,7 @@ export class MediaItem {
         this.isImage = PictureHandlers.IsMediaFileImage(media);
     }
 
-    toMedia(): IMedia {
+    toMedia(): MediaContract {
         return {
             key: this.key,
             filename: this.fileName(),

@@ -1,6 +1,6 @@
 ﻿import * as ko from "knockout";
 import template from "./mediaDetails.html";
-import { IMedia } from "@paperbits/common/media/IMedia";
+import { MediaContract } from "@paperbits/common/media/mediaContract";
 import { IPermalink } from "@paperbits/common/permalinks/IPermalink";
 import { IPermalinkService } from "@paperbits/common/permalinks/IPermalinkService";
 import { IMediaService } from "@paperbits/common/media/IMediaService";

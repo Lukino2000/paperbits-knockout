@@ -3,7 +3,7 @@ import { IHttpClient } from "@paperbits/common/http/IHttpClient";
 import { IPermalinkService } from "@paperbits/common/permalinks/IPermalinkService";
 import { IBlobStorage } from "@paperbits/common/persistence/IBlobStorage";
 import { IMediaService } from "@paperbits/common/media/IMediaService";
-import { IMedia } from "@paperbits/common/media/IMedia";
+import { MediaContract } from "@paperbits/common/media/mediaContract";
 
 
 export class MediaPublisher implements IPublisher {
@@ -23,14 +23,14 @@ export class MediaPublisher implements IPublisher {
         this.renderMedia = this.renderMedia.bind(this);
     }
 
-    private async renderMediaFile(mediaFile: IMedia): Promise<void> {
+    private async renderMediaFile(mediaFile: MediaContract): Promise<void> {
         let permalink = await this.permalinkService.getPermalinkByKey(mediaFile.permalinkKey);
         let response = await this.httpClient.send({ url: mediaFile.downloadUrl });
 
         await this.outputBlobStorage.uploadBlob(permalink.uri, response.toByteArray());
     }
 
-    private async renderMedia(mediaFiles: Array<IMedia>): Promise<void> {
+    private async renderMedia(mediaFiles: Array<MediaContract>): Promise<void> {
         let mediaPromises = new Array<Promise<void>>();
 
         mediaFiles.forEach(mediaFile => {

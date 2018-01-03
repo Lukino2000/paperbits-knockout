@@ -3,7 +3,7 @@ import template from "./sliderEditor.html";
 import { IWidgetEditor } from '@paperbits/common/widgets/IWidgetEditor';
 import { Component } from "../../decorators/component";
 import { SliderModel, SlideModel } from "@paperbits/common/widgets/slider/sliderModel";
-import { IMedia } from "@paperbits/common/media/IMedia";
+import { MediaContract } from "@paperbits/common/media/mediaContract";
 import { BackgroundModel } from "@paperbits/common/widgets/background/backgroundModel";
 
 export class SliderEditorSlide {
@@ -104,7 +104,7 @@ export class SliderEditor implements IWidgetEditor {
         this.applyChangesCallback();
     }
 
-    public onMediaSelected(media: IMedia): void {
+    public onMediaSelected(media: MediaContract): void {
         this.activeSlideModel.background.sourceKey = media.permalinkKey;
         this.activeSlideModel.background.sourceUrl = media.downloadUrl;
 
@@ -112,7 +112,7 @@ export class SliderEditor implements IWidgetEditor {
         this.applyChangesCallback();
     }
 
-    public onThumbnailSelected(media: IMedia): void {
+    public onThumbnailSelected(media: MediaContract): void {
         this.activeSlideModel.thumbnail.sourceKey = media.permalinkKey;
         this.activeSlideModel.thumbnail.sourceUrl = media.downloadUrl;
 

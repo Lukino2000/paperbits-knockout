@@ -7,7 +7,7 @@ import { IContentDescriptor } from '@paperbits/common/editing/IContentDescriptor
 import { IWidgetHandler } from '@paperbits/common/editing/IWidgetHandler';
 import { IWidgetFactoryResult } from '@paperbits/common/editing/IWidgetFactoryResult';
 import { SliderModelBinder } from "@paperbits/common/widgets/slider/sliderModelBinder";
-import { Contract } from "@paperbits/common/editing/contentNode";
+import { Contract } from "@paperbits/common/contract";
 
 
 export class SliderHandlers implements IWidgetHandler {

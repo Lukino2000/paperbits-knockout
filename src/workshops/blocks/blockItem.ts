@@ -1,6 +1,6 @@
 ﻿import * as ko from "knockout";
 import { IBlock } from "@paperbits/common/blocks/IBlock";
-import { Contract } from "@paperbits/common/editing/contentNode";
+import { Contract } from "@paperbits/common/contract";
 
 
 export class BlockItem {

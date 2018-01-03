@@ -1,5 +1,5 @@
 import * as ko from "knockout";
-import { IBlogPost } from '@paperbits/common/blogs/IBlogPost';
+import { BlogPostContract } from '@paperbits/common/blogs/BlogPostContract';
 
 export class BlogPostItem {
     contentKey?: string;
@@ -12,7 +12,7 @@ export class BlogPostItem {
     public keywords: KnockoutObservable<string>;
     public hasFocus: KnockoutObservable<boolean>;
 
-    constructor(blogPost: IBlogPost) {
+    constructor(blogPost: BlogPostContract) {
         this.contentKey = blogPost.contentKey;
         this.permalinkKey = blogPost.permalinkKey;
 
@@ -24,7 +24,7 @@ export class BlogPostItem {
         this.hasFocus = ko.observable<boolean>(false);
     }
 
-    toBlogPost(): IBlogPost {
+    toBlogPost(): BlogPostContract {
         return {
             key: this.key,
             title: this.title(),

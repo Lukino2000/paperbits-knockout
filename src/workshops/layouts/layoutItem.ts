@@ -1,5 +1,5 @@
 import * as ko from "knockout";
-import { ILayout } from "@paperbits/common/layouts/ILayout";
+import { LayoutContract } from "@paperbits/common/layouts/layoutContract";
 
 export class LayoutItem {
     contentKey?: string;
@@ -12,7 +12,7 @@ export class LayoutItem {
     public uriTemplate: KnockoutObservable<string>;
     public hasFocus: KnockoutObservable<boolean>;
 
-    constructor(layout: ILayout) {
+    constructor(layout: LayoutContract) {
         this.contentKey = layout.contentKey;
 
         this.key = layout.key;
@@ -22,7 +22,7 @@ export class LayoutItem {
         this.hasFocus = ko.observable<boolean>(false);
     }
 
-    toLayout(): ILayout {
+    toLayout(): LayoutContract {
         return {
             key: this.key,
             title: this.title(),

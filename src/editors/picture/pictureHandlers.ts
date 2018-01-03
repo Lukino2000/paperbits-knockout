@@ -6,7 +6,7 @@ import { IWidgetFactoryResult } from "@paperbits/common/editing/IWidgetFactoryRe
 import { PictureContract } from "@paperbits/common/widgets/picture/IPictureNode";
 import { PictureModel } from "@paperbits/common/widgets/picture/pictureModel";
 import { PictureModelBinder } from "@paperbits/common/widgets/picture/pictureModelBinder";
-import { IMedia } from "@paperbits/common/media/IMedia";
+import { MediaContract } from "@paperbits/common/media/mediaContract";
 import { IWidgetBinding } from "@paperbits/common/editing/IWidgetBinding";
 import { IWidgetOrder } from "@paperbits/common/editing/IWidgetOrder";
 import { IContentDropHandler } from "@paperbits/common/editing/IContentDropHandler";
@@ -101,7 +101,7 @@ export class PictureHandlers implements IWidgetHandler, IContentDropHandler {
         return await this.getWidgetOrderByConfig(null, widgetDisplayName);
     }
 
-    public getContentDescriptorFromMedia(media: IMedia): IContentDescriptor {
+    public getContentDescriptorFromMedia(media: MediaContract): IContentDescriptor {
         if (!PictureHandlers.IsMediaFileImage(media)) {
             return null;
         }
@@ -140,7 +140,7 @@ export class PictureHandlers implements IWidgetHandler, IContentDropHandler {
         };
     }
 
-    public static IsMediaFileImage(media: IMedia): boolean {
+    public static IsMediaFileImage(media: MediaContract): boolean {
         return (media.contentType && media.contentType.contains("image")) || (media.filename && this.imageFileExtensions.some(e => media.filename.endsWith(e)));
 
     }

@@ -1,7 +1,7 @@
 ﻿import * as ko from "knockout";
 import template from "./pages.html";
-import { Contract } from "@paperbits/common/editing/contentNode";
-import { IPage } from "@paperbits/common/pages/IPage";
+import { Contract } from "@paperbits/common/contract";
+import { PageContract } from "@paperbits/common/pages/pageContract";
 import { IPageService } from "@paperbits/common/pages/IPageService";
 import { IRouteHandler } from "@paperbits/common/routing/IRouteHandler";
 import { IPermalinkService } from "@paperbits/common/permalinks/IPermalinkService";

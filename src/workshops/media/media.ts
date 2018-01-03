@@ -5,7 +5,7 @@ import { IMediaService } from "@paperbits/common/media/IMediaService";
 import { IViewManager } from "@paperbits/common/ui/IViewManager";
 import { IContentDropHandler } from "@paperbits/common/editing/IContentDropHandler";
 import { MediaItem } from "../../workshops/media/mediaItem";
-import { IMedia } from "@paperbits/common/media/IMedia";
+import { MediaContract } from "@paperbits/common/media/mediaContract";
 import { ICreatedMedia } from "@paperbits/common/media/ICreatedMedia";
 import { IPermalinkService } from "@paperbits/common/permalinks/IPermalinkService";
 import { IWidgetOrder } from "@paperbits/common/editing/IWidgetOrder";
@@ -88,7 +88,7 @@ export class MediaWorkshop {
         this.working(false);
     }
 
-    private findContentDescriptor(media: IMedia): IContentDescriptor {
+    private findContentDescriptor(media: MediaContract): IContentDescriptor {
         let result: IContentDescriptor;
 
         for (let i = 0; i < this.dropHandlers.length; i++) {
