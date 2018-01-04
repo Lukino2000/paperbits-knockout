@@ -2,7 +2,7 @@
 import * as $ from "jquery/dist/jquery";
 import * as ko from "knockout";
 import template from "./viewManager.html";
-import "@paperbits/common/core/extensions";
+import "@paperbits/common/extensions";
 import { IHighlightConfig } from "@paperbits/common/ui/IHighlightConfig";
 import { metaDataSetter } from "@paperbits/common/meta/metaDataSetter";
 import { IBag } from "@paperbits/common/IBag";

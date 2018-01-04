@@ -2,7 +2,7 @@ import { SectionModel } from "@paperbits/common/widgets/section/sectionModel";
 import { SectionViewModel } from "./sectionViewModel";
 import { RowViewModelBinder } from "../row/rowViewModelBinder";
 import { IViewModelBinder } from "@paperbits/common/widgets/IViewModelBinder";
-import { DragSession } from "@paperbits/common/ui/draggables/dragManager";
+import { DragSession } from "@paperbits/common/ui/draggables/dragSession";
 import { IAppIntentionsProvider } from "../../application/interface";
 
 

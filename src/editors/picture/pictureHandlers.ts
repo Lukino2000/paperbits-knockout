@@ -3,7 +3,7 @@ import * as Utils from "@paperbits/common/utils";
 import ILazy = Utils.ILazy;
 import { ICreatedMedia } from "@paperbits/common/media/ICreatedMedia";
 import { IWidgetFactoryResult } from "@paperbits/common/editing/IWidgetFactoryResult";
-import { PictureContract } from "@paperbits/common/widgets/picture/IPictureNode";
+import { PictureContract } from "@paperbits/common/widgets/picture/pictureContract";
 import { PictureModel } from "@paperbits/common/widgets/picture/pictureModel";
 import { PictureModelBinder } from "@paperbits/common/widgets/picture/pictureModelBinder";
 import { MediaContract } from "@paperbits/common/media/mediaContract";
