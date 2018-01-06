@@ -16,9 +16,9 @@ const extractSass = new ExtractTextPlugin({
 
 module.exports = {
     entry: {
-        paperbits:['./src/startup.ts', 'src/styles/vienna.scss'], 
+        paperbits:['./src/startup.ts', './src/styles/vienna.scss'], 
         theme: [`./src/themes/${selectedTheme}/scripts/index.ts`],
-        styles: [`./src/themes/${selectedTheme}/styles/styles.scss`]
+        style: [`./src/themes/${selectedTheme}/styles/styles.scss`]
     },
     output: {
         filename: 'scripts/[name].js',
@@ -43,7 +43,7 @@ module.exports = {
                 test: /\.tsx?$/,
                 loader: 'ts-loader',
                 options: {
-                    configFile: 'tsconfig.json'
+                    configFile: 'main-tsconfig.json'
                 },
                 exclude: /node_modules/
             },
@@ -51,11 +51,15 @@ module.exports = {
                 test: /\.html$/,
                 exclude: /node_modules/,
                 loader: "html-loader?exportAsEs6Default"
+            },
+            {
+                test: /\.(png|woff|woff2|eot|ttf|svg)$/, 
+                loader: 'url-loader?limit=100000'
             }
         ]
     },
     plugins: [
-        new CleanWebpackPlugin(['dist/client']),
+        //new CleanWebpackPlugin(['dist/client']),
         extractSass,      
         /**
          * Plugin: CopyWebpackPlugin
@@ -71,16 +75,17 @@ module.exports = {
             { from: `src/themes/${selectedTheme}/assets`},
             { from: `src/themes/${selectedTheme}/config.json`}      
         ]),
-        new webpack.optimize.ModuleConcatenationPlugin(),        
+        //new webpack.optimize.ModuleConcatenationPlugin(),   
+        new webpack.HotModuleReplacementPlugin()      
         /**
          * Webpack plugin to optimize a JavaScript file for faster initial load
          * by wrapping eagerly-invoked functions.
          *
          * See: https://github.com/vigneshshanmugam/optimize-js-plugin
          */
-        new OptimizeJsPlugin({            
-            sourceMap: false
-        }),
+        // new OptimizeJsPlugin({            
+        //     sourceMap: false
+        // }),
         // new webpack.optimize.UglifyJsPlugin({
         //     ie8: false,        
         //     ecma: 5,        

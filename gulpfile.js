@@ -130,6 +130,21 @@ gulp.task("webpack-dev", (callback) => {
     });
 });
 
+gulp.task("webpack-sass", (callback) => {
+    var webPackConfig = require("./webpack.config.sass.js");
+    webPackConfig.entry.theme = [`./src/themes/${selectedTheme}/scripts/index.ts`];
+    webpack(webPackConfig, function(err, stats) {
+        if (err) throw new gutil.PluginError('webpack', err);
+        
+        gutil.log('[webpack-dev]', stats.toString({        
+            colors: true,        
+            progress: true        
+        }));
+    
+        callback();        
+    });
+});
+
 gulp.task("webpack-prod", (callback) => {
     var webPackConfig = require("./webpack.config.prod.js");
     webPackConfig.entry.theme = [`./src/themes/${selectedTheme}/scripts/index.ts`];
@@ -165,6 +180,22 @@ gulp.task('server', ["build", "watch"], () => {
     });
 });
 
+gulp.task('server-sass', ["sass"], () => { 
+    const webPackConfig = require("./webpack.config.sass.js");
+    const options = {
+        host: "0.0.0.0",
+        contentBase: './dist/client',
+        hot: true
+    };
+    webpackDevServer.addDevServerEntrypoints(webPackConfig, options);
+    const compiler = webpack(webPackConfig);
+    const server = new webpackDevServer(compiler, options);
+    server.listen(8080, 'localhost', function(err) {    
+        if(err) throw new gutil.PluginError('webpack-dev-server', err);
+        gutil.log('[webpack-dev-server]', 'http://localhost:8080/webpack-dev-server/index.html');
+    });
+});
+
 gulp.task('build-clean',(done) => {
     return del(["dist/client/**"], done);
 });
@@ -172,6 +203,8 @@ gulp.task('build-clean',(done) => {
 gulp.task("build-theme", ["theme-assets", "theme-styles", "theme-styles-less", "theme-config"]);
 
 gulp.task("build", (done) => runSeq('build-clean', ["assets", "styles", "fonts", "build-theme", "webpack-dev"], done));
+
+gulp.task("sass", (done) => runSeq('build-clean', "webpack-sass", done));
 
 gulp.task("build-prod", (done) => runSeq("webpack-prod", ["styles", "theme-styles"], done));
 

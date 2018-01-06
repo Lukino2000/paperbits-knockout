@@ -13,16 +13,14 @@
         "emitDecoratorMetadata": true,
         "allowUnreachableCode": true,
         "listFiles": false,
-        "inlineSourceMap": true,
-        "inlineSources": true
+        "sourceMap": true,
+        "allowSyntheticDefaultImports": true,
+        "jsx": "react"
     },
-    "compileOnSave": false,
     "include": [
-        "**/*.ts"
+        "./src/**/*.ts"
     ],
     "exclude": [
-        "bower_components",
-        "node_modules",
-        "functions"
+        "node_modules"
     ]
 }

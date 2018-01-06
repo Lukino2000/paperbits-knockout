@@ -10,7 +10,7 @@ import { IDataTransfer } from '@paperbits/common/editing/IDataTransfer';
 import { IWidgetHandler } from '@paperbits/common/editing/IWidgetHandler';
 import { IWidgetFactoryResult } from '@paperbits/common/editing/IWidgetFactoryResult';
 import { ISettingsProvider, Settings } from '@paperbits/common/configuration/ISettingsProvider';
-import { IMapConfig } from "@paperbits/common/widgets/map/mapContract";
+import { MapContract } from "@paperbits/common/widgets/map/mapContract";
 import * as GoogleMapsLoader from "google-maps";
 
 
@@ -44,7 +44,7 @@ export class MapHandlers implements IWidgetHandler, IContentDropHandler {
         proxy.load();
     }
 
-    private async prepareWidgetOrder(config: IMapConfig): Promise<IWidgetOrder> {
+    private async prepareWidgetOrder(config: MapContract): Promise<IWidgetOrder> {
         let model = await this.mapModelBinder.nodeToModel(config);
 
         let factoryFunction: () => IWidgetFactoryResult = () => {
@@ -73,7 +73,7 @@ export class MapHandlers implements IWidgetHandler, IContentDropHandler {
     }
 
     private async  getWidgetOrderByConfig(location: string): Promise<IWidgetOrder> {
-        let config: IMapConfig = {
+        let config: MapContract = {
             kind: "block",
             type: "map",
             location: location,
@@ -104,7 +104,7 @@ export class MapHandlers implements IWidgetHandler, IContentDropHandler {
         return descriptor;
     }
 
-    private parseDataTransfer(dataTransfer: IDataTransfer): IMapConfig {
+    private parseDataTransfer(dataTransfer: IDataTransfer): MapContract {
         let source = dataTransfer.source;
 
         if (source && typeof source === "string") {

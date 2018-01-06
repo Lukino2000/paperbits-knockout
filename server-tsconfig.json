@@ -12,12 +12,14 @@
         "experimentalDecorators": true,
         "emitDecoratorMetadata": true,
         "allowUnreachableCode": true,
-        "allowSyntheticDefaultImports": true,
         "listFiles": false,
-        "sourceMap": false
+        "sourceMap": false,
+        "allowSyntheticDefaultImports": true,
+        "jsx": "react"
     },
+    "compileOnSave": false,
     "include": [
-        "src.node/**/*.ts"
+        "./src.node/**/*.ts"
     ],
     "exclude": [
         "node_modules"
