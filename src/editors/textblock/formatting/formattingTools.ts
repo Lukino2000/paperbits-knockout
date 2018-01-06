@@ -11,7 +11,7 @@ import { IBag } from "@paperbits/common/IBag";
 import { IViewManager } from "@paperbits/common/ui/IViewManager";
 import { IAppIntentionsProvider } from "../../../application/interface";
 import { Intentions } from "../../../application/codegen/intentionContracts";
-import { IHtmlEditor } from "@paperbits/common/editing/IHtmlEditor";
+import { IHtmlEditor, SelectionState } from "@paperbits/common/editing/IHtmlEditor";
 
 
 @Component({
@@ -82,7 +82,6 @@ export class FormattingTools {
     }
 
     private updateFormattingState(): void {
-        const viewport = this.viewManager.getViewport();
         const selectionState = this.htmlEditorProvider.getCurrentHtmlEditor().getSelectionState();
 
         this.bold(selectionState.bold);
@@ -92,8 +91,47 @@ export class FormattingTools {
         this.ol(selectionState.ol);
         this.pre(selectionState.code);
 
-        const alignment: string[] = <any>selectionState.intentions.alignment
+        this.updateAlignmentState(selectionState)
+        
+        this.anchored(!!selectionState.intentions.anchorKey);
 
+        this.styleIntentions(selectionState.intentions);
+        this.styled(!!(selectionState.intentions.color));
+
+        if (selectionState.normal) {
+            this.style("Normal");
+        }
+        else if (selectionState.h1) {
+            this.style("Heading 1");
+        }
+        else if (selectionState.h2) {
+            this.style("Heading 2");
+        }
+        else if (selectionState.h3) {
+            this.style("Heading 3");
+        }
+        else if (selectionState.h4) {
+            this.style("Heading 4");
+        }
+        else if (selectionState.h5) {
+            this.style("Heading 5");
+        }
+        else if (selectionState.h6) {
+            this.style("Heading 6");
+        }
+        else if (selectionState.quote) {
+            this.style("Quote");
+        }
+        else if (selectionState.code) {
+            this.style("Code snippet");
+        }
+    }
+    
+    private updateAlignmentState(selectionState: SelectionState):void{
+
+        const viewport = this.viewManager.getViewport();
+        const alignment: string[] = <any>selectionState.intentions.alignment
+        
         if (!alignment){
             this.alignedLeft(true);
             this.alignedCenter(false);
@@ -132,42 +170,9 @@ export class FormattingTools {
             this.alignedRight(!!alignment.find(v => v.startsWith("text.alignment.alignedRight")));
             this.justified(!!alignment.find(v => v.startsWith("text.alignment.justified")));
         }
-        
-        this.anchored(!!selectionState.intentions.anchorKey);
 
         if (!this.alignedLeft() && !this.alignedCenter() && !this.alignedRight() && !this.justified()) {
             this.alignedLeft(true);
-        }
-
-        this.styleIntentions(selectionState.intentions);
-        this.styled(!!(selectionState.intentions.color));
-
-        if (selectionState.normal) {
-            this.style("Normal");
-        }
-        else if (selectionState.h1) {
-            this.style("Heading 1");
-        }
-        else if (selectionState.h2) {
-            this.style("Heading 2");
-        }
-        else if (selectionState.h3) {
-            this.style("Heading 3");
-        }
-        else if (selectionState.h4) {
-            this.style("Heading 4");
-        }
-        else if (selectionState.h5) {
-            this.style("Heading 5");
-        }
-        else if (selectionState.h6) {
-            this.style("Heading 6");
-        }
-        else if (selectionState.quote) {
-            this.style("Quote");
-        }
-        else if (selectionState.code) {
-            this.style("Code snippet");
         }
     }
 
@@ -200,7 +205,7 @@ export class FormattingTools {
     public toggleSize(): void {
         var intention = {
             "name": "Lead",
-            "key": "text-lead",
+            "key": "text.size.text-lead",
             "css": "lead",
             "category": "lead",
             "scope": "block"
