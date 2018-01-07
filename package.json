@@ -1,6 +1,6 @@
 {
     "name": "@paperbits/knockout",
-    "version": "0.0.16",
+    "version": "0.0.43",
     "description": "Paperbits components for Knockout.",
     "author": "Vienna LLC",
     "license": "GPL-3.0",
@@ -77,9 +77,9 @@
         "yargs": "^10.0.3"
     },
     "dependencies": {
-        "@paperbits/common": "0.0.42",
-        "@paperbits/slate": "0.0.21",
-        "@paperbits/firebase": "0.0.5",
+        "@paperbits/common": "0.0.43",
+        "@paperbits/slate": "0.0.43",
+        "@paperbits/firebase": "0.0.43",
         "es6-shim": "^0.35.3",
         "google-maps": "^3.2.1",
         "hasher": "^1.2.0",
