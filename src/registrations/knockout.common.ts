@@ -34,6 +34,8 @@ import { ViewManager } from "../ui/viewManager";
 import { BackgroundBindingHandler } from "../bindingHandlers/bindingHandlers.background";
 import { ResizableBindingHandler } from "../bindingHandlers/bindingHandlers.resizable";
 
+import { KnockoutValidation } from "../validation/validators";
+
 
 export class KnockoutRegistrationCommon implements IInjectorModule {
     public register(injector: IInjector): void {
@@ -52,5 +54,7 @@ export class KnockoutRegistrationCommon implements IInjectorModule {
         injector.bindSingleton("balloonBindingHandler", BalloonBindingHandler);
         injector.bindSingleton("backgroundBindingHandler", BackgroundBindingHandler);
         injector.bindSingleton("resizableBindingHandler", ResizableBindingHandler);
+
+        injector.bindSingleton("knockoutValidation", KnockoutValidation);
     }
 }

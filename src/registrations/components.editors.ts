@@ -38,7 +38,7 @@ import { DragManager } from '@paperbits/common/ui/draggables/dragManager';
 import { DropBucket } from '../workshops/dropbucket/dropbucket';
 import { FormattingTools } from '../editors/textblock/formatting/formattingTools';
 import { HyperlinkTools } from '../editors/textblock/hyperlink/hyperlinkTools';
-import { LayoutDetailsWorkshop } from "../workshops/layouts/layoutDetailsWorkshop";
+import { LayoutDetails } from "../workshops/layouts/layoutDetails";
 import { LayoutItem } from "../workshops/layouts/layoutItem";
 import { LayoutSelector } from "../workshops/layouts/layoutSelector";
 import { LayoutsWorkshop } from "../workshops/layouts/layoutsWorkshop";
@@ -128,12 +128,12 @@ export class ComponentRegistrationEditors implements IInjectorModule {
             return new MediaDetailsWorkshop(mediaService, permalinkService, mediaReference, viewManager);
         });
 
-        injector.bindComponent("layoutDetailsWorkshop", (ctx: IInjector, layoutReference: LayoutItem) => {
+        injector.bindComponent("layoutDetails", (ctx: IInjector, layoutReference: LayoutItem) => {
             var layoutService = ctx.resolve<ILayoutService>("layoutService");
             var routeHandler = ctx.resolve<IRouteHandler>("routeHandler");
             var viewManager = ctx.resolve<IViewManager>("viewManager");
 
-            return new LayoutDetailsWorkshop(layoutService, routeHandler, layoutReference, viewManager);
+            return new LayoutDetails(layoutService, routeHandler, layoutReference, viewManager);
         });
 
         injector.bindComponent("pageDetailsWorkshop", (ctx: IInjector, pageReference: PageItem) => {

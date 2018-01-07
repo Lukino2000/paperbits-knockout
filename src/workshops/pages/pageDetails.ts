@@ -8,7 +8,7 @@ import { IRouteHandler } from "@paperbits/common/routing/IRouteHandler";
 import { IViewManager } from "@paperbits/common/ui/IViewManager";
 import { PageItem } from "../../workshops/pages/pageItem";
 import { Component } from "../../decorators/component";
-import { Validators } from "../../validation/validators";
+
 
 @Component({
     selector: "page-details-workshop",
@@ -16,15 +16,15 @@ import { Validators } from "../../validation/validators";
     injectable: "pageDetailsWorkshop"
 })
 export class PageDetailsWorkshop {
-    private readonly pageService: IPageService;
-    private readonly permalinkService: IPermalinkService;
-    private readonly routeHandler: IRouteHandler;
-    private readonly viewManager: IViewManager;
     private pagePermalink: IPermalink;
 
-    public readonly pageItem: PageItem;
+    constructor(
+        private readonly pageService: IPageService,
+        private readonly permalinkService: IPermalinkService,
+        private readonly routeHandler: IRouteHandler,
+        private readonly pageItem: PageItem,
+        private readonly viewManager: IViewManager) {
 
-    constructor(pageService: IPageService, permalinkService: IPermalinkService, routeHandler: IRouteHandler, pageItem: PageItem, viewManager: IViewManager) {
         // initialization...
         this.pageService = pageService;
         this.permalinkService = permalinkService;
@@ -34,19 +34,25 @@ export class PageDetailsWorkshop {
 
         // rebinding...
         this.deletePage = this.deletePage.bind(this);
-        this.updateMetadata = this.updateMetadata.bind(this);
-        this.updateTitle = this.updateTitle.bind(this);
+        this.updatePage = this.updatePage.bind(this);
+        this.updatePermlaink = this.updatePermlaink.bind(this);
 
-        Validators.initPermalinkValidation();
+        this.pageItem.title
+            .extend({ required: true, onlyValid: true })
+            .subscribe(this.updatePage);
 
-        this.pageItem.title.extend({ required: true }).subscribe(this.updateTitle);
+        this.pageItem.title
+            .extend({ required: true });
 
-        this.pageItem.description.subscribe(this.updateMetadata);
+        this.pageItem.description
+            .subscribe(this.updatePage);
 
-        this.pageItem.keywords.subscribe(this.updateMetadata);
+        this.pageItem.keywords
+            .subscribe(this.updatePage);
 
-        //this.pageItem.permalinkUrl.extend({ uniquePermalink: true }).subscribe(this.updatePermalink);
-
+        this.pageItem.permalinkUrl
+            .extend({ uniquePermalink: this.pageItem.permalinkKey, onlyValid: true })
+            .subscribe(this.updatePermlaink);
 
         this.init();
     }
@@ -57,23 +63,16 @@ export class PageDetailsWorkshop {
         this.pagePermalink = permalink;
         this.pageItem.permalinkUrl(permalink.uri);
         this.routeHandler.navigateTo(permalink.uri);
-
-        Validators.setPermalinkValidatorWithUpdate(this.pageItem.permalinkUrl, this.pagePermalink, this.permalinkService);
-    }
-    
-    private async updateTitle(): Promise<void> {
-        let isUpdated = await this.updateMetadata();
-        if (isUpdated) {
-            this.viewManager.setTitle(null, this.pageItem.toPage());
-        }
     }
 
-    private async updateMetadata(): Promise<boolean> {
-        if (this.pageItem.title.isValid() && this.pageItem.permalinkUrl.isValid()) {
-            await this.pageService.updatePage(this.pageItem.toPage());
-            return true;
-        }
-        return false;
+    private async updatePage(): Promise<void> {
+        await this.pageService.updatePage(this.pageItem.toPage());
+        this.viewManager.setTitle(null, this.pageItem.toPage());
+    }
+
+    private async updatePermlaink(): Promise<void> {
+        this.pagePermalink.uri = this.pageItem.permalinkUrl();
+        await this.permalinkService.updatePermalink(this.pagePermalink);
     }
 
     public async deletePage(): Promise<void> {

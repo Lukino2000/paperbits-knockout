@@ -8,7 +8,6 @@ import { IRouteHandler } from "@paperbits/common/routing/IRouteHandler";
 import { IViewManager } from "@paperbits/common/ui/IViewManager";
 import { BlogPostItem } from "../../workshops/blogs/blogPostItem";
 import { Component } from "../../decorators/component";
-import { Validators } from "../../validation/validators";
 
 
 @Component({
@@ -38,23 +37,31 @@ export class BlogPostDetailsWorkshop {
         this.deleteBlogPost = this.deleteBlogPost.bind(this);
         this.updateMetadata = this.updateMetadata.bind(this);
 
-        Validators.initPermalinkValidation();
         this.init();
     }
 
     private async init(): Promise<void> {
-        let permalink = await this.permalinkService.getPermalinkByKey(this.blogPostItem.permalinkKey);
+        const permalink = await this.permalinkService.getPermalinkByKey(this.blogPostItem.permalinkKey);
 
         this.blogPostPermalink = permalink;
         this.blogPostItem.permalinkUrl(permalink.uri);
         this.routeHandler.navigateTo(permalink.uri);
 
-        this.blogPostItem.title.extend({ required: true });
-        this.blogPostItem.title.subscribe(this.updateMetadata);
-        this.blogPostItem.description.subscribe(this.updateMetadata);
-        this.blogPostItem.keywords.subscribe(this.updateMetadata);
+        this.blogPostItem.title
+            .extend({ required: true })
+            .subscribe(this.updateMetadata);
 
-        Validators.setPermalinkValidatorWithUpdate(this.blogPostItem.permalinkUrl, this.blogPostPermalink, this.permalinkService);
+        this.blogPostItem.description
+            .subscribe(this.updateMetadata);
+
+        this.blogPostItem.keywords
+            .subscribe(this.updateMetadata);
+
+        this.blogPostItem.permalinkUrl
+            .extend({ uniquePermalink: true, onlyValid: true })
+            .subscribe((permalinkUrl) => {
+                console.log(permalinkUrl);
+            });
     }
 
     private async updateMetadata(): Promise<void> {

@@ -4,7 +4,7 @@ import { IBlobStorage } from "@paperbits/common/persistence/IBlobStorage";
 import { FileSystemBlobStorage } from "./filesystemBlobStorage";
 import { IInjector, IInjectorModule } from "@paperbits/common/injection";
 import { AssetPublisher } from "../src/publishing/assetPublisher";
-import { StaticRouteHandler } from "./routeHandler";
+import { StaticRouteHandler } from "./staticRouteHandler";
 import { IPermalinkService } from "@paperbits/common/permalinks/IPermalinkService";
 import { PermalinkResolver } from "@paperbits/common/permalinks/permalinkResolver";
 

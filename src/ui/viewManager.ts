@@ -33,20 +33,12 @@ import { DragSession } from "@paperbits/common/ui/draggables/dragSession";
     injectable: "viewManager"
 })
 export class ViewManager implements IViewManager {
-    private readonly eventManager: IEventManager;
-    private readonly globalEventHandler: GlobalEventHandler;
-    private readonly routeHandler: IRouteHandler;
-    private readonly mediaService: IMediaService;
-    private readonly pageService: IPageService;
-    private readonly permalinkService: IPermalinkService;
-    private readonly siteService: ISiteService;
     private contextualEditorsBag: IBag<IContextualEditor> = {};
-
     private currentPage: PageContract;
 
     public journey: KnockoutObservableArray<IEditorSession>;
     public journeyName: KnockoutComputed<string>;
-    
+
     public itemSelectorName: KnockoutObservable<string>;
     public progressIndicators: KnockoutObservableArray<ProgressIndicator>;
     public primaryToolboxVisible: KnockoutObservable<boolean>;
@@ -62,8 +54,15 @@ export class ViewManager implements IViewManager {
 
     public mode: ViewManagerMode;
 
-    constructor(eventManager: IEventManager, globalEventHandler: GlobalEventHandler, routeHandler: IRouteHandler, 
-                mediaService: IMediaService, pageService: IPageService, permalinkService: IPermalinkService, siteService: ISiteService) {
+    constructor(
+        private readonly eventManager: IEventManager,
+        private readonly globalEventHandler: GlobalEventHandler,
+        private readonly routeHandler: IRouteHandler,
+        private readonly mediaService: IMediaService,
+        private readonly pageService: IPageService,
+        private readonly permalinkService: IPermalinkService,
+        private readonly siteService: ISiteService) {
+
         this.eventManager = eventManager;
         this.globalEventHandler = globalEventHandler;
         this.routeHandler = routeHandler;
@@ -127,6 +126,7 @@ export class ViewManager implements IViewManager {
 
     private onRouteChange(): void {
         this.clearContextualEditors();
+        this.closeWidgetEditor();
     }
 
     public async loadFavIcon(): Promise<void> {
@@ -141,7 +141,7 @@ export class ViewManager implements IViewManager {
         }
     }
 
-    public async setTitle(settings?:ISettings, page?: PageContract): Promise<void> {
+    public async setTitle(settings?: ISettings, page?: PageContract): Promise<void> {
         let siteTitle, pageTitle;
         if (settings && settings.site) {
             siteTitle = settings.site.title;
@@ -157,8 +157,8 @@ export class ViewManager implements IViewManager {
         }
 
         let pageType;
-        pageType = this.getPageType(page.key);        
-        
+        pageType = this.getPageType(page.key);
+
         switch (pageType) {
             case "page":
                 pageTitle = page.title;
@@ -174,7 +174,7 @@ export class ViewManager implements IViewManager {
         document.title = [siteTitle, pageTitle].join(" | ");
     }
 
-    private getPageType(pageKey: string) : string {
+    private getPageType(pageKey: string): string {
         let pageType = "page";
         if (pageKey.startsWith("posts")) {
             pageType = "post";
@@ -185,14 +185,22 @@ export class ViewManager implements IViewManager {
         return pageType;
     }
 
-    private async getCurrentPage() : Promise<PageContract> {
-        let url = this.routeHandler.getCurrentUrl();
+    private async getCurrentPage(): Promise<PageContract> {
+        const url = this.routeHandler.getCurrentUrl();
         let permalink = await this.permalinkService.getPermalinkByUrl(url);
-        let pageKey = permalink.targetKey;
+
+        if (!permalink) {
+            permalink = await this.permalinkService.getPermalinkByUrl("/404.html");
+        }
+
+        const pageKey = permalink.targetKey;
+
         if (this.currentPage && this.currentPage.permalinkKey === pageKey) {
             return this.currentPage;
         }
+
         this.currentPage = await this.pageService.getPageByKey(pageKey);
+        
         return this.currentPage;
     }
 
@@ -353,7 +361,6 @@ export class ViewManager implements IViewManager {
         this.widgetEditor(null);
         this.eventManager.dispatchEvent("onWidgetEditorClose");
         this.clearContextualEditors();
-        this.clearJourney();
 
         this.mode = ViewManagerMode.selecting;
         this.unfoldWorkshop();
@@ -374,7 +381,7 @@ export class ViewManager implements IViewManager {
 
         delete this.contextualEditorsBag[editorName];
 
-        let editors = Object.keys(this.contextualEditorsBag).map(key => this.contextualEditorsBag[key]);
+        const editors = Object.keys(this.contextualEditorsBag).map(key => this.contextualEditorsBag[key]);
 
         this.contextualEditors(editors);
     }

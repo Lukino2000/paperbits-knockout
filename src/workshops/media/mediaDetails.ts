@@ -8,7 +8,7 @@ import { IRouteHandler } from "@paperbits/common/routing/IRouteHandler";
 import { IViewManager } from "@paperbits/common/ui/IViewManager";
 import { MediaItem } from "../../workshops/media/mediaItem";
 import { Component } from "../../decorators/component";
-import { Validators } from "../../validation/validators";
+
 
 @Component({
     selector: "media-details-workshop",
@@ -16,6 +16,8 @@ import { Validators } from "../../validation/validators";
     injectable: "mediaDetailsWorkshop"
 })
 export class MediaDetailsWorkshop {
+    private mediaPermalink: IPermalink;
+
     private readonly mediaService: IMediaService;
     private readonly permalinkService: IPermalinkService;
     private readonly viewManager: IViewManager;
@@ -30,29 +32,40 @@ export class MediaDetailsWorkshop {
         this.mediaItem = mediaItem;
 
         // rebinding...
-        //this.onFaviconUploaded = this.onFaviconUploaded.bind(this);
         this.deleteMedia = this.deleteMedia.bind(this);
-        this.updateMetadata = this.updateMetadata.bind(this);
+        this.updateMedia = this.updateMedia.bind(this);
+        this.updatePermlaink = this.updatePermlaink.bind(this);
 
-        Validators.initPermalinkValidation();
+        this.mediaItem.fileName
+            .extend({ required: true, onlyValid: true })
+            .subscribe(this.updateMedia);
+
+        this.mediaItem.description
+            .subscribe(this.updateMedia);
+
+        this.mediaItem.keywords
+            .subscribe(this.updateMedia);
+
+        this.mediaItem.permalinkUrl
+            .extend({ uniquePermalink: this.mediaItem.permalinkKey, onlyValid: true })
+            .subscribe(this.updatePermlaink);
+
         this.init();
     }
 
     private async init(): Promise<void> {
         const permalink = await this.permalinkService.getPermalinkByKey(this.mediaItem.permalinkKey);
 
+        this.mediaPermalink = permalink;
         this.mediaItem.permalinkUrl(permalink.uri);
-
-        this.mediaItem.fileName.extend({ required: true });
-        this.mediaItem.fileName.subscribe(this.updateMetadata);
-        this.mediaItem.description.subscribe(this.updateMetadata);
-        this.mediaItem.keywords.subscribe(this.updateMetadata);
-
-        Validators.setPermalinkValidatorWithUpdate(this.mediaItem.permalinkUrl, permalink, this.permalinkService);
     }
 
-    private async updateMetadata(): Promise<void> {
+    private async updateMedia(): Promise<void> {
         await this.mediaService.updateMedia(this.mediaItem.toMedia());
+    }
+
+    private async updatePermlaink(): Promise<void> {
+        await this.permalinkService.updatePermalink(this.mediaPermalink);
     }
 
     public async deleteMedia(): Promise<void> {
