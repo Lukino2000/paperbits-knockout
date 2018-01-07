@@ -1,12 +1,16 @@
 import { IIntentionsBuilder, IIntentionsProvider } from '@paperbits/common/appearence/intention';
 
 export class IntentionsProvider implements IIntentionsProvider{
+
+    private intentions: any;
     
     constructor(private intentionsBuilder: IIntentionsBuilder){
         intentionsBuilder
             .scope("text", textBuilder => {
                 return textBuilder.scope("size", sizeBuilder => {
-                        return sizeBuilder.addIntention("text_lead", "size", "Lead", "block");
+                        return sizeBuilder
+                            .addIntention("default", "size", "Default", "block")
+                            .addIntention("text_lead", "size", "Lead", "block");
                     })
                     .scope("alignment", alignmentBuilder => {
                         return alignmentBuilder
@@ -36,7 +40,7 @@ export class IntentionsProvider implements IIntentionsProvider{
     }
 
     public getIntentions(): any{
-        return this.intentionsBuilder.build();
+        return this.intentions || (this.intentions = this.intentionsBuilder.build());
     }
 
     public generateContracts(){

@@ -17,6 +17,7 @@ export interface Intentions_text extends IntentionsMap{
 }
 
 export interface Intentions_text_size extends IntentionsMap{
+	default: Intention;
 	text_lead: Intention;
 }
 

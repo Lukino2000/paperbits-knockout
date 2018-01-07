@@ -28,11 +28,6 @@
         <i class="paperbits-icon paperbits-underline"></i>
     </a>
 </div>
-<div class="toolbox-button">
-    <a href="#" data-bind="click: toggleSize">
-        <i class="paperbits-icon paperbits-size"></i>
-    </a>
-</div>
 
 <div class="toolbox-button toolbox-button-formatting" data-bind="balloon: { selector: '#blockStyleSelector', position: 'bottom' }"
     title="Style">
@@ -64,13 +59,17 @@
         <i class="paperbits-icon paperbits-color"></i>
     </a>
 </div>
+<div class="toolbox-button"  title="Text size">
+     <a href="#" data-bind="balloon: { selector: '#textSizeSelector', position: 'bottom' }, text: size"></a>
+</div>
 <div title="Anchor" class="toolbox-button" data-bind="css: { 'toolbox-button-is-active': anchored() }">
     <a href="#" data-bind="click: toggleAnchor">
         <i class="paperbits-icon paperbits-anchor"></i>
     </a>
 </div>
 
-<style-selector id="textStyleSelector" class="balloon" params="selectedStyle: styleIntentions, setStyleCallback: setStyle"></style-selector>
+<intention-selector id="textStyleSelector" class="balloon" params="title: 'Text style', intentions: styleIntentions, selectedIntention: styleIntention, setIntentionSelectorCallback: setStyle"></intention-selector>
+<intention-selector id="textSizeSelector" class="balloon" params="title: 'Text size', intentions: sizeIntentions, selectedIntention: sizeIntention, setIntentionSelectorCallback: setSize"></intention-selector>
 
 <div id="blockStyleSelector" class="balloon tools-paragraphstyle">
     <a href="#" class="tools-paragraph-style tools-paragraph-style-normal" data-bind="click: resetToNormal">Normal</a>

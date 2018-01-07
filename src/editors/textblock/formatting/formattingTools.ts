@@ -6,12 +6,15 @@ import { IHtmlEditorProvider } from "@paperbits/common/editing/htmlEditorProvide
 import { Component } from "../../../decorators/component";
 import { IPermalinkService } from "@paperbits/common/permalinks/IPermalinkService";
 import { IPageService } from "@paperbits/common/pages/IPageService";
+import { IntentionsUtils } from "@paperbits/common/appearence/intentionsUtils";
 import { IRouteHandler } from "@paperbits/common/routing/IRouteHandler";
 import { IBag } from "@paperbits/common/IBag";
 import { IViewManager } from "@paperbits/common/ui/IViewManager";
 import { IAppIntentionsProvider } from "../../../application/interface";
 import { Intentions } from "../../../application/codegen/intentionContracts";
 import { IHtmlEditor, SelectionState } from "@paperbits/common/editing/IHtmlEditor";
+import { Intention } from "../../../../../paperbits-common/src/appearence/intention";
+import { isAbsolute } from "path";
 
 
 @Component({
@@ -36,12 +39,16 @@ export class FormattingTools {
     public pre: KnockoutObservable<boolean>;
     public style: KnockoutObservable<string>;
     public styled: KnockoutObservable<boolean>;
+    public styleIntentions: Intention[];
+    public styleIntention: KnockoutObservable<Intention>;
     public alignedLeft: KnockoutObservable<boolean>;
     public alignedCenter: KnockoutObservable<boolean>;
     public alignedRight: KnockoutObservable<boolean>;
     public justified: KnockoutObservable<boolean>;
-    public styleIntentions: KnockoutObservable<Object>;
     public anchored: KnockoutObservable<boolean>;
+    public size: KnockoutObservable<string>;
+    public sizeIntentions: Intention[];
+    public sizeIntention: KnockoutObservable<Intention>;
 
     constructor(
         htmlEditorProvider: IHtmlEditorProvider,
@@ -60,23 +67,31 @@ export class FormattingTools {
         this.intentions = intentionsProvider.getIntentions();
 
         this.updateFormattingState = this.updateFormattingState.bind(this);
-        this.setStyle = this.setStyle.bind(this);
 
+        this.setStyle = this.setStyle.bind(this);
+        this.styleIntentions = IntentionsUtils.toArray(this.intentions.text.style);
+        this.styleIntention = ko.observable<Intention>(this.intentions.text.style.text_color_primary);
+        this.style = ko.observable<string>(this.intentions.text.style.text_color_primary.name());
+        this.styled = ko.observable<boolean>();
+        
+        this.setSize = this.setSize.bind(this);
+        this.sizeIntentions = IntentionsUtils.toArray(this.intentions.text.size);
+        this.sizeIntention = ko.observable<Intention>(this.intentions.text.size.default);
+        this.size = ko.observable<string>(this.intentions.text.size.default.name());
+        
         this.bold = ko.observable<boolean>();
         this.italic = ko.observable<boolean>();
         this.underlined = ko.observable<boolean>();
         this.ul = ko.observable<boolean>();
         this.ol = ko.observable<boolean>();
         this.pre = ko.observable<boolean>();
-        this.style = ko.observable<string>("Normal");
-        this.styled = ko.observable<boolean>();
         this.alignedLeft = ko.observable<boolean>();
         this.alignedCenter = ko.observable<boolean>();
         this.alignedRight = ko.observable<boolean>();
         this.justified = ko.observable<boolean>();
-        this.styleIntentions = ko.observable<IBag<string>>({});
         this.anchored = ko.observable<boolean>();
         this.viewManager = viewManager;
+        
 
         eventManager.addEventListener("htmlEditorChanged", this.updateFormattingState)
     }
@@ -95,8 +110,11 @@ export class FormattingTools {
         
         this.anchored(!!selectionState.intentions.anchorKey);
 
-        this.styleIntentions(selectionState.intentions);
-        this.styled(!!(selectionState.intentions.color));
+        this.updateIntentionSelector(selectionState, null, this.sizeIntention,
+            this.size, this.intentions.text.size.default);
+
+        this.updateIntentionSelector(selectionState, this.styled, this.styleIntention,
+            this.style, this.intentions.text.style.text_color_primary);        
 
         if (selectionState.normal) {
             this.style("Normal");
@@ -125,6 +143,30 @@ export class FormattingTools {
         else if (selectionState.code) {
             this.style("Code snippet");
         }
+    }
+
+    private updateIntentionSelector(
+        selectionState: SelectionState,
+        isActive: KnockoutObservable<boolean>, 
+        intention: KnockoutObservable<Intention>,
+        caption: KnockoutObservable<string>, 
+        defaultIntention: Intention){
+        
+        const category: string = defaultIntention.category;
+
+        if (isActive){
+            isActive(!!(selectionState.intentions[category] && (selectionState.intentions[category].length > 0)));
+        }
+        
+        const selectedIntentions = selectionState.intentions[category];
+        const selectedIntention = 
+            selectedIntentions && selectedIntentions.length > 0 &&
+                this.intentions.flattenMap[selectedIntentions[0]] || 
+                defaultIntention;
+        
+        intention(selectedIntention);
+
+        caption(selectedIntention.name());
     }
     
     private updateAlignmentState(selectionState: SelectionState):void{
@@ -186,9 +228,13 @@ export class FormattingTools {
         this.updateFormattingState();
     }
 
-    public setStyle(intention): void {
-        console.log(intention);
-        this.htmlEditorProvider.getCurrentHtmlEditor().toggleCategory(intention.category, intention.key, intention.scope);
+    public setStyle(intention: Intention): void {
+        this.htmlEditorProvider.getCurrentHtmlEditor().toggleCategory(intention.category, intention.fullId, intention.scope);
+        this.updateFormattingState();
+    }
+
+    public setSize(intention: Intention): void {
+        this.htmlEditorProvider.getCurrentHtmlEditor().toggleCategory(intention.category, intention.fullId, intention.scope);
         this.updateFormattingState();
     }
 
@@ -202,16 +248,19 @@ export class FormattingTools {
         this.updateFormattingState();
     }
 
-    public toggleSize(): void {
-        var intention = {
-            "name": "Lead",
-            "key": "text.size.text-lead",
-            "css": "lead",
-            "category": "lead",
-            "scope": "block"
-        }
+    public toggleLead(): void {
+        const leadIntention = this.intentions.text.size.text_lead
 
-        this.htmlEditorProvider.getCurrentHtmlEditor().toggleCategory(intention.category, intention.key, intention.scope);
+        this.htmlEditorProvider.getCurrentHtmlEditor().toggleCategory(leadIntention.category, leadIntention.fullId, leadIntention.scope);
+        
+        this.updateFormattingState();
+    }
+
+    public resetToDefault(): void{
+        const defaultSize = this.intentions.text.size.default;
+        
+        this.htmlEditorProvider.getCurrentHtmlEditor().toggleCategory(defaultSize.category, [], defaultSize.scope);
+        
         this.updateFormattingState();
     }
 

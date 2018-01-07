@@ -33,7 +33,6 @@ import { Code } from '../widgets/codeblock/code';
 import { CodeblockModelBinder } from "@paperbits/common/widgets/codeblock/codeblockModelBinder";
 import { CodeEditor } from '../editors/codeblock/codeEditor';
 import { ColorSelector } from '../workshops/colors/colorSelector';
-import { StyleSelector } from '../workshops/text/styleSelector';
 import { ColumnEditor } from "../editors/column/columnEditor";
 import { DragManager } from '@paperbits/common/ui/draggables/dragManager';
 import { DropBucket } from '../workshops/dropbucket/dropbucket';
@@ -83,6 +82,7 @@ import { IAppIntentionsProvider } from "../application/interface";
 import { SliderEditor } from "../editors/slider/sliderEditor";
 import { SliderHandlers } from "../editors/slider/sliderHandlers";
 import { ModelBinderSelector } from "@paperbits/common/widgets/modelBinderSelector";
+import { IntentionSelector } from "../editors/textblock/formatting/intentionSelector";
 
 
 export class ComponentRegistrationEditors implements IInjectorModule {
@@ -228,13 +228,13 @@ export class ComponentRegistrationEditors implements IInjectorModule {
         });
 
         injector.bindComponent("colorSelector", (ctx: IInjector, params: {}) => {
-            let intentionMapService = ctx.resolve<IAppIntentionsProvider>("intentionsProvider");
-            return new ColorSelector(params["onSelect"], params["selectedColor"], intentionMapService);
+            let intentionsProvider = ctx.resolve<IAppIntentionsProvider>("intentionsProvider");
+            return new ColorSelector(params["onSelect"], params["selectedColor"], intentionsProvider);
         });
 
-        injector.bindComponent("styleSelector", (ctx: IInjector, params: {}) => {
-            let intentionMapService = ctx.resolve<IAppIntentionsProvider>("intentionsProvider");
-            return new StyleSelector(params["selectedStyle"], params["setStyleCallback"], intentionMapService);
+        injector.bindComponent("intentionSelector", (ctx: IInjector, params: {}) => {
+            let intentionsProvider = ctx.resolve<IAppIntentionsProvider>("intentionsProvider");
+            return new IntentionSelector(params["title"], params["intentions"], params["selectedIntention"], params["setIntentionSelectorCallback"], intentionsProvider);
         });
 
         injector.bindComponent("hyperlinkSelector", (ctx: IInjector, params: {}) => {
