@@ -14,7 +14,8 @@ export var theme =
             }
         },
         size: {
-            "text_lead": "lead"
+            "text_lead": "lead",
+            "default": "default"
         },
         style: {
             "text_color_primary": "text-primary",
