@@ -59,28 +59,28 @@ export class BlogWorkshop {
 
     public async init(): Promise<void> {
         this.template = {
-            "kind": "block",
+            "object": "block",
             "nodes": [
                 {
-                    "kind": "block",
+                    "object": "block",
                     "nodes": [
                         {
                             "align": {
                                 "md": "center"
                             },
-                            "kind": "block",
+                            "object": "block",
                             "nodes": [
                                 {
-                                    "kind": "block",
+                                    "object": "block",
                                     "nodes": [
                                         {
-                                            "kind": "widget",
+                                            "object": "widget",
                                             "nodes": [
                                                 {
-                                                    "kind": "block",
+                                                    "object": "block",
                                                     "nodes": [
                                                         {
-                                                            "kind": "text",
+                                                            "object": "text",
                                                             "text": "New blog post"
                                                         }
                                                     ],

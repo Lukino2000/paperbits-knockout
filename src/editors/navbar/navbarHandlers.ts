@@ -28,7 +28,7 @@ export class NavbarHandlers implements IWidgetHandler {
 
 
         let node = {
-            kind: "block",
+            object: "block",
             type: "navbar",
             rootKey: "navigationItems/main" // TODO: This is temporary, until multiple menus support is implemented.
         };

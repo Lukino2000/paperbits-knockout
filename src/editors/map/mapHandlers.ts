@@ -74,7 +74,7 @@ export class MapHandlers implements IWidgetHandler, IContentDropHandler {
 
     private async  getWidgetOrderByConfig(location: string): Promise<IWidgetOrder> {
         let config: MapContract = {
-            kind: "block",
+            object: "block",
             type: "map",
             location: location,
         }
@@ -125,7 +125,7 @@ export class MapHandlers implements IWidgetHandler, IContentDropHandler {
                     }
                 }
 
-                return location ? { location: location, kind: "map" } : null;
+                return location ? { location: location, object: "map" } : null;
             }
         }
 

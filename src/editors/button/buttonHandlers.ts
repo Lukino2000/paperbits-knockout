@@ -47,7 +47,7 @@ export class ButtonHandlers implements IWidgetHandler {
 
     private async getWidgetOrderByConfig(): Promise<IWidgetOrder> {
         let config: Contract = {
-            kind: "block",
+            object: "block",
             type: "button",
             label: "Button",
             style: "default"

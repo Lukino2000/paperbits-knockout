@@ -57,9 +57,9 @@ export class LayoutsWorkshop {
 
     public async init(): Promise<void> {
         this.template = {
-            "kind": "block",
+            "object": "block",
             "nodes": [{
-                "kind": "block",
+                "object": "block",
                 "type": "page"
             }],
             "type": "layout"

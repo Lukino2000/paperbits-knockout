@@ -65,7 +65,7 @@ export class AudioHandlers extends MediaHandlers implements IWidgetHandler, ICon
         let getWidgetOrderFunction: () => Promise<IWidgetOrder> = () => {
             return new Promise<IWidgetOrder>(async (resolve, reject) => {
                 let config: AudioPlayerContract = {
-                    kind: "block",
+                    object: "block",
                     type: "audio-player",
                     sourceKey: media.permalinkKey,
                     controls: true,

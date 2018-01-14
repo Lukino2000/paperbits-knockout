@@ -20,10 +20,10 @@ export class TextblockHandlers implements IWidgetHandler {
         let textblockModel = new TextblockModel({
             "nodes": [
                 {
-                    "kind": "block",
+                    "object": "block",
                     "nodes": [
                         {
-                            "kind": "text",
+                            "object": "text",
                             "text": "Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Maecenas porttitor congue massa. Fusce posuere, magna sed pulvinar ultricies, purus lectus malesuada libero, sit amet commodo magna eros quis urna."
                         }
                     ],

@@ -69,7 +69,7 @@ export class VideoHandlers implements IWidgetHandler, IContentDropHandler {
 
     private async getWidgetOrderByConfig(sourceUrl: string): Promise<IWidgetOrder> {
         let config: VideoPlayerContract = {
-            kind: "block",
+            object: "block",
             type: "video-player",
             sourceUrl: sourceUrl,
             controls: true,
@@ -89,7 +89,7 @@ export class VideoHandlers implements IWidgetHandler, IContentDropHandler {
 
         let getWidgetOrderFunction: () => Promise<IWidgetOrder> = async () => {
             let config: VideoPlayerContract = {
-                kind: "block",
+                object: "block",
                 type: "video-player",
                 sourceKey: media.permalinkKey,
                 controls: true,

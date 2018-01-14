@@ -1,6 +1,7 @@
 ﻿import * as ko from "knockout";
 import template from "./textblock.html";
 import { Component } from "../../decorators/component";
+import { IHtmlEditor } from "@paperbits/common/editing/IHtmlEditor";
 
 
 @Component({
@@ -8,7 +9,7 @@ import { Component } from "../../decorators/component";
     template: template
 })
 export class TextblockViewModel {
-    public readonly htmlEditor;
+    public readonly htmlEditor: IHtmlEditor;
     public readonly state: KnockoutObservable<Object>;
 
     public readonly: KnockoutObservable<boolean>;

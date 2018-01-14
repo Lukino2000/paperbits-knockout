@@ -47,7 +47,7 @@ export class SliderHandlers implements IWidgetHandler {
 
     private async getWidgetOrderByConfig(): Promise<IWidgetOrder> {
         let config: Contract = {
-            kind: "block",
+            object: "block",
             type: "slider",
             label: "Slider",
             style: "default"

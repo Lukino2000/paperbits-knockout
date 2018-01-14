@@ -19,7 +19,7 @@ export class Substitute4ModelBinder implements IModelBinder {
     public getConfig(model: any): Contract {
         let sliderContract: Contract = {
             type: "substitute4",
-            kind: "block",
+            object: "block",
             size: model.size,
             style: model.style
         }
