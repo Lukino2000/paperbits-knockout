@@ -6,22 +6,23 @@ const CopyWebpackPlugin = require('copy-webpack-plugin');
 const CleanWebpackPlugin = require('clean-webpack-plugin');
 const OptimizeJsPlugin = require('optimize-js-plugin');
 
-//const selectedTheme = "paperbits";
-const selectedTheme = "hostmeapp";
+const selectedTheme = "paperbits";
+//const selectedTheme = "hostmeapp";
 
 const extractSass = new ExtractTextPlugin({
-    filename: 'css/[name].css',
+    filename: (resultPath) => {
+        return resultPath('./[name].css').replace("scripts", "css");
+    },
     allChunks: true,
 });
 
 module.exports = {
     entry: {
-        paperbits:['./src/startup.ts', './src/styles/vienna.scss'], 
-        theme: [`./src/themes/${selectedTheme}/scripts/index.ts`],
-        style: [`./src/themes/${selectedTheme}/styles/styles.scss`]
+        "scripts/paperbits":['./src/startup.ts', './src/styles/vienna.scss'], 
+        "theme/scripts/theme": [`./src/themes/${selectedTheme}/scripts/index.ts`, `./src/themes/${selectedTheme}/styles/styles.scss`]
     },
     output: {
-        filename: 'scripts/[name].js',
+        filename: './[name].js',
         path: path.resolve(__dirname, 'dist/client')
     },
     devtool: 'source-map',
@@ -31,9 +32,9 @@ module.exports = {
                 test: /\.scss$/,
                 use: extractSass.extract({        
                     use: [
-                        { loader: "css-loader" },
-                        { loader: 'postcss-loader', options: { config: { path: 'postcss.config.js' } } }, 
-                        { loader: "sass-loader" }
+                        { loader: "css-loader", options: { url: false, minimize: true, sourceMap: true } },
+                        { loader: 'postcss-loader', options: { sourceMap: true, options: { plugins: () => [autoprefixer] } } },
+                        { loader: "sass-loader", options: { sourceMap: true } }
                     ],
                     fallback: "style-loader"
                 }),
@@ -72,7 +73,7 @@ module.exports = {
         new CopyWebpackPlugin([
             { from: 'src/assets' },     
             { from: 'src/styles/fonts', to: 'css/fonts' },        
-            { from: `src/themes/${selectedTheme}/assets`},
+            { from: `src/themes/${selectedTheme}/assets`, to: "theme"},
             { from: `src/themes/${selectedTheme}/config.json`}      
         ]),
         //new webpack.optimize.ModuleConcatenationPlugin(),   

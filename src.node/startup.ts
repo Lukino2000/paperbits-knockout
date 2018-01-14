@@ -70,7 +70,7 @@ declare var global: any;
 export async function publish(): Promise<void> {
     let inputBasePath = "./dist/server";
     let outputBasePath = "./dist/published";
-    let indexFilePath = `${inputBasePath}/assets/index-theme.html`;
+    let indexFilePath = `${inputBasePath}/assets/index.html`;
     let templatesBasePath = `${inputBasePath}/scripts/templates`;
     let html = await Utils.loadFileAsString(indexFilePath);
 
