@@ -3,6 +3,7 @@ import template from "./navbarEditor.html";
 import { NavbarModel } from "@paperbits/common/widgets/navbar/navbarModel";
 import { IWidgetEditor } from "@paperbits/common/widgets/IWidgetEditor";
 import { Component } from "../../decorators/component";
+import { IViewManager } from "@paperbits/common/ui/IViewManager";
 
 
 @Component({
@@ -16,7 +17,7 @@ export class NavbarEditor implements IWidgetEditor {
 
     public align: KnockoutObservable<string>;
 
-    constructor() {
+    constructor(private viewManager: IViewManager) {
         this.align = ko.observable<string>();
         this.align.subscribe(this.onChange.bind(this));
     }
@@ -41,5 +42,9 @@ export class NavbarEditor implements IWidgetEditor {
 
         this.navbarModel.align = this.align();
         this.applyChangesCallback();
+    }
+
+    public closeEditor(): void {
+        this.viewManager.closeWidgetEditor();
     }
 }

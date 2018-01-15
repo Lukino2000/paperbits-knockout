@@ -16,10 +16,4 @@ export class NavbarItemViewModel {
         this.isActive = ko.observable<boolean>();
         this.nodes = ko.observableArray<NavbarItemViewModel>();
     }
-
-    public setActive(selectedItem: NavbarItemViewModel) {
-        if(selectedItem.url()) {
-            this.routeHandler.navigateTo(selectedItem.url());
-        }
-    }
 }

@@ -1,12 +1,12 @@
 <div class="navbar-light">
-    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
-        aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapse" aria-controls="collapse" aria-expanded="false"
+        aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
     </button>
 </div>
 
 <nav class="navbar navbar-expand-md navbar-default" data-bind="with: root()">
-    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+    <div class="collapse navbar-collapse" id="collapse">
         <ul class="nav navbar-nav" data-bind="foreach: nodes()">
             <!--ko if: nodes().length > 0 -->
             <li class="nav-item dropdown">
@@ -19,7 +19,7 @@
             </li>
             <!--/ko-->
             <!--ko ifnot: nodes().length > 0 -->
-            <li class="nav-item" data-bind="css: {active: isActive()}, click: $parent.setActive">
+            <li class="nav-item" data-bind="css: { active: isActive() }">
                 <a class="nav-link" data-bind="text: label, attr: { href: url }"></a>
             </li>
             <!--/ko-->
@@ -35,7 +35,7 @@
                 <span data-bind="text: label"></span>
                 <!--<span class="caret"></span>-->
             </a>
-            <!--ko template: { name: 'ttt', data: $data }-->
+            <!--ko template: { name: 'navigationItemTemplate', data: $data }-->
             <!--/ko-->
         </li>
         <!--/ko-->

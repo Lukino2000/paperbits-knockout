@@ -3,7 +3,7 @@
 var componentLoadingOperationUniqueId = 0;
 
 ko.bindingHandlers["component"] = {
-    "init": (element, valueAccessor, ignored1, ignored2, bindingContext) => {
+    "init": (element: HTMLElement, valueAccessor, ignored1, ignored2, bindingContext) => {
         var currentViewModel,
             currentLoadingOperationId,
             disposeAssociatedComponentViewModel = () => {

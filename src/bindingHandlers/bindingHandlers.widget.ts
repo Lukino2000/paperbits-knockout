@@ -76,13 +76,6 @@ export class WidgetBindingHandler {
                         if (correctedElement) {
                             correctedElement["attachedViewModel"] = componentViewModel;
 
-                            if (correctedElement.nodeName == "A") {
-                                correctedElement.onclick = (event) => {
-                                    event.preventDefault();
-                                    event.stopImmediatePropagation();
-                                }
-                            }
-
                             GridEditor.attachWidgetDragEvents(correctedElement, viewManager, eventManager);
                         }
                     });

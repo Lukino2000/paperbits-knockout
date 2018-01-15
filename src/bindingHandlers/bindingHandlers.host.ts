@@ -2,10 +2,11 @@
 import * as Utils from "@paperbits/common/utils";
 import { GlobalEventHandler } from "@paperbits/common/events/globalEventHandler";
 import { IViewManager, ViewManagerMode } from "@paperbits/common/ui/IViewManager";
+import { IRouteHandler } from "@paperbits/common/routing/IRouteHandler";
 
 
 export class HostBindingHandler {
-    constructor(globalEventHandler: GlobalEventHandler, viewManager: IViewManager) {
+    constructor(globalEventHandler: GlobalEventHandler, viewManager: IViewManager, routeHandler: IRouteHandler) {
         ko.bindingHandlers["host"] = {
             init: (element: HTMLElement, valueAccessor: any) => {
                 const config = valueAccessor();
@@ -19,7 +20,7 @@ export class HostBindingHandler {
 
                 config.viewport.subscribe((viewport) => {
                     viewManager.mode = ViewManagerMode.selecting;
-                    
+
                     switch (viewport) {
                         case "zoomout":
                             css("viewport-zoomout");
@@ -51,6 +52,25 @@ export class HostBindingHandler {
                     }
                 })
 
+                const onClick = (event: MouseEvent): void => {
+                    event.preventDefault(); // prevent default event handling for all controls
+
+                    const htmlElement = <HTMLElement>event.target;
+
+                    if (htmlElement.nodeName !== "A") {
+                        return;
+                    }
+
+                    const linkHtmlElement = <HTMLLinkElement>htmlElement;
+
+                    if (event.ctrlKey) { // Preventing click on links if Ctrl key is not pressed.
+                        routeHandler.navigateTo(linkHtmlElement.href);
+                    }
+                }
+
+                const onPointerDown = (event: PointerEvent): void => {
+                    event.preventDefault(); // prevent default event handling for all controls
+                }
 
                 const onPointerMove = (event) => {
                     const elements = Utils.elementsFromPoint(element.ownerDocument, event.clientX, event.clientY);
@@ -68,6 +88,8 @@ export class HostBindingHandler {
 
                     let documentElement = document.createElement("paperbits-document");
                     hostElement.contentDocument.body.appendChild(documentElement);
+                    hostElement.contentDocument.addEventListener("click", onClick, true);
+                    hostElement.contentDocument.addEventListener("pointerdown", onPointerDown, true);
                     ko.applyBindings({}, documentElement);
                 }
 
@@ -79,6 +101,7 @@ export class HostBindingHandler {
                 ko.utils.domNodeDisposal.addDisposeCallback(element, () => {
                     hostElement.removeEventListener("load", onLoad, false);
                     document.removeEventListener("pointermove", onPointerMove);
+                    hostElement.contentDocument.removeEventListener("click", onClick, true);
                 });
             }
         }

@@ -60,6 +60,7 @@ export class NavbarViewModelBinder implements IViewModelBinder {
             displayName: "Navigation bar",
             readonly: readonly,
             model: model,
+            editor: "navbar-editor",
             applyChanges: applyChanges
         }
 
