@@ -14,7 +14,6 @@ let selectedTheme = "paperbits";
 
 gulp.task("webpack-dev", (callback) => {
     var webPackConfig = require("./webpack.config.js");
-    webPackConfig.entry.theme = [`./src/themes/${selectedTheme}/scripts/index.ts`];
     webpack(webPackConfig, function(err, stats) {
         if (err) throw new gutil.PluginError('webpack', err);
         
@@ -47,10 +46,6 @@ gulp.task("build-npm-ts", ["build-clean"], (callback) => {
         tsResult.dts.pipe(gulp.dest("./dist/lib")),
         tsResult.js.pipe(gulp.dest("./dist/lib"))
     ]);
-});
-
-gulp.task("watch", function () {
-    gulp.watch(["src/**/*.scss"], ["styles", "theme-styles"]).on("error", handleError);
 });
 
 gulp.task('server', ["build"], () => {
