@@ -69,6 +69,12 @@ export class HostBindingHandler {
                 }
 
                 const onPointerDown = (event: PointerEvent): void => {
+                    const htmlElement = <HTMLElement>event.target;
+
+                    if (htmlElement.nodeName !== "A") {
+                        return;
+                    }
+
                     event.preventDefault(); // prevent default event handling for all controls
                 }
 
@@ -86,10 +92,10 @@ export class HostBindingHandler {
                 const onLoad = () => {
                     globalEventHandler.appendDocument(hostElement.contentDocument);
 
-                    let documentElement = document.createElement("paperbits-document");
+                    const documentElement = document.createElement("paperbits-document");
                     hostElement.contentDocument.body.appendChild(documentElement);
                     hostElement.contentDocument.addEventListener("click", onClick, true);
-                    //hostElement.contentDocument.addEventListener("pointerdown", onPointerDown, true);
+                    hostElement.contentDocument.addEventListener("pointerdown", onPointerDown, true);
                     ko.applyBindings({}, documentElement);
                 }
 
