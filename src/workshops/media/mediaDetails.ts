@@ -18,18 +18,18 @@ import { Component } from "../../decorators/component";
 export class MediaDetailsWorkshop {
     private mediaPermalink: IPermalink;
 
-    private readonly mediaService: IMediaService;
-    private readonly permalinkService: IPermalinkService;
-    private readonly viewManager: IViewManager;
-
     public readonly mediaItem: MediaItem;
+    private readonly onDeleteCallback: () => void;
 
-    constructor(mediaService: IMediaService, permalinkService: IPermalinkService, mediaItem: MediaItem, viewManager: IViewManager) {
+    constructor(
+        private readonly mediaService: IMediaService,
+        private readonly permalinkService: IPermalinkService,
+        private readonly viewManager: IViewManager,
+        params) {
+
         // initialization...
-        this.mediaService = mediaService;
-        this.permalinkService = permalinkService;
-        this.viewManager = viewManager;
-        this.mediaItem = mediaItem;
+        this.mediaItem = params.mediaItem;
+        this.onDeleteCallback = params.onDeleteCallback;
 
         // rebinding...
         this.deleteMedia = this.deleteMedia.bind(this);
@@ -71,6 +71,11 @@ export class MediaDetailsWorkshop {
     public async deleteMedia(): Promise<void> {
         //TODO: Show confirmation dialog according to mockup
         await this.mediaService.deleteMedia(this.mediaItem.toMedia());
-        this.viewManager.notifySuccess("Media library", "File deleted");
+        this.viewManager.notifySuccess("Media library", `File "${this.mediaItem.fileName()}" was deleted.`);
+        this.viewManager.closeWorkshop("media-details-workshop");
+
+        if (this.onDeleteCallback) {
+            this.onDeleteCallback()
+        }
     }
 }

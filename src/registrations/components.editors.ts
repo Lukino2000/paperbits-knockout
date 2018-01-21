@@ -41,7 +41,7 @@ import { HyperlinkTools } from '../editors/textblock/hyperlink/hyperlinkTools';
 import { LayoutDetails } from "../workshops/layouts/layoutDetails";
 import { LayoutItem } from "../workshops/layouts/layoutItem";
 import { LayoutSelector } from "../workshops/layouts/layoutSelector";
-import { LayoutsWorkshop } from "../workshops/layouts/layoutsWorkshop";
+import { LayoutsWorkshop } from "../workshops/layouts/layouts";
 import { LityLightbox } from '@paperbits/common/ui/lityLightbox';
 import { MapEditor } from '../editors/map/mapEditor';
 import { MapHandlers } from '../editors/map/mapHandlers';
@@ -113,45 +113,45 @@ export class ComponentRegistrationEditors implements IInjectorModule {
                 blogPermalinkResolver]);
         });
 
-        injector.bindComponent("navigationDetailsWorkshop", (ctx: IInjector, node) => {
+        injector.bindComponent("navigationDetailsWorkshop", (ctx: IInjector, params) => {
             var navigationService = ctx.resolve<INavigationService>("navigationService");
             var viewManager = ctx.resolve<IViewManager>("viewManager");
 
-            return new NavigationDetailsWorkshop(node, navigationService, viewManager);
+            return new NavigationDetailsWorkshop(navigationService, viewManager, params);
         });
 
-        injector.bindComponent("mediaDetailsWorkshop", (ctx: IInjector, mediaReference: MediaItem) => {
+        injector.bindComponent("mediaDetailsWorkshop", (ctx: IInjector, params) => {
             var mediaService = ctx.resolve<IMediaService>("mediaService");
             var permalinkService = ctx.resolve<IPermalinkService>("permalinkService");
             var viewManager = ctx.resolve<IViewManager>("viewManager");
 
-            return new MediaDetailsWorkshop(mediaService, permalinkService, mediaReference, viewManager);
+            return new MediaDetailsWorkshop(mediaService, permalinkService, viewManager, params);
         });
 
-        injector.bindComponent("layoutDetails", (ctx: IInjector, layoutReference: LayoutItem) => {
-            var layoutService = ctx.resolve<ILayoutService>("layoutService");
-            var routeHandler = ctx.resolve<IRouteHandler>("routeHandler");
-            var viewManager = ctx.resolve<IViewManager>("viewManager");
+        injector.bindComponent("layoutDetails", (ctx: IInjector, params) => {
+            const layoutService = ctx.resolve<ILayoutService>("layoutService");
+            const routeHandler = ctx.resolve<IRouteHandler>("routeHandler");
+            const viewManager = ctx.resolve<IViewManager>("viewManager");
 
-            return new LayoutDetails(layoutService, routeHandler, layoutReference, viewManager);
+            return new LayoutDetails(layoutService, routeHandler, viewManager, params);
         });
 
-        injector.bindComponent("pageDetailsWorkshop", (ctx: IInjector, pageReference: PageItem) => {
-            var pageService = ctx.resolve<IPageService>("pageService");
-            var permalinkService = ctx.resolve<IPermalinkService>("permalinkService");
-            var routeHandler = ctx.resolve<IRouteHandler>("routeHandler");
-            var viewManager = ctx.resolve<IViewManager>("viewManager");
+        injector.bindComponent("pageDetailsWorkshop", (ctx: IInjector, params) => {
+            const pageService = ctx.resolve<IPageService>("pageService");
+            const permalinkService = ctx.resolve<IPermalinkService>("permalinkService");
+            const routeHandler = ctx.resolve<IRouteHandler>("routeHandler");
+            const viewManager = ctx.resolve<IViewManager>("viewManager");
 
-            return new PageDetailsWorkshop(pageService, permalinkService, routeHandler, pageReference, viewManager);
+            return new PageDetailsWorkshop(pageService, permalinkService, routeHandler, viewManager, params);
         });
 
-        injector.bindComponent("blogPostDetailsWorkshop", (ctx: IInjector, blogPostReference: BlogPostItem) => {
-            var blogService = ctx.resolve<IBlogService>("blogService");
-            var permalinkService = ctx.resolve<IPermalinkService>("permalinkService");
-            var routeHandler = ctx.resolve<IRouteHandler>("routeHandler");
-            var viewManager = ctx.resolve<IViewManager>("viewManager");
+        injector.bindComponent("blogPostDetailsWorkshop", (ctx: IInjector, params) => {
+            const blogService = ctx.resolve<IBlogService>("blogService");
+            const permalinkService = ctx.resolve<IPermalinkService>("permalinkService");
+            const routeHandler = ctx.resolve<IRouteHandler>("routeHandler");
+            const viewManager = ctx.resolve<IViewManager>("viewManager");
 
-            return new BlogPostDetailsWorkshop(blogService, permalinkService, routeHandler, blogPostReference, viewManager);
+            return new BlogPostDetailsWorkshop(blogService, permalinkService, routeHandler, viewManager, params);
         });
 
         injector.bind("dropbucket", DropBucket);

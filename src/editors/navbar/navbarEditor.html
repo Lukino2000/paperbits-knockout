@@ -5,14 +5,18 @@
     </h1>
     <hr />
     <fieldset class="form" data-bind="scrollable: {}">
-        <label class="form-label">Align</label>
-        <div class="form-group">
+        <div class="form-group form-group-collapsible">
             <label class="form-label">
-                <input name="align" type="radio" value="left" data-bind="checked: align" />Left
+                <a href="#" class="form-group-toggle" data-bind="collapse: '#sourceCollapse'"></a>
+                <b>Logo</b>
             </label>
-            <label class="form-label">
-                <input name="align" type="radio" value="right" data-bind="checked: align" />Right
-            </label>
+            <div id="sourceCollapse" class="collapse form-group-collapse">
+                <div class="dropzone">
+                    <a href="#" class="dropzone-showbox" data-bind="balloon: { component: { name: 'media-selector', params: { onSelect: $component.onMediaSelected } }, position: 'bottom' }">
+                        <div class="fit" data-bind="background: background"></div>
+                    </a>
+                </div>
+            </div>
         </div>
     </fieldset>
 </div>

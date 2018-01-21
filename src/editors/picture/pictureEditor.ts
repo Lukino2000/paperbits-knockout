@@ -20,7 +20,7 @@ import { BackgroundModel } from "@paperbits/common/widgets/background/background
     injectable: "pictureEditor"
 })
 export class PictureEditor implements IWidgetEditor {
-    private picture: PictureModel;
+    private pictureModel: PictureModel;
     private applyChangesCallback: () => void;
 
     public readonly caption: KnockoutObservable<string>;
@@ -49,22 +49,22 @@ export class PictureEditor implements IWidgetEditor {
     }
 
     private onCaptionUpdate(caption: string): void {
-        this.picture.caption = caption;
+        this.pictureModel.caption = caption;
         this.applyChangesCallback();
     }
 
     private onLayoutUpdate(layout: string): void {
-        this.picture.layout = layout;
+        this.pictureModel.layout = layout;
         this.applyChangesCallback();
     }
 
     private onAnimationUpdate(layout: string): void {
-        this.picture.animation = layout;
+        this.pictureModel.animation = layout;
         this.applyChangesCallback();
     }
 
     public setWidgetModel(picture: PictureModel, applyChangesCallback?: () => void): void {
-        this.picture = picture;
+        this.pictureModel = picture;
         this.applyChangesCallback = applyChangesCallback;
 
         this.background(picture.background);
@@ -74,8 +74,8 @@ export class PictureEditor implements IWidgetEditor {
     }
 
     public onMediaSelected(media: MediaContract): void {
-        this.picture.background.sourceKey = media.permalinkKey;
-        this.picture.background.sourceUrl = media.downloadUrl;
+        this.pictureModel.background.sourceKey = media.permalinkKey;
+        this.pictureModel.background.sourceUrl = media.downloadUrl;
 
         this.background.valueHasMutated();
         this.applyChangesCallback();

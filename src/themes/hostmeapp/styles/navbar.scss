@@ -57,7 +57,7 @@
     }
 }
 
-.navbar-default {
+.navbar-light {
     .navbar-nav {
         .nav-item {
             .nav-link {
@@ -81,14 +81,4 @@
 
 .navbar-brand {
     padding: 7px 15px;
-}
-@media (min-width: $breakpoint-md) {
-    .navbar {
-        padding: 0 !important;
-        width: auto !important;
-    }
-
-    .navbar-toggler {
-        display: none;
-    }
 }

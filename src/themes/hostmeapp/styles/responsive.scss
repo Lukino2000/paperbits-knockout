@@ -89,10 +89,6 @@
 
 /*	MAX WIDTH 991PX	*/
 @media only screen and (max-width: 991px) {
-	.navbar {
-		padding: 0 0 12px;
-	}
-
 	.scroll-fixed-nav {
 		padding: 0 0 12px;
 	}
@@ -367,14 +363,6 @@
 
 /*	MAX WIDTH 767PX	*/
 @media only screen and (max-width: 767px) {
-	.navbar {
-		padding: 10px 0 0;
-	}
-
-	.navbar-brand {
-		margin-left: 60px;
-	}
-
 	.navbar-fixed-top .navbar-header {
 		margin-top: 0;
 	}

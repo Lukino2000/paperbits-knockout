@@ -21,13 +21,12 @@ export class NavbarViewModelBinder implements IViewModelBinder {
     }
 
     private navbarItemModelToNavbarItemViewModel(navbarItemModel: NavbarItemModel): NavbarItemViewModel {
-        let label = navbarItemModel.label;
-        let navbarItemViewModel = new NavbarItemViewModel(this.routeHandler, label);
+        const label = navbarItemModel.label;
+        const navbarItemViewModel = new NavbarItemViewModel(label);
 
         if (navbarItemModel.nodes.length > 0) {
-            var tasks = [];
-
-            let results = navbarItemModel.nodes.map(childNode => this.navbarItemModelToNavbarItemViewModel(childNode));
+            const tasks = [];
+            const results = navbarItemModel.nodes.map(childNode => this.navbarItemModelToNavbarItemViewModel(childNode));
 
             results.forEach(child => {
                 navbarItemViewModel.nodes.push(child);
@@ -41,25 +40,24 @@ export class NavbarViewModelBinder implements IViewModelBinder {
         return navbarItemViewModel;
     }
 
-    public modelToViewModel(model: NavbarModel, readonly: boolean, viewModel?: NavbarViewModel): NavbarViewModel {
+    public modelToViewModel(navbarModel: NavbarModel, readonly: boolean, viewModel?: NavbarViewModel): NavbarViewModel {
         if (!viewModel) {
             viewModel = new NavbarViewModel();
         }
 
-        let url = this.routeHandler.getCurrentUrl();
-        let root = this.navbarItemModelToNavbarItemViewModel(model.root);
+        const navigationRoot = this.navbarItemModelToNavbarItemViewModel(navbarModel.root);
 
-        viewModel.root(root);
-        viewModel.alignRight(model.align === "right");
+        viewModel.navigationRoot(navigationRoot);
+        viewModel.pictureSourceUrl(navbarModel.pictureSourceUrl);
 
         const applyChanges = () => {
-            this.modelToViewModel(model, readonly, viewModel);
+            this.modelToViewModel(navbarModel, readonly, viewModel);
         }
 
         viewModel["widgetBinding"] = {
             displayName: "Navigation bar",
             readonly: readonly,
-            model: model,
+            model: navbarModel,
             editor: "navbar-editor",
             applyChanges: applyChanges
         }
@@ -67,7 +65,7 @@ export class NavbarViewModelBinder implements IViewModelBinder {
         this.eventManager.addEventListener(NavigationEvents.onNavigationItemUpdate, async (updatedRootContract) => {
             // TODO: Think about how to unsubscribe from this event.
             const updatedRootModel = await this.navbarModelBinder.navigationItemToNavbarItemModel(updatedRootContract, this.routeHandler.getCurrentUrl());
-            viewModel.root(this.navbarItemModelToNavbarItemViewModel(updatedRootModel));
+            viewModel.navigationRoot(this.navbarItemModelToNavbarItemViewModel(updatedRootModel));
         });
 
         return viewModel;

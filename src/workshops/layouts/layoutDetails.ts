@@ -13,22 +13,23 @@ import { Component } from "../../decorators/component";
     injectable: "layoutDetails"
 })
 export class LayoutDetails {
-    private readonly layoutService: ILayoutService;
-    private readonly routeHandler: IRouteHandler;
-    private readonly viewManager: IViewManager;
+    private readonly onDeleteCallback: () => void;
 
     public readonly layoutItem: LayoutItem;
     public isNotDefault: boolean;
 
-    constructor(layoutService: ILayoutService, routeHandler: IRouteHandler, layoutItem: LayoutItem, viewManager: IViewManager) {
+    constructor(
+        private readonly layoutService: ILayoutService,
+        private readonly routeHandler: IRouteHandler,
+        private readonly viewManager: IViewManager,
+        params
+    ) {
+
         // initialization...
-        this.layoutService = layoutService;
-        this.routeHandler = routeHandler;
-        this.viewManager = viewManager;
-        this.layoutItem = layoutItem;
+        this.layoutItem = params.layoutItem;
+        this.onDeleteCallback = params.onDeleteCallback;
 
         // rebinding...
-        //this.onFaviconUploaded = this.onFaviconUploaded.bind(this);
         this.deleteLayout = this.deleteLayout.bind(this);
         this.updateLayout = this.updateLayout.bind(this);
 
@@ -37,7 +38,7 @@ export class LayoutDetails {
             .subscribe(this.updateLayout);
 
         this.layoutItem.uriTemplate
-            .extend({ uniqueLayoutUri: layoutItem.key })
+            .extend({ uniqueLayoutUri: this.layoutItem.key })
             .subscribe(this.updateLayout);
 
         this.layoutItem.description
@@ -61,6 +62,13 @@ export class LayoutDetails {
     public async deleteLayout(): Promise<void> {
         //TODO: Show confirmation dialog according to mockup
         await this.layoutService.deleteLayout(this.layoutItem.toLayout());
+
+        this.viewManager.notifySuccess("Layouts", `Page "${this.layoutItem.title()}" was deleted.`);
+        this.viewManager.closeWorkshop("layout-details-workshop");
+
+        if (this.onDeleteCallback) {
+            this.onDeleteCallback()
+        }
 
         this.routeHandler.navigateTo("/");
     }

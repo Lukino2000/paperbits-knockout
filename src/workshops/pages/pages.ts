@@ -18,11 +18,6 @@ import { Component } from "../../decorators/component";
     injectable: "pagesWorkshop"
 })
 export class PagesWorkshop {
-    private readonly pageService: IPageService;
-    private readonly fileService: IFileService;
-    private readonly permalinkService: IPermalinkService;
-    private readonly routeHandler: IRouteHandler;
-    private readonly viewManager: IViewManager;
     private template: Contract;
     private searchTimeout: any;
 
@@ -32,13 +27,13 @@ export class PagesWorkshop {
 
     public selectedPage: KnockoutObservable<PageItem>;
 
-    constructor(pageService: IPageService, fileService: IFileService, permalinkService: IPermalinkService, routeHandler: IRouteHandler, viewManager: IViewManager) {
-        // initialization...
-        this.pageService = pageService;
-        this.fileService = fileService;
-        this.permalinkService = permalinkService;
-        this.routeHandler = routeHandler;
-        this.viewManager = viewManager;
+    constructor(
+        private readonly pageService: IPageService,
+        private readonly fileService: IFileService,
+        private readonly permalinkService: IPermalinkService,
+        private readonly routeHandler: IRouteHandler,
+        private readonly viewManager: IViewManager
+    ) {
 
         // rebinding...
         this.searchPages = this.searchPages.bind(this);
@@ -53,12 +48,6 @@ export class PagesWorkshop {
         this.searchPattern.subscribe(this.searchPages);
         this.working = ko.observable(true);
 
-
-        this.init();
-        this.searchPages();
-    }
-
-    public async init(): Promise<void> {
         this.template = {
             "object": "block",
             "nodes": [
@@ -70,6 +59,8 @@ export class PagesWorkshop {
             ],
             "type": "page"
         }
+
+        this.searchPages();
     }
 
     private async launchSearch(searchPattern: string = ""): Promise<void> {
@@ -89,10 +80,15 @@ export class PagesWorkshop {
         }, 600);
     }
 
-    public selectPage(page: PageItem): void {
-        this.selectedPage(page);        
-        this.viewManager.setTitle(null, page.toPage());
-        this.viewManager.openWorkshop("Page", "page-details-workshop", page);
+    public selectPage(pageItem: PageItem): void {
+        this.selectedPage(pageItem);
+        this.viewManager.setTitle(null, pageItem.toPage());
+        this.viewManager.openWorkshop("Page", "page-details-workshop", {
+            pageItem: pageItem,
+            onDeleteCallback: () => {
+                this.searchPages();
+            }
+        });
     }
 
     public async addPage(): Promise<void> {

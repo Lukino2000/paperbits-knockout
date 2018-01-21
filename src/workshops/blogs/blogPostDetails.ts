@@ -16,26 +16,40 @@ import { Component } from "../../decorators/component";
     injectable: "blogPostDetailsWorkshop"
 })
 export class BlogPostDetailsWorkshop {
-    private readonly blogService: IBlogService;
-    private readonly permalinkService: IPermalinkService;
-    private readonly routeHandler: IRouteHandler;
-    private readonly viewManager: IViewManager;
     private blogPostPermalink: IPermalink;
+    private readonly onDeleteCallback: () => void;
 
     public readonly blogPostItem: BlogPostItem;
 
-    constructor(blogService: IBlogService, permalinkService: IPermalinkService, routeHandler: IRouteHandler, blogPostItem: BlogPostItem, viewManager: IViewManager) {
+    constructor(
+        private readonly blogService: IBlogService,
+        private readonly permalinkService: IPermalinkService,
+        private readonly routeHandler: IRouteHandler,
+        private readonly viewManager: IViewManager,
+        params
+    ) {
         // initialization...
-        this.blogService = blogService;
-        this.permalinkService = permalinkService;
-        this.routeHandler = routeHandler;
-        this.viewManager = viewManager;
-        this.blogPostItem = blogPostItem;
+        this.blogPostItem = params.blogPostItem;
+        this.onDeleteCallback = params.onDeleteCallback;
 
         // rebinding...
-        //this.onFaviconUploaded = this.onFaviconUploaded.bind(this);
         this.deleteBlogPost = this.deleteBlogPost.bind(this);
-        this.updateMetadata = this.updateMetadata.bind(this);
+        this.updateBlogPost = this.updateBlogPost.bind(this);
+        this.updatePermlaink = this.updatePermlaink.bind(this);
+
+        this.blogPostItem.title
+            .extend({ required: true })
+            .subscribe(this.updateBlogPost);
+
+        this.blogPostItem.description
+            .subscribe(this.updateBlogPost);
+
+        this.blogPostItem.keywords
+            .subscribe(this.updateBlogPost);
+
+        this.blogPostItem.permalinkUrl
+            .extend({ uniquePermalink: true, onlyValid: true })
+            .subscribe(this.updatePermlaink);
 
         this.init();
     }
@@ -46,33 +60,29 @@ export class BlogPostDetailsWorkshop {
         this.blogPostPermalink = permalink;
         this.blogPostItem.permalinkUrl(permalink.uri);
         this.routeHandler.navigateTo(permalink.uri);
-
-        this.blogPostItem.title
-            .extend({ required: true })
-            .subscribe(this.updateMetadata);
-
-        this.blogPostItem.description
-            .subscribe(this.updateMetadata);
-
-        this.blogPostItem.keywords
-            .subscribe(this.updateMetadata);
-
-        this.blogPostItem.permalinkUrl
-            .extend({ uniquePermalink: true, onlyValid: true })
-            .subscribe((permalinkUrl) => {
-                console.log(permalinkUrl);
-            });
     }
 
-    private async updateMetadata(): Promise<void> {
+    private async updateBlogPost(): Promise<void> {
         if (this.blogPostItem.title.isValid()) {
             await this.blogService.updateBlogPost(this.blogPostItem.toBlogPost());
         }
     }
 
+    private async updatePermlaink(): Promise<void> {
+        this.blogPostPermalink.uri = this.blogPostItem.permalinkUrl();
+        await this.permalinkService.updatePermalink(this.blogPostPermalink);
+    }
+
     public async deleteBlogPost(): Promise<void> {
         //TODO: Show confirmation dialog according to mockup
         await this.blogService.deleteBlogPost(this.blogPostItem.toBlogPost());
+
+        this.viewManager.notifySuccess("Blog", `Post "${this.blogPostItem.title()}" was deleted.`);
+        this.viewManager.closeWorkshop("blog-post-details-workshop");
+
+        if (this.onDeleteCallback) {
+            this.onDeleteCallback()
+        }
 
         this.routeHandler.navigateTo("/");
     }

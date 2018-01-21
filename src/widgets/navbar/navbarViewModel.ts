@@ -12,11 +12,11 @@ import { Component } from "../../decorators/component";
     template: template
 })
 export class NavbarViewModel {
-    public root: KnockoutObservable<NavbarItemViewModel>;
-    public alignRight: KnockoutObservable<boolean>;
+    public navigationRoot: KnockoutObservable<NavbarItemViewModel>;
+    public pictureSourceUrl: KnockoutObservable<string>;
 
     constructor() {
-        this.root = ko.observable<NavbarItemViewModel>();
-        this.alignRight = ko.observable<boolean>(false);
+        this.navigationRoot = ko.observable<NavbarItemViewModel>();
+        this.pictureSourceUrl = ko.observable<string>();
     }
 }

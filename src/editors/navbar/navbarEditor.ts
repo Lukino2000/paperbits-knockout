@@ -4,6 +4,8 @@ import { NavbarModel } from "@paperbits/common/widgets/navbar/navbarModel";
 import { IWidgetEditor } from "@paperbits/common/widgets/IWidgetEditor";
 import { Component } from "../../decorators/component";
 import { IViewManager } from "@paperbits/common/ui/IViewManager";
+import { MediaContract } from "@paperbits/common/media/mediaContract";
+import { BackgroundModel } from "@paperbits/common/widgets/background/backgroundModel";
 
 
 @Component({
@@ -15,23 +17,15 @@ export class NavbarEditor implements IWidgetEditor {
     private navbarModel: NavbarModel;
     private applyChangesCallback?: () => void;
 
-    public align: KnockoutObservable<string>;
+    public background: KnockoutObservable<BackgroundModel>;
 
     constructor(private viewManager: IViewManager) {
-        this.align = ko.observable<string>();
-        this.align.subscribe(this.onChange.bind(this));
+        this.onMediaSelected = this.onMediaSelected.bind(this);
+        this.background = ko.observable<BackgroundModel>();
     }
 
     public setWidgetModel(navbarModel: NavbarModel, applyChangesCallback?: () => void): void {
         this.navbarModel = navbarModel;
-
-        if (navbarModel.align) {
-            this.align(navbarModel.align);
-        }
-        else {
-            this.align("left");
-        }
-
         this.applyChangesCallback = applyChangesCallback;
     }
 
@@ -40,8 +34,19 @@ export class NavbarEditor implements IWidgetEditor {
             return;
         }
 
-        this.navbarModel.align = this.align();
         this.applyChangesCallback();
+    }
+
+    public onMediaSelected(media: MediaContract): void {
+        this.navbarModel.pictureSourceKey = media.permalinkKey;
+        this.navbarModel.pictureSourceUrl = media.downloadUrl;
+
+        this.applyChangesCallback();
+
+        const backgroundModel = new BackgroundModel();
+        backgroundModel.sourceUrl = media.downloadUrl;
+
+        this.background(backgroundModel);
     }
 
     public closeEditor(): void {

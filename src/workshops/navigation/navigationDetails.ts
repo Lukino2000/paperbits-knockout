@@ -16,25 +16,27 @@ import { Component } from "../../decorators/component";
     injectable: "navigationDetailsWorkshop"
 })
 export class NavigationDetailsWorkshop {
-    private navigationService: INavigationService;
+    private readonly onDeleteCallback: () => void;
 
     public readonly hyperlinkTitle: KnockoutComputed<string>;
     public readonly hyperlink: KnockoutObservable<HyperlinkModel>;
-    public readonly viewManager: IViewManager;
-    public readonly node: NavigationTreeNode;
+    public readonly navigationItem: NavigationTreeNode;
 
-    constructor(navigationTreeNode: NavigationTreeNode, navigationService: INavigationService, viewManager: IViewManager) {
-        this.node = navigationTreeNode;
+    constructor(
+        private readonly navigationService: INavigationService,
+        private readonly viewManager: IViewManager,
+        params
+    ) {
 
         // initialization...
-        this.navigationService = navigationService;
-        this.viewManager = viewManager;
+        this.navigationItem = params.navigationItem;
+        this.onDeleteCallback = params.onDeleteCallback;
 
         // rebinding...
         this.deleteNavigationItem = this.deleteNavigationItem.bind(this);
         this.onHyperlinkChange = this.onHyperlinkChange.bind(this);
 
-        this.hyperlink = navigationTreeNode.hyperlink;
+        this.hyperlink = this.navigationItem.hyperlink;
 
         this.hyperlinkTitle = ko.pureComputed<string>(() => {
             const hyperlink = this.hyperlink();
@@ -51,10 +53,17 @@ export class NavigationDetailsWorkshop {
 
     public onHyperlinkChange(hyperlink: HyperlinkModel): void {
         this.hyperlink(hyperlink);
-        this.node.hyperlink(hyperlink);
+        this.navigationItem.hyperlink(hyperlink);
     }
 
-    public deleteNavigationItem() {
-        this.node.remove();
+    public deleteNavigationItem(): void {
+        this.navigationItem.remove();
+
+        this.viewManager.notifySuccess("Navigation", `Navigation item "${this.navigationItem.label()}" was deleted.`);
+        this.viewManager.closeWorkshop("navigation-details-workshop");
+
+        if (this.onDeleteCallback) {
+            this.onDeleteCallback()
+        }
     }
 }

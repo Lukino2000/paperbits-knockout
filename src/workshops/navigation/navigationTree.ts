@@ -1,7 +1,7 @@
 ﻿import * as $ from "jquery/dist/jquery";
 import * as ko from "knockout";
 import * as Utils from "@paperbits/common/utils";
-import { INavigationItem } from "@paperbits/common/navigation/INavigationItem";
+import { NavigationItemContract } from "@paperbits/common/navigation/NavigationItemContract";
 import { NavigationTreeNode } from "../../workshops/navigation/navigationTreeNode";
 
 export class NavigationTree {
@@ -10,9 +10,9 @@ export class NavigationTree {
     public nodes: KnockoutObservableArray<NavigationTreeNode>;
     public selectedNode: KnockoutObservable<NavigationTreeNode>;
     public focusedNode: KnockoutObservable<NavigationTreeNode>;
-    public onUpdate: KnockoutSubscribable<Array<INavigationItem>>;
+    public onUpdate: KnockoutSubscribable<Array<NavigationItemContract>>;
 
-    constructor(items: Array<INavigationItem>) {
+    constructor(items: Array<NavigationItemContract>) {
         this.onFocusChange = this.onFocusChange.bind(this);
         this.addNode = this.addNode.bind(this);
         this.onNodeDragStart = this.onNodeDragStart.bind(this);
@@ -28,7 +28,7 @@ export class NavigationTree {
         this.nodes = ko.observableArray<NavigationTreeNode>(nodes);
         this.selectedNode = ko.observable<NavigationTreeNode>();
         this.focusedNode = ko.observable<NavigationTreeNode>();
-        this.onUpdate = new ko.subscribable<Array<INavigationItem>>();
+        this.onUpdate = new ko.subscribable<Array<NavigationItemContract>>();
 
         this.placeholderElement = $("<div class=\"placeholder\"></div>")[0];
         this.placeholderElement.onmousemove = this.onNullPointerMove;
@@ -43,12 +43,12 @@ export class NavigationTree {
     }
 
     private dispatchUpdates() {
-        var items = new Array<INavigationItem>();
+        var items = new Array<NavigationItemContract>();
         this.nodes().forEach(n => items.push(this.nodeToNavigationItem(n)));
         this.onUpdate.notifySubscribers(items);
     }
 
-    private navigationItemToNode(navItem: INavigationItem): NavigationTreeNode {
+    private navigationItemToNode(navItem: NavigationItemContract): NavigationTreeNode {
         var node = new NavigationTreeNode(navItem); // TODO: Review permalinks
 
         node.hasFocus.subscribe((focused) => {
@@ -74,7 +74,7 @@ export class NavigationTree {
         var focusedNode = this.focusedNode();
 
         if (focusedNode) {
-            var navitem: INavigationItem = { key: Utils.guid(), label: label };
+            var navitem: NavigationItemContract = { key: Utils.guid(), label: label };
             var node = new NavigationTreeNode(navitem);
 
             node.parent = focusedNode;
@@ -94,7 +94,7 @@ export class NavigationTree {
         }
     }
 
-    public nodeToNavigationItem(node: NavigationTreeNode): INavigationItem {
+    public nodeToNavigationItem(node: NavigationTreeNode): NavigationItemContract {
         let navigationItems = null;
 
         if (node.nodes().length > 0) {
@@ -102,7 +102,7 @@ export class NavigationTree {
             node.nodes().forEach(x => navigationItems.push(this.nodeToNavigationItem(x)));
         }
 
-        const navigationItem: INavigationItem = {
+        const navigationItem: NavigationItemContract = {
             key: node.id,
             label: node.label(),
             navigationItems: navigationItems
@@ -122,7 +122,7 @@ export class NavigationTree {
         return navigationItem;
     }
 
-    public getNavigationItems(): Array<INavigationItem> {
+    public getNavigationItems(): Array<NavigationItemContract> {
         const navigationItems = [];
 
         this.nodes().forEach(x => navigationItems.push(this.nodeToNavigationItem(x)));

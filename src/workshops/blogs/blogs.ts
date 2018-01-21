@@ -117,7 +117,7 @@ export class BlogWorkshop {
         this.working(false);
     }
 
-    public async searchBlogPosts(searchPattern: string): Promise<void> {
+    public async searchBlogPosts(searchPattern: string = ""): Promise<void> {
         clearTimeout(this.searchTimeout);
 
         this.searchTimeout = setTimeout(() => {
@@ -125,9 +125,14 @@ export class BlogWorkshop {
         }, 600);
     }
 
-    public selectBlogPost(blogpost: BlogPostItem): void {
-        this.selectedBlogPost(blogpost);
-        this.viewManager.openWorkshop("Blog post", "blog-post-details-workshop", blogpost);
+    public selectBlogPost(blogPostItem: BlogPostItem): void {
+        this.selectedBlogPost(blogPostItem);
+        this.viewManager.openWorkshop("Blog post", "blog-post-details-workshop", {
+            blogPostItem: blogPostItem,
+            onDeleteCallback: () => {
+                this.searchBlogPosts();
+            }
+        });
     }
 
     public async addBlogPost(): Promise<void> {
@@ -146,10 +151,10 @@ export class BlogWorkshop {
 
         await this.blogService.updateBlogPost(blogpost);
 
-        let blogpostItem = new BlogPostItem(blogpost);
+        const blogPostItem = new BlogPostItem(blogpost);
 
-        this.blogPosts.push(blogpostItem);
-        this.selectBlogPost(blogpostItem);
+        this.blogPosts.push(blogPostItem);
+        this.selectBlogPost(blogPostItem);
         this.working(false);
     }
 

@@ -125,7 +125,7 @@ export class MediaWorkshop {
 
         this.working(true);
 
-        let uploadPromises = [];
+        const uploadPromises = [];
 
         for (var index = 0; index < files.length; index++) {
             let file = files[index];
@@ -134,7 +134,6 @@ export class MediaWorkshop {
 
             this.viewManager.addPromiseProgressIndicator(uploadPromise, "Media library", `Uploading ${file.name}...`);
             uploadPromises.push(uploadPromise);
-
         }
 
         await Promise.all(uploadPromises);
@@ -144,8 +143,14 @@ export class MediaWorkshop {
 
     public selectMedia(mediaItem: MediaItem): void {
         mediaItem.hasFocus(true);
+
         this.selectedMediaItem(mediaItem);
-        this.viewManager.openWorkshop("Media file", "media-details-workshop", mediaItem);
+        this.viewManager.openWorkshop("Media file", "media-details-workshop", {
+            mediaItem: mediaItem,
+            onDeleteCallback: () => {
+                this.searchMedia();
+            }
+        });
     }
 
     public async deleteSelectedMedia(): Promise<void> {

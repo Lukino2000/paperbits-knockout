@@ -389,15 +389,13 @@ export class GridEditor {
     }
 
     private getUnderlyingElements(): HTMLElement[] {
-        let elements: HTMLElement[];
+        const elements = Utils.elementsFromPoint(this.ownerDocument, this.pointerX, this.pointerY);
 
-        const element = document.elementFromPoint(this.pointerX, this.pointerY);
+        // if (elements.length === 0 || elements[0].nodeName != "IFRAME") {
+        //     return [];
+        // }
 
-        if (!element || element.nodeName != "IFRAME") {
-            return [];
-        }
-
-        return Utils.elementsFromPoint(this.ownerDocument, this.pointerX, this.pointerY);
+        return elements;
     }
 
     private renderHighlightedElements(): void {
@@ -966,8 +964,7 @@ export class GridEditor {
     }
 
     public attach(): void {
-        this.eventManager.addEventListener("onPointerMove", this.onPointerMove.bind(this));
-        // this.ownerDocument.addEventListener("pointermove", this.onPointerMove.bind(this), true);
+        this.ownerDocument.addEventListener("pointermove", this.onPointerMove.bind(this), true);
         this.ownerDocument.addEventListener("scroll", this.onWindowScroll.bind(this));
         this.ownerDocument.addEventListener("pointerdown", this.onPointerDown, true);
         this.ownerDocument.addEventListener("keydown", this.onKeyDown);

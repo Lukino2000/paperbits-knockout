@@ -3,11 +3,12 @@
 var componentLoadingOperationUniqueId = 0;
 
 ko.bindingHandlers["component"] = {
-    "init": (element: HTMLElement, valueAccessor, ignored1, ignored2, bindingContext) => {
-        var currentViewModel,
+    init: (element: HTMLElement, valueAccessor, ignored1, ignored2, bindingContext) => {
+        let currentViewModel,
             currentLoadingOperationId,
             disposeAssociatedComponentViewModel = () => {
-                var currentViewModelDispose = currentViewModel && currentViewModel["dispose"];
+                const currentViewModelDispose = currentViewModel && currentViewModel["dispose"];
+
                 if (typeof currentViewModelDispose === "function") {
                     currentViewModelDispose.call(currentViewModel);
                 }
@@ -51,8 +52,9 @@ ko.bindingHandlers["component"] = {
                 if (!componentDefinition) {
                     throw new Error('Unknown component \'' + componentName + '\'');
                 }
-                var root = cloneTemplateIntoElement(componentName, componentDefinition, element, !!(<any>componentDefinition).shadow);
-                var componentViewModel = createViewModel(componentDefinition, root, originalChildNodes, componentParams),
+
+                const root = cloneTemplateIntoElement(componentName, componentDefinition, element, !!(<any>componentDefinition).shadow);
+                const componentViewModel = createViewModel(componentDefinition, root, originalChildNodes, componentParams),
                     childBindingContext = bindingContext['createChildContext'](componentViewModel, /* dataItemAlias */ undefined, ctx => {
                         ctx["$component"] = componentViewModel;
                         ctx["$componentTemplateNodes"] = originalChildNodes;
@@ -66,7 +68,7 @@ ko.bindingHandlers["component"] = {
             });
         }, null, { disposeWhenNodeIsRemoved: element });
 
-        return { 'controlsDescendantBindings': true };
+        return { controlsDescendantBindings: true };
     }
 };
 
@@ -90,7 +92,7 @@ var cloneNodes = (nodesArray, shouldCleanNodes) => {
 
 function cloneTemplateIntoElement(componentName, componentDefinition, element, useShadow: boolean): HTMLElement {
     var template = componentDefinition['template'];
-    
+
     if (!template) {
         return element;
     }

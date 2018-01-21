@@ -17,20 +17,21 @@ import { Component } from "../../decorators/component";
 })
 export class PageDetailsWorkshop {
     private pagePermalink: IPermalink;
+    private readonly onDeleteCallback: () => void;
+
+    public pageItem: PageItem;
 
     constructor(
         private readonly pageService: IPageService,
         private readonly permalinkService: IPermalinkService,
         private readonly routeHandler: IRouteHandler,
-        private readonly pageItem: PageItem,
-        private readonly viewManager: IViewManager) {
+        private readonly viewManager: IViewManager,
+        params
+    ) {
 
         // initialization...
-        this.pageService = pageService;
-        this.permalinkService = permalinkService;
-        this.routeHandler = routeHandler;
-        this.viewManager = viewManager;
-        this.pageItem = pageItem;
+        this.pageItem = params.pageItem;
+        this.onDeleteCallback = params.onDeleteCallback;
 
         // rebinding...
         this.deletePage = this.deletePage.bind(this);
@@ -40,9 +41,6 @@ export class PageDetailsWorkshop {
         this.pageItem.title
             .extend({ required: true, onlyValid: true })
             .subscribe(this.updatePage);
-
-        this.pageItem.title
-            .extend({ required: true });
 
         this.pageItem.description
             .subscribe(this.updatePage);
@@ -78,6 +76,13 @@ export class PageDetailsWorkshop {
     public async deletePage(): Promise<void> {
         //TODO: Show confirmation dialog according to mockup
         await this.pageService.deletePage(this.pageItem.toPage());
+
+        this.viewManager.notifySuccess("Pages", `Page "${this.pageItem.title()}" was deleted.`);
+        this.viewManager.closeWorkshop("page-details-workshop");
+
+        if (this.onDeleteCallback) {
+            this.onDeleteCallback()
+        }
 
         this.routeHandler.navigateTo("/");
     }

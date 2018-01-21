@@ -3,7 +3,7 @@ import template from "./navigation.html";
 import { INavigationService } from "@paperbits/common/navigation/INavigationService";
 import { IViewManager } from "@paperbits/common/ui/IViewManager";
 import { IPermalinkService } from "@paperbits/common/permalinks/IPermalinkService";
-import { INavigationItem } from "@paperbits/common/navigation/INavigationItem";
+import { NavigationItemContract } from "@paperbits/common/navigation/NavigationItemContract";
 import { NavigationTree } from "../../workshops/navigation/navigationTree";
 import { NavigationTreeNode } from "../../workshops/navigation/navigationTreeNode";
 import { Component } from "../../decorators/component";
@@ -35,19 +35,19 @@ export class NavigationWorkshop {
         this.navigationItemsTree = ko.observable<NavigationTree>();
         this.selectedNavigationItem = ko.observable<NavigationTreeNode>();
 
-        this.init();
+        this.searchNavigationItems();
     }
 
-    private async init(): Promise<void> {
+    private async searchNavigationItems(): Promise<void> {
         let navitems = await this.navigationService.getNavigationItems();
         this.onNavigationItemLoaded(navitems);
     }
 
-    public onNavigationUpdate(topLevelMenus: Array<INavigationItem>): void {
+    public onNavigationUpdate(topLevelMenus: Array<NavigationItemContract>): void {
         this.navigationService.updateNavigationItem(topLevelMenus[0]); //TODO: For now user can have only one menu
     }
 
-    private onNavigationItemLoaded(navigationItems: Array<INavigationItem>): void {
+    private onNavigationItemLoaded(navigationItems: Array<NavigationItemContract>): void {
         var navigationTree = new NavigationTree(navigationItems);
         this.navigationItemsTree(navigationTree);
 
@@ -65,23 +65,14 @@ export class NavigationWorkshop {
     }
 
     public async selectNavigationItem(navigationItem: NavigationTreeNode): Promise<void> {
-        let hyperlink = navigationItem.hyperlink();
-
-        // console.log("select");
-        // console.log(hyperlink);
-
-        // if (hyperlink && !url) {
-        //     let permalink = await this.permalinkService.getPermalinkByKey(hyperlink);
-        //     navigationItem.url(permalink ? permalink.uri : null);
-        //     this.selectedNavigationItem(navigationItem);
-        //     this.viewManager.openWorkshop("navigation-details-workshop", navigationItem);
-
-        // } else {
-        //     this.selectedNavigationItem(navigationItem);
-        //     this.viewManager.openWorkshop("navigation-details-workshop", navigationItem);
-        // }
+        const hyperlink = navigationItem.hyperlink();
 
         this.selectedNavigationItem(navigationItem);
-        this.viewManager.openWorkshop("Navigation item", "navigation-details-workshop", navigationItem);
+        this.viewManager.openWorkshop("Navigation item", "navigation-details-workshop", {
+            navigationItem: navigationItem,
+            onDeleteCallback: () => {
+                this.searchNavigationItems();
+            }
+        });
     }
 }

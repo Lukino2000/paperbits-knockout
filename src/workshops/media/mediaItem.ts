@@ -7,6 +7,7 @@ import { IWidgetFactoryResult } from "@paperbits/common/editing/IWidgetFactoryRe
 export class MediaItem {
     public key: string;
     public permalinkKey?: string;
+    public blobKey: string;
     public widgetOrder: IWidgetOrder;
     public element: HTMLElement;
     public isImage: boolean;
@@ -21,24 +22,25 @@ export class MediaItem {
     public contentType: KnockoutObservable<string>;
     public widgetFactoryResult: IWidgetFactoryResult;
 
-    constructor(media: MediaContract) {
-        this.permalinkKey = media.permalinkKey;
-
-        this.key = media.key;
+    constructor(mediaContract: MediaContract) {
+        this.key = mediaContract.key;
+        this.blobKey = mediaContract.blobKey;
+        this.permalinkKey = mediaContract.permalinkKey;
         this.permalinkUrl = ko.observable<string>();
-        this.fileName = ko.observable<string>(media.filename);
-        this.description = ko.observable<string>(media.description);
-        this.keywords = ko.observable<string>(media.keywords);
-        this.contentType = ko.observable<string>(media.contentType);
+        this.fileName = ko.observable<string>(mediaContract.filename);
+        this.description = ko.observable<string>(mediaContract.description);
+        this.keywords = ko.observable<string>(mediaContract.keywords);
+        this.contentType = ko.observable<string>(mediaContract.contentType);
         this.hasFocus = ko.observable<boolean>();
-        this.downloadUrl = ko.observable<string>(media.downloadUrl);
+        this.downloadUrl = ko.observable<string>(mediaContract.downloadUrl);
 
-        this.isImage = PictureHandlers.IsMediaFileImage(media);
+        this.isImage = PictureHandlers.IsMediaFileImage(mediaContract);
     }
 
     toMedia(): MediaContract {
         return {
             key: this.key,
+            blobKey: this.blobKey,
             filename: this.fileName(),
             description: this.description(),
             keywords: this.keywords(),

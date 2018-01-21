@@ -11,9 +11,11 @@
                 <b>Source</b>
             </label>
             <div id="sourceCollapse" class="collapse form-group-collapse">
-                <a class="dropzone" tabindex="0" data-bind="balloon: { selector: '#mediaSelector', position: 'top' }">
-                    <div class="fit dropzone-showbox" data-bind="background: background"></div>
-                </a>
+                <div class="dropzone">
+                    <a href="#" class="dropzone-showbox" data-bind="balloon: { component: { name: 'media-selector', params: { onSelect: $component.onMediaSelected } }, position: 'bottom' }">
+                        <div class="fit" data-bind="background: background"></div>
+                    </a>
+                </div>
             </div>
         </div>
 
@@ -48,5 +50,3 @@
         </div>
     </fieldset>
 </div>
-
-<media-selector id="mediaSelector" class="balloon" params="onSelect: $component.onMediaSelected"></media-selector>

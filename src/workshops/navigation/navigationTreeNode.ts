@@ -1,5 +1,5 @@
 ﻿import * as ko from "knockout";
-import { INavigationItem } from "@paperbits/common/navigation/INavigationItem";
+import { NavigationItemContract } from "@paperbits/common/navigation/NavigationItemContract";
 import { HyperlinkModel } from "@paperbits/common/permalinks/hyperlinkModel";
 
 
@@ -13,9 +13,8 @@ export class NavigationTreeNode {
     public dragged: KnockoutObservable<boolean>;
     public hasFocus: KnockoutObservable<boolean>;
     public onUpdate: KnockoutSubscribable<void>;
-    // public permalinkKey: 
 
-    constructor(navitem: INavigationItem) {
+    constructor(navitem: NavigationItemContract) {
         this.moveNodeLeft = this.moveNodeLeft.bind(this);
         this.moveNodeRight = this.moveNodeRight.bind(this);
         this.onKeyDown = this.onKeyDown.bind(this);

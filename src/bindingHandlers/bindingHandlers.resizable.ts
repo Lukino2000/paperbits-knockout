@@ -1,7 +1,6 @@
 import * as ko from "knockout";
 import { IEventManager } from "@paperbits/common/events/IEventManager";
-import { debug, isNumber } from "util";
-import { watch } from "fs";
+import { isNumber } from "util";
 
 interface ResizableOptions {
     /**
@@ -94,21 +93,21 @@ export class ResizableBindingHandler {
 
                     switch (initialEdge) {
                         case "left":
-                            left = event.clientX + 'px';
-                            width = (initialWidth + (initialOffsetX - event.clientX)) + 'px';
+                            left = event.clientX + "px";
+                            width = (initialWidth + (initialOffsetX - event.clientX)) + "px";
                             break;
 
                         case "right":
-                            width = (initialWidth + event.clientX - initialOffsetX) + 'px';
+                            width = (initialWidth + event.clientX - initialOffsetX) + "px";
                             break;
 
                         case "top":
-                            top = event.clientY + 'px';
-                            height = (initialHeight + (initialOffsetY - event.clientY)) + 'px';
+                            top = event.clientY + "px";
+                            height = (initialHeight + (initialOffsetY - event.clientY)) + "px";
                             break;
 
                         case "bottom":
-                            height = (initialHeight + event.clientY - initialOffsetY) + 'px';
+                            height = (initialHeight + event.clientY - initialOffsetY) + "px";
                             break;
                     }
 
