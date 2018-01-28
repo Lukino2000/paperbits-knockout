@@ -7,7 +7,7 @@ import { IHighlightConfig } from "@paperbits/common/ui/IHighlightConfig";
 import { metaDataSetter } from "@paperbits/common/meta/metaDataSetter";
 import { IBag } from "@paperbits/common/IBag";
 import { IContextualEditor } from "@paperbits/common/ui/IContextualEditor";
-import { IEditorSession } from "@paperbits/common/ui/IEditorSession";
+import { IView } from "@paperbits/common/ui/IView";
 import { ProgressPromise } from "@paperbits/common/progressPromise";
 import { IMediaService } from "@paperbits/common/media/IMediaService";
 import { IEventManager } from "@paperbits/common/events/IEventManager";
@@ -36,13 +36,13 @@ export class ViewManager implements IViewManager {
     private contextualEditorsBag: IBag<IContextualEditor> = {};
     private currentPage: PageContract;
 
-    public journey: KnockoutObservableArray<IEditorSession>;
+    public journey: KnockoutObservableArray<IView>;
     public journeyName: KnockoutComputed<string>;
 
     public itemSelectorName: KnockoutObservable<string>;
     public progressIndicators: KnockoutObservableArray<ProgressIndicator>;
     public primaryToolboxVisible: KnockoutObservable<boolean>;
-    public widgetEditor: KnockoutObservable<IEditorSession>;
+    public widgetEditor: KnockoutObservable<IView>;
     public contextualEditors: KnockoutObservableArray<IContextualEditor>;
     public highlightedElement: KnockoutObservable<IHighlightConfig>;
     public splitterElement: KnockoutObservable<ISplitterConfig>;
@@ -74,11 +74,11 @@ export class ViewManager implements IViewManager {
         // rebinding...
         this.addProgressIndicator = this.addProgressIndicator.bind(this);
         this.addPromiseProgressIndicator = this.addPromiseProgressIndicator.bind(this);
-        this.openWorkshop = this.openWorkshop.bind(this);
+        this.openViewAsWorkshop = this.openViewAsWorkshop.bind(this);
         this.scheduleIndicatorRemoval = this.scheduleIndicatorRemoval.bind(this);
         this.updateJourneyComponent = this.updateJourneyComponent.bind(this);
         this.clearJourney = this.clearJourney.bind(this);
-        this.setWidgetEditor = this.setWidgetEditor.bind(this);
+        this.openViewAsPopup = this.openViewAsPopup.bind(this);
         this.foldEverything = this.foldEverything.bind(this);
         this.unfoldEverything = this.unfoldEverything.bind(this);
         this.closeWidgetEditor = this.closeWidgetEditor.bind(this);
@@ -87,7 +87,7 @@ export class ViewManager implements IViewManager {
         // setting up...
         this.mode = ViewManagerMode.selecting;
         this.progressIndicators = ko.observableArray<ProgressIndicator>();
-        this.journey = ko.observableArray<IEditorSession>();
+        this.journey = ko.observableArray<IView>();
         this.journeyName = ko.pureComputed<string>(() => {
             if (this.journey().length === 0) {
                 return null;
@@ -96,7 +96,7 @@ export class ViewManager implements IViewManager {
             return this.journey()[0].heading;
         });
         this.itemSelectorName = ko.observable<string>(null);
-        this.widgetEditor = ko.observable<IEditorSession>();
+        this.widgetEditor = ko.observable<IView>();
         this.contextualEditors = ko.observableArray<IContextualEditor>([]);
         this.highlightedElement = ko.observable<IHighlightConfig>();
         this.splitterElement = ko.observable<ISplitterConfig>();
@@ -239,15 +239,15 @@ export class ViewManager implements IViewManager {
         });
     }
 
-    public updateJourneyComponent(editorSession: IEditorSession): void {
+    public updateJourneyComponent(view: IView): void {
         let journey = this.journey();
 
-        let existingComponent = journey.first(c => { return c.component.name === editorSession.component.name; });
+        let existingComponent = journey.first(c => { return c.component.name === view.component.name; });
 
         if (existingComponent) {
             journey = journey.splice(0, journey.indexOf(existingComponent));
         }
-        journey.push(editorSession);
+        journey.push(view);
 
         this.journey(journey);
     }
@@ -277,10 +277,10 @@ export class ViewManager implements IViewManager {
         this.mode = ViewManagerMode.selecting;
     }
 
-    public openWorkshop(heading: string, componentName: string, parameters?: any): IEditorSession {
+    public openViewAsWorkshop(heading: string, componentName: string, parameters?: any): IView {
         this.clearContextualEditors();
 
-        const session: IEditorSession = {
+        const session: IView = {
             heading: heading,
             component: {
                 name: componentName,
@@ -297,20 +297,20 @@ export class ViewManager implements IViewManager {
 
     /**
      * Deletes specified editors and all editors after.
-     * @param editorSession IEditorSession
+     * @param view IView
      */
-    public closeWorkshop(editor: IEditorSession | string): void {
+    public closeWorkshop(editor: IView | string): void {
         const journey = this.journey();
-        let editorSession;
+        let view;
 
         if (typeof editor === "string") {
-            editorSession = journey.find(x => x.component.name === editor);
+            view = journey.find(x => x.component.name === editor);
         }
         else {
-            editorSession = editor;
+            view = editor;
         }
 
-        const indexOfClosingEditor = journey.indexOf(editorSession);
+        const indexOfClosingEditor = journey.indexOf(view);
 
         journey.length = indexOfClosingEditor;
 
@@ -327,7 +327,10 @@ export class ViewManager implements IViewManager {
     }
 
     public openUploadDialog(): Promise<Array<File>> {
-        //TODO: Make normal uploader component of it. No jquery should be here.
+        /*
+            TODO: Make normal uploader component of it and open it with openViewAsPopup.
+            No jquery should be here.
+        */
         var $genericUploader = $(`<input type="file" multiple />`);
         var genericUploader: any = $genericUploader[0];
 
@@ -340,20 +343,20 @@ export class ViewManager implements IViewManager {
         });
     }
 
-    public setWidgetEditor(editorSession: IEditorSession): void {
-        if (this.widgetEditor() == editorSession) {
+    public openViewAsPopup(view: IView): void {
+        if (this.widgetEditor() == view) {
             return;
         }
 
         this.clearContextualEditors();
         this.closeWidgetEditor();
-        this.widgetEditor(editorSession);
+        this.widgetEditor(view);
         this.mode = ViewManagerMode.configure;
 
         this.foldWorkshops();
     }
 
-    public getWidgetEditorSession(): IEditorSession {
+    public getWidgetview(): IView {
         return this.widgetEditor();
     }
 

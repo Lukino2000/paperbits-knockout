@@ -10,7 +10,7 @@ import { ColumnModel } from "@paperbits/common/widgets/column/columnModel";
 import { SectionModel } from "@paperbits/common/widgets/section/sectionModel";
 import { IWidgetBinding } from "@paperbits/common/editing/IWidgetBinding";
 import { SectionModelBinder } from "@paperbits/common/widgets/section/sectionModelBinder";
-import { IEditorSession } from "@paperbits/common/ui/IEditorSession";
+import { IView } from "@paperbits/common/ui/IView";
 import { IWidgetEditor } from "@paperbits/common/widgets/IWidgetEditor";
 import { IViewManager, ViewManagerMode } from "@paperbits/common/ui/IViewManager";
 import { PlaceholderModel } from "@paperbits/common/widgets/placeholder/placeholderModel";
@@ -30,10 +30,6 @@ interface Quadrant {
 }
 
 export class GridEditor {
-    private readonly viewManager: ViewManager
-    private readonly ownerDocument: Document;
-    private readonly eventManager: IEventManager;
-
     private activeHighlightedElement: HTMLElement;
     private scrolling: boolean;
     private scrollTimeout: any;
@@ -45,7 +41,11 @@ export class GridEditor {
     private gridItems: GridItem[];
     private actives: Object;
 
-    constructor(viewManager: ViewManager, ownerDocument: Document, eventManager: IEventManager) {
+    constructor(
+        private readonly viewManager: ViewManager,
+        private readonly ownerDocument: Document,
+        private readonly eventManager: IEventManager
+    ) {
         this.viewManager = viewManager;
         this.ownerDocument = ownerDocument;
         this.eventManager = eventManager;
@@ -91,7 +91,7 @@ export class GridEditor {
     }
 
     private isModelBeingEdited(binding: IWidgetBinding): boolean {
-        const session = this.viewManager.getWidgetEditorSession();
+        const session = this.viewManager.getWidgetview();
 
         if (!session) {
             return false;
@@ -161,7 +161,7 @@ export class GridEditor {
         }
 
         if (this.isModelSelected(widgetBinding)) {
-            this.setWidgetEditorSession(widgetBinding);
+            this.openWidgetEditor(widgetBinding);
         }
         else {
             let attachedModel = GridHelper.getModel(element);
@@ -350,8 +350,8 @@ export class GridEditor {
         }
     }
 
-    private setWidgetEditorSession(binding: IWidgetBinding): void {
-        const editorSession: IEditorSession = {
+    private openWidgetEditor(binding: IWidgetBinding): void {
+        const view: IView = {
             component: {
                 name: binding.editor,
                 params: {},
@@ -362,7 +362,7 @@ export class GridEditor {
             resize: binding.editorResize || "all"
         }
 
-        this.viewManager.setWidgetEditor(editorSession)
+        this.viewManager.openViewAsPopup(view)
     }
 
     private onWindowScroll(): void {
@@ -389,13 +389,7 @@ export class GridEditor {
     }
 
     private getUnderlyingElements(): HTMLElement[] {
-        const elements = Utils.elementsFromPoint(this.ownerDocument, this.pointerX, this.pointerY);
-
-        // if (elements.length === 0 || elements[0].nodeName != "IFRAME") {
-        //     return [];
-        // }
-
-        return elements;
+        return Utils.elementsFromPoint(this.ownerDocument, this.pointerX, this.pointerY);
     }
 
     private renderHighlightedElements(): void {
@@ -533,10 +527,10 @@ export class GridEditor {
                 tooltip: "Delete section",
                 color: "#2b87da",
                 callback: () => {
-                    let mainElement = GridHelper.getParentElementWithModel(activeSectionElement);
-                    let mainModel = <PageModel>GridHelper.getModel(mainElement);
-                    let mainWidgetModel = GridHelper.getWidgetBinding(mainElement);
-                    let sectionModel = GridHelper.getModel(activeSectionElement);
+                    const mainElement = GridHelper.getParentElementWithModel(activeSectionElement);
+                    const mainModel = <PageModel>GridHelper.getModel(mainElement);
+                    const mainWidgetModel = GridHelper.getWidgetBinding(mainElement);
+                    const sectionModel = GridHelper.getModel(activeSectionElement);
 
                     mainModel.sections.remove(sectionModel);
                     mainWidgetModel.applyChanges();
@@ -551,7 +545,24 @@ export class GridEditor {
                 color: "#2b87da",
                 callback: () => {
                     const binding = GridHelper.getWidgetBinding(activeSectionElement);
-                    this.setWidgetEditorSession(binding);
+                    this.openWidgetEditor(binding);
+                }
+            },
+            {
+                tooltip: "Add to library",
+                iconClass: "paperbits-simple-add",
+                position: "top right",
+                color: "#2b87da",
+                callback: () => {
+                    const view: IView = {
+                        component: {
+                            name: "add-block-dialog",
+                            params: GridHelper.getModel(activeSectionElement)
+                        },
+                        resize: "all"
+                    }
+
+                    this.viewManager.openViewAsPopup(view);
                 }
             }]
         }
@@ -673,7 +684,7 @@ export class GridEditor {
                 color: "#4c5866",
                 callback: () => {
                     const binding = GridHelper.getWidgetBinding(activeColumnElement);
-                    this.setWidgetEditorSession(binding);
+                    this.openWidgetEditor(binding);
                 }
             }]
         }
@@ -760,7 +771,7 @@ export class GridEditor {
                 color: "#607d8b",
                 callback: () => {
                     const binding = GridHelper.getWidgetBinding(activeWidgetElement);
-                    this.setWidgetEditorSession(binding);
+                    this.openWidgetEditor(binding);
                 }
             }]
         }
@@ -852,7 +863,7 @@ export class GridEditor {
                 color: "#607d8b",
                 callback: () => {
                     const binding = GridHelper.getWidgetBinding(widgetElement);
-                    this.setWidgetEditorSession(binding);
+                    this.openWidgetEditor(binding);
                 }
             }]
         }

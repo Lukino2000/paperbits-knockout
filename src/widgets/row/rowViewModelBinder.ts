@@ -41,7 +41,7 @@ export class RowViewModelBinder implements IViewModelBinder {
                 this.modelToViewModel(model, readonly, viewModel);
             },
             onDragOver: (dragSession: DragSession): boolean => {
-                return dragSession.type === "column" || dragSession.type === "widget";
+                return dragSession.type === "column";
             },
             onDragDrop: (dragSession: DragSession): void => {
                 switch (dragSession.type) {

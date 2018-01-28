@@ -68,7 +68,7 @@ export class NavigationWorkshop {
         const hyperlink = navigationItem.hyperlink();
 
         this.selectedNavigationItem(navigationItem);
-        this.viewManager.openWorkshop("Navigation item", "navigation-details-workshop", {
+        this.viewManager.openViewAsWorkshop("Navigation item", "navigation-details-workshop", {
             navigationItem: navigationItem,
             onDeleteCallback: () => {
                 this.searchNavigationItems();

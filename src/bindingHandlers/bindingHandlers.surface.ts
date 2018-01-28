@@ -1,18 +1,18 @@
 ﻿import * as $ from "jquery/dist/jquery";
 import * as ko from "knockout";
 import * as Utils from '@paperbits/common/utils';
-import { IEditorSession } from "@paperbits/common/ui/IEditorSession";
+import { IView } from "@paperbits/common/ui/IView";
 import { debug } from "util";
 import { Number } from "es6-shim";
 
 ko.bindingHandlers["surface"] = {
-    init(element: HTMLElement, valueAccessor?: () => IEditorSession) {
-        const editorSession = valueAccessor();
+    init(element: HTMLElement, valueAccessor?: () => IView) {
+        const view = valueAccessor();
         const settingsString = localStorage["settings"];
 
         if (settingsString) {
             const settings = JSON.parse(settingsString);
-            const editorSettings = settings[editorSession.component.name];
+            const editorSettings = settings[view.component.name];
 
             if (editorSettings) {
                 if (Number.isInteger(editorSettings.width)) {
@@ -47,10 +47,10 @@ ko.bindingHandlers["surface"] = {
                 sticky: false,
                 payload: "surface",
                 preventDragging: (clickedElement: HTMLElement) => {
-                    return $(clickedElement).closest("a, .form, .toolbox-button, .toolbox-dropdown").length > 0;
+                    return $(clickedElement).closest("a, .form, .button, .toolbox-button, .toolbox-dropdown").length > 0;
                 },
                 ondragend: (): void => {
-                    if (!editorSession || !editorSession.component) {
+                    if (!view || !view.component) {
                         return;
                     }
 
@@ -62,8 +62,8 @@ ko.bindingHandlers["surface"] = {
                         settings = JSON.parse(settingsString);
                     }
 
-                    Utils.setValue(`${editorSession.component.name}/top`, settings, Math.floor(rect.top));
-                    Utils.setValue(`${editorSession.component.name}/left`, settings, Math.floor(rect.left));
+                    Utils.setValue(`${view.component.name}/top`, settings, Math.floor(rect.top));
+                    Utils.setValue(`${view.component.name}/left`, settings, Math.floor(rect.left));
 
                     localStorage["settings"] = JSON.stringify(settings);
                 }
@@ -72,9 +72,9 @@ ko.bindingHandlers["surface"] = {
 
         ko.applyBindingsToNode(element, {
             resizable: {
-                directions: editorSession.resize,
+                directions: view.resize,
                 onresize: () => {
-                    if (!editorSession || !editorSession.component) {
+                    if (!view || !view.component) {
                         return;
                     }
 
@@ -86,12 +86,12 @@ ko.bindingHandlers["surface"] = {
                         settings = JSON.parse(settingsString);
                     }
 
-                    if (editorSession.resize === "horizontally" || editorSession.resize === "all") {
-                        Utils.setValue(`${editorSession.component.name}/width`, settings, element.clientWidth);
+                    if (view.resize === "horizontally" || view.resize === "all") {
+                        Utils.setValue(`${view.component.name}/width`, settings, element.clientWidth);
                     }
 
-                    if (editorSession.resize === "vertically" || editorSession.resize === "all") {
-                        Utils.setValue(`${editorSession.component.name}/height`, settings, element.clientHeight)
+                    if (view.resize === "vertically" || view.resize === "all") {
+                        Utils.setValue(`${view.component.name}/height`, settings, element.clientHeight)
                     }
 
                     localStorage["settings"] = JSON.stringify(settings);

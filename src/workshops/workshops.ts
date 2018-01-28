@@ -3,7 +3,7 @@ import template from "./workshops.html";
 import { IViewManager } from '@paperbits/common/ui/IViewManager';
 import { Component } from "../decorators/component";
 import { IUserService } from "@paperbits/common/user/IUserService";
-import { IEditorSession } from "@paperbits/common/ui/IEditorSession";
+import { IView } from "@paperbits/common/ui/IView";
 
 
 @Component({
@@ -35,40 +35,40 @@ export class Workshops {
         this.userPhotoUrl(url);
     }
 
-    private openWorkshop(label: string, componentName: string): void {
+    private openViewAsWorkshop(label: string, componentName: string): void {
         this.viewManager.clearJourney();
-        this.viewManager.openWorkshop(label, componentName);
+        this.viewManager.openViewAsWorkshop(label, componentName);
     }
 
     public openLayouts(): void {
-        this.openWorkshop("Layouts", "layouts");
+        this.openViewAsWorkshop("Layouts", "layouts");
     }
 
     public openPages(): void {
-        this.openWorkshop("Pages", "pages");
+        this.openViewAsWorkshop("Pages", "pages");
     }
 
     public openBlogs(): void {
-        this.openWorkshop("Blog", "blogs");
+        this.openViewAsWorkshop("Blog", "blogs");
     }
 
     public openMedia(): void {
-        this.openWorkshop("Media", "media");
+        this.openViewAsWorkshop("Media", "media");
     }
 
     public openNavigation(): void {
-        this.openWorkshop("Navigation", "navigation");
+        this.openViewAsWorkshop("Navigation", "navigation");
     }
 
     public openSettings(): void {
-        this.openWorkshop("Site settings", "settings");
+        this.openViewAsWorkshop("Site settings", "settings");
     }
 
     public openProfile(): void {
         // TODO:
     }
 
-    public closeWorkshop(editorSession: IEditorSession): void {
-        this.viewManager.closeWorkshop(editorSession);
+    public closeWorkshop(view: IView): void {
+        this.viewManager.closeWorkshop(view);
     }
 }

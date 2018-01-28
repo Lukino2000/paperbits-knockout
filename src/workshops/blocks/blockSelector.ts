@@ -4,11 +4,8 @@ import * as Utils from "@paperbits/common/utils";
 import { IResourceSelector } from "@paperbits/common/ui/IResourceSelector";
 import { BlockItem } from "./blockItem";
 import { IBlock } from '@paperbits/common/blocks/IBlock';
-import { IPermalink } from '@paperbits/common/permalinks/IPermalink';
-import { IPermalinkService } from '@paperbits/common/permalinks/IPermalinkService';
 import { IBlockService } from '@paperbits/common/blocks/IBlockService';
 import { Component } from "../../decorators/component";
-import { IViewManager } from "@paperbits/common/ui/IViewManager";
 
 
 @Component({

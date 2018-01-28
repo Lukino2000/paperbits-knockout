@@ -130,7 +130,7 @@ export class ResizableBindingHandler {
                     }
                 }
 
-                if (directions.contains("all") || directions.contains("vertically")) {
+                if (directions === "all" || directions.contains("vertically")) {
                     const topResizeHandle = element.ownerDocument.createElement("div");
                     topResizeHandle.classList.add("resize-handle", "resize-handle-top");
                     element.appendChild(topResizeHandle);
@@ -142,7 +142,7 @@ export class ResizableBindingHandler {
                     bottomResizeHandle.addEventListener("pointerdown", (e) => onPointerDown(e, "bottom"));
                 }
 
-                if (directions.contains("all") || directions.contains("horizontally")) {
+                if (directions === "all" || directions.contains("horizontally")) {
                     const rightResizeHandle = element.ownerDocument.createElement("div");
                     rightResizeHandle.classList.add("resize-handle", "resize-handle-right");
                     element.appendChild(rightResizeHandle);

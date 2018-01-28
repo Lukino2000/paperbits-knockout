@@ -83,6 +83,9 @@ import { SliderEditor } from "../editors/slider/sliderEditor";
 import { SliderHandlers } from "../editors/slider/sliderHandlers";
 import { ModelBinderSelector } from "@paperbits/common/widgets/modelBinderSelector";
 import { IntentionSelector } from "../editors/textblock/formatting/intentionSelector";
+import { SectionModel } from "../../../paperbits-common/src/widgets/section/sectionModel";
+import { AddBlockDialog } from "../workshops/blocks/addBlockDialog";
+import { SectionModelBinder } from "../../../paperbits-common/src/widgets/section/sectionModelBinder";
 
 
 export class ComponentRegistrationEditors implements IInjectorModule {
@@ -263,8 +266,17 @@ export class ComponentRegistrationEditors implements IInjectorModule {
         });
 
         injector.bindComponent("blockSelector", (ctx: IInjector, params: {}) => {
-            var blockService = ctx.resolve<IBlockService>("blockService");
+            const blockService = ctx.resolve<IBlockService>("blockService");
+
             return new BlockSelector(blockService, params["onSelect"]);
+        });
+
+        injector.bindComponent("addBlockDialog", (ctx: IInjector, sectionModel: SectionModel) => {
+            const viewManager = ctx.resolve<IViewManager>("viewManager");
+            const blockService = ctx.resolve<IBlockService>("blockService");
+            const sectionModelBinder = ctx.resolve<SectionModelBinder>("sectionModelBinder");
+
+            return new AddBlockDialog(viewManager, blockService, sectionModelBinder, sectionModel);
         });
 
         injector.bind("pageHyperlinkProvider", PageHyperlinkProvider);

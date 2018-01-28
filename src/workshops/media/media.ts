@@ -145,7 +145,7 @@ export class MediaWorkshop {
         mediaItem.hasFocus(true);
 
         this.selectedMediaItem(mediaItem);
-        this.viewManager.openWorkshop("Media file", "media-details-workshop", {
+        this.viewManager.openViewAsWorkshop("Media file", "media-details-workshop", {
             mediaItem: mediaItem,
             onDeleteCallback: () => {
                 this.searchMedia();

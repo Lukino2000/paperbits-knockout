@@ -83,7 +83,7 @@ export class PagesWorkshop {
     public selectPage(pageItem: PageItem): void {
         this.selectedPage(pageItem);
         this.viewManager.setTitle(null, pageItem.toPage());
-        this.viewManager.openWorkshop("Page", "page-details-workshop", {
+        this.viewManager.openViewAsWorkshop("Page", "page-details-workshop", {
             pageItem: pageItem,
             onDeleteCallback: () => {
                 this.searchPages();

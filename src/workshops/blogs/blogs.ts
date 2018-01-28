@@ -127,7 +127,7 @@ export class BlogWorkshop {
 
     public selectBlogPost(blogPostItem: BlogPostItem): void {
         this.selectedBlogPost(blogPostItem);
-        this.viewManager.openWorkshop("Blog post", "blog-post-details-workshop", {
+        this.viewManager.openViewAsWorkshop("Blog post", "blog-post-details-workshop", {
             blogPostItem: blogPostItem,
             onDeleteCallback: () => {
                 this.searchBlogPosts();

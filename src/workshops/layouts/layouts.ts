@@ -78,7 +78,7 @@ export class LayoutsWorkshop {
 
     public selectLayout(layoutItem: LayoutItem): void {
         this.selectedLayout(layoutItem);
-        this.viewManager.openWorkshop("Layout", "layout-details-workshop", {
+        this.viewManager.openViewAsWorkshop("Layout", "layout-details-workshop", {
             layoutItem: layoutItem,
             onDeleteCallback: () => {
                 this.searchLayouts();
