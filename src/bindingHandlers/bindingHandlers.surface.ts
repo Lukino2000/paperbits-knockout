@@ -86,11 +86,11 @@ ko.bindingHandlers["surface"] = {
                         settings = JSON.parse(settingsString);
                     }
 
-                    if (view.resize === "horizontally" || view.resize === "all") {
+                    if (view.resize === "horizontally") {
                         Utils.setValue(`${view.component.name}/width`, settings, element.clientWidth);
                     }
 
-                    if (view.resize === "vertically" || view.resize === "all") {
+                    if (view.resize === "vertically") {
                         Utils.setValue(`${view.component.name}/height`, settings, element.clientHeight)
                     }
 

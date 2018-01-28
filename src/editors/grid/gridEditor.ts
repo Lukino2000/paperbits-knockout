@@ -359,7 +359,7 @@ export class GridEditor {
                     editorViewModel.setWidgetModel(binding.model, binding.applyChanges);
                 }
             },
-            resize: binding.editorResize || "all"
+            resize: binding.editorResize || "vertically horizontally"
         }
 
         this.viewManager.openViewAsPopup(view)
@@ -559,7 +559,7 @@ export class GridEditor {
                             name: "add-block-dialog",
                             params: GridHelper.getModel(activeSectionElement)
                         },
-                        resize: "all"
+                        resize: "vertically horizontally"
                     }
 
                     this.viewManager.openViewAsPopup(view);
@@ -975,6 +975,7 @@ export class GridEditor {
     }
 
     public attach(): void {
+        // Firefox doesn't fire "pointermove" events by some reason
         this.ownerDocument.addEventListener("pointermove", this.onPointerMove.bind(this), true);
         this.ownerDocument.addEventListener("scroll", this.onWindowScroll.bind(this));
         this.ownerDocument.addEventListener("pointerdown", this.onPointerDown, true);

@@ -25,7 +25,7 @@ export class Workshops {
         this.closeWorkshop = this.closeWorkshop.bind(this);
 
         this.userPhotoUrl = ko.observable<string>(null);
-        this.resizing = ko.pureComputed(() => this.viewManager.journeyName() ? "all" : "all suspended");
+        this.resizing = ko.pureComputed(() => this.viewManager.journeyName() ? "vertically horizontally" : "vertically horizontally suspended");
 
         this.loadUserProfile();
     }
