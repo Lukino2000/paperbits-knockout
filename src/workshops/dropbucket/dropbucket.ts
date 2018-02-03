@@ -250,7 +250,7 @@ export class DropBucket {
                 let name = uploadable.split("/").pop().split("?")[0];
 
                 uploadPromise = Utils
-                    .readUrlAsBlob(uploadable)
+                    .downloadFile(uploadable)
                     .sequence(blob => this.mediaService.createMedia(name, blob));
 
                 this.viewManager.addPromiseProgressIndicator(uploadPromise, "Media library", `Uploading ${uploadable}...`);
