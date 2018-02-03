@@ -86,6 +86,7 @@ import { IntentionSelector } from "../editors/textblock/formatting/intentionSele
 import { SectionModel } from "../../../paperbits-common/src/widgets/section/sectionModel";
 import { AddBlockDialog } from "../workshops/blocks/addBlockDialog";
 import { SectionModelBinder } from "../../../paperbits-common/src/widgets/section/sectionModelBinder";
+import { FormHandlers } from "../editors/form/formHandlers";
 
 
 export class ComponentRegistrationEditors implements IInjectorModule {
@@ -174,6 +175,7 @@ export class ComponentRegistrationEditors implements IInjectorModule {
         injector.bindSingleton("navbarHandler", NavbarHandlers);
         injector.bindSingleton("buttonHandler", ButtonHandlers);
         injector.bindSingleton("sliderHandler", SliderHandlers);
+        injector.bindSingleton("formHandler", FormHandlers);
 
         injector.bindFactory<Array<IContentDropHandler>>("dropHandlers", (ctx: IInjector) => {
             var dropHandlers = new Array<IContentDropHandler>();
@@ -200,6 +202,7 @@ export class ComponentRegistrationEditors implements IInjectorModule {
             // widgetHandlers.push(ctx.resolve<AudioHandlers>("audioDropHandler"));
             widgetHandlers.push(ctx.resolve<NavbarHandlers>("navbarHandler"));
             widgetHandlers.push(ctx.resolve<ButtonHandlers>("buttonHandler"));
+            widgetHandlers.push(ctx.resolve<FormHandlers>("formHandler"));
             // widgetHandlers.push(ctx.resolve<SliderHandlers>("sliderHandler"));
 
             return widgetHandlers;

@@ -32,6 +32,7 @@ import { MapModelBinder } from "@paperbits/common/widgets/map/mapModelBinder";
 import { ButtonModelBinder } from "@paperbits/common/widgets/button/buttonModelBinder";
 import { SliderModelBinder } from "@paperbits/common/widgets/slider/sliderModelBinder";
 import { BackgroundModelBinder } from "@paperbits/common/widgets/background/backgroundModelBinder";
+import { FormModelBinder } from "@paperbits/common/widgets/form/formModelBinder";
 import { SavingHandler } from "@paperbits/common/persistence/savingHandler";
 import { OfflineObjectStorage } from "@paperbits/common/persistence/offlineObjectStorage";
 import { AnchorMiddleware } from "@paperbits/common/persistence/anchorMiddleware";
@@ -79,6 +80,7 @@ export class ComponentRegistrationCommon implements IInjectorModule {
         injector.bind("videoPlayerModelBinder", VideoPlayerModelBinder);
         injector.bind("audioPlayerModelBinder", AudioPlayerModelBinder);
         injector.bind("buttonModelBinder", ButtonModelBinder);
+        injector.bind("formModelBinder", FormModelBinder);
         injector.bind("sliderModelBinder", SliderModelBinder);
         //injector.bind("codeblockModelBinder", CodeblockModelBinder);
 

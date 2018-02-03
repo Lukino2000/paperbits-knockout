@@ -62,6 +62,8 @@ import { AnchorMiddleware } from "@paperbits/common/persistence/AnchorMiddleware
 import { IntentionsBuilder } from "@paperbits/common/appearence/intentionsBuilder";
 import { IntentionsProvider } from "./application/intentionsProvider";
 import { IIntentionsBuilder } from "@paperbits/common/appearence/intention";
+import { FormModelBinder } from "@paperbits/common/widgets/form/formModelBinder";
+import { FormViewModelBinder } from "./widgets/form/formViewModelBinder";
 
 
 $(() => {
@@ -134,6 +136,10 @@ $(() => {
     viewModelBinders.push(injector.resolve("videoPlayerViewModelBinder"));
     viewModelBinders.push(injector.resolve("mapViewModelBinder"));
 
+    injector.bind("formModelBinder", FormModelBinder);
+    modelBinders.push(injector.resolve("formModelBinder"));
+    injector.bind("formViewModelBinder", FormViewModelBinder);
+    viewModelBinders.push(injector.resolve("formViewModelBinder"));
 
     injector.bind("substitute1ModelBinder", Substitute1ModelBinder);
     modelBinders.push(injector.resolve("substitute1ModelBinder"));
