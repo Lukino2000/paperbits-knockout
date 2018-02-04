@@ -47,6 +47,7 @@ export class FormattingTools {
     public justified: KnockoutObservable<boolean>;
     public anchored: KnockoutObservable<boolean>;
     public size: KnockoutObservable<string>;
+    public sized: KnockoutObservable<boolean>;
     public sizeIntentions: Intention[];
     public sizeIntention: KnockoutObservable<Intention>;
 
@@ -78,6 +79,7 @@ export class FormattingTools {
         this.sizeIntentions = IntentionsUtils.toArray(this.intentions.text.size);
         this.sizeIntention = ko.observable<Intention>(this.intentions.text.size.default);
         this.size = ko.observable<string>(this.intentions.text.size.default.name());
+        this.sized = ko.observable<boolean>();
         
         this.bold = ko.observable<boolean>();
         this.italic = ko.observable<boolean>();
@@ -110,7 +112,7 @@ export class FormattingTools {
         
         this.anchored(!!selectionState.intentions["anchorKey"]);
 
-        this.updateIntentionSelector(selectionState, null, this.sizeIntention,
+        this.updateIntentionSelector(selectionState, this.sized, this.sizeIntention,
             this.size, this.intentions.text.size.default);
 
         this.updateIntentionSelector(selectionState, this.styled, this.styleIntention,
@@ -153,16 +155,10 @@ export class FormattingTools {
         defaultIntention: Intention){
         
         const category: string = defaultIntention.category;
+        const intentions: Intention[] = Utils.leaves(selectionState.intentions);
+        const selectedIntention = intentions.find(i => category == i.category) || defaultIntention;
 
-        if (isActive){
-            isActive(!!(selectionState.intentions[category] && (selectionState.intentions[category].length > 0)));
-        }
-        
-        const selectedIntentions = selectionState.intentions[category];
-        const selectedIntention = 
-            selectedIntentions && selectedIntentions.length > 0 &&
-                this.intentions.flattenMap[selectedIntentions[0]] || 
-                defaultIntention;
+        isActive(selectedIntention.fullId != defaultIntention.fullId);
         
         intention(selectedIntention);
 
