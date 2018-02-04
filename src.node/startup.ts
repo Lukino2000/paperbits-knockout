@@ -63,6 +63,8 @@ import { Substitute8ModelBinder } from "../src/widgets/substitute8/substitute8Mo
 import { Substitute8ViewModelBinder } from "../src/widgets/substitute8/substitute8ViewModelBinder";
 import { IPublisher } from "../src/publishing/IPublisher";
 import { PublishingModule } from "../src/publishing/publishing.module";
+import { FormModelBinder } from "@paperbits/common/widgets/form/formModelBinder";
+import { FormViewModelBinder } from "../src/widgets/form/formViewModelBinder";
 
 
 declare var global: any;
@@ -170,6 +172,11 @@ export async function publish(): Promise<void> {
     viewModelBinders.push(injector.resolve("videoPlayerViewModelBinder"));
     viewModelBinders.push(injector.resolve("mapViewModelBinder"));
 
+    injector.bind("formModelBinder", FormModelBinder);
+    modelBinders.push(injector.resolve("formModelBinder"));
+    injector.bind("formViewModelBinder", FormViewModelBinder);
+    viewModelBinders.push(injector.resolve("formViewModelBinder"));
+
     injector.bind("substitute1ModelBinder", Substitute1ModelBinder);
     modelBinders.push(injector.resolve("substitute1ModelBinder"));
     injector.bind("substitute1ViewModelBinder", Substitute1ViewModelBinder);
@@ -189,7 +196,7 @@ export async function publish(): Promise<void> {
     modelBinders.push(injector.resolve("substitute4ModelBinder"));
     injector.bind("substitute4ViewModelBinder", Substitute4ViewModelBinder);
     viewModelBinders.push(injector.resolve("substitute4ViewModelBinder"));
-    
+
     injector.bind("substitute5ModelBinder", Substitute5ModelBinder);
     modelBinders.push(injector.resolve("substitute5ModelBinder"));
     injector.bind("substitute5ViewModelBinder", Substitute5ViewModelBinder);
@@ -199,7 +206,7 @@ export async function publish(): Promise<void> {
     modelBinders.push(injector.resolve("substitute6ModelBinder"));
     injector.bind("substitute6ViewModelBinder", Substitute6ViewModelBinder);
     viewModelBinders.push(injector.resolve("substitute6ViewModelBinder"));
-    
+
     injector.bind("substitute7ModelBinder", Substitute7ModelBinder);
     modelBinders.push(injector.resolve("substitute7ModelBinder"));
     injector.bind("substitute7ViewModelBinder", Substitute7ViewModelBinder);
