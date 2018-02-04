@@ -59,7 +59,7 @@ export class SliderViewModelBinder {
                 if (!backgroundIntention) {
                     backgroundIntention = intentionMap.container.background.section_bg_default;
                 }
-                classes.push(backgroundIntention.styles());
+                classes.push(backgroundIntention.params());
 
                 if (slideModel.padding === "with-padding") {
                     classes.push(slideModel.padding);

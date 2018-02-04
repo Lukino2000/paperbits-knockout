@@ -48,7 +48,7 @@ export class IntentionSelector {
                 id: intention.id,
                 name: intention.name,
                 fullId: intention.fullId,
-                styles: intention.styles,
+                params: intention.params,
                 category: intention.category,
                 scope: intention.scope,
                 selected: ko.observable(false)
