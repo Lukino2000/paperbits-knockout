@@ -1,6 +1,6 @@
 /********************************************************************
 THIS IS AUTO-GENERATED CODE.
-DO NOT MODIFY THIS FILE DIRECTLY OTHERWISE ALL CHANGES WILL BE LOST.
+DO NOT MODIFY THIS FILE MANUALLY, OTHERWISE ALL CHANGES WILL BE LOST.
 ********************************************************************/
 
 import { Intention, IntentionsMap, IntentionWithViewport } from '@paperbits/common/appearence/intention'
@@ -22,10 +22,50 @@ export interface Intentions_text_size extends IntentionsMap{
 }
 
 export interface Intentions_text_alignment extends IntentionsMap{
+	xs: Intentions_text_alignment_xs;
+	sm: Intentions_text_alignment_sm;
+	md: Intentions_text_alignment_md;
+	lg: Intentions_text_alignment_lg;
+	xl: Intentions_text_alignment_xl;
 	alignedLeft: IntentionWithViewport;
 	alignedRight: IntentionWithViewport;
 	alignedCenter: IntentionWithViewport;
 	justified: IntentionWithViewport;
+}
+
+export interface Intentions_text_alignment_xs extends IntentionsMap{
+	alignedLeft: Intention;
+	alignedRight: Intention;
+	alignedCenter: Intention;
+	justified: Intention;
+}
+
+export interface Intentions_text_alignment_sm extends IntentionsMap{
+	alignedLeft: Intention;
+	alignedRight: Intention;
+	alignedCenter: Intention;
+	justified: Intention;
+}
+
+export interface Intentions_text_alignment_md extends IntentionsMap{
+	alignedLeft: Intention;
+	alignedRight: Intention;
+	alignedCenter: Intention;
+	justified: Intention;
+}
+
+export interface Intentions_text_alignment_lg extends IntentionsMap{
+	alignedLeft: Intention;
+	alignedRight: Intention;
+	alignedCenter: Intention;
+	justified: Intention;
+}
+
+export interface Intentions_text_alignment_xl extends IntentionsMap{
+	alignedLeft: Intention;
+	alignedRight: Intention;
+	alignedCenter: Intention;
+	justified: Intention;
 }
 
 export interface Intentions_text_style extends IntentionsMap{

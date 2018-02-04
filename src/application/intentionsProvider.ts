@@ -1,7 +1,7 @@
 import { IIntentionsBuilder, IIntentionsProvider } from '@paperbits/common/appearence/intention';
 
 export class IntentionsProvider implements IIntentionsProvider{
-
+    private static IsViewportContainer: boolean = true;
     private intentions: any;
     
     constructor(private intentionsBuilder: IIntentionsBuilder){
@@ -14,11 +14,12 @@ export class IntentionsProvider implements IIntentionsProvider{
                     })
                     .scope("alignment", alignmentBuilder => {
                         return alignmentBuilder
-                            .addIntentionPerViewPort("alignedLeft",  "alignment", "Aligned to the left", "block")
-                            .addIntentionPerViewPort("alignedRight", "alignment", "Aligned to the right", "block")
-                            .addIntentionPerViewPort("alignedCenter", "alignment", "Centered", "block")
-                            .addIntentionPerViewPort("justified", "alignment", "Justified", "block");
-                    })
+                            .addIntention("alignedLeft",  "alignment", "Aligned to the left", "block")
+                            .addIntention("alignedRight", "alignment", "Aligned to the right", "block")
+                            .addIntention("alignedCenter", "alignment", "Centered", "block")
+                            .addIntention("justified", "alignment", "Justified", "block");
+                    },
+                    IntentionsProvider.IsViewportContainer)
                     .scope("style", styleBuilder => {
                         return styleBuilder
                             .addIntention("text_color_primary", "color", "Primary", "inline")
