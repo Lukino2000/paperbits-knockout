@@ -3,7 +3,7 @@ THIS IS AUTO-GENERATED CODE.
 DO NOT MODIFY THIS FILE DIRECTLY OTHERWISE ALL CHANGES WILL BE LOST.
 ********************************************************************/
 
-import { Intention, IntentionsMap } from '@paperbits/common/appearence/intention'
+import { Intention, IntentionsMap, IntentionWithViewport } from '@paperbits/common/appearence/intention'
 
 export interface Intentions extends IntentionsMap{
 	text: Intentions_text;
@@ -22,54 +22,10 @@ export interface Intentions_text_size extends IntentionsMap{
 }
 
 export interface Intentions_text_alignment extends IntentionsMap{
-	viewports: Intentions_text_alignment_viewports;
-	alignedLeft: Intention;
-	alignedRight: Intention;
-	alignedCenter: Intention;
-	justified: Intention;
-}
-
-export interface Intentions_text_alignment_viewports extends IntentionsMap{
-	xs: Intentions_text_alignment_viewports_xs;
-	sm: Intentions_text_alignment_viewports_sm;
-	md: Intentions_text_alignment_viewports_md;
-	lg: Intentions_text_alignment_viewports_lg;
-	xl: Intentions_text_alignment_viewports_xl;
-}
-
-export interface Intentions_text_alignment_viewports_xs extends IntentionsMap{
-	alignedLeft: Intention;
-	alignedRight: Intention;
-	alignedCenter: Intention;
-	justified: Intention;
-}
-
-export interface Intentions_text_alignment_viewports_sm extends IntentionsMap{
-	alignedLeft: Intention;
-	alignedRight: Intention;
-	alignedCenter: Intention;
-	justified: Intention;
-}
-
-export interface Intentions_text_alignment_viewports_md extends IntentionsMap{
-	alignedLeft: Intention;
-	alignedRight: Intention;
-	alignedCenter: Intention;
-	justified: Intention;
-}
-
-export interface Intentions_text_alignment_viewports_lg extends IntentionsMap{
-	alignedLeft: Intention;
-	alignedRight: Intention;
-	alignedCenter: Intention;
-	justified: Intention;
-}
-
-export interface Intentions_text_alignment_viewports_xl extends IntentionsMap{
-	alignedLeft: Intention;
-	alignedRight: Intention;
-	alignedCenter: Intention;
-	justified: Intention;
+	alignedLeft: IntentionWithViewport;
+	alignedRight: IntentionWithViewport;
+	alignedCenter: IntentionWithViewport;
+	justified: IntentionWithViewport;
 }
 
 export interface Intentions_text_style extends IntentionsMap{

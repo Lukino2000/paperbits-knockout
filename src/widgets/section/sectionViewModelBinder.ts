@@ -46,7 +46,7 @@ export class SectionViewModelBinder implements IViewModelBinder {
             if (!backgroundIntention) {
                 backgroundIntention = intentions.container.background.section_bg_default;
             }
-            sectionClasses.push(backgroundIntention.styles());
+            sectionClasses.push(backgroundIntention.params());
         }
 
         

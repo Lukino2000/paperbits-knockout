@@ -45,7 +45,7 @@ export class BackgroundBindingHandler {
                         const colorIntention = intentions.container.background[backgroundModel.colorKey];
 
                         if (colorIntention) {
-                            css.push(colorIntention.styles());
+                            css.push(colorIntention.params());
                         }
                     }
                     else if (backgroundModel.color) {
