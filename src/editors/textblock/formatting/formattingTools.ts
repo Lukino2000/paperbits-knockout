@@ -13,7 +13,7 @@ import { IViewManager } from "@paperbits/common/ui/IViewManager";
 import { IAppIntentionsProvider } from "../../../application/interface";
 import { Intentions } from "../../../application/codegen/intentionContracts";
 import { IHtmlEditor, SelectionState } from "@paperbits/common/editing/IHtmlEditor";
-import { Intention } from "../../../../../paperbits-common/src/appearence/intention";
+import { Intention, IntentionWithViewport } from "@paperbits/common/appearence/intention";
 import { isAbsolute } from "path";
 
 
@@ -108,7 +108,7 @@ export class FormattingTools {
 
         this.updateAlignmentState(selectionState)
         
-        this.anchored(!!selectionState.intentions.anchorKey);
+        this.anchored(!!selectionState.intentions["anchorKey"]);
 
         this.updateIntentionSelector(selectionState, null, this.sizeIntention,
             this.size, this.intentions.text.size.default);
@@ -172,9 +172,9 @@ export class FormattingTools {
     private updateAlignmentState(selectionState: SelectionState):void{
 
         const viewport = this.viewManager.getViewport();
-        const alignment: string[] = <any>selectionState.intentions.alignment
+        const intentions: Intention[] = Utils.leaves(selectionState.intentions);
         
-        if (!alignment){
+        if (!intentions || intentions.length === 0){
             this.alignedLeft(true);
             this.alignedCenter(false);
             this.alignedRight(false);
@@ -182,36 +182,13 @@ export class FormattingTools {
             return;
         }
 
-        //To support legacy format
-        if (typeof alignment === 'string'){
-            this.alignedLeft(<string><any>alignment == "alignedLeft");
-            this.alignedCenter(<string><any>alignment == "alignedCenter");
-            this.alignedRight(<string><any>alignment == "alignedRight");
-            this.justified(<string><any>alignment == "justified");
-            return;
-        } 
+        const hasIntention = (intentions: Intention[], candidate: IntentionWithViewport) => 
+            !!intentions.find(i => candidate.fullId == i.fullId || candidate.for(viewport).fullId == i.fullId);
         
-        const aligned = alignment.find(v => v.startsWith("text.alignment"));
-        if (!aligned){
-            this.alignedLeft(true);
-            this.alignedCenter(false);
-            this.alignedRight(false);
-            this.justified(false);
-            return;
-        }
-        const alignInTheCurrentViewport = alignment.find(v => v.indexOf("." + viewport + ".") > -1);
-        if (alignInTheCurrentViewport){
-            this.alignedLeft(!!alignment.find(v => v.endsWith(viewport + ".alignedLeft")));
-            this.alignedCenter(!!alignment.find(v => v.endsWith(viewport + ".alignedCenter")));
-            this.alignedRight(!!alignment.find(v => v.endsWith(viewport + ".alignedRight")));
-            this.justified(!!alignment.find(v => v.endsWith(viewport + ".justified")));
-        }
-        else{
-            this.alignedLeft(!!alignment.find(v => v.endsWith("text.alignment.")));
-            this.alignedCenter(!!alignment.find(v => v.startsWith("text.alignment.alignedCenter")));
-            this.alignedRight(!!alignment.find(v => v.startsWith("text.alignment.alignedRight")));
-            this.justified(!!alignment.find(v => v.startsWith("text.alignment.justified")));
-        }
+        this.alignedLeft(hasIntention(intentions, this.intentions.text.alignment.alignedLeft));
+        this.alignedCenter(hasIntention(intentions, this.intentions.text.alignment.alignedCenter));
+        this.alignedRight(hasIntention(intentions, this.intentions.text.alignment.alignedRight));
+        this.justified(hasIntention(intentions, this.intentions.text.alignment.justified));
 
         if (!this.alignedLeft() && !this.alignedCenter() && !this.alignedRight() && !this.justified()) {
             this.alignedLeft(true);
@@ -229,12 +206,12 @@ export class FormattingTools {
     }
 
     public setStyle(intention: Intention): void {
-        this.htmlEditorProvider.getCurrentHtmlEditor().toggleCategory(intention.category, intention.fullId, intention.scope);
+        this.htmlEditorProvider.getCurrentHtmlEditor().toggleIntention(intention);
         this.updateFormattingState();
     }
 
     public setSize(intention: Intention): void {
-        this.htmlEditorProvider.getCurrentHtmlEditor().toggleCategory(intention.category, intention.fullId, intention.scope);
+        this.htmlEditorProvider.getCurrentHtmlEditor().toggleIntention(intention);
         this.updateFormattingState();
     }
 
@@ -251,7 +228,7 @@ export class FormattingTools {
     public toggleLead(): void {
         const leadIntention = this.intentions.text.size.text_lead
 
-        this.htmlEditorProvider.getCurrentHtmlEditor().toggleCategory(leadIntention.category, leadIntention.fullId, leadIntention.scope);
+        this.htmlEditorProvider.getCurrentHtmlEditor().toggleIntention(this.intentions.text.size.text_lead);
         
         this.updateFormattingState();
     }
@@ -259,7 +236,7 @@ export class FormattingTools {
     public resetToDefault(): void{
         const defaultSize = this.intentions.text.size.default;
         
-        this.htmlEditorProvider.getCurrentHtmlEditor().toggleCategory(defaultSize.category, [], defaultSize.scope);
+        this.htmlEditorProvider.getCurrentHtmlEditor().removeAllIntentions();
         
         this.updateFormattingState();
     }
@@ -286,7 +263,13 @@ export class FormattingTools {
             const anchorId = Utils.guid();
             const anchorPermalink = await this.permalinkService.createPermalink(`${anchorId}`, null, permalink.key);
 
-            htmlEditor.toggleCategory("anchorKey", anchorPermalink.key, "block");
+            htmlEditor.toggleIntention(<Intention>{
+                params: () => anchorPermalink.key,
+                id: "anchorKey",
+                fullId: "anchorKey",
+                name: () => "",
+                scope: "block"
+            });
 
             // TODO: Probably we should show dialog and allow users to enter anchor title.
             const anchorTitle = htmlEditor.getSelectionText();
@@ -297,7 +280,13 @@ export class FormattingTools {
             await this.pageService.updatePage(pageContract);
         }
         else {
-            this.htmlEditorProvider.getCurrentHtmlEditor().toggleCategory("anchorKey", anchorKey, "block");
+            this.htmlEditorProvider.getCurrentHtmlEditor().toggleIntention(<Intention>{
+                params: () => anchorKey,
+                id: "anchorKey",
+                fullId: "anchorKey",
+                name: () => "",
+                scope: "block"
+            });
             this.permalinkService.deletePermalinkByKey(anchorKey);
 
             if (pageContract.anchors) {
@@ -361,20 +350,20 @@ export class FormattingTools {
     }
 
     public toggleAlignLeft(): void {
-        this.toggleAlignment("alignedLeft");
+        this.toggleAlignment(this.intentions.text.alignment.alignedLeft);
 
     }
 
     public toggleAlignCenter(): void {
-        this.toggleAlignment("alignedCenter");
+        this.toggleAlignment(this.intentions.text.alignment.alignedCenter);
     }
 
     public toggleAlignRight(): void {
-        this.toggleAlignment("alignedRight");
+        this.toggleAlignment(this.intentions.text.alignment.alignedRight);
     }
 
     public toggleJustify(): void {
-        this.toggleAlignment("justified");
+        this.toggleAlignment(this.intentions.text.alignment.justified);
     }
 
     public resetToNormal(): void {
@@ -386,30 +375,24 @@ export class FormattingTools {
         this.eventManager.removeEventListener("htmlEditorChanged", this.updateFormattingState)
     }
 
-    private toggleAlignment(alignmentIntention: string) {
+    private toggleAlignment(intention: IntentionWithViewport) {
         const viewport = this.viewManager.getViewport();
         const htmlEditor: IHtmlEditor = this.htmlEditorProvider.getCurrentHtmlEditor();
         const selectionState = htmlEditor.getSelectionState();
         let alignmentIndex: number;
-        alignmentIntention = viewport ? 
-            this.intentions.text.alignment.viewports[viewport][alignmentIntention].fullId :
-            this.intentions.text.alignment[alignmentIntention].fullId;
-        //if alignment category is empty or it is a string (old data) then update entire categoty
-        if (!selectionState.intentions.alignment || 
-            (typeof selectionState.intentions.alignment === 'string')){
-            htmlEditor.toggleCategory("alignment", alignmentIntention, "block");
-        //otherwise it is array; if it has category with current viewport - then replace it
-        } else if ((alignmentIndex = selectionState.intentions.alignment.findIndex(a => a.indexOf("alignment.viewports." + viewport) >= 0)) >= 0){
-            let newAlignment = JSON.parse(JSON.stringify(selectionState.intentions.alignment));
-            newAlignment.splice(alignmentIndex, 1);
-            newAlignment.push(alignmentIntention)
-            htmlEditor.toggleCategory("alignment", newAlignment, "block");
-            // otherwise append alignment with current viewport to the current category
-        } else {
-            let newAlignment = JSON.parse(JSON.stringify(selectionState.intentions.alignment));
-            newAlignment.push(alignmentIntention)
-            htmlEditor.toggleCategory("alignment", newAlignment, "block");
-        }
+        const alignmentIntention : Intention = intention.for(viewport);
+        
+        htmlEditor.toggleIntention(alignmentIntention);
+
         this.updateFormattingState();
+    }
+
+    private toTextEditorIntentions(intention: Intention): any{
+        const segments = intention.fullId.split(".");
+        let result = intention;
+        for(let i = segments.length - 1; i >= 0; i--){
+            let segment = segments[i];
+
+        }
     }
 }
