@@ -22,23 +22,25 @@ h2 {
 }
 
 .toolbox {
-    position: fixed;
     display: block;
     padding: 7px;
     z-index: $z-index-base;
     @include surface();
 
     &.toolbox-position-left {
+        position: fixed;
         top: 20px;
         left: 20px;
     }
 
     &.toolbox-position-left-bottom {
+        position: fixed;
         bottom: 20px;
         left: 20px;
     }
 
     &.toolbox-position-left-offset {
+        position: fixed;
         top: 20px;
         left: 150px;
         min-width: 320px;

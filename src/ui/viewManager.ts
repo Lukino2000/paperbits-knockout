@@ -352,8 +352,6 @@ export class ViewManager implements IViewManager {
         this.closeWidgetEditor();
         this.widgetEditor(view);
         this.mode = ViewManagerMode.configure;
-
-        this.foldWorkshops();
     }
 
     public getWidgetview(): IView {

@@ -20,9 +20,33 @@ export class BalloonBindingHandler {
                 let balloonY;
                 let componentElement;
 
-                const getBalloonElement = (): HTMLElement => {
-                    let balloonElement: HTMLElement;
+                const createComponent = async (options): Promise<HTMLElement> => {
+                    return new Promise<HTMLElement>(resolve => {
+                        const container = document.createElement("div");
+                        
+                        container.classList.add("balloon");
+                        toggleElement.ownerDocument.body.appendChild(container);
 
+                        let componentConfig;
+
+                        if (typeof options.component === "string") {
+                            componentConfig = { name: options.component }
+                        }
+                        else {
+                            componentConfig = options.component;
+                        }
+
+                        componentConfig.oncreate = () => {
+                            resolve(container);
+                        }
+
+                        ko.applyBindingsToNode(container, {
+                            component: componentConfig
+                        });
+                    });
+                }
+
+                const getBalloonElement = async (): Promise<HTMLElement> => {
                     if (options.element) {
                         return options.element;
                     }
@@ -31,19 +55,13 @@ export class BalloonBindingHandler {
                             return componentElement;
                         }
 
-                        componentElement = document.createElement("div");
-                        componentElement.classList.add("balloon");
-                        toggleElement.ownerDocument.body.appendChild(componentElement);
-
-                        ko.applyBindingsToNode(componentElement, { component: options.component });
+                        componentElement = await createComponent(options);
 
                         return componentElement;
                     }
                     else if (options.selector) {
                         return document.querySelector(options.selector);
                     }
-
-                    return balloonElement;
                 }
 
                 const removeComponent = (): void => {
@@ -53,8 +71,8 @@ export class BalloonBindingHandler {
                     }
                 }
 
-                const reposition = (): void => {
-                    const balloonElement = getBalloonElement();
+                const reposition = async (): Promise<void> => {
+                    const balloonElement = await getBalloonElement();
                     const triggerRect = toggleElement.getBoundingClientRect();
                     const targetRect = balloonElement.getBoundingClientRect();
 
@@ -83,15 +101,16 @@ export class BalloonBindingHandler {
 
                     switch (position) {
                         case "top":
+                            balloonElement.classList.add("balloon-top");
                             balloonY = triggerRect.top - targetRect.height;
                             balloonX = triggerRect.left + (triggerRect.width / 2) - 20;
-                            balloonElement.classList.add("balloon-top");
+
                             break;
 
                         case "bottom":
+                            balloonElement.classList.add("balloon-bottom");
                             balloonY = triggerRect.top + triggerRect.height;
                             balloonX = triggerRect.left + (triggerRect.width / 2) - 20;
-                            balloonElement.classList.add("balloon-bottom");
                             break;
                     }
 
@@ -99,8 +118,8 @@ export class BalloonBindingHandler {
                     balloonElement.style.left = `${balloonX}px`;
                 }
 
-                const open = (): void => {
-                    const balloonElement = getBalloonElement();
+                const open = async (): Promise<void> => {
+                    const balloonElement = await getBalloonElement();
 
                     if (!balloonElement) {
                         return;
@@ -109,8 +128,8 @@ export class BalloonBindingHandler {
                     reposition();
                 }
 
-                const close = (): void => {
-                    const balloonElement = getBalloonElement();
+                const close = async (): Promise<void> => {
+                    const balloonElement = await getBalloonElement();
 
                     if (!balloonElement) {
                         return;
@@ -120,27 +139,27 @@ export class BalloonBindingHandler {
                     removeComponent();
                 }
 
-                const toggle = (): void => {
-                    const balloonElement = getBalloonElement();
+                const toggle = async (): Promise<void> => {
+                    const balloonElement = await getBalloonElement();
 
                     if (!balloonElement) {
                         return;
                     }
 
                     if (balloonElement.classList.contains(balloonActiveClassName)) {
-                        close();
+                        await close();
                     }
                     else {
-                        open();
+                        await open();
                     }
                 }
 
-                const onPointerDown = (event: PointerEvent): void => {
+                const onPointerDown = async (event: PointerEvent): Promise<void> => {
                     if (!toggleElement) {
                         return;
                     }
 
-                    const balloonElement = getBalloonElement();
+                    const balloonElement = await getBalloonElement();
 
                     if (!balloonElement) {
                         return;
@@ -151,19 +170,19 @@ export class BalloonBindingHandler {
                     if (elements.contains(toggleElement)) {
                         event.preventDefault();
                         event.stopPropagation();
-                        toggle();
+                        await toggle();
                     }
                     else if (!elements.contains(balloonElement)) {
-                        close();
+                        await close();
                     }
                 }
 
-                const onKeyDown = (event: KeyboardEvent): void => {
+                const onKeyDown = async (event: KeyboardEvent): Promise<void> => {
                     switch (event.keyCode) {
                         case Keys.Enter:
                         case Keys.Space:
                             event.preventDefault();
-                            toggle();
+                            await toggle();
                             break;
 
                         case Keys.Esc:
@@ -178,17 +197,16 @@ export class BalloonBindingHandler {
                 const onClick = (event: PointerEvent): void => {
                     event.preventDefault();
                     event.stopImmediatePropagation();
-                    // toggle();
                 }
 
-                const onScroll = (event: PointerEvent) => {
-                    const balloonElement = getBalloonElement();
+                const onScroll = async (event: PointerEvent): Promise<void> => {
+                    const balloonElement = await getBalloonElement();
 
                     if (!balloonElement) {
                         return;
                     }
 
-                    reposition();
+                    await reposition();
                 }
 
                 toggleElement.addEventListener("keydown", onKeyDown);

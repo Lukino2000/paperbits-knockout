@@ -37,7 +37,8 @@
 
 <!-- ko with: widgetEditor() -->
 <div class="toolbox toolbox-position-left-offset" data-bind="resizable: resize, surface: $data">
-    <!-- ko component: { name: component.name, params: component.params, oncreate: component.oncreate } --><!--/ko -->
+    <!-- ko component: { name: component.name, params: component.params, oncreate: component.oncreate } -->
+    <!--/ko -->
 </div>
 <!-- /ko -->
 
@@ -84,4 +85,10 @@
 
 <!-- /ko -->
 
-<viewport-selector data-bind="visible: primaryToolboxVisible"></viewport-selector>
+<div class="toolbox toolbox-position-left-bottom" data-bind="visible: primaryToolboxVisible">
+    <div class="toolbox-button">
+        <a href="#" data-bind="balloon: { component: 'viewport-selector', position: 'top' }" title="Viewport selection">
+            <i class="paperbits-icon paperbits-mirror-2"></i>
+        </a>
+    </div>
+</div>
