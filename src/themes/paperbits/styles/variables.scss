@@ -5,5 +5,10 @@ $breakpoint-md: 768px;
 $breakpoint-lg: 992px;
 $breakpoint-xl: 1200px;
 
-
-$font-size-base: 25px;
+$font-size-base: calc(10px + 1vw);
+$font-size-h1: calc(20px + 1vw);
+$font-size-h2: calc(18px + 1vw);
+$font-size-h3: calc(16px + 1vw);
+$font-size-h4: calc(14px + 1vw);
+$font-size-h5: calc(12px + 1vw);
+$font-size-h6: $font-size-base;
