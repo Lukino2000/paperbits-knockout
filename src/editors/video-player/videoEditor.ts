@@ -14,17 +14,15 @@ import { Component } from "../../decorators/component";
 })
 export class VideoEditor implements IWidgetEditor {
     private video: VideoPlayerModel;
-    private readonly viewManager: IViewManager;
-
     private applyChangesCallback: () => void;
 
     public sourceUrl: KnockoutObservable<string>;
     public controls: KnockoutObservable<boolean>;
     public autoplay: KnockoutObservable<boolean>;
 
-    constructor(viewManager: IViewManager) {
-        this.viewManager = viewManager;
-
+    constructor(
+        private readonly viewManager: IViewManager
+    ) {
         this.onSourceUrlUpdate = this.onSourceUrlUpdate.bind(this);
         this.onControlsUpdate = this.onControlsUpdate.bind(this);
         this.onAutoplayUpdate = this.onAutoplayUpdate.bind(this);
@@ -70,5 +68,9 @@ export class VideoEditor implements IWidgetEditor {
 
     private onMediaUploaded(media: MediaContract): void {
         //this.sourceUrl(media.content);
+    }
+
+    public closeEditor(): void {
+        this.viewManager.closeWidgetEditor();
     }
 }

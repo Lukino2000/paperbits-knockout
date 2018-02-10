@@ -20,7 +20,9 @@ export class MapEditor implements IWidgetEditor {
     public zoomControl: KnockoutObservable<boolean>;
     public layout: KnockoutObservable<string>;
 
-    constructor() {
+    constructor(
+        private readonly viewManager: IViewManager
+    ) {
         this.onLocationUpdate = this.onLocationUpdate.bind(this);
         this.onCaptionUpdate = this.onCaptionUpdate.bind(this);
         this.onLayoutUpdate = this.onLayoutUpdate.bind(this);
@@ -71,5 +73,9 @@ export class MapEditor implements IWidgetEditor {
         this.caption(map.caption);
         this.layout(map.layout);
         this.zoomControl(this.map.zoomControl === "show");
+    }
+
+    public closeEditor(): void {
+        this.viewManager.closeWidgetEditor();
     }
 }

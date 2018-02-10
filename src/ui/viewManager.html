@@ -45,7 +45,7 @@
 <!-- ko foreach: { data: contextualEditors, as: 'contextualEditor' } -->
 <!-- ko if: contextualEditor.hoverCommand -->
 
-<button class="fixed button-standalone" data-bind="stickTo: { target: element, position: hoverCommand.position }, balloon: { component: hoverCommand.component, position: 'bottom' }, background: { color: hoverCommand.color }, attr: { title: hoverCommand.tooltip }">
+<button class="fixed button-standalone" data-bind="stickTo: { target: contextualEditor.element, position: contextualEditor.hoverCommand.position }, balloon: { component: contextualEditor.hoverCommand.component, position: 'bottom' }, background: { color: contextualEditor.hoverCommand.color }, attr: { title: contextualEditor.hoverCommand.tooltip }">
     <i class="paperbits-icon paperbits-simple-add"></i>
 </button>
 

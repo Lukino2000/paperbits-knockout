@@ -21,11 +21,6 @@ import { IEventManager } from "@paperbits/common/events/IEventManager";
     injectable: "mediaWorkshop"
 })
 export class MediaWorkshop {
-    private readonly eventManager: IEventManager;
-    private readonly mediaService: IMediaService;
-    private readonly permalinkService: IPermalinkService;
-    private readonly viewManager: IViewManager;
-    private dropHandlers: Array<IContentDropHandler>; // TODO: Switch to IWidgetHandlers
     private searchTimeout: any;
 
     public searchPattern: KnockoutObservable<string>;
@@ -33,16 +28,14 @@ export class MediaWorkshop {
     public selectedMediaItem: KnockoutObservable<MediaItem>;
     public readonly working: KnockoutObservable<boolean>;
 
-    constructor(eventManager: IEventManager, mediaService: IMediaService, permalinkService: IPermalinkService, viewManager: IViewManager, dropHandlers: Array<IContentDropHandler>) {
-        // initialization...
-        this.eventManager = eventManager;
-        this.mediaService = mediaService;
-        this.permalinkService = permalinkService;
-        this.viewManager = viewManager;
-        this.dropHandlers = dropHandlers;
-
+    constructor(
+        private readonly eventManager: IEventManager,
+        private readonly mediaService: IMediaService,
+        private readonly permalinkService: IPermalinkService,
+        private readonly viewManager: IViewManager,
+        private readonly dropHandlers: Array<IContentDropHandler>
+    ) {
         // rebinding...
-        //this.onFaviconUploaded = this.onFaviconUploaded.bind(this);
         this.searchMedia = this.searchMedia.bind(this);
         this.uploadMedia = this.uploadMedia.bind(this);
         this.onMediaUploaded = this.onMediaUploaded.bind(this);
