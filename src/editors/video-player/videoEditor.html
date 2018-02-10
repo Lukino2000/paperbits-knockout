@@ -1,14 +1,19 @@
 ﻿<div class="editor">
     <h1>
         Video player
+        <a href="#" class="button pull-right" data-bind="click: closeEditor">✖</a>
     </h1>
     <hr />
     <fieldset class="form" data-bind="scrollable: {}">
         <div class="dropzone-small" data-bind="click: uploadMedia">
         </div>
-        <video controls>
-            <source data-bind="attr: { src: sourceUrl }" />
-        </video>
+        <div class="dropzone">
+            <div class="dropzone-showbox">
+                <video controls>
+                    <source data-bind="attr: { src: sourceUrl }" />
+                </video>
+            </div>
+        </div>
         <label class="form-label">Controls</label>
         <input type="checkbox" data-bind="checked: controls" />
         <label class="form-label">Autoplay</label>

@@ -11,6 +11,7 @@ import { IViewManager } from '@paperbits/common/ui/IViewManager';
 import { IWidgetHandler } from '@paperbits/common/editing/IWidgetHandler';
 import { IWidgetService } from "@paperbits/common/widgets/IWidgetService";
 import { IBlockService } from "@paperbits/common/blocks/IBlockService";
+import { IEventManager } from "@paperbits/common/events/IEventManager";
 import { PermalinkResolver } from "@paperbits/common/permalinks/permalinkResolver";
 import { MediaPermalinkResolver } from "@paperbits/common/media/mediaPermalinkResolver";
 import { IPermalinkResolver } from "@paperbits/common/permalinks/IPermalinkResolver";
@@ -227,10 +228,11 @@ export class ComponentRegistrationEditors implements IInjectorModule {
         });
 
         injector.bindComponent("mediaSelector", (ctx: IInjector, params: {}) => {
+            const eventManager = ctx.resolve<IEventManager>("eventManager");
             var mediaService = ctx.resolve<IMediaService>("mediaService");
             var permalinkService = ctx.resolve<IPermalinkService>("permalinkService");
             var viewManager = ctx.resolve<IViewManager>("viewManager");
-            return new MediaSelector(mediaService, permalinkService, viewManager, params["onSelect"], params["mediaFilter"]);
+            return new MediaSelector(eventManager, mediaService, permalinkService, viewManager, params["onSelect"], params["mediaFilter"]);
         });
 
         injector.bindComponent("colorSelector", (ctx: IInjector, params: {}) => {

@@ -10,6 +10,7 @@ import { IMediaService } from '@paperbits/common/media/IMediaService';
 import { Component } from "../../decorators/component";
 import { IViewManager } from "@paperbits/common/ui/IViewManager";
 import { IMediaFilter } from "@paperbits/common/media/IMediaFilter";
+import { IEventManager } from "@paperbits/common/events/IEventManager";
 
 
 @Component({
@@ -18,12 +19,6 @@ import { IMediaFilter } from "@paperbits/common/media/IMediaFilter";
     injectable: "mediaSelector"
 })
 export class MediaSelector implements IResourceSelector<MediaContract> {
-    private readonly mediaService: IMediaService;
-    private readonly permalinkService: IPermalinkService;
-    private readonly viewManager: IViewManager;
-    private readonly onMediaSelected: (media: MediaContract) => void;
-    private readonly mediaFilter: IMediaFilter;
-
     public readonly searchPattern: KnockoutObservable<string>;
     public readonly mediaItems: KnockoutObservableArray<MediaItem>;
     public readonly working: KnockoutObservable<boolean>;
@@ -32,7 +27,14 @@ export class MediaSelector implements IResourceSelector<MediaContract> {
 
     public onResourceSelected: (media: MediaContract) => void;
 
-    constructor(mediaService: IMediaService, permalinkService: IPermalinkService, viewManager: IViewManager, onSelect: (media: MediaContract) => void, mediaFilter:IMediaFilter) {
+    constructor(
+        private readonly eventManager: IEventManager,
+        private readonly mediaService: IMediaService,
+        private readonly permalinkService: IPermalinkService,
+        private readonly viewManager: IViewManager,
+        private readonly onSelect: (media: MediaContract) => void,
+        private readonly mediaFilter: IMediaFilter
+    ) {
         this.mediaService = mediaService;
         this.permalinkService = permalinkService;
         this.viewManager = viewManager;
@@ -61,7 +63,7 @@ export class MediaSelector implements IResourceSelector<MediaContract> {
     public async searchMedia(searchPattern: string = ""): Promise<void> {
         this.working(true);
         let mediaFiles
-        if(this.mediaFilter) {
+        if (this.mediaFilter) {
             mediaFiles = await this.mediaService.searchByProperties(this.mediaFilter.propertyNames, this.mediaFilter.propertyValue, this.mediaFilter.startSearch);
         } else {
             mediaFiles = await this.mediaService.search(searchPattern);
@@ -102,5 +104,31 @@ export class MediaSelector implements IResourceSelector<MediaContract> {
         await Promise.all(uploadPromises);
         await this.searchMedia();
         this.working(false);
+    }
+
+    public onDragStart(item: MediaItem): HTMLElement {
+        item.widgetFactoryResult = item.widgetOrder.createWidget();
+
+        const widgetElement = item.widgetFactoryResult.element;
+        const widgetModel = item.widgetFactoryResult.widgetModel;
+        const widgetBinding = item.widgetFactoryResult.widgetBinding;
+
+        this.viewManager.beginDrag({
+            type: "widget",
+            sourceModel: widgetModel,
+            sourceBinding: widgetBinding
+        });
+
+        return widgetElement;
+    }
+
+    public onDragEnd(item: MediaItem): void {
+        item.widgetFactoryResult.element.remove();
+        const dragSession = this.viewManager.getDragSession();
+        const acceptorBinding = dragSession.targetBinding;
+
+        acceptorBinding.onDragDrop(dragSession);
+
+        this.eventManager.dispatchEvent("virtualDragEnd");
     }
 }
