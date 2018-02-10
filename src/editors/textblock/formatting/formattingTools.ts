@@ -154,9 +154,10 @@ export class FormattingTools {
         caption: KnockoutObservable<string>, 
         defaultIntention: Intention){
         
-        const category: string = defaultIntention.category;
+        const fullId: string = defaultIntention.fullId;
+        const parentId: string = fullId.substring(0, fullId.lastIndexOf("."));
         const intentions: Intention[] = Utils.leaves(selectionState.intentions);
-        const selectedIntention = intentions.find(i => category == i.category) || defaultIntention;
+        const selectedIntention = intentions.find(i => i.fullId.startsWith(parentId)) || defaultIntention;
 
         isActive(selectedIntention.fullId != defaultIntention.fullId);
         
@@ -181,9 +182,9 @@ export class FormattingTools {
         const hasIntention = (intentions: Intention[], candidate: IntentionWithViewport) => 
             !!intentions.find(i => candidate.fullId == i.fullId || candidate.for(viewport).fullId == i.fullId);
         
-        this.alignedLeft(hasIntention(intentions, this.intentions.text.alignment.alignedLeft));
-        this.alignedCenter(hasIntention(intentions, this.intentions.text.alignment.alignedCenter));
-        this.alignedRight(hasIntention(intentions, this.intentions.text.alignment.alignedRight));
+        this.alignedLeft(hasIntention(intentions, this.intentions.text.alignment.left));
+        this.alignedCenter(hasIntention(intentions, this.intentions.text.alignment.center));
+        this.alignedRight(hasIntention(intentions, this.intentions.text.alignment.right));
         this.justified(hasIntention(intentions, this.intentions.text.alignment.justified));
 
         if (!this.alignedLeft() && !this.alignedCenter() && !this.alignedRight() && !this.justified()) {
@@ -261,7 +262,6 @@ export class FormattingTools {
 
             htmlEditor.toggleIntention(<Intention>{
                 params: () => anchorPermalink.key,
-                id: "anchorKey",
                 fullId: "anchorKey",
                 name: () => "",
                 scope: "block"
@@ -278,7 +278,6 @@ export class FormattingTools {
         else {
             this.htmlEditorProvider.getCurrentHtmlEditor().toggleIntention(<Intention>{
                 params: () => anchorKey,
-                id: "anchorKey",
                 fullId: "anchorKey",
                 name: () => "",
                 scope: "block"
@@ -346,16 +345,16 @@ export class FormattingTools {
     }
 
     public toggleAlignLeft(): void {
-        this.toggleAlignment(this.intentions.text.alignment.alignedLeft);
+        this.toggleAlignment(this.intentions.text.alignment.left);
 
     }
 
     public toggleAlignCenter(): void {
-        this.toggleAlignment(this.intentions.text.alignment.alignedCenter);
+        this.toggleAlignment(this.intentions.text.alignment.center);
     }
 
     public toggleAlignRight(): void {
-        this.toggleAlignment(this.intentions.text.alignment.alignedRight);
+        this.toggleAlignment(this.intentions.text.alignment.right);
     }
 
     public toggleJustify(): void {

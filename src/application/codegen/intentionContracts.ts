@@ -27,44 +27,44 @@ export interface Intentions_text_alignment extends IntentionsMap{
 	md: Intentions_text_alignment_md;
 	lg: Intentions_text_alignment_lg;
 	xl: Intentions_text_alignment_xl;
-	alignedLeft: IntentionWithViewport;
-	alignedRight: IntentionWithViewport;
-	alignedCenter: IntentionWithViewport;
+	left: IntentionWithViewport;
+	right: IntentionWithViewport;
+	center: IntentionWithViewport;
 	justified: IntentionWithViewport;
 }
 
 export interface Intentions_text_alignment_xs extends IntentionsMap{
-	alignedLeft: Intention;
-	alignedRight: Intention;
-	alignedCenter: Intention;
+	left: Intention;
+	right: Intention;
+	center: Intention;
 	justified: Intention;
 }
 
 export interface Intentions_text_alignment_sm extends IntentionsMap{
-	alignedLeft: Intention;
-	alignedRight: Intention;
-	alignedCenter: Intention;
+	left: Intention;
+	right: Intention;
+	center: Intention;
 	justified: Intention;
 }
 
 export interface Intentions_text_alignment_md extends IntentionsMap{
-	alignedLeft: Intention;
-	alignedRight: Intention;
-	alignedCenter: Intention;
+	left: Intention;
+	right: Intention;
+	center: Intention;
 	justified: Intention;
 }
 
 export interface Intentions_text_alignment_lg extends IntentionsMap{
-	alignedLeft: Intention;
-	alignedRight: Intention;
-	alignedCenter: Intention;
+	left: Intention;
+	right: Intention;
+	center: Intention;
 	justified: Intention;
 }
 
 export interface Intentions_text_alignment_xl extends IntentionsMap{
-	alignedLeft: Intention;
-	alignedRight: Intention;
-	alignedCenter: Intention;
+	left: Intention;
+	right: Intention;
+	center: Intention;
 	justified: Intention;
 }
 
