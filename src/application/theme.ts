@@ -2,16 +2,10 @@ export var theme =
 {
     text: {
         alignment: {
-            "left": "text-left",
-            "right": "text-right",
-            "center": "text-center",
-            "justified": "text-justify",
-            "viewports": {
-                "left": "text-%viewport%-left",
-                "right": "text-%viewport%-right",
-                "center": "text-%viewport%-center",
-                "justified": "text-%viewport%-justify"
-            }
+            "left": (vp) => (!vp || vp === "xs") ? "text-left" : "text-" + vp + "-left",
+            "right": (vp) => (!vp || vp === "xs") ? "text-right" : "text-" + vp + "-right",
+            "center": (vp) => (!vp || vp === "xs") ? "text-center" : "text-" + vp + "-center",
+            "justified": (vp) => (!vp || vp === "xs") ? "text-justified" : "text-" + vp + "-justified"
         },
         size: {
             "text_lead": "lead",

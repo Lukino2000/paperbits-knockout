@@ -372,7 +372,6 @@ export class FormattingTools {
 
     private toggleAlignment(intention: IntentionWithViewport) {
         let viewport = this.viewManager.getViewport();
-        viewport = viewport === "xs" ? null : viewport;
         const htmlEditor: IHtmlEditor = this.htmlEditorProvider.getCurrentHtmlEditor();
         const selectionState = htmlEditor.getSelectionState();
         let alignmentIndex: number;
