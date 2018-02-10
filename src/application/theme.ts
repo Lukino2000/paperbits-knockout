@@ -2,14 +2,14 @@ export var theme =
 {
     text: {
         alignment: {
-            "alignedLeft": "text-left",
-            "alignedRight": "text-right",
-            "alignedCenter": "text-center",
+            "left": "text-left",
+            "right": "text-right",
+            "center": "text-center",
             "justified": "text-justify",
             "viewports": {
-                "alignedLeft": "text-%viewport%-left",
-                "alignedRight": "text-%viewport%-right",
-                "alignedCenter": "text-%viewport%-center",
+                "left": "text-%viewport%-left",
+                "right": "text-%viewport%-right",
+                "center": "text-%viewport%-center",
                 "justified": "text-%viewport%-justify"
             }
         },
