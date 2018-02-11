@@ -48,7 +48,7 @@ export class BlogPostDetailsWorkshop {
             .subscribe(this.updateBlogPost);
 
         this.blogPostItem.permalinkUrl
-            .extend({ uniquePermalink: this.blogPostItem.permalinkKey, onlyValid: true })
+            .extend({ uniquePermalink: this.blogPostItem.permalinkKey, required: true, onlyValid: true })
             .subscribe(this.updatePermlaink);
 
         this.init();
