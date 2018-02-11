@@ -1,8 +1,7 @@
 import * as ko from "knockout";
 
-ko.bindingHandlers["validationMessageToggle"] = {
-    // TODO: Switch to balloons
 
+ko.bindingHandlers["validationMessageToggle"] = {
     init: (triggerElement: HTMLElement, valueAccessor) => {
         const observable = valueAccessor();
 
@@ -11,20 +10,16 @@ ko.bindingHandlers["validationMessageToggle"] = {
             return;
         }
 
-        const shownObservable = ko.observable(false);
-
         ko.applyBindingsToNode(triggerElement, {
-            click: () => {
-                shownObservable(!shownObservable())
-            },
-
-            css: {
-                shown: shownObservable
-            },
-
-            attr: { error: observable.error },
-
-            visible: ko.pureComputed(() => !observable.isValid())
+            visible: ko.pureComputed(() => !observable.isValid()),
+            balloon: {
+                component: {
+                    name: "tooltip",
+                    params: observable.error
+                },
+                position: "top",
+                isOpen: ko.observable()
+            }
         });
     }
 }

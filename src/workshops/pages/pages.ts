@@ -1,6 +1,5 @@
 ﻿import * as ko from "knockout";
 import template from "./pages.html";
-import { Contract } from "@paperbits/common/contract";
 import { PageContract } from "@paperbits/common/pages/pageContract";
 import { IPageService } from "@paperbits/common/pages/IPageService";
 import { IRouteHandler } from "@paperbits/common/routing/IRouteHandler";
@@ -9,8 +8,10 @@ import { IViewManager } from "@paperbits/common/ui/IViewManager";
 import { PageItem } from "../../workshops/pages/pageItem";
 import { IFileService } from "@paperbits/common/files/IFileService";
 import { Keys } from "@paperbits/common/keyboard";
+import { IBlockService } from "@paperbits/common/blocks/IBlockService";
 import { Component } from "../../decorators/component";
 
+const templateBlockKey = "blocks/8730d297-af39-8166-83b6-9439addca789";
 
 @Component({
     selector: "pages",
@@ -18,7 +19,6 @@ import { Component } from "../../decorators/component";
     injectable: "pagesWorkshop"
 })
 export class PagesWorkshop {
-    private template: Contract;
     private searchTimeout: any;
 
     public readonly searchPattern: KnockoutObservable<string>;
@@ -32,9 +32,9 @@ export class PagesWorkshop {
         private readonly fileService: IFileService,
         private readonly permalinkService: IPermalinkService,
         private readonly routeHandler: IRouteHandler,
+        private readonly blockService: IBlockService,
         private readonly viewManager: IViewManager
     ) {
-
         // rebinding...
         this.searchPages = this.searchPages.bind(this);
         this.addPage = this.addPage.bind(this);
@@ -47,18 +47,6 @@ export class PagesWorkshop {
         this.searchPattern = ko.observable<string>("");
         this.searchPattern.subscribe(this.searchPages);
         this.working = ko.observable(true);
-
-        this.template = {
-            "object": "block",
-            "nodes": [
-                {
-                    "object": "block",
-                    "nodes": [],
-                    "type": "layout-section"
-                }
-            ],
-            "type": "page"
-        }
 
         this.searchPages();
     }
@@ -96,8 +84,15 @@ export class PagesWorkshop {
 
         const page = await this.pageService.createPage("New page", "", "");
         const createPermalinkPromise = this.permalinkService.createPermalink("/new", page.key);
-        const createContentPromise = this.fileService.createFile(this.template);
+        const contentTemplate = await this.blockService.getBlockByKey(templateBlockKey);
 
+        const template = {
+            "object": "block",
+            "nodes": [contentTemplate.content],
+            "type": "page"
+        }
+
+        const createContentPromise = this.fileService.createFile(template);
         const results = await Promise.all<any>([createPermalinkPromise, createContentPromise]);
         const permalink = results[0];
         const content = results[1];

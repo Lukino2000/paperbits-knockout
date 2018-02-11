@@ -54,28 +54,19 @@ export class HostBindingHandler {
 
                 const onClick = (event: MouseEvent): void => {
                     event.preventDefault(); // prevent default event handling for all controls
-
-                    const htmlElement = <HTMLElement>event.target;
-
-                    if (htmlElement.nodeName !== "A") {
-                        return;
-                    }
-
-                    const linkHtmlElement = <HTMLLinkElement>htmlElement;
-
-                    if (event.ctrlKey) { // Preventing click on links if Ctrl key is not pressed.
-                        routeHandler.navigateTo(linkHtmlElement.href);
-                    }
                 }
 
                 const onPointerDown = (event: PointerEvent): void => {
                     const htmlElement = <HTMLElement>event.target;
+                    const htmlLinkElement = <HTMLLinkElement>htmlElement.closest("A");
 
-                    if (htmlElement.nodeName !== "A") {
+                    if (!htmlLinkElement) {
                         return;
                     }
 
-                    event.preventDefault(); // prevent default event handling for all controls
+                    if (event.ctrlKey) { // Preventing click on links if Ctrl key is not pressed.
+                        routeHandler.navigateTo(htmlLinkElement.href);
+                    }
                 }
 
                 const onPointerMove = (event) => {

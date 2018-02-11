@@ -49,7 +49,7 @@ export class PageDetailsWorkshop {
             .subscribe(this.updatePage);
 
         this.pageItem.permalinkUrl
-            .extend({ uniquePermalink: this.pageItem.permalinkKey, onlyValid: true })
+            .extend({ uniquePermalink: this.pageItem.permalinkKey, required: true, onlyValid: true })
             .subscribe(this.updatePermlaink);
 
         this.init();

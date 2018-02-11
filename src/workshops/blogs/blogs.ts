@@ -1,17 +1,17 @@
 ﻿import * as ko from "knockout";
 import template from "./blogs.html";
-import { Contract } from "@paperbits/common/contract";
 import { BlogPostContract } from "@paperbits/common/blogs/BlogPostContract";
 import { IBlogService } from "@paperbits/common/blogs/IBlogService";
 import { IRouteHandler } from "@paperbits/common/routing/IRouteHandler";
 import { IPermalinkService } from "@paperbits/common/permalinks/IPermalinkService";
 import { IViewManager } from "@paperbits/common/ui/IViewManager";
+import { IBlockService } from "@paperbits/common/blocks/IBlockService";
 import { Keys } from "@paperbits/common/keyboard";
 import { BlogPostItem } from "../../workshops/blogs/blogPostItem";
 import { IFileService } from "@paperbits/common/files/IFileService";
 import { Component } from "../../decorators/component";
 
-
+const templateBlockKey = "blocks/8730d297-af39-8166-83b6-9439addca789";
 
 @Component({
     selector: "blogs",
@@ -19,21 +19,21 @@ import { Component } from "../../decorators/component";
     injectable: "blogWorkshop"
 })
 export class BlogWorkshop {
-    private readonly blogService: IBlogService;
-    private readonly fileService: IFileService;
-    private readonly permalinkService: IPermalinkService;
-    private readonly routeHandler: IRouteHandler;
-    private readonly viewManager: IViewManager;
-    private template: Contract;
     private searchTimeout: any;
-
 
     public readonly searchPattern: KnockoutObservable<string>;
     public readonly blogPosts: KnockoutObservableArray<BlogPostItem>;
     public readonly working: KnockoutObservable<boolean>;
     public readonly selectedBlogPost: KnockoutObservable<BlogPostItem>;
 
-    constructor(blogService: IBlogService, fileService: IFileService, permalinkService: IPermalinkService, routeHandler: IRouteHandler, viewManager: IViewManager) {
+    constructor(
+        private readonly blogService: IBlogService,
+        private readonly fileService: IFileService,
+        private readonly permalinkService: IPermalinkService,
+        private readonly routeHandler: IRouteHandler,
+        private readonly blockService: IBlockService,
+        private readonly viewManager: IViewManager
+    ) {
         // initialization...
         this.blogService = blogService;
         this.fileService = fileService;
@@ -54,56 +54,6 @@ export class BlogWorkshop {
         this.searchPattern = ko.observable<string>("");
         this.searchPattern.subscribe(this.searchBlogPosts);
         this.searchBlogPosts("");
-        this.init();
-    }
-
-    public async init(): Promise<void> {
-        this.template = {
-            "object": "block",
-            "nodes": [
-                {
-                    "object": "block",
-                    "nodes": [
-                        {
-                            "align": {
-                                "md": "center"
-                            },
-                            "object": "block",
-                            "nodes": [
-                                {
-                                    "object": "block",
-                                    "nodes": [
-                                        {
-                                            "object": "widget",
-                                            "nodes": [
-                                                {
-                                                    "object": "block",
-                                                    "nodes": [
-                                                        {
-                                                            "object": "text",
-                                                            "text": "New blog post"
-                                                        }
-                                                    ],
-                                                    "type": "paragraph"
-                                                }
-                                            ],
-                                            "type": "text"
-                                        }
-                                    ],
-                                    "size": {
-                                        "md": 12
-                                    },
-                                    "type": "layout-column"
-                                }
-                            ],
-                            "type": "layout-row"
-                        }
-                    ],
-                    "type": "layout-section"
-                }
-            ],
-            "type": "blogPost"
-        }
     }
 
     public async launchSearch(searchPattern: string): Promise<void> {
@@ -138,13 +88,21 @@ export class BlogWorkshop {
     public async addBlogPost(): Promise<void> {
         this.working(true);
 
-        let blogpost = await this.blogService.createBlogPost("New blog post", "", "");
-        let createPermalinkPromise = this.permalinkService.createPermalink("/blog/new", blogpost.key);
-        let createContentPromise = this.fileService.createFile(this.template);
+        const blogpost = await this.blogService.createBlogPost("New blog post", "", "");
+        const createPermalinkPromise = this.permalinkService.createPermalink("/blog/new", blogpost.key);
+        const contentTemplate = await this.blockService.getBlockByKey(templateBlockKey);
 
-        let results = await Promise.all<any>([createPermalinkPromise, createContentPromise]);
-        let permalink = results[0];
-        let content = results[1];
+        const template = {
+            "object": "block",
+            "nodes": [contentTemplate.content],
+            "type": "page"
+        }
+
+        const createContentPromise = this.fileService.createFile(template);
+        
+        const results = await Promise.all<any>([createPermalinkPromise, createContentPromise]);
+        const permalink = results[0];
+        const content = results[1];
 
         blogpost.permalinkKey = permalink.key;
         blogpost.contentKey = content.key;
