@@ -38,7 +38,6 @@ export class ViewManager implements IViewManager {
 
     public journey: KnockoutObservableArray<IView>;
     public journeyName: KnockoutComputed<string>;
-
     public itemSelectorName: KnockoutObservable<string>;
     public progressIndicators: KnockoutObservableArray<ProgressIndicator>;
     public primaryToolboxVisible: KnockoutObservable<boolean>;
@@ -82,6 +81,7 @@ export class ViewManager implements IViewManager {
         this.foldEverything = this.foldEverything.bind(this);
         this.unfoldEverything = this.unfoldEverything.bind(this);
         this.closeWidgetEditor = this.closeWidgetEditor.bind(this);
+        this.closeEditors = this.closeEditors.bind(this);
         this.onDragEnd = this.onDragEnd.bind(this);
 
         // setting up...
@@ -119,7 +119,7 @@ export class ViewManager implements IViewManager {
         this.routeHandler.addRouteChangeListener(this.onRouteChange.bind(this));
         globalEventHandler.appendDocument(document);
 
-        eventManager.addEventListener("onEscape", this.closeWidgetEditor);
+        eventManager.addEventListener("onEscape", this.closeEditors);
         this.loadFavIcon();
         this.setTitle();
     }
@@ -356,6 +356,11 @@ export class ViewManager implements IViewManager {
 
     public getWidgetview(): IView {
         return this.widgetEditor();
+    }
+
+    public closeEditors(): void {
+        this.closeWidgetEditor();
+        this.clearJourney();
     }
 
     public closeWidgetEditor(): void {
