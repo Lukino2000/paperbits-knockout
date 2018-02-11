@@ -200,6 +200,8 @@ export class BalloonBindingHandler {
                 }
 
                 const onScroll = async (event: PointerEvent): Promise<void> => {
+                    // TODO: This is expensive and frequent event. 
+
                     const balloonElement = await getBalloonElement();
 
                     if (!balloonElement) {

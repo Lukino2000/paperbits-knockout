@@ -31,15 +31,18 @@ import { LightboxBindingHandler } from "../bindingHandlers/bindingHandlers.light
 import { SlateBindingHandler } from "../bindingHandlers/bindingHandlers.slate";
 import { BalloonBindingHandler } from "../bindingHandlers/bindingHandlers.balloon";
 import { ViewManager } from "../ui/viewManager";
+import { Tooltip } from "../ui/tooltip";
 import { BackgroundBindingHandler } from "../bindingHandlers/bindingHandlers.background";
 import { ResizableBindingHandler } from "../bindingHandlers/bindingHandlers.resizable";
-
 import { KnockoutValidation } from "../validation/validators";
 
 
 export class KnockoutRegistrationCommon implements IInjectorModule {
     public register(injector: IInjector): void {
         injector.bindSingleton("viewManager", ViewManager);
+        injector.bindComponent("tooltip", (ctx: IInjector, text: string) => { 
+            return new Tooltip(text);
+        });
 
         ko.virtualElements.allowedBindings["widget"] = true;
         ko.virtualElements.allowedBindings["layoutrow"] = true;
@@ -54,7 +57,6 @@ export class KnockoutRegistrationCommon implements IInjectorModule {
         injector.bindSingleton("balloonBindingHandler", BalloonBindingHandler);
         injector.bindSingleton("backgroundBindingHandler", BackgroundBindingHandler);
         injector.bindSingleton("resizableBindingHandler", ResizableBindingHandler);
-
         injector.bindSingleton("knockoutValidation", KnockoutValidation);
     }
 }

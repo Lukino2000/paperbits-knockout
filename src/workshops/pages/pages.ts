@@ -93,7 +93,6 @@ export class PagesWorkshop {
         }
 
         const createContentPromise = this.fileService.createFile(template);
-
         const results = await Promise.all<any>([createPermalinkPromise, createContentPromise]);
         const permalink = results[0];
         const content = results[1];
