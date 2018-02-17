@@ -80,7 +80,6 @@ export class ComponentRegistrationCommon implements IInjectorModule {
         injector.bind("videoPlayerModelBinder", VideoPlayerModelBinder);
         injector.bind("audioPlayerModelBinder", AudioPlayerModelBinder);
         injector.bind("buttonModelBinder", ButtonModelBinder);
-        injector.bind("formModelBinder", FormModelBinder);
         injector.bind("sliderModelBinder", SliderModelBinder);
         //injector.bind("codeblockModelBinder", CodeblockModelBinder);
 
