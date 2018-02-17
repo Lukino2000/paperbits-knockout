@@ -21,10 +21,8 @@
     ],
     "devDependencies": {
         "@types/ace": "0.0.36",
-        "@types/crossroads": "0.0.30",
         "@types/es6-shim": "^0.31.35",
         "@types/google-maps": "^3.2.0",
-        "@types/hasher": "0.0.31",
         "@types/knockout": "^3.4.45",
         "@types/knockout.mapping": "^2.0.29",
         "@types/knockout.validation": "0.0.36",
@@ -81,7 +79,6 @@
         "@paperbits/firebase": "0.0.50",
         "es6-shim": "^0.35.3",
         "google-maps": "^3.2.1",
-        "hasher": "^1.2.0",
         "knockout": "^3.4.2",
         "knockout.validation": "^2.0.3",
         "lity": "^2.3.0",
