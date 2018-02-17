@@ -1,5 +1,4 @@
-﻿import * as $ from "jquery/dist/jquery";
-import * as ko from "knockout";
+﻿import * as ko from "knockout";
 import * as Utils from '@paperbits/common/utils';
 import { IView } from "@paperbits/common/ui/IView";
 import { debug } from "util";
@@ -47,7 +46,7 @@ ko.bindingHandlers["surface"] = {
                 sticky: false,
                 payload: "surface",
                 preventDragging: (clickedElement: HTMLElement) => {
-                    return $(clickedElement).closest("a, .form, .button, .toolbox-button, .toolbox-dropdown").length > 0;
+                    return clickedElement.closest("a, .form, .button, .toolbox-button, .toolbox-dropdown") != null;
                 },
                 ondragend: (): void => {
                     if (!view || !view.component) {

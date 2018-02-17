@@ -1,5 +1,4 @@
-﻿import * as $ from "jquery/dist/jquery";
-import * as ko from "knockout";
+﻿import * as ko from "knockout";
 import * as Utils from "@paperbits/common/utils";
 import { NavigationItemContract } from "@paperbits/common/navigation/NavigationItemContract";
 import { NavigationTreeNode } from "../../workshops/navigation/navigationTreeNode";
@@ -30,7 +29,8 @@ export class NavigationTree {
         this.focusedNode = ko.observable<NavigationTreeNode>();
         this.onUpdate = new ko.subscribable<Array<NavigationItemContract>>();
 
-        this.placeholderElement = $("<div class=\"placeholder\"></div>")[0];
+        this.placeholderElement = document.createElement("div");
+        this.placeholderElement.className = "placeholder";
         this.placeholderElement.onmousemove = this.onNullPointerMove;
     }
 
@@ -137,18 +137,18 @@ export class NavigationTree {
         this.placeholderElement.style.width = width;
         this.placeholderElement.style.height = height;
 
-        $(node).after(this.placeholderElement);
+        node.parentNode.insertBefore(this.placeholderElement, node.nextSibling);
     }
 
     public onNodeDragEnd(widget: HTMLElement): void {
-        $(this.placeholderElement).remove();
+        this.placeholderElement.parentElement.removeChild(this.placeholderElement);
     }
 
     private onAcceptNodeBefore(node: HTMLElement, acceptingNode: HTMLElement): void {
-        $(acceptingNode).before(this.placeholderElement);
+        acceptingNode.parentNode.insertBefore(this.placeholderElement, acceptingNode);
     }
 
     private onAcceptNodeAfter(node: HTMLElement, acceptingNode: HTMLElement): void {
-        $(acceptingNode).after(this.placeholderElement);
+        acceptingNode.parentNode.insertBefore(this.placeholderElement, acceptingNode.nextSibling);
     }
 }

@@ -1,5 +1,4 @@
-﻿import * as $ from "jquery/dist/jquery";
-import * as ko from "knockout";
+﻿import * as ko from "knockout";
 import { BackgroundModel } from "@paperbits/common/widgets/background/backgroundModel";
 import { IAppIntentionsProvider } from "../application/interface";
 
@@ -77,7 +76,7 @@ export class BackgroundBindingHandler {
                     //     else {
                     //         video = document.createElement("video");
                     //         video.classList.add("fit", "no-pointer-events")
-                    //         $(element).prepend(video);
+                    //         element.prepend(video);
                     //     }
 
                     //     video.src = config.videoUrl;

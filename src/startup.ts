@@ -2,7 +2,6 @@ import "es6-shim";
 import "setimmediate";
 import "./registrations/knockout.editors";
 
-import * as $ from "jquery/dist/jquery";
 import * as ko from "knockout";
 import { IntercomService } from "@paperbits/common/intercom/intercomService";
 import { IInjector, IInjectorModule } from "@paperbits/common/injection";
@@ -65,8 +64,7 @@ import { IIntentionsBuilder } from "@paperbits/common/appearence/intention";
 import { FormModelBinder } from "@paperbits/common/widgets/form/formModelBinder";
 import { FormViewModelBinder } from "./widgets/form/formViewModelBinder";
 
-
-$(() => {
+document.addEventListener("DOMContentLoaded", () => {
     var injector = new InversifyInjector();
 
     const intentionsBuilder: IIntentionsBuilder = new IntentionsBuilder(theme);
@@ -204,5 +202,3 @@ $(() => {
 
     ko.applyBindings();
 });
-
-

@@ -1,5 +1,4 @@
-﻿import * as $ from "jquery/dist/jquery";
-import * as ko from "knockout";
+﻿import * as ko from "knockout";
 import * as Utils from "@paperbits/common/utils";
 import { IEventManager } from "@paperbits/common/events/IEventManager";
 import { Keys } from "@paperbits/common/keyboard";

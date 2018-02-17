@@ -1,6 +1,6 @@
 ﻿import * as _ from "lodash";
-import * as $ from "jquery/dist/jquery";
 import * as ko from "knockout";
+import * as Arrays from "@paperbits/common/arrays";
 import template from "./viewManager.html";
 import "@paperbits/common/extensions";
 import { IHighlightConfig } from "@paperbits/common/ui/IHighlightConfig";
@@ -200,7 +200,7 @@ export class ViewManager implements IViewManager {
         }
 
         this.currentPage = await this.pageService.getPageByKey(pageKey);
-        
+
         return this.currentPage;
     }
 
@@ -327,19 +327,15 @@ export class ViewManager implements IViewManager {
     }
 
     public openUploadDialog(): Promise<Array<File>> {
-        /*
-            TODO: Make normal uploader component of it and open it with openViewAsPopup.
-            No jquery should be here.
-        */
-        var $genericUploader = $(`<input type="file" multiple />`);
-        var genericUploader: any = $genericUploader[0];
+        const uploaderElement = document.createElement("input");
+        uploaderElement.multiple = true;
+        document.body.appendChild(uploaderElement);
+        uploaderElement.click();
 
-        $genericUploader.click();
-
-        return new Promise<Array<File>>((resolve, reject) => {
-            $genericUploader.change(() => {
-                resolve(genericUploader.files);
-            });
+        return new Promise<File[]>((resolve, reject) => {
+            uploaderElement.onchange = () => {
+                resolve(Arrays.coerce(uploaderElement.files));
+            }
         });
     }
 

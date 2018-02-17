@@ -1,5 +1,4 @@
 ﻿import * as ko from "knockout";
-import * as $ from "jquery/dist/jquery";
 import { IInjector, IInjectorModule } from "@paperbits/common/injection";
 import { XmlHttpRequestClient } from "@paperbits/common/http/xmlHttpRequestClient";
 

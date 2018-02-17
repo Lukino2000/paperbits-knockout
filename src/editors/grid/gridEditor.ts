@@ -1,6 +1,5 @@
 import * as ko from "knockout";
 import * as _ from 'lodash';
-import * as $ from "jquery/dist/jquery";
 import * as Utils from "@paperbits/common/utils";
 import { PageModelBinder } from "@paperbits/common/widgets/page/pageModelBinder";
 import { PageModel } from "@paperbits/common/widgets/page/pageModel";
@@ -1010,7 +1009,7 @@ export class GridEditor {
             placeholderElement.style.width = placeholderWidth;
             placeholderElement.classList.add("placeholder");
 
-            $(sourceElement).after(placeholderElement);
+            sourceElement.parentNode.insertBefore(placeholderElement, sourceElement.nextSibling);
 
             viewManager.beginDrag({
                 type: "widget",
@@ -1071,7 +1070,7 @@ export class GridEditor {
             placeholderElement.style.width = placeholderWidth;
             placeholderElement.classList.add("placeholder");
 
-            $(sourceElement).after(placeholderElement);
+            sourceElement.parentNode.insertBefore(placeholderElement, sourceElement.nextSibling);
 
             viewManager.beginDrag({
                 type: "column",
@@ -1132,7 +1131,7 @@ export class GridEditor {
             placeholderElement.style.width = placeholderWidth;
             placeholderElement.classList.add("placeholder");
 
-            $(sourceElement).after(placeholderElement);
+            sourceElement.parentNode.insertBefore(placeholderElement, sourceElement.nextSibling);
 
             viewManager.beginDrag({
                 type: "section",
