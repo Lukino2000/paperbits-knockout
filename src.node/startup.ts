@@ -106,7 +106,7 @@ export async function publish(): Promise<void> {
     injector.bindModule(new SlateModule());
     injector.bindModule(new ComponentRegistrationCommon());
     injector.bindModule(new KnockoutRegistrationCommon());
-    injector.bindModule(new KnockoutRegistrationLoaders(templatesBasePath));
+    injector.bindModule(new KnockoutRegistrationLoaders(global.document));
     injector.bindModule(new KnockoutRegistrationWidgets());
     injector.bindModule(new FirebaseModule());
 

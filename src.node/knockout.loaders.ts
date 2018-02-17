@@ -5,11 +5,7 @@ import { IInjector, IInjectorModule } from "@paperbits/common/injection";
 
 
 export class KnockoutRegistrationLoaders implements IInjectorModule {
-    private readonly templatesBasePath: string;
-
-    constructor(templatesBasePath: string) {
-        this.templatesBasePath = templatesBasePath;
-    }
+    constructor(private readonly ownerDocument: Document) { }
 
     public register(injector: IInjector): void {
         const injectableComponentLoader = {
@@ -35,7 +31,7 @@ export class KnockoutRegistrationLoaders implements IInjectorModule {
 
             loadTemplate(name: string, templateHtml: any, callback: (result: Node[]) => void) {
                 const parseHtmlFragment = <any>ko.utils.parseHtmlFragment;
-                const nodes = parseHtmlFragment(templateHtml, global["document"]);
+                const nodes = parseHtmlFragment(templateHtml, this.ownerDocument);
 
                 ko.components.defaultLoader.loadTemplate(name, nodes, callback);
             },
