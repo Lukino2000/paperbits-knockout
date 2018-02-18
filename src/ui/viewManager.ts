@@ -242,7 +242,7 @@ export class ViewManager implements IViewManager {
     public updateJourneyComponent(view: IView): void {
         let journey = this.journey();
 
-        let existingComponent = journey.first(c => { return c.component.name === view.component.name; });
+        let existingComponent = journey.find(c => { return c.component.name === view.component.name; });
 
         if (existingComponent) {
             journey = journey.splice(0, journey.indexOf(existingComponent));
