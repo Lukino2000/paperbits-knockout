@@ -65,6 +65,8 @@ import { IPublisher } from "../src/publishing/IPublisher";
 import { PublishingModule } from "../src/publishing/publishing.module";
 import { FormModelBinder } from "@paperbits/common/widgets/form/formModelBinder";
 import { FormViewModelBinder } from "../src/widgets/form/formViewModelBinder";
+import { TestimonialsModelBinder } from "../src/widgets/testimonials/testimonialsModelBinder";
+import { TestimonialsViewModelBinder } from "../src/widgets/testimonials/testimonialsViewModelBinder";
 
 
 declare var global: any;
@@ -176,6 +178,11 @@ export async function publish(): Promise<void> {
     modelBinders.push(injector.resolve("formModelBinder"));
     injector.bind("formViewModelBinder", FormViewModelBinder);
     viewModelBinders.push(injector.resolve("formViewModelBinder"));
+
+    injector.bind("testimonialsModelBinder", TestimonialsModelBinder);
+    modelBinders.push(injector.resolve("testimonialsModelBinder"));
+    injector.bind("testimonialsViewModelBinder", TestimonialsViewModelBinder);
+    viewModelBinders.push(injector.resolve("testimonialsViewModelBinder"));
 
     injector.bind("substitute1ModelBinder", Substitute1ModelBinder);
     modelBinders.push(injector.resolve("substitute1ModelBinder"));
