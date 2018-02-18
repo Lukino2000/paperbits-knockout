@@ -9,7 +9,7 @@ import { NavigationEvents } from "@paperbits/common/navigation/navigationEvents"
 import { NavbarModelBinder } from "@paperbits/common/widgets/navbar/navbarModelBinder";
 
 
-export class NavbarViewModelBinder implements IViewModelBinder {
+export class NavbarViewModelBinder implements IViewModelBinder<NavbarModel, NavbarViewModel> {
     private readonly routeHandler: IRouteHandler;
     private readonly eventManager: IEventManager;
     private readonly navbarModelBinder: NavbarModelBinder;

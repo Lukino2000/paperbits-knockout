@@ -4,7 +4,7 @@ import { IHtmlEditor } from "@paperbits/common/editing/IHtmlEditor";
 import { IViewModelBinder } from "@paperbits/common/widgets/IViewModelBinder";
 
 
-export class TextblockViewModelBinder implements IViewModelBinder {
+export class TextblockViewModelBinder implements IViewModelBinder<TextblockModel, TextblockViewModel> {
     private readonly htmlEditorFactory;
 
     constructor(htmlEditorFactory) {

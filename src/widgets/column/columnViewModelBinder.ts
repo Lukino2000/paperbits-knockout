@@ -5,7 +5,7 @@ import { IViewModelBinder } from "@paperbits/common/widgets/IViewModelBinder";
 import { DragSession } from "@paperbits/common/ui/draggables/dragSession";
 
 
-export class ColumnViewModelBinder implements IViewModelBinder {
+export class ColumnViewModelBinder implements IViewModelBinder<ColumnModel, ColumnViewModel> {
     private readonly viewModelBinderSelector: ViewModelBinderSelector;
 
     constructor(viewModelBinderSelector: ViewModelBinderSelector) {

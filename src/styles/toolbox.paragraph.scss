@@ -1,11 +1,7 @@
 ﻿@import "variables.scss";
-
 @import "buttons.scss";
 
-.toolbox-button-formatting {
-    min-width: 100px !important;
-    text-align: center;
-}
+
 
 .tools-paragraph-style {
     @include tabable();
@@ -51,5 +47,5 @@
 
 .tools-paragraph-style-h6 {
     @extend .tools-paragraph-style;
-    font-size: 0.85em;
+    font-size: .85em;
 }

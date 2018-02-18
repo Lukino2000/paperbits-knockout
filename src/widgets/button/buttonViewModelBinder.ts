@@ -1,8 +1,9 @@
 import { ButtonModel } from "@paperbits/common/widgets/button/buttonModel";
 import { ButtonViewModel } from "./buttonViewModel";
+import { IViewModelBinder } from "@paperbits/common/widgets/IViewModelBinder";
 
 
-export class ButtonViewModelBinder {
+export class ButtonViewModelBinder implements IViewModelBinder<ButtonModel, ButtonViewModel>  {
     public modelToViewModel(model: ButtonModel, readonly: boolean, viewModel?: ButtonViewModel): ButtonViewModel {
         if (!viewModel) {
             viewModel = new ButtonViewModel();

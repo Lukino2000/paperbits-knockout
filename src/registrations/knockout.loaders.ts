@@ -1,6 +1,5 @@
 ﻿import * as ko from "knockout";
 import { IInjector, IInjectorModule } from "@paperbits/common/injection";
-import { XmlHttpRequestClient } from "@paperbits/common/http/xmlHttpRequestClient";
 
 
 export class KnockoutRegistrationLoaders implements IInjectorModule {

@@ -2,7 +2,7 @@ import { PictureModel } from "@paperbits/common/widgets/picture/pictureModel";
 import { PictureViewModel } from "./pictureViewModel";
 import { IViewModelBinder } from "@paperbits/common/widgets/IViewModelBinder";
 
-export class PictureViewModelBinder implements IViewModelBinder {
+export class PictureViewModelBinder implements IViewModelBinder<PictureModel, PictureViewModel> {
     public modelToViewModel(model: PictureModel, readonly: boolean, viewModel?: PictureViewModel): PictureViewModel {
         if (!viewModel) {
             viewModel = new PictureViewModel();

@@ -24,8 +24,8 @@ import { StaticSettingsProvider } from "./staticSettingsProvider";
 import { IModelBinder } from "@paperbits/common/editing/IModelBinder";
 import { ModelBinderSelector } from "@paperbits/common/widgets/modelBinderSelector";
 import { IntentionsProvider } from "../src/application/intentionsProvider";
-import { IntentionsBuilder } from "@paperbits/common/appearence/intentionsBuilder";
-import { IIntentionsBuilder } from "@paperbits/common/appearence/intention";
+import { IntentionsBuilder } from "@paperbits/common/appearance/intentionsBuilder";
+import { IIntentionsBuilder } from "@paperbits/common/appearance/intention";
 import { theme } from "../src/application/theme";
 
 import { PageViewModelBinder } from "../src/widgets/page/pageViewModelBinder";
@@ -106,7 +106,7 @@ export async function publish(): Promise<void> {
     injector.bindModule(new SlateModule());
     injector.bindModule(new ComponentRegistrationCommon());
     injector.bindModule(new KnockoutRegistrationCommon());
-    injector.bindModule(new KnockoutRegistrationLoaders(global.document));
+    injector.bindModule(new KnockoutRegistrationLoaders());
     injector.bindModule(new KnockoutRegistrationWidgets());
     injector.bindModule(new FirebaseModule());
 
@@ -143,7 +143,7 @@ export async function publish(): Promise<void> {
     })
 
 
-    let viewModelBinders = new Array<IViewModelBinder>();
+    let viewModelBinders = new Array<IViewModelBinder<any, any>>();
     injector.bindInstance("viewModelBinderSelector", new ViewModelBinderSelector(viewModelBinders));
     injector.bind("pageViewModelBinder", PageViewModelBinder);
     injector.bind("layoutViewModelBinder", LayoutViewModelBinder);
@@ -225,6 +225,7 @@ export async function publish(): Promise<void> {
     injector.resolve("slateBindingHandler");
     injector.resolve("backgroundBindingHandler");
 
+    ko.options["createChildContextWithAs"] = true;
     ko.applyBindings();
 
     const publisher = injector.resolve<IPublisher>("sitePublisher");

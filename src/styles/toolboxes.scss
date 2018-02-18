@@ -4,7 +4,8 @@
 @import "animation.scss";
 @import "layouts.scss";
 
-h1, h2 {
+h1,
+h2 {
     font-family: $font-family-base;
     color: $color-base;
     display: block;
@@ -74,6 +75,14 @@ h2 {
                 border: 1px solid $toolbox-button-active-border;
                 border-radius: $toolbox-border-radius - 5px;
                 content: '';
+            }
+        }
+
+        &.toolbox-dropdown {
+            a {
+                padding-left: 15px;
+                padding-right: 15px;
+                text-align: center;
             }
         }
 

@@ -29,9 +29,12 @@
     </a>
 </div>
 
-<div class="toolbox-button toolbox-button-formatting" data-bind="balloon: { selector: '#blockStyleSelector', position: 'bottom' }"
-    title="Style">
-    <a href="#" data-bind="text: style"></a>
+<div title="Style" class="toolbox-button toolbox-dropdown">
+    <a href="#" data-bind="text: style, balloon: { selector: '#blockStyleSelector', position: 'bottom' }"></a>
+</div>
+
+<div title="Font" class="toolbox-button toolbox-dropdown">
+    <a href="#" data-bind="text: font, balloon: { selector: '#fontSelector', position: 'bottom' }"></a>
 </div>
 
 <div class="toolbox-button" data-bind="css: { 'toolbox-button-is-active': alignedLeft() }" title="Align left">
@@ -59,8 +62,8 @@
         <i class="paperbits-icon paperbits-color"></i>
     </a>
 </div>
-<div class="toolbox-button"  title="Text size" data-bind="css: { 'toolbox-button-is-active': sized() }">
-     <a href="#" data-bind="balloon: { selector: '#textSizeSelector', position: 'bottom' }, text: size"></a>
+<div class="toolbox-button" title="Text size" data-bind="css: { 'toolbox-button-is-active': sized() }">
+    <a href="#" data-bind="balloon: { selector: '#textSizeSelector', position: 'bottom' }, text: size"></a>
 </div>
 <div title="Anchor" class="toolbox-button" data-bind="css: { 'toolbox-button-is-active': anchored() }">
     <a href="#" data-bind="click: toggleAnchor">
@@ -68,6 +71,7 @@
     </a>
 </div>
 
+<intention-selector id="fontSelector" class="balloon" params="title: 'Font', intentions: fontIntentions, selectedIntention: fontIntention, setIntentionSelectorCallback: setFont"></intention-selector>
 <intention-selector id="textStyleSelector" class="balloon" params="title: 'Text style', intentions: styleIntentions, selectedIntention: styleIntention, setIntentionSelectorCallback: setStyle"></intention-selector>
 <intention-selector id="textSizeSelector" class="balloon" params="title: 'Text size', intentions: sizeIntentions, selectedIntention: sizeIntention, setIntentionSelectorCallback: setSize"></intention-selector>
 

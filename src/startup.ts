@@ -56,11 +56,15 @@ import { Substitute7ModelBinder } from "./widgets/substitute7/substitute7ModelBi
 import { Substitute7ViewModelBinder } from "./widgets/substitute7/substitute7ViewModelBinder";
 import { Substitute8ModelBinder } from "./widgets/substitute8/substitute8ModelBinder";
 import { Substitute8ViewModelBinder } from "./widgets/substitute8/substitute8ViewModelBinder";
+
+import { TestimonialsModelBinder } from "./widgets/testimonials/testimonialsModelBinder";
+import { TestimonialsViewModelBinder } from "./widgets/testimonials/testimonialsViewModelBinder";
+
 import { OfflineObjectStorage } from "@paperbits/common/persistence/offlineObjectStorage";
 import { AnchorMiddleware } from "@paperbits/common/persistence/AnchorMiddleware";
-import { IntentionsBuilder } from "@paperbits/common/appearence/intentionsBuilder";
+import { IntentionsBuilder } from "@paperbits/common/appearance/intentionsBuilder";
 import { IntentionsProvider } from "./application/intentionsProvider";
-import { IIntentionsBuilder } from "@paperbits/common/appearence/intention";
+import { IIntentionsBuilder } from "@paperbits/common/appearance/intention";
 import { FormModelBinder } from "@paperbits/common/widgets/form/formModelBinder";
 import { FormViewModelBinder } from "./widgets/form/formViewModelBinder";
 
@@ -104,7 +108,7 @@ document.addEventListener("DOMContentLoaded", () => {
         }
     })
 
-    let viewModelBinders = new Array<IViewModelBinder>();
+    let viewModelBinders = new Array<IViewModelBinder<any, any>>();
     injector.bindInstance("viewModelBinderSelector", new ViewModelBinderSelector(viewModelBinders));
     injector.bind("pageViewModelBinder", PageViewModelBinder);
     injector.bind("layoutViewModelBinder", LayoutViewModelBinder);
@@ -179,6 +183,11 @@ document.addEventListener("DOMContentLoaded", () => {
     injector.bind("substitute8ViewModelBinder", Substitute8ViewModelBinder);
     viewModelBinders.push(injector.resolve("substitute8ViewModelBinder"));
 
+    injector.bind("testimonialsModelBinder", TestimonialsModelBinder);
+    modelBinders.push(injector.resolve("testimonialsModelBinder"));
+    injector.bind("testimonialsViewModelBinder", TestimonialsViewModelBinder);
+    viewModelBinders.push(injector.resolve("testimonialsViewModelBinder"));
+
 
     /*** Autostart ***/
     injector.resolve("contentBindingHandler");
@@ -192,7 +201,6 @@ document.addEventListener("DOMContentLoaded", () => {
     injector.resolve("backgroundBindingHandler");
     injector.resolve("resizableBindingHandler");
     injector.resolve("savingHandler");
-
     injector.resolve("knockoutValidation");
 
     const offlineObjectStorage = injector.resolve<OfflineObjectStorage>("offlineObjectStorage");
@@ -200,5 +208,6 @@ document.addEventListener("DOMContentLoaded", () => {
 
     offlineObjectStorage.registerMiddleware(anchorMiddleware);
 
+    ko.options["createChildContextWithAs"] = true;
     ko.applyBindings();
 });

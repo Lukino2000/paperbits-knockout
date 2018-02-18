@@ -3,7 +3,7 @@ import { VideoPlayerViewModel } from "./videoPlayerViewModel";
 import { IViewModelBinder } from "@paperbits/common/widgets/IViewModelBinder";
 
 
-export class VideoPlayerViewModelBinder implements IViewModelBinder {
+export class VideoPlayerViewModelBinder implements IViewModelBinder<VideoPlayerModel, VideoPlayerViewModel> {
     public modelToViewModel(model: VideoPlayerModel, readonly: boolean, viewModel?: VideoPlayerViewModel): VideoPlayerViewModel {
         if (!viewModel) {
             viewModel = new VideoPlayerViewModel();

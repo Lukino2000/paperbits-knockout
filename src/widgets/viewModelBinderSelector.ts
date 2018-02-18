@@ -2,13 +2,13 @@ import { IViewModelBinder } from "@paperbits/common/widgets/IViewModelBinder";
 
 
 export class ViewModelBinderSelector {
-    private readonly viewModelBinders: Array<IViewModelBinder>;
+    private readonly viewModelBinders: Array<IViewModelBinder<any, any>>;
 
-    constructor(modelBinders: Array<IViewModelBinder>) {
+    constructor(modelBinders: Array<IViewModelBinder<any, any>>) {
         this.viewModelBinders = modelBinders;
     }
 
-    public getViewModelBinderByModel<TModel>(model: TModel): IViewModelBinder {
+    public getViewModelBinderByModel<TModel>(model: TModel): IViewModelBinder<any, any> {
         let viewModelBinder = this.viewModelBinders.find(x => x.canHandleModel(model));
 
         if (!viewModelBinder) {

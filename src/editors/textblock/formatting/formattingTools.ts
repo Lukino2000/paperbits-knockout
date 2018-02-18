@@ -6,14 +6,14 @@ import { IHtmlEditorProvider } from "@paperbits/common/editing/htmlEditorProvide
 import { Component } from "../../../decorators/component";
 import { IPermalinkService } from "@paperbits/common/permalinks/IPermalinkService";
 import { IPageService } from "@paperbits/common/pages/IPageService";
-import { IntentionsUtils } from "@paperbits/common/appearence/intentionsUtils";
+import { IntentionsUtils } from "@paperbits/common/appearance/intentionsUtils";
 import { IRouteHandler } from "@paperbits/common/routing/IRouteHandler";
 import { IBag } from "@paperbits/common/IBag";
 import { IViewManager } from "@paperbits/common/ui/IViewManager";
 import { IAppIntentionsProvider } from "../../../application/interface";
 import { Intentions } from "../../../application/codegen/intentionContracts";
 import { IHtmlEditor, SelectionState } from "@paperbits/common/editing/IHtmlEditor";
-import { Intention, IntentionWithViewport } from "@paperbits/common/appearence/intention";
+import { Intention, IntentionWithViewport } from "@paperbits/common/appearance/intention";
 import { isAbsolute } from "path";
 
 
@@ -51,6 +51,10 @@ export class FormattingTools {
     public sizeIntentions: Intention[];
     public sizeIntention: KnockoutObservable<Intention>;
 
+    public font: KnockoutObservable<string>;
+    public fontIntentions: Intention[];
+    public fontIntention: KnockoutObservable<Intention>;
+
     constructor(
         htmlEditorProvider: IHtmlEditorProvider,
         eventManager: IEventManager,
@@ -75,6 +79,11 @@ export class FormattingTools {
         this.style = ko.observable<string>(this.intentions.text.style.text_color_primary.name());
         this.styled = ko.observable<boolean>();
         
+        this.setFont = this.setFont.bind(this);
+        this.fontIntentions = IntentionsUtils.toArray(this.intentions.text.font);
+        this.fontIntention = ko.observable<Intention>(this.intentions.text.font.text_font_cursive);
+        this.font = ko.observable<string>(this.intentions.text.font.text_font_sansserif.name());
+
         this.setSize = this.setSize.bind(this);
         this.sizeIntentions = IntentionsUtils.toArray(this.intentions.text.size);
         this.sizeIntention = ko.observable<Intention>(this.intentions.text.size.default);
@@ -167,7 +176,6 @@ export class FormattingTools {
     }
     
     private updateAlignmentState(selectionState: SelectionState):void{
-
         const viewport = this.viewManager.getViewport();
         const intentions: Intention[] = Utils.leaves(selectionState.intentions);
         
@@ -204,6 +212,12 @@ export class FormattingTools {
 
     public setStyle(intention: Intention): void {
         this.htmlEditorProvider.getCurrentHtmlEditor().toggleIntention(intention);
+        this.updateFormattingState();
+    }
+
+    public setFont(intention: Intention): void {
+        this.font(intention.name());
+        this.htmlEditorProvider.getCurrentHtmlEditor().setIntention(intention);
         this.updateFormattingState();
     }
 
@@ -345,20 +359,20 @@ export class FormattingTools {
     }
 
     public toggleAlignLeft(): void {
-        this.toggleAlignment(this.intentions.text.alignment.left);
+        this.setAlignment(this.intentions.text.alignment.left);
 
     }
 
     public toggleAlignCenter(): void {
-        this.toggleAlignment(this.intentions.text.alignment.center);
+        this.setAlignment(this.intentions.text.alignment.center);
     }
 
     public toggleAlignRight(): void {
-        this.toggleAlignment(this.intentions.text.alignment.right);
+        this.setAlignment(this.intentions.text.alignment.right);
     }
 
     public toggleJustify(): void {
-        this.toggleAlignment(this.intentions.text.alignment.justified);
+        this.setAlignment(this.intentions.text.alignment.justified);
     }
 
     public resetToNormal(): void {
@@ -370,14 +384,13 @@ export class FormattingTools {
         this.eventManager.removeEventListener("htmlEditorChanged", this.updateFormattingState)
     }
 
-    private toggleAlignment(intention: IntentionWithViewport) {
-        let viewport = this.viewManager.getViewport();
+    private setAlignment(intention: IntentionWithViewport) {
+        const viewport = this.viewManager.getViewport();
         const htmlEditor: IHtmlEditor = this.htmlEditorProvider.getCurrentHtmlEditor();
         const selectionState = htmlEditor.getSelectionState();
-        let alignmentIndex: number;
         const alignmentIntention : Intention = intention.for(viewport);
         
-        htmlEditor.toggleIntention(alignmentIntention);
+        htmlEditor.setIntention(alignmentIntention);
 
         this.updateFormattingState();
     }
