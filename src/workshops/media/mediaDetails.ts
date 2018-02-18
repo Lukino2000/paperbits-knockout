@@ -34,6 +34,7 @@ export class MediaDetailsWorkshop {
         // rebinding...
         this.deleteMedia = this.deleteMedia.bind(this);
         this.updateMedia = this.updateMedia.bind(this);
+        this.openCropper = this.openCropper.bind(this);
         this.updatePermlaink = this.updatePermlaink.bind(this);
 
         this.mediaItem.fileName
@@ -77,5 +78,14 @@ export class MediaDetailsWorkshop {
         if (this.onDeleteCallback) {
             this.onDeleteCallback()
         }
+    }
+
+    public openCropper(): void {
+        this.viewManager.openViewAsPopup({
+            component: {
+                name: "picture-cropper"
+            },
+            resize: "vertically horizontally"
+        });
     }
 }

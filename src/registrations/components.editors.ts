@@ -91,6 +91,7 @@ import { FormHandlers } from "../editors/form/formHandlers";
 import { FormEditor } from "../editors/form/formEditor";
 import { TestimonialsHandlers } from "../editors/testimonials/testimonialsHandlers";
 import { TestimonialsEditor } from "../editors/testimonials/testimonialsEditor";
+import { PictureCropper } from "../editors/picture/pictureCropper";
 
 
 export class ComponentRegistrationEditors implements IInjectorModule {
@@ -325,6 +326,7 @@ export class ComponentRegistrationEditors implements IInjectorModule {
         injector.bind("audioPlayerEditor", AudioEditor);
         injector.bind("buttonEditor", ButtonEditor);
         injector.bind("pictureEditor", PictureEditor);
+        injector.bind("pictureCropper", PictureCropper);
         injector.bind("sectionEditor", SectionEditor);
         injector.bind("columnEditor", ColumnEditor);
         injector.bind("navbarEditor", NavbarEditor);
