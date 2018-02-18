@@ -34,6 +34,7 @@ import { SliderModelBinder } from "@paperbits/common/widgets/slider/sliderModelB
 import { BackgroundModelBinder } from "@paperbits/common/widgets/background/backgroundModelBinder";
 import { FormModelBinder } from "@paperbits/common/widgets/form/formModelBinder";
 import { SavingHandler } from "@paperbits/common/persistence/savingHandler";
+import { UnhandledErrorHandler } from "@paperbits/common/errors/unhandledErrorHandler";
 import { OfflineObjectStorage } from "@paperbits/common/persistence/offlineObjectStorage";
 import { AnchorMiddleware } from "@paperbits/common/persistence/anchorMiddleware";
 
@@ -63,6 +64,8 @@ export class ComponentRegistrationCommon implements IInjectorModule {
         injector.bindSingleton("navigationService", NavigationService);
         injector.bindSingleton("siteService", SiteService);
         injector.bindSingleton("intercomService", IntercomService);
+        injector.bindSingleton("savingHandler", SavingHandler);
+        injector.bindSingleton("errorHandler", UnhandledErrorHandler);
 
         /*** Model binders ***/
         injector.bind("backgroundModelBinder", BackgroundModelBinder);
@@ -82,7 +85,5 @@ export class ComponentRegistrationCommon implements IInjectorModule {
         injector.bind("buttonModelBinder", ButtonModelBinder);
         injector.bind("sliderModelBinder", SliderModelBinder);
         //injector.bind("codeblockModelBinder", CodeblockModelBinder);
-
-        injector.bindSingleton("savingHandler", SavingHandler);
     }
 }

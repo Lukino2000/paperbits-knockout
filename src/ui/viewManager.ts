@@ -190,7 +190,7 @@ export class ViewManager implements IViewManager {
         let permalink = await this.permalinkService.getPermalinkByUrl(url);
 
         if (!permalink) {
-            permalink = await this.permalinkService.getPermalinkByUrl("/404.html");
+            permalink = await this.permalinkService.getPermalinkByUrl("/404");
         }
 
         const pageKey = permalink.targetKey;
