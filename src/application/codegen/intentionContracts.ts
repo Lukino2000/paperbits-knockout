@@ -11,13 +11,13 @@ export interface Intentions extends IntentionsMap{
 }
 
 export interface Intentions_text extends IntentionsMap{
-	size: Intentions_text_size;
+	size_: Intentions_text_size_;
 	alignment: Intentions_text_alignment;
 	style: Intentions_text_style;
 	font: Intentions_text_font;
 }
 
-export interface Intentions_text_size extends IntentionsMap{
+export interface Intentions_text_size_ extends IntentionsMap{
 	default: Intention;
 	text_lead: Intention;
 }

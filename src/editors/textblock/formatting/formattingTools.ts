@@ -85,9 +85,9 @@ export class FormattingTools {
         this.font = ko.observable<string>(this.intentions.text.font.text_font_sansserif.name());
 
         this.setSize = this.setSize.bind(this);
-        this.sizeIntentions = IntentionsUtils.toArray(this.intentions.text.size);
-        this.sizeIntention = ko.observable<Intention>(this.intentions.text.size.default);
-        this.size = ko.observable<string>(this.intentions.text.size.default.name());
+        this.sizeIntentions = IntentionsUtils.toArray(this.intentions.text.size_);
+        this.sizeIntention = ko.observable<Intention>(this.intentions.text.size_.default);
+        this.size = ko.observable<string>(this.intentions.text.size_.default.name());
         this.sized = ko.observable<boolean>();
         
         this.bold = ko.observable<boolean>();
@@ -122,7 +122,7 @@ export class FormattingTools {
         this.anchored(!!selectionState.intentions["anchorKey"]);
 
         this.updateIntentionSelector(selectionState, this.sized, this.sizeIntention,
-            this.size, this.intentions.text.size.default);
+            this.size, this.intentions.text.size_.default);
 
         this.updateIntentionSelector(selectionState, this.styled, this.styleIntention,
             this.style, this.intentions.text.style.text_color_primary);        
@@ -237,15 +237,15 @@ export class FormattingTools {
     }
 
     public toggleLead(): void {
-        const leadIntention = this.intentions.text.size.text_lead
+        const leadIntention = this.intentions.text.size_.text_lead
 
-        this.htmlEditorProvider.getCurrentHtmlEditor().toggleIntention(this.intentions.text.size.text_lead);
+        this.htmlEditorProvider.getCurrentHtmlEditor().toggleIntention(this.intentions.text.size_.text_lead);
         
         this.updateFormattingState();
     }
 
     public resetToDefault(): void{
-        const defaultSize = this.intentions.text.size.default;
+        const defaultSize = this.intentions.text.size_.default;
         
         this.htmlEditorProvider.getCurrentHtmlEditor().removeAllIntentions();
         
