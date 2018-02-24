@@ -3,7 +3,7 @@ import { FormViewModel } from "./formViewModel";
 import { IViewModelBinder } from "@paperbits/common/widgets/IViewModelBinder";
 
 
-export class FormViewModelBinder implements IViewModelBinder {
+export class FormViewModelBinder implements IViewModelBinder<FormModel, FormViewModel> {
     public modelToViewModel(model: FormModel, readonly: boolean, viewModel?: FormViewModel): FormViewModel {
         if (!viewModel) {
             viewModel = new FormViewModel();
@@ -12,6 +12,7 @@ export class FormViewModelBinder implements IViewModelBinder {
         viewModel["widgetBinding"] = {
             displayName: "Form",
             model: model,
+            editor: "form-editor",
             applyChanges: () => {
                 this.modelToViewModel(model, readonly, viewModel);
             }

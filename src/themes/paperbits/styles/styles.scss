@@ -5,48 +5,55 @@
 @import "widgets/textblock.scss";
 @import "widgets/form.scss";
 @import "intentions.scss";
-
 @font-face {
-  font-family: 'Kristen-ITC';
-  src: url('/theme/fonts/Kristen-ITC.eot'); /* IE9 Compat Modes */
-  src: url('/theme/fonts/Kristen-ITC.eot?#iefix') format('embedded-opentype'), /* IE6-IE8 */
-       url('/theme/fonts/Kristen-ITC.woff2') format('woff2'), /* Super Modern Browsers */
-       url('/theme/fonts/Kristen-ITC.woff') format('woff'), /* Pretty Modern Browsers */
-       url('/theme/fonts/Kristen-ITC.ttf') format('truetype'), /* Safari, Android, iOS */
-       url('/theme/fonts/Kristen-ITC.svg#svgFontName') format('svg'); /* Legacy iOS */
+    font-family: 'Kristen-ITC';
+    src: url('/theme/fonts/Kristen-ITC.eot');
+    /* IE9 Compat Modes */
+    src:url('/theme/fonts/Kristen-ITC.eot?#iefix') format('embedded-opentype'),
+    /* IE6-IE8 */
+    url('/theme/fonts/Kristen-ITC.woff2') format('woff2'),
+    /* Super Modern Browsers */
+    url('/theme/fonts/Kristen-ITC.woff') format('woff'),
+    /* Pretty Modern Browsers */
+    url('/theme/fonts/Kristen-ITC.ttf') format('truetype'),
+    /* Safari, Android, iOS */
+    url( '/theme/fonts/Kristen-ITC.svg#svgFontName') format('svg');
+    /* Legacy iOS */
 }
-
 @font-face {
-  font-family: 'Segoe-Script';
-  src: url('/theme/fonts/Segoe-Script.ttf') format('truetype');
+    font-family: 'Segoe-Script';
+    src: url('/theme/fonts/Segoe-Script.ttf') format('truetype');
 }
 
 body {
-    font-family: "Kristen-ITC";
+    font-family: Georgia, 'Times New Roman', Times, serif;
     font-size: $font-size-base;
 }
 
 h1 {
-  font-size: $font-size-h1;
+    font-size: $font-size-h1;
 }
 
 h2 {
-  font-size: $font-size-h2;
+    font-size: $font-size-h2;
 }
 
 h3 {
-  font-size: $font-size-h3;
+    font-size: $font-size-h3;
 }
 
 h4 {
-  font-size: $font-size-h4;
+    font-size: $font-size-h4;
 }
 
 h5 {
-  font-size: $font-size-h5;
+    font-size: $font-size-h5;
 }
 
 h6 {
-  font-size: $font-size-h6;
+    font-size: $font-size-h6;
 }
 
+.text-font-cursive {
+    font-family: "Kristen-ITC";
+}

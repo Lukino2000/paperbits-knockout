@@ -3,7 +3,7 @@ THIS IS AUTO-GENERATED CODE.
 DO NOT MODIFY THIS FILE MANUALLY, OTHERWISE ALL CHANGES WILL BE LOST.
 ********************************************************************/
 
-import { Intention, IntentionsMap, IntentionWithViewport } from '@paperbits/common/appearence/intention'
+import { Intention, IntentionsMap, IntentionWithViewport } from '@paperbits/common/appearance/intention'
 
 export interface Intentions extends IntentionsMap{
 	text: Intentions_text;
@@ -11,12 +11,13 @@ export interface Intentions extends IntentionsMap{
 }
 
 export interface Intentions_text extends IntentionsMap{
-	size: Intentions_text_size;
+	size_: Intentions_text_size_;
 	alignment: Intentions_text_alignment;
 	style: Intentions_text_style;
+	font: Intentions_text_font;
 }
 
-export interface Intentions_text_size extends IntentionsMap{
+export interface Intentions_text_size_ extends IntentionsMap{
 	default: Intention;
 	text_lead: Intention;
 }
@@ -72,6 +73,11 @@ export interface Intentions_text_style extends IntentionsMap{
 	text_color_primary: Intention;
 	text_color_danger: Intention;
 	text_color_inverted: Intention;
+}
+
+export interface Intentions_text_font extends IntentionsMap{
+	text_font_sansserif: Intention;
+	text_font_cursive: Intention;
 }
 
 export interface Intentions_container extends IntentionsMap{

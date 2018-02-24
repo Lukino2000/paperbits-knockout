@@ -3,7 +3,7 @@ import template from "./intentionSelector.html";
 import { IBag } from "@paperbits/common/IBag";
 import { Component } from "../../../decorators/component";
 import { IAppIntentionsProvider } from "../../../application/interface";
-import { Intention } from "../../../../../paperbits-common/src/appearence/intention";
+import { Intention } from "../../../../../paperbits-common/src/appearance/intention";
 
 
 export interface IntentionItem extends Intention {

@@ -259,7 +259,7 @@ export class GridEditor {
                     return null;
                 }
             })
-            .first(x => x != null);
+            .find(x => x != null);
 
         if (acceptorElement) {
             const childNodes = Array.prototype.slice

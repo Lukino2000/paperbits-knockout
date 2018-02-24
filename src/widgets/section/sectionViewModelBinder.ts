@@ -6,7 +6,7 @@ import { DragSession } from "@paperbits/common/ui/draggables/dragSession";
 import { IAppIntentionsProvider } from "../../application/interface";
 
 
-export class SectionViewModelBinder implements IViewModelBinder {
+export class SectionViewModelBinder implements IViewModelBinder<SectionModel, SectionViewModel> {
     private readonly rowViewModelBinder: RowViewModelBinder;
     private readonly intentionsProvider: IAppIntentionsProvider;
 
@@ -42,14 +42,14 @@ export class SectionViewModelBinder implements IViewModelBinder {
 
             // TODO: Review background usage.
             let backgroundIntention = intentions.container.background[backgroundColorKey];
-``
+            ``
             if (!backgroundIntention) {
                 backgroundIntention = intentions.container.background.section_bg_default;
             }
             sectionClasses.push(backgroundIntention.params());
         }
 
-        
+
         if (model.padding === "with-padding") {
             sectionClasses.push("with-padding");
         }

@@ -88,6 +88,9 @@ import { SectionModel } from "../../../paperbits-common/src/widgets/section/sect
 import { AddBlockDialog } from "../workshops/blocks/addBlockDialog";
 import { SectionModelBinder } from "../../../paperbits-common/src/widgets/section/sectionModelBinder";
 import { FormHandlers } from "../editors/form/formHandlers";
+import { FormEditor } from "../editors/form/formEditor";
+import { TestimonialsHandlers } from "../editors/testimonials/testimonialsHandlers";
+import { TestimonialsEditor } from "../editors/testimonials/testimonialsEditor";
 
 
 export class ComponentRegistrationEditors implements IInjectorModule {
@@ -177,6 +180,7 @@ export class ComponentRegistrationEditors implements IInjectorModule {
         injector.bindSingleton("buttonHandler", ButtonHandlers);
         injector.bindSingleton("sliderHandler", SliderHandlers);
         injector.bindSingleton("formHandler", FormHandlers);
+        injector.bindSingleton("testimonialsHandler", TestimonialsHandlers);
 
         injector.bindFactory<Array<IContentDropHandler>>("dropHandlers", (ctx: IInjector) => {
             var dropHandlers = new Array<IContentDropHandler>();
@@ -204,6 +208,7 @@ export class ComponentRegistrationEditors implements IInjectorModule {
             widgetHandlers.push(ctx.resolve<NavbarHandlers>("navbarHandler"));
             widgetHandlers.push(ctx.resolve<ButtonHandlers>("buttonHandler"));
             widgetHandlers.push(ctx.resolve<FormHandlers>("formHandler"));
+            widgetHandlers.push(ctx.resolve<TestimonialsHandlers>("testimonialsHandler"));
             // widgetHandlers.push(ctx.resolve<SliderHandlers>("sliderHandler"));
 
             return widgetHandlers;
@@ -326,5 +331,7 @@ export class ComponentRegistrationEditors implements IInjectorModule {
         injector.bind("videoPlayerEditor", VideoEditor);
         injector.bind("codeBlockEditor", CodeEditor);
         injector.bind("sliderEditor", SliderEditor);
+        injector.bind("formEditor", FormEditor);
+        injector.bind("testimonialsEditor", TestimonialsEditor);
     }
 }

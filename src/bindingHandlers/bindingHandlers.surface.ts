@@ -1,8 +1,7 @@
 ﻿import * as ko from "knockout";
 import * as Utils from '@paperbits/common/utils';
 import { IView } from "@paperbits/common/ui/IView";
-import { debug } from "util";
-import { Number } from "es6-shim";
+import "@paperbits/common/extensions";
 
 ko.bindingHandlers["surface"] = {
     init(element: HTMLElement, valueAccessor?: () => IView) {
@@ -85,11 +84,11 @@ ko.bindingHandlers["surface"] = {
                         settings = JSON.parse(settingsString);
                     }
 
-                    if (view.resize === "horizontally") {
+                    if (view.resize.contains("horizontally")) {
                         Utils.setValue(`${view.component.name}/width`, settings, element.clientWidth);
                     }
 
-                    if (view.resize === "vertically") {
+                    if (view.resize.contains("vertically")) {
                         Utils.setValue(`${view.component.name}/height`, settings, element.clientHeight)
                     }
 

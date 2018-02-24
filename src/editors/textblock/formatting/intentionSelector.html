@@ -4,8 +4,7 @@
     <ul class="list">
         <!-- ko foreach: { data: intentionsViewModel, as: 'intention' } -->
         <li class="list-item" data-bind="css: { selected: intention.selected() }">
-            <a href="#" data-bind="click: $component.selectIntention, css: intention.params()">AaBbCcDd</a>
-            <sub data-bind="text: intention.name()"></sub>
+            <a href="#" data-bind="click: $component.selectIntention, css: intention.params(), text: intention.name()"></a>
         </li>
         <!--/ko -->
     </ul>

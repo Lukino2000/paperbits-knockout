@@ -6,7 +6,7 @@ import { SectionModel } from "@paperbits/common/widgets/section/sectionModel";
 import { DragSession } from "@paperbits/common/ui/draggables/dragSession";
 
 
-export class PageViewModelBinder implements IViewModelBinder {
+export class PageViewModelBinder implements IViewModelBinder<PageModel, PageViewModel> {
     private readonly viewModelBinderSelector: ViewModelBinderSelector;
 
     constructor(viewModelBinderSelector: ViewModelBinderSelector) {
