@@ -975,17 +975,17 @@ export class GridEditor {
 
     public attach(): void {
         // Firefox doesn't fire "pointermove" events by some reason
-        this.ownerDocument.addEventListener("pointermove", this.onPointerMove.bind(this), true);
-        this.ownerDocument.addEventListener("scroll", this.onWindowScroll.bind(this));
-        this.ownerDocument.addEventListener("pointerdown", this.onPointerDown, true);
-        this.ownerDocument.addEventListener("keydown", this.onKeyDown);
+        // this.ownerDocument.addEventListener("pointermove", this.onPointerMove.bind(this), true);
+        // this.ownerDocument.addEventListener("scroll", this.onWindowScroll.bind(this));
+        // this.ownerDocument.addEventListener("pointerdown", this.onPointerDown, true);
+        // this.ownerDocument.addEventListener("keydown", this.onKeyDown);
     }
 
     public detach(): void {
-        this.ownerDocument.removeEventListener("pointermove", this.onPointerMove.bind(this), true);
-        this.ownerDocument.removeEventListener("scroll", this.onWindowScroll.bind(this));
-        this.ownerDocument.removeEventListener("pointerdown", this.onPointerDown, true);
-        this.ownerDocument.removeEventListener("keydown", this.onKeyDown);
+        // this.ownerDocument.removeEventListener("pointermove", this.onPointerMove.bind(this), true);
+        // this.ownerDocument.removeEventListener("scroll", this.onWindowScroll.bind(this));
+        // this.ownerDocument.removeEventListener("pointerdown", this.onPointerDown, true);
+        // this.ownerDocument.removeEventListener("keydown", this.onKeyDown);
     }
 
 
