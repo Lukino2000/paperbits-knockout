@@ -34,8 +34,6 @@ export class FormattingTools {
     public bold: KnockoutObservable<boolean>;
     public italic: KnockoutObservable<boolean>;
     public underlined: KnockoutObservable<boolean>;
-    public ul: KnockoutObservable<boolean>;
-    public ol: KnockoutObservable<boolean>;
     public pre: KnockoutObservable<boolean>;
     public style: KnockoutObservable<string>;
     public styled: KnockoutObservable<boolean>;
@@ -50,6 +48,16 @@ export class FormattingTools {
     public sized: KnockoutObservable<boolean>;
     public sizeIntentions: Intention[];
     public sizeIntention: KnockoutObservable<Intention>;
+
+    public olName: KnockoutObservable<string>;
+    public ol: KnockoutObservable<boolean>;
+    public olIntentions: Intention[];
+    public olIntention: KnockoutObservable<Intention>;
+
+    public ulName: KnockoutObservable<string>;
+    public ul: KnockoutObservable<boolean>;
+    public ulIntentions: Intention[];
+    public ulIntention: KnockoutObservable<Intention>;
 
     public font: KnockoutObservable<string>;
     public fontIntentions: Intention[];
@@ -89,6 +97,18 @@ export class FormattingTools {
         this.sizeIntention = ko.observable<Intention>(this.intentions.text.size_.default);
         this.size = ko.observable<string>(this.intentions.text.size_.default.name());
         this.sized = ko.observable<boolean>();
+
+        this.setList = this.setList.bind(this);
+
+        this.olIntentions = IntentionsUtils.toArray(this.intentions.container.list.ordered);
+        this.olIntention = ko.observable<Intention>(this.intentions.container.list.ordered.numbers);
+        this.olName = ko.observable<string>(this.intentions.container.list.ordered.numbers.name());
+        this.ol = ko.observable<boolean>();
+
+        this.ulIntentions = IntentionsUtils.toArray(this.intentions.container.list.unordered);
+        this.ulIntention = ko.observable<Intention>(this.intentions.container.list.unordered.disc);
+        this.ulName = ko.observable<string>(this.intentions.container.list.unordered.disc.name());
+        this.ul = ko.observable<boolean>();
         
         this.bold = ko.observable<boolean>();
         this.italic = ko.observable<boolean>();
@@ -244,21 +264,20 @@ export class FormattingTools {
         this.updateFormattingState();
     }
 
-    public resetToDefault(): void{
-        const defaultSize = this.intentions.text.size_.default;
-        
-        this.htmlEditorProvider.getCurrentHtmlEditor().removeAllIntentions();
-        
+    public setList(intention: Intention): void{
+        this.htmlEditorProvider.getCurrentHtmlEditor().setList(intention);
+
         this.updateFormattingState();
     }
 
-    public toggleUl(): void {
-        this.htmlEditorProvider.getCurrentHtmlEditor().toggleUl();
+    public incIndent(){
+        this.htmlEditorProvider.getCurrentHtmlEditor().incIndent();
+
         this.updateFormattingState();
     }
+    public decIndent(){
+        this.htmlEditorProvider.getCurrentHtmlEditor().decIndent();
 
-    public toggleOl(): void {
-        this.htmlEditorProvider.getCurrentHtmlEditor().toggleOl();
         this.updateFormattingState();
     }
 
