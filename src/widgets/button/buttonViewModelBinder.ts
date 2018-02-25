@@ -29,15 +29,15 @@ export class ButtonViewModelBinder implements IViewModelBinder<ButtonModel, Butt
         }
 
         switch (model.size) {
-            case "default":
+            case "small":
+                classes.push("btn-sm");
                 break;
 
-            case "medium":
-                classes.push("btn-medium");
+            case "regular":
                 break;
 
             case "large":
-                classes.push("btn-large");
+                classes.push("btn-lg");
                 break;
         }
 

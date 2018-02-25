@@ -13,7 +13,7 @@ ko.bindingHandlers["hyperlink"] = {
                     attr(newHyperlink);
                 }
                 else {
-                    attr({ href: "#", target: "_blank" });
+                    attr({ href: "/", target: "_blank" });
                 }
             });
         }
