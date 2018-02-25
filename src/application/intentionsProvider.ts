@@ -40,6 +40,22 @@ export class IntentionsProvider implements IIntentionsProvider {
                             .addIntention("section_bg_3", "Dark smoke", "block")
                             .addIntention("section_bg_4", "Orange", "block")
                     )
+                    .scope("list", listBuilder =>
+                        listBuilder
+                            .addIntention("nested-numbering", "Nested numbers", "block")
+                            .scope("ordered", olBuilder =>
+                                olBuilder
+                                    .addIntention("numbers", "Numbers", "block")
+                                    .addIntention("upper-alpha", "Uppercase", "block")
+                                    .addIntention("lower-alpha", "Lowercase", "block")
+                                    .addIntention("lower-roman", "Roman lowercase", "block")
+                                    .addIntention("upper-roman", "Roman uppercase", "block"))
+                            .scope("unordered", olBuilder =>
+                                olBuilder
+                                    .addIntention("disc", "Disc", "block")
+                                    .addIntention("circle", "Circle", "block")
+                                    .addIntention("square", "Square", "block")
+                                    .addIntention("none", "None", "block")))
             );
     }
 

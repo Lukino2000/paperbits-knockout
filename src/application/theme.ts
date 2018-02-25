@@ -29,6 +29,22 @@ export var theme =
                 "section_bg_2": "section-darker-smoke",
                 "section_bg_3": "section-dark-smoke",
                 "section_bg_4": "section-hightlighted"
+            },
+            list: {
+                "nested_numbering": "nested-numbering",
+                ordered: {
+                    "numbers": "numbers",
+                    "upper_alpha": "upper-alpha",
+                    "lower_alpha": "lower-alpha",
+                    "lower_roman": "lower-roman",
+                    "upper_roman": "upper-roman"
+                },
+                unordered:{
+                    "disc": "disc",
+                    "circle": "circle",
+                    "square": "square",
+                    "none": "none"
+                }
             }
         }
     };
