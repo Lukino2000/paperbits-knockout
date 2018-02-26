@@ -26,7 +26,7 @@ h1 {
 h2 {
     font-size: $font-size-h2;
     margin-top: 30px;
-    margin-bottom: 10px;
+    margin-bottom: 1.5rem;
 }
 
 h3 {
@@ -35,6 +35,7 @@ h3 {
 
 h4 {
     font-size: $font-size-h4;
+    margin-bottom: 1.5rem;
 }
 
 h5 {
@@ -45,16 +46,11 @@ h6 {
     font-size: $font-size-h6;
 }
 
-.text-font-cursive {
-    font-family: JollyGoodSans-Basic, Tahoma, Geneva, Verdana, sans-serif;
+.text-font-script {
+    font-family: $font-family-script;
 }
 
-// h1 {
-//     font-size: 2em;
-// }
+.lead {
+    font-size: 1.5em;
+}
 
-// h2 {
-//     font-size: 1.3em;
-//     margin-top: 30px;
-//     margin-bottom: 20px;
-// }

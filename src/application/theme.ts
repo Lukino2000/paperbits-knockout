@@ -19,7 +19,7 @@ export var theme =
             },
             font: {
                 "text_font_sansserif": null,
-                "text_font_cursive": "text-font-cursive"
+                "text_font_cursive": "text-font-script"
             }
         },
         container: {
