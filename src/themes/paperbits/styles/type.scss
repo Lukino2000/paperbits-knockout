@@ -1,24 +1,15 @@
 @font-face {
-    font-family: 'Kristen-ITC';
-    src: url('/theme/fonts/Kristen-ITC.eot');
-    /* IE9 Compat Modes */
-    src:url('/theme/fonts/Kristen-ITC.eot?#iefix') format('embedded-opentype'),
-    /* IE6-IE8 */
-    url('/theme/fonts/Kristen-ITC.woff2') format('woff2'),
-    /* Super Modern Browsers */
-    url('/theme/fonts/Kristen-ITC.woff') format('woff'),
-    /* Pretty Modern Browsers */
-    url('/theme/fonts/Kristen-ITC.ttf') format('truetype'),
-    /* Safari, Android, iOS */
-    url(  '/theme/fonts/Kristen-ITC.svg#svgFontName') format('svg');
-    /* Legacy iOS */
+    font-family: 'JollyGoodSans-Basic';
+    src: url('/theme/fonts/JollyGoodSans-Basic-webfont.woff2') format('woff2'),
+         url('/theme/fonts/JollyGoodSans-Basic-webfont.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
 }
 
 body {
-    //font-family: Georgia, 'Times New Roman', Times, serif;
-    //font-family: 'Segoe UI Light', Tahoma, Geneva, Verdana, sans-serif;
-    font-family: Corbel;
+    font-family: Arial, Helvetica, sans-serif;
     font-size: $font-size-base;
+    color: #5B5F61;
 }
 
 ol,
@@ -55,5 +46,15 @@ h6 {
 }
 
 .text-font-cursive {
-    font-family: "Kristen-ITC";
+    font-family: JollyGoodSans-Basic, Tahoma, Geneva, Verdana, sans-serif;
 }
+
+// h1 {
+//     font-size: 2em;
+// }
+
+// h2 {
+//     font-size: 1.3em;
+//     margin-top: 30px;
+//     margin-bottom: 20px;
+// }
