@@ -50,7 +50,8 @@ export class IntentionSelector {
                 params: intention.params,
                 scope: intention.scope,
                 selected: ko.observable(false),
-                properties: intention.properties
+                properties: intention.properties,
+                groupId: intention.groupId
             };
             this.intentionsViewModel.push(intentionItem);
         }

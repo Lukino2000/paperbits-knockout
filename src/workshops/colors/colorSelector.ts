@@ -31,9 +31,14 @@ export class ColorSelector {
 
         this.intentions = [];
         let intentionMap = this.intentionsProvider.getIntentions();
-
-        for (var key in intentionMap.container.background) {
-            let intention = intentionMap.container.background[key];
+        
+        const intentionKeys = intentionMap.container.background["keys"]();
+        let key;
+        while(!(key = intentionKeys.next()).done) {
+            if (key.value === "name"){
+                continue;
+            }
+            let intention = intentionMap.container.background[key.value];
             this.intentions.push({ name: intention.name(), key: key, css: intention.params() });
         }
     }

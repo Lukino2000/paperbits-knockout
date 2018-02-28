@@ -63,6 +63,8 @@ export class FormattingTools {
     public fontIntentions: Intention[];
     public fontIntention: KnockoutObservable<Intention>;
 
+    public nn: KnockoutObservable<boolean>;
+
     constructor(
         htmlEditorProvider: IHtmlEditorProvider,
         eventManager: IEventManager,
@@ -109,6 +111,9 @@ export class FormattingTools {
         this.ulIntention = ko.observable<Intention>(this.intentions.container.list.unordered.disc);
         this.ulName = ko.observable<string>(this.intentions.container.list.unordered.disc.name());
         this.ul = ko.observable<boolean>();
+
+        this.nn = ko.observable<boolean>();
+        this.toggleNn = this.toggleNn.bind(this);
         
         this.bold = ko.observable<boolean>();
         this.italic = ko.observable<boolean>();
@@ -218,6 +223,11 @@ export class FormattingTools {
         if (!this.alignedLeft() && !this.alignedCenter() && !this.alignedRight() && !this.justified()) {
             this.alignedLeft(true);
         }
+    }
+
+    public toggleNn(): void {
+        this.htmlEditorProvider.getCurrentHtmlEditor().setList(this.intentions.container.list.nested_numbering);
+        this.updateFormattingState();
     }
 
     public toggleBold(): void {

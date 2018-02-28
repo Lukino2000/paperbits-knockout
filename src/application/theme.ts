@@ -34,10 +34,10 @@ export var theme =
                 "nested_numbering": "nested-numbering",
                 ordered: {
                     "numbers": "numbers",
-                    "upper_alpha": "upper-alpha",
-                    "lower_alpha": "lower-alpha",
-                    "lower_roman": "lower-roman",
-                    "upper_roman": "upper-roman"
+                    "upper-alpha": "upper-alpha",
+                    "lower-alpha": "lower-alpha",
+                    "lower-roman": "lower-roman",
+                    "upper-roman": "upper-roman"
                 },
                 unordered:{
                     "disc": "disc",
