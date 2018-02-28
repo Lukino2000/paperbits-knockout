@@ -7,24 +7,24 @@ export class IntentionsProvider implements IIntentionsProvider {
         intentionsBuilder
             .scope("text", textBuilder =>
                 textBuilder
-                    .scope("size", sizeBuilder =>
+                    .group("size", sizeBuilder =>
                         sizeBuilder
                             .addIntention("default", "Default", "block")
                             .addIntention("text_lead", "Lead", "block")
                     )
-                    .scopePerViewport("alignment", alignmentBuilder =>
+                    .groupPerViewport("alignment", alignmentBuilder =>
                         alignmentBuilder
                             .addIntention("left", "Aligned to the left", "block")
                             .addIntention("right", "Aligned to the right", "block")
                             .addIntention("center", "Centered", "block")
                             .addIntention("justified", "Justified", "block"))
-                    .scope("style", styleBuilder =>
+                    .group("style", styleBuilder =>
                         styleBuilder
                             .addIntention("text_color_primary", "Primary", "inline")
                             .addIntention("text_color_danger", "Danger", "inline")
                             .addIntention("text_color_inverted", "Inverted", "inline")
                     )
-                    .scope("font", styleBuilder => // serif, sans-serif, monospace, cursive
+                    .group("font", styleBuilder => // serif, sans-serif, monospace, cursive
                         styleBuilder
                             .addIntention("text_font_sansserif", "Georgia", "block")
                             .addIntention("text_font_cursive", "Kristen ITC", "block")
@@ -32,7 +32,7 @@ export class IntentionsProvider implements IIntentionsProvider {
             )
             .scope("container", containerBuilder =>
                 containerBuilder
-                    .scope("background", backgroundBuilder =>
+                    .group("background", backgroundBuilder =>
                         backgroundBuilder
                             .addIntention("section_bg_default", "Default", "block")
                             .addIntention("section_bg_1", "Smoke", "block")
@@ -40,7 +40,7 @@ export class IntentionsProvider implements IIntentionsProvider {
                             .addIntention("section_bg_3", "Dark smoke", "block")
                             .addIntention("section_bg_4", "Orange", "block")
                     )
-                    .scope("list", listBuilder =>
+                    .group("list", listBuilder =>
                         listBuilder
                             .addIntention("nested-numbering", "Nested numbers", "block")
                             .scope("ordered", olBuilder =>
