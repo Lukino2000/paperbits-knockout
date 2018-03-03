@@ -5,7 +5,7 @@ import { RowModel } from "@paperbits/common/widgets/row/rowModel";
 import { Component } from "../../decorators/component";
 
 
-interface ColumnSize {
+export interface ColumnSize {
     xs?: number;
     sm?: number;
     md?: number;
