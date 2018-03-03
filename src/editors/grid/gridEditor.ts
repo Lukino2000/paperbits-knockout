@@ -120,96 +120,122 @@ export class GridEditor {
     }
 
     private onPointerDown(event: PointerEvent): void {
-        if (this.viewManager.mode === ViewManagerMode.zoomout) {
-            event.preventDefault();
-            event.stopPropagation();
-            return;
-        }
+        return;
 
-        if (event.button !== 0) {
-            return;
-        }
+        // if (this.viewManager.mode === ViewManagerMode.zoomout) {
+        //     event.preventDefault();
+        //     event.stopPropagation();
+        //     return;
+        // }
 
-        if (this.viewManager.mode !== ViewManagerMode.selecting &&
-            this.viewManager.mode !== ViewManagerMode.selected &&
-            this.viewManager.mode !== ViewManagerMode.configure) {
-            return;
-        }
+        // if (event.button !== 0) {
+        //     return;
+        // }
 
-        const elements = this.getUnderlyingElements();
-        const element = elements.find(element => {
-            return GridHelper.getWidgetBinding(element) != null;
-        });
+        // if (this.viewManager.mode !== ViewManagerMode.selecting &&
+        //     this.viewManager.mode !== ViewManagerMode.selected &&
+        //     this.viewManager.mode !== ViewManagerMode.configure) {
+        //     return;
+        // }
 
-        if (!element) {
-            return;
-        }
+        // const elements = this.getUnderlyingElements();
+        // const element = elements.find(element => {
+        //     return GridHelper.getWidgetBinding(element) != null;
+        // });
 
-        let widgetBinding = GridHelper.getWidgetBinding(element);
+        // if (!element) {
+        //     return;
+        // }
 
-        if (!widgetBinding) {
-            return;
-        }
+        // let widgetBinding = GridHelper.getWidgetBinding(element);
 
-        if (widgetBinding.readonly) {
-            return;
-        }
+        // if (!widgetBinding) {
+        //     return;
+        // }
 
-        if (this.isModelBeingEdited(widgetBinding)) {
-            return;
-        }
+        // if (widgetBinding.readonly) {
+        //     return;
+        // }
 
-        if (this.isModelSelected(widgetBinding)) {
-            this.openWidgetEditor(widgetBinding);
-        }
-        else {
-            let attachedModel = GridHelper.getModel(element);
-            let contextualEditor;
+        // if (this.isModelBeingEdited(widgetBinding)) {
+        //     return;
+        // }
 
-            if (attachedModel instanceof SliderModel || attachedModel instanceof SlideModel) {
-                contextualEditor = this.getSliderContextualEditor(element, "top");
-            }
-            else if (attachedModel instanceof PlaceholderModel) {
-                // Do nothing
-            }
-            else if (attachedModel instanceof SectionModel) {
-                contextualEditor = this.getSectionContextualEditor(element, "top", null, null);
-            }
-            else if (attachedModel instanceof RowModel) {
-                contextualEditor = this.getRowContextualEditor(element, "top");
-            }
-            else if (attachedModel instanceof ColumnModel) {
-                contextualEditor = this.getColumnContextualEditor(element);
-            }
-            else {
-                contextualEditor = this.getWidgetContextualEditor(element, "top");
-            }
+        // if (this.isModelSelected(widgetBinding)) {
+        //     this.openWidgetEditor(widgetBinding);
+        // }
+        // else {
+        //     let attachedModel = GridHelper.getModel(element);
+        //     let contextualEditor;
+
+        //     if (attachedModel instanceof SliderModel || attachedModel instanceof SlideModel) {
+        //         contextualEditor = this.getSliderContextualEditor(element, "top");
+        //     }
+        //     else if (attachedModel instanceof PlaceholderModel) {
+        //         // Do nothing
+        //     }
+        //     else if (attachedModel instanceof SectionModel) {
+        //         contextualEditor = this.getSectionContextualEditor(element, "top", null, null);
+        //     }
+        //     else if (attachedModel instanceof RowModel) {
+        //         contextualEditor = this.getRowContextualEditor(element, "top");
+        //     }
+        //     else if (attachedModel instanceof ColumnModel) {
+        //         contextualEditor = this.getColumnContextualEditor(element);
+        //     }
+        //     else {
+        //         contextualEditor = this.getWidgetContextualEditor(element, "top");
+        //     }
 
 
-            if (!contextualEditor) {
-                return;
-            }
+        //     if (!contextualEditor) {
+        //         return;
+        //     }
 
-            const config: IHighlightConfig = {
-                element: element,
-                color: contextualEditor.color,
-                text: widgetBinding["displayName"]
-            }
+        //     const config: IHighlightConfig = {
+        //         element: element,
+        //         color: contextualEditor.color,
+        //         text: widgetBinding["displayName"]
+        //     }
 
-            this.viewManager.setSelectedElement(config, contextualEditor);
-            this.selectedWidgetContextualEditor = contextualEditor;
-        }
+        //     this.viewManager.setSelectedElement(config, contextualEditor);
+        //     this.selectedWidgetContextualEditor = contextualEditor;
+        // }
     }
 
-    private onPointerMove(event: HammerInput): void {
+    private onPan(event: HammerInput): void {
         if (this.viewManager.mode === ViewManagerMode.zoomout) {
             event.preventDefault();
             event.srcEvent.stopPropagation();
             return;
         }
 
-        this.pointerX = event.center.x; //event.clientX;
-        this.pointerY = event.center.y; //event.clientY;
+        this.pointerX = event.center.x;
+        this.pointerY = event.center.y;
+
+        const elements = this.getUnderlyingElements();
+
+        if (elements.length === 0) {
+            return;
+        }
+
+        switch (this.viewManager.mode) {
+            case ViewManagerMode.dragging:
+                this.renderDropHandlers();
+
+                break;
+        }
+    }
+
+    private onPointerMove(event: PointerEvent): void {
+        if (this.viewManager.mode === ViewManagerMode.zoomout) {
+            event.preventDefault();
+            event.stopPropagation();
+            return;
+        }
+
+        this.pointerX = event.clientX;
+        this.pointerY = event.clientY;
 
         const elements = this.getUnderlyingElements();
 
@@ -221,11 +247,6 @@ export class GridEditor {
             case ViewManagerMode.selecting:
             case ViewManagerMode.selected:
                 this.renderHighlightedElements();
-                break;
-
-            case ViewManagerMode.dragging:
-                this.renderDropHandlers();
-
                 break;
         }
     }
@@ -976,19 +997,20 @@ export class GridEditor {
     public attach(): void {
         // Firefox doesn't fire "pointermove" events by some reason
 
-        this.eventManager.addEventListener("onPan", this.onPointerMove.bind(this));
+        this.eventManager.addEventListener("onPan", this.onPan.bind(this));
 
-        // this.ownerDocument.addEventListener("pointermove", this.onPointerMove.bind(this), true);
-        // this.ownerDocument.addEventListener("scroll", this.onWindowScroll.bind(this));
-        // this.ownerDocument.addEventListener("pointerdown", this.onPointerDown, true);
-        // this.ownerDocument.addEventListener("keydown", this.onKeyDown);
+        this.ownerDocument.addEventListener("pointermove", this.onPointerMove.bind(this), true);
+        this.ownerDocument.addEventListener("scroll", this.onWindowScroll.bind(this));
+        this.ownerDocument.addEventListener("pointerdown", this.onPointerDown, true);
+        this.ownerDocument.addEventListener("keydown", this.onKeyDown);
     }
 
     public detach(): void {
-        // this.ownerDocument.removeEventListener("pointermove", this.onPointerMove.bind(this), true);
-        // this.ownerDocument.removeEventListener("scroll", this.onWindowScroll.bind(this));
-        // this.ownerDocument.removeEventListener("pointerdown", this.onPointerDown, true);
-        // this.ownerDocument.removeEventListener("keydown", this.onKeyDown);
+        this.eventManager.removeEventListener("onPan", this.onPan.bind(this));
+        this.ownerDocument.removeEventListener("pointermove", this.onPointerMove.bind(this), true);
+        this.ownerDocument.removeEventListener("scroll", this.onWindowScroll.bind(this));
+        this.ownerDocument.removeEventListener("pointerdown", this.onPointerDown, true);
+        this.ownerDocument.removeEventListener("keydown", this.onKeyDown);
     }
 
 

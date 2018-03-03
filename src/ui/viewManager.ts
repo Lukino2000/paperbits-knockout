@@ -463,6 +463,7 @@ export class ViewManager implements IViewManager {
 
     public onDragEnd(): void {
         this.unfoldEverything();
+        this.setSplitter(null);
     }
 }
 
