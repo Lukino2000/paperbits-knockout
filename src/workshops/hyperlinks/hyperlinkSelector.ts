@@ -59,18 +59,18 @@ export class HyperlinkSelector {
             return;
         }
 
-        let resourcePicker: IHyperlinkProvider;
+        let hyperlinkProvider: IHyperlinkProvider;
 
         if (hyperlink.permalinkKey) {
             const permalink = await this.permalinkService.getPermalinkByKey(hyperlink.permalinkKey);
-            resourcePicker = this.resourcePickers.find(x => x.canHandleHyperlink(permalink));
+            hyperlinkProvider = this.resourcePickers.find(x => x.canHandleHyperlink(permalink));
         }
 
-        if (!resourcePicker) {
-            resourcePicker = this.resourcePickers[this.resourcePickers.length - 1];
+        if (!hyperlinkProvider) {
+            hyperlinkProvider = this.resourcePickers[this.resourcePickers.length - 1];
         }
 
         this.hyperlink(hyperlink);
-        this.selectedResourcePicker(resourcePicker);
+        this.selectedResourcePicker(hyperlinkProvider);
     }
 }
