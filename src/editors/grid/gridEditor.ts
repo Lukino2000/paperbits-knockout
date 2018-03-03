@@ -201,15 +201,15 @@ export class GridEditor {
         }
     }
 
-    private onPointerMove(event: PointerEvent): void {
+    private onPointerMove(event: HammerInput): void {
         if (this.viewManager.mode === ViewManagerMode.zoomout) {
             event.preventDefault();
-            event.stopPropagation();
+            event.srcEvent.stopPropagation();
             return;
         }
 
-        this.pointerX = event.clientX;
-        this.pointerY = event.clientY;
+        this.pointerX = event.center.x; //event.clientX;
+        this.pointerY = event.center.y; //event.clientY;
 
         const elements = this.getUnderlyingElements();
 
@@ -975,6 +975,9 @@ export class GridEditor {
 
     public attach(): void {
         // Firefox doesn't fire "pointermove" events by some reason
+
+        this.eventManager.addEventListener("onPan", this.onPointerMove.bind(this));
+
         // this.ownerDocument.addEventListener("pointermove", this.onPointerMove.bind(this), true);
         // this.ownerDocument.addEventListener("scroll", this.onWindowScroll.bind(this));
         // this.ownerDocument.addEventListener("pointerdown", this.onPointerDown, true);
