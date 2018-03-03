@@ -19,7 +19,7 @@ export var theme =
             },
             font: {
                 "text_font_sansserif": null,
-                "text_font_cursive": "text-font-cursive"
+                "text_font_cursive": "text-font-script"
             }
         },
         container: {
@@ -29,6 +29,22 @@ export var theme =
                 "section_bg_2": "section-darker-smoke",
                 "section_bg_3": "section-dark-smoke",
                 "section_bg_4": "section-hightlighted"
+            },
+            list: {
+                "nested_numbering": "nested-numbering",
+                ordered: {
+                    "numbers": "numbers",
+                    "upper-alpha": "upper-alpha",
+                    "lower-alpha": "lower-alpha",
+                    "lower-roman": "lower-roman",
+                    "upper-roman": "upper-roman"
+                },
+                unordered:{
+                    "disc": "disc",
+                    "circle": "circle",
+                    "square": "square",
+                    "none": "none"
+                }
             }
         }
     };

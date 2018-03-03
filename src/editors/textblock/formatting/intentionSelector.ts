@@ -49,7 +49,9 @@ export class IntentionSelector {
                 fullId: intention.fullId,
                 params: intention.params,
                 scope: intention.scope,
-                selected: ko.observable(false)
+                selected: ko.observable(false),
+                properties: intention.properties,
+                groupId: intention.groupId
             };
             this.intentionsViewModel.push(intentionItem);
         }

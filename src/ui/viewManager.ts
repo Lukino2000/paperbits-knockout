@@ -26,6 +26,7 @@ import { PageContract } from "@paperbits/common/pages/pageContract";
 import { ISettings } from "@paperbits/common/sites/ISettings";
 import { DragSession } from "@paperbits/common/ui/draggables/dragSession";
 
+declare var uploadDialog;
 
 @Component({
     selector: "view-manager",
@@ -327,14 +328,11 @@ export class ViewManager implements IViewManager {
     }
 
     public openUploadDialog(): Promise<Array<File>> {
-        const uploaderElement = document.createElement("input");
-        uploaderElement.multiple = true;
-        document.body.appendChild(uploaderElement);
-        uploaderElement.click();
+        uploadDialog.click();
 
         return new Promise<File[]>((resolve, reject) => {
-            uploaderElement.onchange = () => {
-                resolve(Arrays.coerce(uploaderElement.files));
+            uploadDialog.onchange = () => {
+                resolve(Arrays.coerce(uploadDialog.files));
             }
         });
     }

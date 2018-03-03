@@ -3,14 +3,31 @@
         <span class="icon icon-clearformat">Clear formatting</span>
     </a>
 </div>-->
-<div class="toolbox-button" data-bind="css: { 'toolbox-button-is-active': ol() }" title="Ordered list">
-    <a href="#" data-bind="click: toggleOl">
+<div title="Ordered list" class="toolbox-button" data-bind="css: { 'toolbox-button-is-active': ol() }">
+    <a href="#" data-bind="balloon: { selector: '#olSelector', position: 'bottom' }">
         <i class="paperbits-icon paperbits-list-numbers"></i>
     </a>
 </div>
-<div class="toolbox-button" data-bind="css: { 'toolbox-button-is-active': ul() }" title="Unordered list">
-    <a href="#" data-bind="click: toggleUl">
+<intention-selector id="olSelector" class="balloon" params="title: 'Ordered list', intentions: olIntentions, selectedIntention: olIntention, setIntentionSelectorCallback: setList"></intention-selector>
+<div title="Unordered list" class="toolbox-button" data-bind="css: { 'toolbox-button-is-active': ul() }">
+    <a href="#" data-bind="balloon: { selector: '#ulSelector', position: 'bottom' }">
         <i class="paperbits-icon paperbits-list-bullet"></i>
+    </a>
+</div>
+<intention-selector id="ulSelector" class="balloon" params="title: 'Unordered list', intentions: ulIntentions, selectedIntention: ulIntention, setIntentionSelectorCallback: setList"></intention-selector>
+<!-- <div class="toolbox-button" data-bind="css: { 'toolbox-button-is-active': nn() }" title="Nested numbering">
+    <a href="#" data-bind="click: toggleNn">
+        <i class="paperbits-icon paperbits-layout-11"></i>
+    </a>
+</div> -->
+<div class="toolbox-button" title="Decrease Indentation">
+    <a href="#" data-bind="click: decIndent">
+        <i class="paperbits-icon paperbits-margin-right"></i>
+    </a>
+</div>
+<div class="toolbox-button" title="Increase Indentation">
+    <a href="#" data-bind="click: incIndent">
+        <i class="paperbits-icon paperbits-margin-left"></i>
     </a>
 </div>
 <div class="toolbox-button" data-bind="css: { 'toolbox-button-is-active': bold() }" title="Bold">
@@ -62,8 +79,8 @@
         <i class="paperbits-icon paperbits-color"></i>
     </a>
 </div>
-<div class="toolbox-button" title="Text size" data-bind="css: { 'toolbox-button-is-active': sized() }">
-    <a href="#" data-bind="balloon: { selector: '#textSizeSelector', position: 'bottom' }, text: size"></a>
+<div class="toolbox-button"  title="Text size" data-bind="css: { 'toolbox-button-is-active': sized() }">
+     <a href="#" data-bind="balloon: { selector: '#textSizeSelector', position: 'bottom' }, text: size"></a>
 </div>
 <div title="Anchor" class="toolbox-button" data-bind="css: { 'toolbox-button-is-active': anchored() }">
     <a href="#" data-bind="click: toggleAnchor">

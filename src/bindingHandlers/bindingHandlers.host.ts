@@ -18,6 +18,7 @@ export class HostBindingHandler {
                 hostElement.src = "./theme/index.html";
                 hostElement.classList.add("host");
 
+
                 config.viewport.subscribe((viewport) => {
                     viewManager.mode = ViewManagerMode.selecting;
 
@@ -62,6 +63,10 @@ export class HostBindingHandler {
 
                     if (!htmlLinkElement) {
                         return;
+                    }
+
+                    if (!htmlLinkElement.closest("[contenteditable]")) {
+                        event.preventDefault();
                     }
 
                     if (event.ctrlKey) { // Preventing click on links if Ctrl key is not pressed.

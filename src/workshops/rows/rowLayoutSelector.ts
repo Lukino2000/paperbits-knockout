@@ -5,6 +5,15 @@ import { RowModel } from "@paperbits/common/widgets/row/rowModel";
 import { Component } from "../../decorators/component";
 
 
+export interface ColumnSize {
+    xs?: number;
+    sm?: number;
+    md?: number;
+    lg?: number;
+    xl?: number;
+    display?: number;
+}
+
 @Component({
     selector: "row-layout-selector",
     template: template,
@@ -12,21 +21,33 @@ import { Component } from "../../decorators/component";
 })
 export class RowLayoutSelector implements IResourceSelector<RowModel> {
     public readonly onResourceSelected: (rowModel: RowModel) => void;
-    public readonly rowConfigs = [[12], [6, 6], [4, 4, 4], [3, 3, 3, 3], [8, 4], [4, 8], [3, 9], [9, 3], [6, 3, 3], [3, 3, 6], [3, 6, 3]];
+    public readonly rowConfigs: ColumnSize[][] = [
+        [{ xs: 12 }],
+        [{ xs: 12, md: 6 }, { xs: 12, md: 6 }],
+        [{ xs: 12, md: 4 }, { xs: 12, md: 4 }, { xs: 12, md: 4 }],
+        [{ xs: 12, md: 3 }, { xs: 12, md: 3 }, { xs: 12, md: 3 }, { xs: 12, md: 3 }],
+        [{ xs: 12, md: 8 }, { xs: 12, md: 4 }], [{ xs: 12, md: 4 }, { xs: 12, md: 8 }],
+        [{ xs: 12, md: 3 }, { xs: 12, md: 9 }], [{ xs: 12, md: 9 }, { xs: 12, md: 3 }],
+        [{ xs: 12, md: 6 }, { xs: 12, md: 3 }, { xs: 12, md: 3 }],
+        [{ xs: 12, md: 3 }, { xs: 12, md: 3 }, { xs: 12, md: 6 }],
+        [{ xs: 12, md: 3 }, { xs: 12, md: 6 }, { xs: 12, md: 3 }]
+    ];
 
     constructor(onSelect: (rowModel: RowModel) => void) {
         this.selectRowLayout = this.selectRowLayout.bind(this);
         this.onResourceSelected = onSelect;
     }
 
-    public selectRowLayout(columnSizes: number[]): void {
+    public selectRowLayout(columnSizes: ColumnSize[]): void {
         let rowModel = new RowModel();
 
         columnSizes.forEach(size => {
             let column = new ColumnModel();
-            column.sizeSm = size;
-            column.sizeMd = size;
-            column.sizeLg = size;
+            column.sizeXs = size.xs;
+            column.sizeSm = size.sm;
+            column.sizeMd = size.md;
+            column.sizeLg = size.lg;
+            column.sizeXl = size.xl;
             rowModel.columns.push(column);
         });
 
