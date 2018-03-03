@@ -92,12 +92,13 @@ export class HostBindingHandler {
                     hostElement.contentDocument.body.appendChild(documentElement);
                     hostElement.contentDocument.addEventListener("click", onClick, true);
                     hostElement.contentDocument.addEventListener("pointerdown", onPointerDown, true);
+                    hostElement.contentDocument.oncontextmenu = () => { return false };
                     ko.applyBindings({}, documentElement);
                 }
 
                 hostElement.addEventListener("load", onLoad, false);
                 document.addEventListener("pointermove", onPointerMove, true);
-
+               
                 element.appendChild(hostElement);
 
                 ko.utils.domNodeDisposal.addDisposeCallback(element, () => {
