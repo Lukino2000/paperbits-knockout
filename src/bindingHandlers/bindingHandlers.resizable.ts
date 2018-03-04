@@ -1,6 +1,7 @@
 import * as ko from "knockout";
 import { IEventManager } from "@paperbits/common/events/IEventManager";
 import { isNumber } from "util";
+import { PointGesture } from "@paperbits/common/events/gestures";
 
 interface ResizableOptions {
     /**
@@ -52,7 +53,7 @@ export class ResizableBindingHandler {
                 const minWidth = style.minWidth;
                 const minHeight = style.minHeight;
 
-                const onPointerDown = (event: PointerEvent, edge: string): void => {
+                const onPointerDown = (event: MouseEvent, edge: string): void => {
                     if (directions == "none") {
                         return;
                     }
@@ -62,8 +63,8 @@ export class ResizableBindingHandler {
                     event.preventDefault();
                     event.stopImmediatePropagation();
 
-                    eventManager.addEventListener("onPointerMove", onPointerMove);
-                    eventManager.addEventListener("onPointerUp", onPointerUp);
+                    eventManager.addEventListener("onMoveGesture", onMoveGesture);
+                    eventManager.addEventListener("onPressUpGesture", onPointerUp);
 
                     resizing = true;
 
@@ -74,17 +75,17 @@ export class ResizableBindingHandler {
                     initialHeight = rect.height;
                 }
 
-                const onPointerUp = (event: PointerEvent): void => {
+                const onPointerUp = (gesture: PointGesture): void => {
                     resizing = false;
-                    eventManager.removeEventListener("onPointerMove", onPointerMove);
-                    eventManager.removeEventListener("onPointerUp", onPointerUp);
+                    eventManager.removeEventListener("onMoveGesture", onMoveGesture);
+                    eventManager.removeEventListener("onPressUpGesture", onPointerUp);
 
                     if (onResizeCallback) {
                         onResizeCallback();
                     }
                 }
 
-                const onPointerMove = (event: PointerEvent): void => {
+                const onMoveGesture = (gesture: PointGesture): void => {
                     if (!resizing) {
                         return;
                     }
@@ -93,21 +94,21 @@ export class ResizableBindingHandler {
 
                     switch (initialEdge) {
                         case "left":
-                            left = event.clientX + "px";
-                            width = (initialWidth + (initialOffsetX - event.clientX)) + "px";
+                            left = gesture.clientX + "px";
+                            width = (initialWidth + (initialOffsetX - gesture.clientX)) + "px";
                             break;
 
                         case "right":
-                            width = (initialWidth + event.clientX - initialOffsetX) + "px";
+                            width = (initialWidth + gesture.clientX - initialOffsetX) + "px";
                             break;
 
                         case "top":
-                            top = event.clientY + "px";
-                            height = (initialHeight + (initialOffsetY - event.clientY)) + "px";
+                            top = gesture.clientY + "px";
+                            height = (initialHeight + (initialOffsetY - gesture.clientY)) + "px";
                             break;
 
                         case "bottom":
-                            height = (initialHeight + event.clientY - initialOffsetY) + "px";
+                            height = (initialHeight + gesture.clientY - initialOffsetY) + "px";
                             break;
                     }
 
@@ -134,29 +135,29 @@ export class ResizableBindingHandler {
                     const topResizeHandle = element.ownerDocument.createElement("div");
                     topResizeHandle.classList.add("resize-handle", "resize-handle-top");
                     element.appendChild(topResizeHandle);
-                    topResizeHandle.addEventListener("pointerdown", (e) => onPointerDown(e, "top"))
+                    topResizeHandle.addEventListener("mousedown", (e) => onPointerDown(e, "top"))
 
                     const bottomResizeHandle = element.ownerDocument.createElement("div");
                     bottomResizeHandle.classList.add("resize-handle", "resize-handle-bottom");
                     element.appendChild(bottomResizeHandle);
-                    bottomResizeHandle.addEventListener("pointerdown", (e) => onPointerDown(e, "bottom"));
+                    bottomResizeHandle.addEventListener("mousedown", (e) => onPointerDown(e, "bottom"));
                 }
 
                 if (directions.contains("horizontally")) {
                     const rightResizeHandle = element.ownerDocument.createElement("div");
                     rightResizeHandle.classList.add("resize-handle", "resize-handle-right");
                     element.appendChild(rightResizeHandle);
-                    rightResizeHandle.addEventListener("pointerdown", (e) => onPointerDown(e, "right"));
+                    rightResizeHandle.addEventListener("mousedown", (e) => onPointerDown(e, "right"));
 
                     const leftResizeHandle = element.ownerDocument.createElement("div");
                     leftResizeHandle.classList.add("resize-handle", "resize-handle-left");
                     element.appendChild(leftResizeHandle);
-                    leftResizeHandle.addEventListener("pointerdown", (e) => onPointerDown(e, "left"));
+                    leftResizeHandle.addEventListener("mousedown", (e) => onPointerDown(e, "left"));
                 }
 
                 ko.utils.domNodeDisposal.addDisposeCallback(element, () => {
-                    eventManager.removeEventListener("onPointerMove", onPointerMove);
-                    eventManager.removeEventListener("onPointerUp", onPointerUp);
+                    eventManager.removeEventListener("onMoveGesture", onMoveGesture);
+                    eventManager.removeEventListener("onPressUpGesture", onPointerUp);
                 });
             }
         }

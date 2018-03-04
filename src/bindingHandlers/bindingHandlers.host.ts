@@ -91,7 +91,7 @@ export class HostBindingHandler {
                     const documentElement = document.createElement("paperbits-document");
                     hostElement.contentDocument.body.appendChild(documentElement);
                     hostElement.contentDocument.addEventListener("click", onClick, true);
-                    hostElement.contentDocument.addEventListener("pointerdown", onPointerDown, true);
+                    hostElement.contentDocument.addEventListener("mousedown", onPointerDown, true);
                     ko.applyBindings({}, documentElement);
                 }
 

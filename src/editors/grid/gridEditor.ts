@@ -22,6 +22,7 @@ import { GridItem } from "./gridItem";
 import { GridHelper } from "./gridHelper";
 import { ViewManager } from "../../ui/viewManager";
 import { IEventManager } from "@paperbits/common/events/IEventManager";
+import { PointGesture } from "@paperbits/common/events/gestures";
 
 interface Quadrant {
     vertical: string;
@@ -119,14 +120,10 @@ export class GridEditor {
         return true;
     }
 
-    private onPointerDown(event: PointerEvent): void {
+    private onPointerDown(gesture: PointGesture): void {
         if (this.viewManager.mode === ViewManagerMode.zoomout) {
-            event.preventDefault();
-            event.stopPropagation();
-            return;
-        }
-
-        if (event.button !== 0) {
+            gesture.preventDefault();
+            gesture.stopPropagation();
             return;
         }
 
@@ -145,7 +142,7 @@ export class GridEditor {
             return;
         }
 
-        let widgetBinding = GridHelper.getWidgetBinding(element);
+        const widgetBinding = GridHelper.getWidgetBinding(element);
 
         if (!widgetBinding) {
             return;
@@ -201,7 +198,7 @@ export class GridEditor {
         }
     }
 
-    private onPointerMove(event: PointerEvent): void {
+    private onPointerMove(event: PointGesture): void {
         if (this.viewManager.mode === ViewManagerMode.zoomout) {
             event.preventDefault();
             event.stopPropagation();
@@ -974,17 +971,18 @@ export class GridEditor {
     }
 
     public attach(): void {
-        // Firefox doesn't fire "pointermove" events by some reason
-        this.ownerDocument.addEventListener("pointermove", this.onPointerMove.bind(this), true);
+        this.eventManager.addEventListener("onMoveGesture", this.onPointerMove.bind(this));
+        this.eventManager.addEventListener("onPressDownGesture", this.onPointerDown);
+
         this.ownerDocument.addEventListener("scroll", this.onWindowScroll.bind(this));
-        this.ownerDocument.addEventListener("pointerdown", this.onPointerDown, true);
         this.ownerDocument.addEventListener("keydown", this.onKeyDown);
     }
 
     public detach(): void {
-        this.ownerDocument.removeEventListener("pointermove", this.onPointerMove.bind(this), true);
+        this.eventManager.removeEventListener("onMoveGesture", this.onPointerMove.bind(this));
+        this.eventManager.removeEventListener("onPressDownGesture", this.onPointerDown);
+
         this.ownerDocument.removeEventListener("scroll", this.onWindowScroll.bind(this));
-        this.ownerDocument.removeEventListener("pointerdown", this.onPointerDown, true);
         this.ownerDocument.removeEventListener("keydown", this.onKeyDown);
     }
 
