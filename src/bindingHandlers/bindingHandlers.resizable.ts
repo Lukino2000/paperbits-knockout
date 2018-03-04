@@ -52,7 +52,7 @@ export class ResizableBindingHandler {
                 const minWidth = style.minWidth;
                 const minHeight = style.minHeight;
 
-                const onPointerDown = (event: PointerEvent, edge: string): void => {
+                const onPointerDown = (event: MouseEvent, edge: string): void => {
                     if (directions == "none") {
                         return;
                     }
@@ -74,7 +74,7 @@ export class ResizableBindingHandler {
                     initialHeight = rect.height;
                 }
 
-                const onPointerUp = (event: PointerEvent): void => {
+                const onPointerUp = (event: MouseEvent): void => {
                     resizing = false;
                     eventManager.removeEventListener("onPointerMove", onPointerMove);
                     eventManager.removeEventListener("onPointerUp", onPointerUp);
@@ -84,7 +84,7 @@ export class ResizableBindingHandler {
                     }
                 }
 
-                const onPointerMove = (event: PointerEvent): void => {
+                const onPointerMove = (event: MouseEvent): void => {
                     if (!resizing) {
                         return;
                     }
@@ -134,24 +134,24 @@ export class ResizableBindingHandler {
                     const topResizeHandle = element.ownerDocument.createElement("div");
                     topResizeHandle.classList.add("resize-handle", "resize-handle-top");
                     element.appendChild(topResizeHandle);
-                    topResizeHandle.addEventListener("pointerdown", (e) => onPointerDown(e, "top"))
+                    topResizeHandle.addEventListener("mousedown", (e) => onPointerDown(e, "top"))
 
                     const bottomResizeHandle = element.ownerDocument.createElement("div");
                     bottomResizeHandle.classList.add("resize-handle", "resize-handle-bottom");
                     element.appendChild(bottomResizeHandle);
-                    bottomResizeHandle.addEventListener("pointerdown", (e) => onPointerDown(e, "bottom"));
+                    bottomResizeHandle.addEventListener("mousedown", (e) => onPointerDown(e, "bottom"));
                 }
 
                 if (directions.contains("horizontally")) {
                     const rightResizeHandle = element.ownerDocument.createElement("div");
                     rightResizeHandle.classList.add("resize-handle", "resize-handle-right");
                     element.appendChild(rightResizeHandle);
-                    rightResizeHandle.addEventListener("pointerdown", (e) => onPointerDown(e, "right"));
+                    rightResizeHandle.addEventListener("mousedown", (e) => onPointerDown(e, "right"));
 
                     const leftResizeHandle = element.ownerDocument.createElement("div");
                     leftResizeHandle.classList.add("resize-handle", "resize-handle-left");
                     element.appendChild(leftResizeHandle);
-                    leftResizeHandle.addEventListener("pointerdown", (e) => onPointerDown(e, "left"));
+                    leftResizeHandle.addEventListener("mousedown", (e) => onPointerDown(e, "left"));
                 }
 
                 ko.utils.domNodeDisposal.addDisposeCallback(element, () => {

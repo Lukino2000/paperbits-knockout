@@ -7,8 +7,8 @@ ko.bindingHandlers["collapse"] = {
         const visibleObservable = ko.observable(true);
         const triggerClassObservable = ko.observable()
 
-        const onPointerDown = (event: PointerEvent) => {
-            if (event.pointerType === "mouse" && event.button !== 0) {
+        const onPointerDown = (event: MouseEvent) => {
+            if (event.button !== 0) {
                 return;
             }
             visibleObservable(!visibleObservable());
@@ -20,7 +20,7 @@ ko.bindingHandlers["collapse"] = {
         }
 
         triggerElement.addEventListener("click", onClick);
-        triggerElement.addEventListener("pointerdown", onPointerDown);
+        triggerElement.addEventListener("mousedown", onPointerDown);
 
         ko.applyBindingsToNode(targetElement, {
             css: { collapsed: ko.pureComputed(() => !visibleObservable()) }
@@ -31,7 +31,7 @@ ko.bindingHandlers["collapse"] = {
         });
 
         ko.utils.domNodeDisposal.addDisposeCallback(triggerElement, () => {
-            triggerElement.removeEventListener("pointerdown", onPointerDown);
+            triggerElement.removeEventListener("mousedown", onPointerDown);
         });
     }
 }

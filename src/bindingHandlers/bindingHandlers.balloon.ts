@@ -153,7 +153,7 @@ export class BalloonBindingHandler {
                     }
                 }
 
-                const onPointerDown = async (event: PointerEvent): Promise<void> => {
+                const onPointerDown = async (event: MouseEvent): Promise<void> => {
                     if (!toggleElement) {
                         return;
                     }
@@ -193,12 +193,12 @@ export class BalloonBindingHandler {
                     }
                 }
 
-                const onClick = (event: PointerEvent): void => {
+                const onClick = (event: MouseEvent): void => {
                     event.preventDefault();
                     event.stopImmediatePropagation();
                 }
 
-                const onScroll = async (event: PointerEvent): Promise<void> => {
+                const onScroll = async (event: MouseEvent): Promise<void> => {
                     // TODO: This is expensive and frequent event. 
 
                     const balloonElement = await getBalloonElement();

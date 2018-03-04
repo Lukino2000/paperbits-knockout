@@ -34,7 +34,7 @@ export class NavigationTree {
         this.placeholderElement.onmousemove = this.onNullPointerMove;
     }
 
-    private onNullPointerMove(event: PointerEvent): void {
+    private onNullPointerMove(event: MouseEvent): void {
         event.stopPropagation();
     }
 

@@ -57,7 +57,7 @@ export class HostBindingHandler {
                     event.preventDefault(); // prevent default event handling for all controls
                 }
 
-                const onPointerDown = (event: PointerEvent): void => {
+                const onPointerDown = (event: MouseEvent): void => {
                     const htmlElement = <HTMLElement>event.target;
                     const htmlLinkElement = <HTMLLinkElement>htmlElement.closest("A");
 
@@ -91,18 +91,18 @@ export class HostBindingHandler {
                     const documentElement = document.createElement("paperbits-document");
                     hostElement.contentDocument.body.appendChild(documentElement);
                     hostElement.contentDocument.addEventListener("click", onClick, true);
-                    hostElement.contentDocument.addEventListener("pointerdown", onPointerDown, true);
+                    hostElement.contentDocument.addEventListener("mousedown", onPointerDown, true);
                     ko.applyBindings({}, documentElement);
                 }
 
                 hostElement.addEventListener("load", onLoad, false);
-                document.addEventListener("pointermove", onPointerMove, true);
+                document.addEventListener("mousemove", onPointerMove, true);
 
                 element.appendChild(hostElement);
 
                 ko.utils.domNodeDisposal.addDisposeCallback(element, () => {
                     hostElement.removeEventListener("load", onLoad, false);
-                    document.removeEventListener("pointermove", onPointerMove);
+                    document.removeEventListener("mousemove", onPointerMove);
                     hostElement.contentDocument.removeEventListener("click", onClick, true);
                 });
             }
