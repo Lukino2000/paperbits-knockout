@@ -141,7 +141,9 @@ export class NavigationTree {
     }
 
     public onNodeDragEnd(widget: HTMLElement): void {
-        this.placeholderElement.parentElement.removeChild(this.placeholderElement);
+        if (this.placeholderElement.parentElement) {
+            this.placeholderElement.parentElement.removeChild(this.placeholderElement);
+        }
     }
 
     private onAcceptNodeBefore(node: HTMLElement, acceptingNode: HTMLElement): void {

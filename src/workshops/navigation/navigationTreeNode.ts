@@ -25,7 +25,6 @@ export class NavigationTreeNode {
         this.id = navitem.key;
         this.label = ko.observable<string>(navitem.label);
 
-
         this.nodes = ko.observableArray<NavigationTreeNode>([]);
         this.collapsed = ko.observable<boolean>(false);
         this.dragged = ko.observable<boolean>(false);
