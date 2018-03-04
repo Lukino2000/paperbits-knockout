@@ -91,8 +91,8 @@ export class FormattingTools {
         
         this.setFont = this.setFont.bind(this);
         this.fontIntentions = IntentionsUtils.toArray(this.intentions.text.font);
-        this.fontIntention = ko.observable<Intention>(this.intentions.text.font.text_font_cursive);
-        this.font = ko.observable<string>(this.intentions.text.font.text_font_sansserif.name());
+        this.fontIntention = ko.observable<Intention>(this.intentions.text.font.text_font_display);
+        this.font = ko.observable<string>(this.intentions.text.font.text_font_serif.name());
 
         this.setSize = this.setSize.bind(this);
         this.sizeIntentions = IntentionsUtils.toArray(this.intentions.text.size_);

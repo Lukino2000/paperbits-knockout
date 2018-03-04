@@ -26,8 +26,8 @@ export class IntentionsProvider implements IIntentionsProvider {
                     )
                     .group("font", styleBuilder => // serif, sans-serif, monospace, cursive
                         styleBuilder
-                            .addIntention("text_font_sansserif", "Serif", "block")
-                            .addIntention("text_font_cursive", "Handwriting", "block")
+                            .addIntention("text_font_serif", "Serif", "block")
+                            .addIntention("text_font_display", "Display", "block")
                     )
             )
             .scope("container", containerBuilder =>

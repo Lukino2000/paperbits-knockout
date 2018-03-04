@@ -26,7 +26,7 @@ export class SectionViewModelBinder implements IViewModelBinder<SectionModel, Se
         })
 
         existingViewModel.rows(rowViewModels);
-        existingViewModel.layout(model.layout);
+        existingViewModel.containerCss(model.layout);
         existingViewModel.background(model.background);
 
         const sectionClasses = [];
@@ -49,26 +49,34 @@ export class SectionViewModelBinder implements IViewModelBinder<SectionModel, Se
             sectionClasses.push(backgroundIntention.params());
         }
 
-
         if (model.padding === "with-padding") {
             sectionClasses.push("with-padding");
         }
 
         switch (model.snap) {
-            case "none":
-                // Do nothing
-                break;
             case "top":
                 sectionClasses.push("sticky-top");
                 break;
             case "bottom":
                 sectionClasses.push("sticky-bottom");
                 break;
-            default:
-                throw `Unkown snap value "${model.snap}".`;
         }
 
-        existingViewModel.css(sectionClasses.join(" "));
+        existingViewModel.sectionCss(sectionClasses.join(" "));
+
+        const containerClasses = [];
+
+        switch (model.layout) {
+            case "container":
+                containerClasses.push("container");
+                break;
+            case "container-thinner":
+                containerClasses.push("container container-thinner");
+                break;
+        }
+
+        existingViewModel.containerCss(containerClasses.join(" "));
+
 
         const binding = {
             displayName: "Section",

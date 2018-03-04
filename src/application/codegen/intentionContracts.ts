@@ -87,8 +87,8 @@ export interface Intentions_text_style extends IntentionsMap{
 
 export interface Intentions_text_font extends IntentionsMap{
 	name: string;
-	text_font_sansserif: Intention;
-	text_font_cursive: Intention;
+	text_font_serif: Intention;
+	text_font_display: Intention;
 }
 
 export interface Intentions_container extends IntentionsMap{

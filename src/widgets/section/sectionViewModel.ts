@@ -10,15 +10,15 @@ import { BackgroundModel } from "@paperbits/common/widgets/background/background
 })
 export class SectionViewModel {
     public rows: KnockoutObservableArray<RowViewModel>;
-    public layout: KnockoutObservable<string>;
-    public css: KnockoutObservable<string>;
+    public containerCss: KnockoutObservable<string>;
+    public sectionCss: KnockoutObservable<string>;
     public snapTo: KnockoutObservable<string>;
     public background: KnockoutObservable<BackgroundModel>;
 
     constructor() {
         this.rows = ko.observableArray<RowViewModel>();
-        this.layout = ko.observable<string>();
-        this.css = ko.observable<string>();
+        this.containerCss = ko.observable<string>();
+        this.sectionCss = ko.observable<string>();
         this.snapTo = ko.observable<string>();
         this.background = ko.observable<BackgroundModel>();
     }

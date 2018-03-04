@@ -1,5 +1,5 @@
-<section data-bind="background: background, layoutsection: {}, css: css, snapTo: snapTo">
-    <div data-bind="css: { container: $component.layout() == 'container' }">
+<section data-bind="background: background, layoutsection: {}, css: sectionCss, snapTo: snapTo">
+    <div data-bind="css: $component.containerCss">
         <!-- ko foreach: { data: rows, as: 'row' } -->
         <!-- ko widget: row -->
         <!-- /ko -->

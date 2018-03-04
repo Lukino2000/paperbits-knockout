@@ -18,8 +18,8 @@ export var theme =
                 "text_lead": "lead"
             },
             font: {
-                "text_font_sansserif": null,
-                "text_font_cursive": "text-font-script"
+                "text_font_serif": null,
+                "text_font_display": "text-font-display"
             }
         },
         container: {
@@ -40,10 +40,10 @@ export var theme =
                     "upper-roman": "upper-roman"
                 },
                 unordered:{
-                    "disc": "disc",
-                    "circle": "circle",
-                    "square": "square",
-                    "none": "none"
+                    "disc": "list-disc",
+                    "circle": "list-circle",
+                    "square": "list-square",
+                    "none": "list-unstyled"
                 }
             }
         }
