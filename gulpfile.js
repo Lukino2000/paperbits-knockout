@@ -70,31 +70,3 @@ gulp.task("build", (done) => runSeq("build-clean", "webpack-dev", done));
 
 gulp.task("default", ["server"]);
 
-/*** PUBLISH FUNCTIONS PACKAGE ***/
-gulp.task("webpack-publish", (callback) => {
-    var webPackConfig = require("./webpack.config.publish.js");
-    webpack(webPackConfig, function (err, stats) {
-        if (err) throw new gutil.PluginError("webpack", err);
-
-        gutil.log("[webpack-publish]", stats.toString({
-            colors: true,
-            progress: true
-        }));
-
-        callback();
-    });
-});
-
-gulp.task("webpack-server", (callback) => {
-    var webPackConfig = require("./webpack.config.server.js");
-    webpack(webPackConfig, function (err, stats) {
-        if (err) throw new gutil.PluginError("webpack", err);
-
-        gutil.log("[webpack-server]", stats.toString({
-            colors: true,
-            progress: true
-        }));
-
-        callback();
-    });
-});
