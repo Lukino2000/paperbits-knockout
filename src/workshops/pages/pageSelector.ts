@@ -53,7 +53,7 @@ export class PageSelector implements IResourceSelector<PageSelection> {
     public async searchPages(searchPattern: string = ""): Promise<void> {
         this.working(true);
 
-        let pages = await this.pageService.search(searchPattern);
+        let pages = await this.pageService.searchPages(searchPattern);
         let pageItems = pages.map(page => new PageItem(page));
         this.pages(pageItems);
         this.working(false);
