@@ -21,7 +21,6 @@
         "./src/**/*.ts"
     ],
     "exclude": [
-        "node_modules",
-        "./src/themes"
+        "node_modules"
     ]
 }
