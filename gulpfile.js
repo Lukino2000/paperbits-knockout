@@ -1,13 +1,10 @@
 const gulp = require("gulp");
-const gutil = require("gulp-util");
 const typescript = require("typescript");
 const typescriptCompiler = require("gulp-typescript");
 const del = require("del");
-const path = require("path");
 const merge = require("merge2");
 const runSeq = require("run-sequence");
-const webpack = require("webpack");
-const webpackDevServer = require("webpack-dev-server");
+
 
 gulp.task("build-npm", ["build-npm-ts"], () => {
     return gulp.src(["!./src/themes/**/*.*", "./src/**/*.+(html|scss|png|woff|woff2|eot|ttf|svg)"])

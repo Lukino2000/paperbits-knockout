@@ -37,10 +37,5 @@ export class KnockoutRegistrationWidgets implements IInjectorModule {
         injector.bind("videoPlayer", VideoPlayerViewModel);
         injector.bind("gtm", GoogleTagManager);
         injector.bind("intercom", IntercomViewModel);
-
-
-        // var aceconfig: any = ace;
-        // aceconfig.config.set("basePath", "https://cdn.jsdelivr.net/ace/1.2.3/noconflict/");
-        // injector.bind("codeBlock", Code);
     }
 }
