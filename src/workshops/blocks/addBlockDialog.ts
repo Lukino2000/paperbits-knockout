@@ -2,7 +2,7 @@ import template from "./addBlockDialog.html";
 import * as ko from "knockout";
 import * as Utils from "@paperbits/common/utils";
 import { IResourceSelector } from "@paperbits/common/ui/IResourceSelector";
-import { IBlock } from '@paperbits/common/blocks/IBlock';
+import { BlockContract } from '@paperbits/common/blocks/blockContract';
 import { IPermalink } from '@paperbits/common/permalinks/IPermalink';
 import { IPermalinkService } from '@paperbits/common/permalinks/IPermalinkService';
 import { IBlockService } from '@paperbits/common/blocks/IBlockService';

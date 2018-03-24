@@ -1,5 +1,5 @@
 ﻿import * as ko from "knockout";
-import { IBlock } from "@paperbits/common/blocks/IBlock";
+import { BlockContract } from "@paperbits/common/blocks/BlockContract";
 import { Contract } from "@paperbits/common/contract";
 
 
@@ -11,7 +11,7 @@ export class BlockItem {
     public title: KnockoutObservable<string>;
     public description: KnockoutObservable<string>;
 
-    constructor(block: IBlock) {
+    constructor(block: BlockContract) {
         this.key = block.key;
         this.content = block.content;
         this.title = ko.observable<string>(block.title);
@@ -19,7 +19,7 @@ export class BlockItem {
         this.hasFocus = ko.observable<boolean>();
     }
 
-    public toBlock(): IBlock {
+    public toBlock(): BlockContract {
         return {
             key: this.key,
             title: this.title(),

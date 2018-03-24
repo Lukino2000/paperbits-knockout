@@ -3,7 +3,7 @@ import * as ko from "knockout";
 import * as Utils from "@paperbits/common/utils";
 import { IResourceSelector } from "@paperbits/common/ui/IResourceSelector";
 import { BlockItem } from "./blockItem";
-import { IBlock } from '@paperbits/common/blocks/IBlock';
+import { BlockContract } from '@paperbits/common/blocks/blockContract';
 import { IBlockService } from '@paperbits/common/blocks/IBlockService';
 import { Component } from "../../decorators/component";
 
@@ -13,17 +13,17 @@ import { Component } from "../../decorators/component";
     template: template,
     injectable: "blockSelector"
 })
-export class BlockSelector implements IResourceSelector<IBlock> {
+export class BlockSelector implements IResourceSelector<BlockContract> {
     private readonly blockService: IBlockService;
-    private readonly onBlockSelected: (block: IBlock) => void;
+    private readonly onBlockSelected: (block: BlockContract) => void;
 
     public readonly searchPattern: KnockoutObservable<string>;
     public readonly blocks: KnockoutObservableArray<BlockItem>;
     public readonly working: KnockoutObservable<boolean>;
     public readonly selectedBlockItem: KnockoutObservable<BlockItem>;
-    public readonly onResourceSelected: (block: IBlock) => void;
+    public readonly onResourceSelected: (block: BlockContract) => void;
 
-    constructor(blockService: IBlockService, onSelect: (block: IBlock) => void) {
+    constructor(blockService: IBlockService, onSelect: (block: BlockContract) => void) {
         this.blockService = blockService;
 
         this.selectBlock = this.selectBlock.bind(this);

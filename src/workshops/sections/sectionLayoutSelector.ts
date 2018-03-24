@@ -5,7 +5,7 @@ import { SectionModel } from "@paperbits/common/widgets/section/sectionModel";
 import { ColumnModel } from "@paperbits/common/widgets/column/columnModel";
 import { RowModel } from "@paperbits/common/widgets/row/rowModel";
 import { SliderModel } from "@paperbits/common/widgets/slider/sliderModel";
-import { IBlock } from "@paperbits/common/blocks/IBlock";
+import { BlockContract } from "@paperbits/common/blocks/BlockContract";
 import { IBlockService } from "@paperbits/common/blocks/IBlockService";
 import { ModelBinderSelector } from "@paperbits/common/widgets/modelBinderSelector";
 
@@ -43,7 +43,7 @@ export class SectionLayoutSelector implements IResourceSelector<any> {
         }
     }
 
-    public async onBlockSelected(block: IBlock): Promise<void> {
+    public async onBlockSelected(block: BlockContract): Promise<void> {
         const modelBinder = this.modelBinderSelector.getModelBinderByNodeType(block.content.type);
         const model = await modelBinder.nodeToModel(block.content);
 
