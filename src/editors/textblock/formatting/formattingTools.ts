@@ -300,7 +300,9 @@ export class FormattingTools {
         const pageContract = await this.pageService.getPageByKey(permalink.targetKey);
 
         if (!anchorKey) {
-            const anchorId = Utils.guid();
+            // TODO: SelectionText is lost, whole paragraph is selected instead by some reason.
+            const anchorTitle = htmlEditor.getSelectionText().substr(0, 20);
+            const anchorId = Utils.slugify(anchorTitle);
             const anchorPermalink = await this.permalinkService.createPermalink(`${anchorId}`, null, permalink.key);
 
             htmlEditor.toggleIntention(<Intention>{
@@ -309,9 +311,7 @@ export class FormattingTools {
                 name: () => "",
                 scope: "block"
             });
-
-            // TODO: Probably we should show dialog and allow users to enter anchor title.
-            const anchorTitle = htmlEditor.getSelectionText();
+            
             const anchors = pageContract.anchors || {};
             anchors[anchorPermalink.key.replaceAll("/", "|")] = anchorTitle;
             pageContract.anchors = anchors;
