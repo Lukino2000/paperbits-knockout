@@ -300,6 +300,7 @@ export class FormattingTools {
         const pageContract = await this.pageService.getPageByKey(permalink.targetKey);
 
         if (!anchorKey) {
+            // TODO: Probably we should show dialog and allow users to enter anchor title.
             // TODO: SelectionText is lost, whole paragraph is selected instead by some reason.
             const anchorTitle = htmlEditor.getSelectionText().substr(0, 20);
             const anchorId = Utils.slugify(anchorTitle);
