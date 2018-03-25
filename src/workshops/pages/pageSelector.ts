@@ -2,7 +2,7 @@ import * as ko from "knockout";
 import template from "./pageSelector.html";
 import { IResourceSelector } from "@paperbits/common/ui/IResourceSelector";
 import { PageItem, AnchorItem } from "./pageItem";
-import { PageSelection } from '@paperbits/common/pages/pageSelection';
+import { PermalinkSelection } from '@paperbits/common/permalinks/permalinkSelection';
 import { PageContract } from '@paperbits/common/pages/pageContract';
 import { IPermalink } from '@paperbits/common/permalinks/IPermalink';
 import { IPermalinkService } from '@paperbits/common/permalinks/IPermalinkService';
@@ -15,7 +15,7 @@ import { Component } from "../../decorators/component";
     template: template,
     injectable: "pageSelector"
 })
-export class PageSelector implements IResourceSelector<PageSelection> {
+export class PageSelector implements IResourceSelector<PermalinkSelection> {
     private readonly pageService: IPageService;
     private readonly permalinkService: IPermalinkService;
 
@@ -24,9 +24,9 @@ export class PageSelector implements IResourceSelector<PageSelection> {
     public readonly working: KnockoutObservable<boolean>;
 
     public selectedPage: KnockoutObservable<PageItem>;
-    public onResourceSelected: (selection: PageSelection) => void;
+    public onResourceSelected: (selection: PermalinkSelection) => void;
 
-    constructor(pageService: IPageService, permalinkService: IPermalinkService, onSelect: (page: PageSelection) => void) {
+    constructor(pageService: IPageService, permalinkService: IPermalinkService, onSelect: (selection: PermalinkSelection) => void) {
         this.pageService = pageService;
         this.permalinkService = permalinkService;
 

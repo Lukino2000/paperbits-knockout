@@ -7,6 +7,8 @@ import { IPermalink } from '@paperbits/common/permalinks/IPermalink';
 import { IPermalinkService } from '@paperbits/common/permalinks/IPermalinkService';
 import { IBlogService } from '@paperbits/common/blogs/IBlogService';
 import { Component } from "../../decorators/component";
+import { AnchorItem } from "../pages/pageItem";
+import { PermalinkSelection } from "@paperbits/common/permalinks/permalinkSelection";
 
 
 @Component({
@@ -14,7 +16,7 @@ import { Component } from "../../decorators/component";
     template: template,
     injectable: "blogSelector"
 })
-export class BlogSelector implements IResourceSelector<BlogPostContract> {
+export class BlogSelector implements IResourceSelector<PermalinkSelection> {
     private readonly blogService: IBlogService;
     private readonly permalinkService: IPermalinkService;
 
@@ -23,9 +25,9 @@ export class BlogSelector implements IResourceSelector<BlogPostContract> {
     public readonly working: KnockoutObservable<boolean>;
 
     public selectedPost: KnockoutObservable<BlogPostItem>;
-    public onResourceSelected: (blog: BlogPostContract) => void;
+    public onResourceSelected: (blog: PermalinkSelection) => void;
 
-    constructor(blogService: IBlogService, permalinkService: IPermalinkService, onSelect: (blogPost: BlogPostContract) => void) {
+    constructor(blogService: IBlogService, permalinkService: IPermalinkService, onSelect: (selection: PermalinkSelection) => void) {
         this.blogService = blogService;
         this.permalinkService = permalinkService;
 
@@ -34,6 +36,7 @@ export class BlogSelector implements IResourceSelector<BlogPostContract> {
 
         this.posts = ko.observableArray<BlogPostItem>();
         this.selectedPost = ko.observable<BlogPostItem>();
+        this.selectAnchor = this.selectAnchor.bind(this);
         this.searchPattern = ko.observable<string>();
         this.searchPattern.subscribe(this.searchPosts);
         this.working = ko.observable(true);
@@ -57,11 +60,17 @@ export class BlogSelector implements IResourceSelector<BlogPostContract> {
         this.working(false);
     }
 
-    public async selectPost(blog: BlogPostItem): Promise<void> {
+    public selectPost(blog: BlogPostItem): void {
         this.selectedPost(blog);
 
         if (this.onResourceSelected) {
-            this.onResourceSelected(blog.toBlogPost());
+            this.onResourceSelected({ title: blog.title(), permalinkKey: blog.permalinkKey });
+        }
+    }
+
+    public selectAnchor(anchor: AnchorItem): void {
+        if (this.onResourceSelected) {
+            this.onResourceSelected({ title: anchor.title, permalinkKey: anchor.permalinkKey });
         }
     }
 }

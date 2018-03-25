@@ -23,7 +23,6 @@ export class PageItem {
     public description: KnockoutObservable<string>;
     public keywords: KnockoutObservable<string>;
     public hasFocus: KnockoutObservable<boolean>;
-
     public anchors: AnchorItem[];
 
     constructor(page: PageContract) {

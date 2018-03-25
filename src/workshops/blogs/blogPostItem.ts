@@ -1,5 +1,6 @@
 import * as ko from "knockout";
 import { BlogPostContract } from '@paperbits/common/blogs/BlogPostContract';
+import { AnchorItem } from "../pages/pageItem";
 
 export class BlogPostItem {
     contentKey?: string;
@@ -11,6 +12,7 @@ export class BlogPostItem {
     public description: KnockoutObservable<string>;
     public keywords: KnockoutObservable<string>;
     public hasFocus: KnockoutObservable<boolean>;
+    public anchors: AnchorItem[];
 
     constructor(blogPost: BlogPostContract) {
         this.contentKey = blogPost.contentKey;
@@ -22,6 +24,17 @@ export class BlogPostItem {
         this.description = ko.observable<string>(blogPost.description);
         this.keywords = ko.observable<string>(blogPost.keywords);
         this.hasFocus = ko.observable<boolean>(false);
+        this.anchors = [];
+
+        if (blogPost.anchors) {
+            Object.keys(blogPost.anchors).forEach(key => {
+                const anchorItem = new AnchorItem();
+                anchorItem.title = `${blogPost.title} > ${blogPost.anchors[key]}`;
+                anchorItem.shortTitle = blogPost.anchors[key];
+                anchorItem.permalinkKey = key.replaceAll("|", "/");
+                this.anchors.push(anchorItem);
+            })
+        }
     }
 
     toBlogPost(): BlogPostContract {
