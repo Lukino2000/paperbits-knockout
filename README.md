@@ -13,7 +13,7 @@ Paperbits is a library of reusable tools and components helping you build web ap
 
 [Blog](https://paperbits.io/blog)
 
-[Contributing guide](https://paperbits/contributing)
+[Contributing guide](https://paperbits.io/contributing)
 
 
 ## License
