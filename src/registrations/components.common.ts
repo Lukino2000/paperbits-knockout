@@ -37,6 +37,12 @@ import { SavingHandler } from "@paperbits/common/persistence/savingHandler";
 import { UnhandledErrorHandler } from "@paperbits/common/errors/unhandledErrorHandler";
 import { OfflineObjectStorage } from "@paperbits/common/persistence/offlineObjectStorage";
 import { AnchorMiddleware } from "@paperbits/common/persistence/anchorMiddleware";
+import { IPermalinkService } from "@paperbits/common/permalinks/IPermalinkService";
+import { IPermalinkResolver } from "@paperbits/common/permalinks/IPermalinkResolver";
+import { PermalinkResolver } from "@paperbits/common/permalinks/permalinkResolver";
+import { MediaPermalinkResolver } from "@paperbits/common/media/mediaPermalinkResolver";
+import { PagePermalinkResolver } from "@paperbits/common/pages/pagePermalinkResolver";
+import { BlogPermalinkResolver } from "@paperbits/common/blogs/blogPermalinkResolver";
 
 
 export class ComponentRegistrationCommon implements IInjectorModule {
@@ -49,7 +55,6 @@ export class ComponentRegistrationCommon implements IInjectorModule {
         injector.bindSingleton("globalEventHandler", GlobalEventHandler);
         injector.bindSingleton("localCache", LocalCache);
         injector.bindSingleton("offlineObjectStorage", OfflineObjectStorage);
-
         injector.bindSingleton("anchorMiddleware", AnchorMiddleware);
 
         /*** Services ***/
@@ -85,5 +90,21 @@ export class ComponentRegistrationCommon implements IInjectorModule {
         injector.bind("buttonModelBinder", ButtonModelBinder);
         injector.bind("sliderModelBinder", SliderModelBinder);
         //injector.bind("codeblockModelBinder", CodeblockModelBinder);
+
+        injector.bind("mediaPermalinkResolver", MediaPermalinkResolver);
+        injector.bind("pagePermalinkResolver", PagePermalinkResolver);
+        injector.bind("blogPermalinkResolver", BlogPermalinkResolver);
+
+        injector.bindSingletonFactory("permalinkResolver", (ctx: IInjector) => {
+            let permalinkService = ctx.resolve<IPermalinkService>("permalinkService");
+            let mediaPermalinkResolver = ctx.resolve<IPermalinkResolver>("mediaPermalinkResolver");
+            let pagePermalinkResolver = ctx.resolve<IPermalinkResolver>("pagePermalinkResolver");
+            let blogPermalinkResolver = ctx.resolve<IPermalinkResolver>("blogPermalinkResolver");
+
+            return new PermalinkResolver(permalinkService, [
+                mediaPermalinkResolver,
+                pagePermalinkResolver,
+                blogPermalinkResolver]);
+        });
     }
 }

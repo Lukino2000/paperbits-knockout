@@ -105,22 +105,6 @@ export class ComponentRegistrationEditors implements IInjectorModule {
         injector.bind("blogWorkshop", BlogWorkshop);
         injector.bind("navigationWorkshop", NavigationWorkshop);
 
-        injector.bind("mediaPermalinkResolver", MediaPermalinkResolver);
-        injector.bind("pagePermalinkResolver", PagePermalinkResolver);
-        injector.bind("blogPermalinkResolver", BlogPermalinkResolver);
-
-        injector.bindSingletonFactory("permalinkResolver", (ctx: IInjector) => {
-            let permalinkService = ctx.resolve<IPermalinkService>("permalinkService");
-            let mediaPermalinkResolver = ctx.resolve<IPermalinkResolver>("mediaPermalinkResolver");
-            let pagePermalinkResolver = ctx.resolve<IPermalinkResolver>("pagePermalinkResolver");
-            let blogPermalinkResolver = ctx.resolve<IPermalinkResolver>("blogPermalinkResolver");
-
-            return new PermalinkResolver(permalinkService, [
-                mediaPermalinkResolver,
-                pagePermalinkResolver,
-                blogPermalinkResolver]);
-        });
-
         injector.bindComponent("navigationDetailsWorkshop", (ctx: IInjector, params) => {
             var navigationService = ctx.resolve<INavigationService>("navigationService");
             var viewManager = ctx.resolve<IViewManager>("viewManager");
