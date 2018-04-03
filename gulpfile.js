@@ -26,8 +26,8 @@ gulp.task("build-npm-ts", ["build-clean"], (callback) => {
     ]);
 });
 
-gulp.task("build-clean", (done)  => {
-        return  del(["dist/lib/**"], done);
+gulp.task("build-clean", (done) => {
+    return del(["dist/lib/**"], done);
 });
 
 gulp.task("build", (done) => runSeq("build-clean", "build-npm-ts", done));

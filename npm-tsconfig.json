@@ -14,8 +14,7 @@
         "allowUnreachableCode": true,
         "listFiles": false,
         "sourceMap": true,
-        "allowSyntheticDefaultImports": true,
-        "jsx": "react"
+        "allowSyntheticDefaultImports": true
     },
     "include": [
         "./src/**/*.ts"
