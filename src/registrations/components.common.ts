@@ -16,6 +16,7 @@ import { BlockService } from "@paperbits/common/blocks/blockService";
 import { NavigationService } from "@paperbits/common/navigation/navigationService";
 import { SiteService } from "@paperbits/common/sites/siteService";
 import { IntercomService } from "@paperbits/common/intercom/intercomService";
+import { UrlService } from "@paperbits/common/urls/urlService";
 import { YoutubeModelBinder } from "@paperbits/common/widgets/youtube-player/youtubeModelBinder";
 import { VideoPlayerModelBinder } from "@paperbits/common/widgets/video-player/videoPlayerModelBinder";
 import { AudioPlayerModelBinder } from "@paperbits/common/widgets/audio-player/audioPlayerModelBinder";
@@ -69,8 +70,10 @@ export class ComponentRegistrationCommon implements IInjectorModule {
         injector.bindSingleton("navigationService", NavigationService);
         injector.bindSingleton("siteService", SiteService);
         injector.bindSingleton("intercomService", IntercomService);
+        injector.bindSingleton("urlService", UrlService);
         injector.bindSingleton("savingHandler", SavingHandler);
         injector.bindSingleton("errorHandler", UnhandledErrorHandler);
+        
 
         /*** Model binders ***/
         injector.bind("backgroundModelBinder", BackgroundModelBinder);

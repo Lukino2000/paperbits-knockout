@@ -5,6 +5,7 @@ import { ILayoutService } from "@paperbits/common/layouts/ILayoutService";
 import { IMediaService } from '@paperbits/common/media/IMediaService';
 import { INavigationService } from '@paperbits/common/navigation/INavigationService';
 import { IPageService } from '@paperbits/common/pages/IPageService';
+import { IUrlService } from "@paperbits/common/urls/IUrlService";
 import { IPermalinkService } from '@paperbits/common/permalinks/IPermalinkService';
 import { IRouteHandler } from '@paperbits/common/routing/IRouteHandler';
 import { IViewManager } from '@paperbits/common/ui/IViewManager';
@@ -22,7 +23,7 @@ import { IHyperlinkProvider } from "@paperbits/common/ui/IHyperlinkProvider";
 import { PageHyperlinkProvider } from "@paperbits/common/pages/pageHyperlinkProvider";
 import { BlogHyperlinkProvider } from "@paperbits/common/blogs/blogHyperlinkProvider";
 import { MediaHyperlinkProvider } from "@paperbits/common/media/mediaHyperlinkProvider";
-import { UrlHyperlinkProvider } from "@paperbits/common/permalinks/urlHyperlinkProvider";
+import { UrlHyperlinkProvider } from "@paperbits/common/urls/urlHyperlinkProvider";
 import { AudioEditor } from '../editors/audio-player/audioEditor';
 import { AudioHandlers } from '../editors/audio-player/audioHandlers';
 import { BlogPostDetailsWorkshop } from "../workshops/blogs/blogPostDetails";
@@ -69,7 +70,7 @@ import { SectionLayoutSelector } from '../workshops/sections/sectionLayoutSelect
 import { SettingsWorkshop } from '../workshops/settings/settings';
 import { TextblockEditor } from '../editors/textblock/textblockEditor';
 import { TextblockHandlers } from '../editors/textblock/textblockHandlers';
-import { UrlSelector } from '../workshops/hyperlinks/urlSelector';
+import { UrlSelector } from '../workshops/urls/urlSelector';
 import { VideoEditor } from '../editors/video-player/videoEditor';
 import { VideoHandlers } from '../editors/video-player/videoHandlers';
 import { WidgetSelector } from '../workshops/widgets/widgetSelector';
@@ -256,7 +257,9 @@ export class ComponentRegistrationEditors implements IInjectorModule {
         });
 
         injector.bindComponent("urlSelector", (ctx: IInjector, params: {}) => {
-            return new UrlSelector(params["onSelect"]);
+            const urlService = ctx.resolve<IUrlService>("urlService");
+            const permalinkService = ctx.resolve<IPermalinkService>("permalinkService");
+            return new UrlSelector(urlService, permalinkService, params["onSelect"]);
         });
 
         injector.bindComponent("blockSelector", (ctx: IInjector, params: {}) => {
