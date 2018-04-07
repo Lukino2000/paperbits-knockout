@@ -28,7 +28,7 @@ import { ContentBindingHandler } from "../bindingHandlers/bindingHandlers.conten
 import { DraggablesBindingHandler } from "../bindingHandlers/bindingHandlers.draggables";
 import { GridBindingHandler } from "../bindingHandlers/bindingHandlers.grid";
 import { LightboxBindingHandler } from "../bindingHandlers/bindingHandlers.lightbox";
-import { SlateBindingHandler } from "../bindingHandlers/bindingHandlers.slate";
+import { HtmlEditorBindingHandler } from "../bindingHandlers/bindingHandlers.htmlEditor";
 import { BalloonBindingHandler } from "../bindingHandlers/bindingHandlers.balloon";
 import { ViewManager } from "../ui/viewManager";
 import { Tooltip } from "../ui/tooltip";
@@ -53,7 +53,7 @@ export class KnockoutRegistrationCommon implements IInjectorModule {
         injector.bindSingleton("lighboxBindingHandler", LightboxBindingHandler);
         injector.bindSingleton("draggablesBindingHandler", DraggablesBindingHandler);
         injector.bindSingleton("widgetBindingHandler", WidgetBindingHandler);
-        injector.bindSingleton("slateBindingHandler", SlateBindingHandler);
+        injector.bindSingleton("slateBindingHandler", HtmlEditorBindingHandler);
         injector.bindSingleton("balloonBindingHandler", BalloonBindingHandler);
         injector.bindSingleton("backgroundBindingHandler", BackgroundBindingHandler);
         injector.bindSingleton("resizableBindingHandler", ResizableBindingHandler);

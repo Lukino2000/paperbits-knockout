@@ -1,3 +1,12 @@
 <input type="text" placeholder="http://" class="form-control" data-bind="textInput: url, valueUpdate: 'keyup'" maxlength="2000"
-    spellcheck="false"
-    autocomplete="off" />
+    spellcheck="false" autocomplete="off" />
+
+<div class="flex-container flex-container-column list-container">
+    <ul class="flex-item flex-item-grow list" data-bind="foreach: urls, scrollable: {}">
+        <!-- <li class="list-item" data-bind="css: { selected: hasFocus }, text: $data">
+        </li> -->
+
+        <li class="list-item" data-bind="text: $data">
+        </li>
+    </ul>
+</div>

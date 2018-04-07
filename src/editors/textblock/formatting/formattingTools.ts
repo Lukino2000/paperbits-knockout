@@ -281,12 +281,12 @@ export class FormattingTools {
     }
 
     public incIndent(){
-        this.htmlEditorProvider.getCurrentHtmlEditor().incIndent();
+        this.htmlEditorProvider.getCurrentHtmlEditor().increaseIndent();
 
         this.updateFormattingState();
     }
     public decIndent(){
-        this.htmlEditorProvider.getCurrentHtmlEditor().decIndent();
+        this.htmlEditorProvider.getCurrentHtmlEditor().decreaseIndent();
 
         this.updateFormattingState();
     }
