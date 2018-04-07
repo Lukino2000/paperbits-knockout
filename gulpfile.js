@@ -5,7 +5,6 @@ const del = require("del");
 const merge = require("merge2");
 const runSeq = require("run-sequence");
 
-
 gulp.task("build-npm", ["build-npm-ts"], () => {
     return gulp.src(["!./src/themes/**/*.*", "./src/**/*.+(html|scss|png|woff|woff2|eot|ttf|svg)"])
         .pipe(gulp.dest("./dist/lib"));
