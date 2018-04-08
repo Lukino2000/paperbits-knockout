@@ -15,7 +15,7 @@ export class HostBindingHandler {
                 ko.applyBindingsToNode(element, { css: css });
 
                 const hostElement: HTMLIFrameElement = document.createElement("iframe");
-                hostElement.src = "./theme/index.html";
+                hostElement.src = "/theme/index.html";
                 hostElement.classList.add("host");
 
 
