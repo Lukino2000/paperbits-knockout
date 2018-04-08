@@ -45,7 +45,6 @@ export class NavigationDetailsWorkshop {
 
             if (hyperlink) {
                 //return `${hyperlink.type}: ${hyperlink.title}`;
-
                 return `${hyperlink.title}`;
             }
 

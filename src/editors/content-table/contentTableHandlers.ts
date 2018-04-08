@@ -20,7 +20,7 @@ export class ContentTableHandlers implements IWidgetHandler {
 
     private async getWidgetOrderByConfig(): Promise<IWidgetOrder> {
         const currentPage = await this.viewManager.getCurrentPage();
-        let config = {
+        const config = {
             object: "block",
             type: "content-table",
             title: "Table of contents",
