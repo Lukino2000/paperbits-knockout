@@ -110,7 +110,9 @@ export class ComponentRegistrationCommon implements IInjectorModule {
             return new PermalinkResolver(permalinkService, [
                 mediaPermalinkResolver,
                 pagePermalinkResolver,
-                blogPermalinkResolver]);
+                blogPermalinkResolver,
+                urlPermalinkResolver
+            ]);
         });
     }
 }

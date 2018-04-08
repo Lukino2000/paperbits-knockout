@@ -108,10 +108,11 @@ export class ComponentRegistrationEditors implements IInjectorModule {
         injector.bind("navigationWorkshop", NavigationWorkshop);
 
         injector.bindComponent("navigationDetailsWorkshop", (ctx: IInjector, params) => {
-            var navigationService = ctx.resolve<INavigationService>("navigationService");
-            var viewManager = ctx.resolve<IViewManager>("viewManager");
+            const permalinkResolver = ctx.resolve<IPermalinkResolver>("permalinkResolver");
+            const navigationService = ctx.resolve<INavigationService>("navigationService");
+            const viewManager = ctx.resolve<IViewManager>("viewManager");
 
-            return new NavigationDetailsWorkshop(navigationService, viewManager, params);
+            return new NavigationDetailsWorkshop(permalinkResolver, navigationService, viewManager, params);
         });
 
         injector.bindComponent("mediaDetailsWorkshop", (ctx: IInjector, params) => {

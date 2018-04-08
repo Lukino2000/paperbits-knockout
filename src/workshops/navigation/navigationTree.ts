@@ -21,7 +21,7 @@ export class NavigationTree {
         this.onAcceptNodeAfter = this.onAcceptNodeAfter.bind(this);
         this.dispatchUpdates = this.dispatchUpdates.bind(this);
 
-        var nodes = new Array<NavigationItemViewModel>();
+        const nodes = new Array<NavigationItemViewModel>();
         items.forEach(x => nodes.push(this.navigationItemToNode(x)));
 
         this.nodes = ko.observableArray<NavigationItemViewModel>(nodes);
@@ -74,8 +74,12 @@ export class NavigationTree {
         var focusedNode = this.focusedNode();
 
         if (focusedNode) {
-            var navitem: NavigationItemContract = { key: Utils.guid(), label: label };
-            var node = new NavigationItemViewModel(navitem);
+            const navitem: NavigationItemContract = { 
+                key: Utils.guid(), 
+                label: label
+            }
+
+            const node = new NavigationItemViewModel(navitem);
 
             node.parent = focusedNode;
             focusedNode.nodes.push(node);
@@ -105,14 +109,9 @@ export class NavigationTree {
         const navigationItem: NavigationItemContract = {
             key: node.id,
             label: node.label(),
+            permalinkKey: node.permalinkKey(),
             navigationItems: navigationItems
         };
-
-        const hyperlink = node.hyperlink();
-
-        if (hyperlink) {
-            navigationItem.permalinkKey = hyperlink.permalinkKey;
-        }
 
         return navigationItem;
     }

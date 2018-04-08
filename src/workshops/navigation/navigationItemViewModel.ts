@@ -6,7 +6,7 @@ import { HyperlinkModel } from "@paperbits/common/permalinks/hyperlinkModel";
 export class NavigationItemViewModel {
     public id: string;
     public label: KnockoutObservable<string>;
-    public hyperlink: KnockoutObservable<HyperlinkModel>;
+    public permalinkKey: KnockoutObservable<string>;
     public parent: NavigationItemViewModel;
     public nodes: KnockoutObservableArray<NavigationItemViewModel>;
     public collapsed: KnockoutObservable<boolean>;
@@ -25,7 +25,6 @@ export class NavigationItemViewModel {
         this.id = navitem.key;
         this.label = ko.observable<string>(navitem.label);
 
-
         this.nodes = ko.observableArray<NavigationItemViewModel>([]);
         this.collapsed = ko.observable<boolean>(false);
         this.dragged = ko.observable<boolean>(false);
@@ -34,14 +33,9 @@ export class NavigationItemViewModel {
 
         document.addEventListener("keydown", this.onKeyDown, false);
 
-        // TODO : Move to Navigation Details to resolve up-to-date hyperlink
-        const hyperlink = new HyperlinkModel();
-        hyperlink.permalinkKey = navitem.permalinkKey;
-        hyperlink.title = navitem.label;
-
-        this.hyperlink = ko.observable<HyperlinkModel>(hyperlink);
+        this.permalinkKey = ko.observable<string>(navitem.permalinkKey);
+        this.permalinkKey.subscribe(() => this.onUpdate.notifySubscribers());
         this.label.subscribe(() => this.onUpdate.notifySubscribers());
-        this.hyperlink.subscribe(() => this.onUpdate.notifySubscribers());
     }
 
     private isSiblingNode(node: NavigationItemViewModel): boolean {

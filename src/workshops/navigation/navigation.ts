@@ -65,9 +65,8 @@ export class NavigationWorkshop {
     }
 
     public async selectNavigationItem(navigationItem: NavigationItemViewModel): Promise<void> {
-        const hyperlink = navigationItem.hyperlink();
-
         this.selectedNavigationItem(navigationItem);
+        
         this.viewManager.openViewAsWorkshop("Navigation item", "navigation-details-workshop", {
             navigationItem: navigationItem,
             onDeleteCallback: () => {
