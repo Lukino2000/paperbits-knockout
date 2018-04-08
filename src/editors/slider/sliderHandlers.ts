@@ -19,7 +19,7 @@ export class SliderHandlers implements IWidgetHandler {
 
     private async prepareWidgetOrder(config: Contract): Promise<IWidgetOrder> {
         let model = await this.sliderModelBinder.nodeToModel(config);
-        
+
 
         let factoryFunction: () => IWidgetFactoryResult = () => {
             throw "Not implemented.";
@@ -37,7 +37,7 @@ export class SliderHandlers implements IWidgetHandler {
             name: "slider",
             displayName: "Slider",
             createWidget: factoryFunction,
-            createModel: () => {
+            createModel: async () => {
                 return model;
             }
         }

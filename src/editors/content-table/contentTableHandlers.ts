@@ -19,14 +19,7 @@ export class ContentTableHandlers implements IWidgetHandler {
     }
 
     private async getWidgetOrderByConfig(): Promise<IWidgetOrder> {
-        const currentPage = await this.viewManager.getCurrentPage();
-        let config = {
-            object: "block",
-            type: "content-table",
-            title: "Content Table",
-            targetPermalinkKey: currentPage.permalinkKey
-        };
-        let model = await this.modelBinder.nodeToModel(config);
+
 
         let factoryFunction: () => IWidgetFactoryResult = () => {
             throw "Not implemented.";
@@ -34,10 +27,19 @@ export class ContentTableHandlers implements IWidgetHandler {
 
         let widgetOrder: IWidgetOrder = {
             name: "content-table",
-            displayName: "Content Table",
+            displayName: "Table of contents",
             iconClass: "paperbits-content-table",
             createWidget: factoryFunction,
-            createModel: () => {
+            createModel: async () => {
+                const currentPage = await this.viewManager.getCurrentPage();
+                const config = {
+                    object: "block",
+                    type: "content-table",
+                    title: "Table of contents",
+                    targetPermalinkKey: currentPage.permalinkKey
+                };
+                let model = await this.modelBinder.nodeToModel(config);
+
                 return model;
             }
         }

@@ -2,7 +2,6 @@ import * as ko from "knockout";
 import template from "./pageSelector.html";
 import { IResourceSelector } from "@paperbits/common/ui/IResourceSelector";
 import { PageItem, AnchorItem } from "./pageItem";
-import { PageSelection } from '@paperbits/common/pages/pageSelection';
 import { PageContract } from '@paperbits/common/pages/pageContract';
 import { IPermalink } from '@paperbits/common/permalinks/IPermalink';
 import { IPermalinkService } from '@paperbits/common/permalinks/IPermalinkService';
@@ -15,7 +14,7 @@ import { Component } from "../../decorators/component";
     template: template,
     injectable: "pageSelector"
 })
-export class PageSelector implements IResourceSelector<PageSelection> {
+export class PageSelector implements IResourceSelector<PageContract> {
     private readonly pageService: IPageService;
     private readonly permalinkService: IPermalinkService;
 
@@ -24,9 +23,9 @@ export class PageSelector implements IResourceSelector<PageSelection> {
     public readonly working: KnockoutObservable<boolean>;
 
     public selectedPage: KnockoutObservable<PageItem>;
-    public onResourceSelected: (selection: PageSelection) => void;
+    public onResourceSelected: (selection: PageContract) => void;
 
-    constructor(pageService: IPageService, permalinkService: IPermalinkService, onSelect: (page: PageSelection) => void) {
+    constructor(pageService: IPageService, permalinkService: IPermalinkService, onSelect: (page: PageContract) => void) {
         this.pageService = pageService;
         this.permalinkService = permalinkService;
 
@@ -53,8 +52,9 @@ export class PageSelector implements IResourceSelector<PageSelection> {
     public async searchPages(searchPattern: string = ""): Promise<void> {
         this.working(true);
 
-        let pages = await this.pageService.search(searchPattern);
-        let pageItems = pages.map(page => new PageItem(page));
+        const pages = await this.pageService.search(searchPattern);
+        const pageItems = pages.map(page => new PageItem(page));
+
         this.pages(pageItems);
         this.working(false);
     }
@@ -63,13 +63,13 @@ export class PageSelector implements IResourceSelector<PageSelection> {
         this.selectedPage(page);
 
         if (this.onResourceSelected) {
-            this.onResourceSelected({ title: page.title(), permalinkKey: page.permalinkKey });
+            this.onResourceSelected(page.toContract());
         }
     }
 
     public async selectAnchor(anchor: AnchorItem): Promise<void> {
         if (this.onResourceSelected) {
-            this.onResourceSelected({ title: anchor.title, permalinkKey: anchor.permalinkKey });
+            this.onResourceSelected(anchor.toContract());
         }
     }
 }

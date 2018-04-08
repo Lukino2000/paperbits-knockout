@@ -13,7 +13,7 @@ export class ContentTableViewModelBinder implements IViewModelBinder<ContentTabl
         viewModel.anchors(model.items);
 
         viewModel["widgetBinding"] = {
-            displayName: "Content table",
+            displayName: "Table of contents",
             readonly: readonly,
             model: model,
             applyChanges: () => {

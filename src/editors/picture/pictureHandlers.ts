@@ -43,7 +43,7 @@ export class PictureHandlers implements IWidgetHandler, IContentDropHandler {
             name: "picture",
             displayName: widgetDisplayName,
             iconClass: "paperbits-image-2",
-            createModel: () => {
+            createModel: async () => {
                 return pictureModel;
             }
         }
@@ -89,7 +89,7 @@ export class PictureHandlers implements IWidgetHandler, IContentDropHandler {
                     }
                 }
             },
-            createModel: () => {
+            createModel: async () => {
                 return pictureModel;
             }
         }

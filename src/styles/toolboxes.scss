@@ -47,11 +47,11 @@ h2 {
         min-width: 320px;
     }
 
-    .toolbox-button {
+    .toolbox-btn {
         color: $icon-base-color;
-        line-height: $toolbox-button-size;
-        min-width: $toolbox-button-size;
-        height: $toolbox-button-size;
+        line-height: $toolbox-btn-size;
+        min-width: $toolbox-btn-size;
+        height: $toolbox-btn-size;
         display: inline-block;
         padding: 0;
         box-sizing: border-box;
@@ -65,14 +65,14 @@ h2 {
         @include no-select();
         @include no-drag();
 
-        &.toolbox-button-is-active {
+        &.toolbox-btn-is-active {
             position: relative;
 
             &:before {
                 @include fit();
                 position: absolute;
-                background-color: $toolbox-button-active-bg;
-                border: 1px solid $toolbox-button-active-border;
+                background-color: $toolbox-btn-active-bg;
+                border: 1px solid $toolbox-btn-active-border;
                 border-radius: $toolbox-border-radius - 5px;
                 content: '';
             }
@@ -92,9 +92,9 @@ h2 {
 
         a {
             display: inline-block;
-            height: $toolbox-button-size;
-            min-width: $toolbox-button-size;
-            line-height: $toolbox-button-size;
+            height: $toolbox-btn-size;
+            min-width: $toolbox-btn-size;
+            line-height: $toolbox-btn-size;
             background-size: cover;
             outline: none;
             color: $color-base;
@@ -104,17 +104,17 @@ h2 {
         }
     }
 
-    .toolbox-button-group {
+    .toolbox-btn-group {
         display: flex;
         padding: 0;
         margin: 0;
     }
 
-    .toolbox-button-group-vertical {
+    .toolbox-btn-group-vertical {
         display: flex;
         flex-direction: column;
 
-        .toolbox-button-is-active:before {
+        .toolbox-btn-is-active:before {
             position: absolute;
             left: -7px;
             content: '';

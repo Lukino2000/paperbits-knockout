@@ -54,13 +54,13 @@ export class WidgetSelector implements IResourceSelector<Object> {
         this.working(false);
     }
 
-    public selectWidget(widgetItem: WidgetItem): void {
+    public async selectWidget(widgetItem: WidgetItem): Promise<void> {
         // TODO: We should switch Widget Orders from elements to models;
 
         //let widgetElement = widgetItem.widgetOrder.createWidget().element;
         //let widgetModel = widgetElement["attachedModel"];
 
-        let model = widgetItem.widgetOrder.createModel();
+        const model = await widgetItem.widgetOrder.createModel();
 
         this.onResourceSelected(model);
     }

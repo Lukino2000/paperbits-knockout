@@ -54,7 +54,7 @@ export class NavbarHandlers implements IWidgetHandler {
                 //     element: htmlElement
                 // }
             },
-            createModel: () => {
+            createModel: async () => {
                 return model;
             }
         }

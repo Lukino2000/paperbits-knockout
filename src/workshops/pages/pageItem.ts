@@ -11,6 +11,13 @@ export class AnchorItem {
     constructor() {
         this.hasFocus = ko.observable<boolean>(false);
     }
+
+    public toContract(): any {
+        return {
+            title: this.title,
+            permalinkKey: this.permalinkKey
+        }
+    }
 }
 
 export class PageItem {
@@ -29,7 +36,7 @@ export class PageItem {
     constructor(page: PageContract) {
         this.contentKey = page.contentKey;
         this.permalinkKey = page.permalinkKey;
-        this.key = page.key;        
+        this.key = page.key;
 
         this.permalinkUrl = ko.observable<string>();
         this.title = ko.observable<string>(page.title);
@@ -49,7 +56,7 @@ export class PageItem {
         }
     }
 
-    toPage(): PageContract {
+    toContract(): PageContract {
         return {
             key: this.key,
             title: this.title(),

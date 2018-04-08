@@ -64,7 +64,7 @@ export class MapHandlers implements IWidgetHandler, IContentDropHandler {
             displayName: "Map",
             iconClass: "paperbits-m-location",
             createWidget: factoryFunction,
-            createModel: () => {
+            createModel: async () => {
                 return model;
             }
         }

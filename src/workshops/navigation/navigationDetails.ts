@@ -5,8 +5,9 @@ import { PermalinkService } from "@paperbits/common/permalinks/permalinkService"
 import { IViewManager } from "@paperbits/common/ui/IViewManager";
 import { IPermalink } from "@paperbits/common/permalinks/IPermalink";
 import { INavigationService } from "@paperbits/common/navigation/INavigationService";
-import { NavigationTreeNode } from "../../workshops/navigation/navigationTreeNode";
+import { NavigationItemViewModel } from "../../workshops/navigation/navigationItemViewModel";
 import { HyperlinkModel } from "@paperbits/common/permalinks/hyperlinkModel";
+import { IPermalinkResolver } from "@paperbits/common/permalinks/IPermalinkResolver";
 import { Component } from "../../decorators/component";
 
 
@@ -20,9 +21,10 @@ export class NavigationDetailsWorkshop {
 
     public readonly hyperlinkTitle: KnockoutComputed<string>;
     public readonly hyperlink: KnockoutObservable<HyperlinkModel>;
-    public readonly navigationItem: NavigationTreeNode;
+    public readonly navigationItem: NavigationItemViewModel;
 
     constructor(
+        private readonly permalinkResolver: IPermalinkResolver,
         private readonly navigationService: INavigationService,
         private readonly viewManager: IViewManager,
         params
@@ -36,24 +38,33 @@ export class NavigationDetailsWorkshop {
         this.deleteNavigationItem = this.deleteNavigationItem.bind(this);
         this.onHyperlinkChange = this.onHyperlinkChange.bind(this);
 
-        this.hyperlink = this.navigationItem.hyperlink;
+        this.hyperlink = ko.observable<HyperlinkModel>();
 
         this.hyperlinkTitle = ko.pureComputed<string>(() => {
             const hyperlink = this.hyperlink();
 
             if (hyperlink) {
                 //return `${hyperlink.type}: ${hyperlink.title}`;
-
                 return `${hyperlink.title}`;
             }
 
             return "Click to select a link...";
         });
+
+        if (this.navigationItem.permalinkKey()) {
+            this.init(this.navigationItem.permalinkKey());
+        }
+    }
+
+    private async init(permalinkKey: string): Promise<void> {
+        const hyperlink = await this.permalinkResolver.getHyperlinkByPermalinkKey(permalinkKey);
+
+        this.hyperlink(hyperlink);
     }
 
     public onHyperlinkChange(hyperlink: HyperlinkModel): void {
         this.hyperlink(hyperlink);
-        this.navigationItem.hyperlink(hyperlink);
+        this.navigationItem.permalinkKey(hyperlink.permalinkKey);
     }
 
     public deleteNavigationItem(): void {

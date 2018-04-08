@@ -46,7 +46,7 @@ export class TextblockHandlers implements IWidgetHandler {
                 // htmlElement["attachedModel"] = textblockWidgetModel.model;
                 // return { element: htmlElement }
             },
-            createModel: () => {
+            createModel: async () => {
                 return textblockModel;
             }
         }

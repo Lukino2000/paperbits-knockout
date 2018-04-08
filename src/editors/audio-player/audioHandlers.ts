@@ -49,7 +49,7 @@ export class AudioHandlers extends MediaHandlers implements IWidgetHandler, ICon
 
                 return { element: htmlElement }
             },
-            createModel:() =>{
+            createModel: async () => {
                 return pictureWidgetModel.model;
             }
         }
@@ -90,7 +90,7 @@ export class AudioHandlers extends MediaHandlers implements IWidgetHandler, ICon
                     name: "audio-player",
                     displayName: "Audio player",
                     createWidget: factoryFunction,
-                    createModel:() =>{
+                    createModel: async () => {
                         return model;
                     }
                 }

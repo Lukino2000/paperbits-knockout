@@ -59,7 +59,7 @@ export class VideoHandlers implements IWidgetHandler, IContentDropHandler {
             displayName: "Video player",
             iconClass: "paperbits-action-74",
             createWidget: factoryFunction,
-            createModel: () => {
+            createModel: async () => {
                 return model;
             }
         }

@@ -29,7 +29,7 @@ export class FormHandlers implements IWidgetHandler {
             displayName: "Form",
             iconClass: "paperbits-form",
             createWidget: factoryFunction,
-            createModel: () => {
+            createModel: async () => {
                 return model;
             }
         }

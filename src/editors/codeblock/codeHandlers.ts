@@ -52,7 +52,7 @@ export class CodeHandlers extends MediaHandlers implements IWidgetHandler, ICont
 
                 return { element: htmlElement }
             },
-            createModel:() =>{
+            createModel: async () => {
                 return pictureWidgetModel.model;
             }
         }
@@ -92,7 +92,7 @@ export class CodeHandlers extends MediaHandlers implements IWidgetHandler, ICont
                     theme: config ? config.theme : "clouds"
                 })
             },
-            createModel:() =>{
+            createModel: async () => {
                 return config;
             }
         }

@@ -1,32 +1,33 @@
 ﻿import * as ko from "knockout";
 import { IHtmlEditor } from "@paperbits/common/editing/IHtmlEditor";
 import { IEventManager } from "@paperbits/common/events/IEventManager";
+import { TextblockViewModel } from "../widgets/textblock/textblockViewModel";
 
 
-export class SlateBindingHandler {
+export class HtmlEditorBindingHandler {
     constructor(eventManager: IEventManager) {
-        ko.bindingHandlers["slate"] = {
-            init(element: HTMLElement, valueAccessor) {
-                let config = valueAccessor();
-                let stateObservable: KnockoutObservable<Object> = config.state;
-                let htmlEditor: IHtmlEditor = ko.unwrap(config.htmlEditor);
+        ko.bindingHandlers["htmlEditor"] = {
+            init(element: HTMLElement, valueAccessor: () => TextblockViewModel) {
+                const config = valueAccessor();
+                const stateObservable: KnockoutObservable<Object> = config.state;
+                const htmlEditor: IHtmlEditor = ko.unwrap(config.htmlEditor);
 
-                htmlEditor.renderToContainer(element);
+                htmlEditor.attachToElement(element);
                 htmlEditor.disable();
 
-                let onSelectionChange = () => {
+                const onSelectionChange = () => {
                     eventManager.dispatchEvent("htmlEditorChanged", htmlEditor);
                 }
                 htmlEditor.addSelectionChangeListener(onSelectionChange);
 
-                let onEscapeKeyPressed = () => { htmlEditor.disable(); }
+                const onEscapeKeyPressed = () => { htmlEditor.disable(); }
                 eventManager.addEventListener("onEscape", onEscapeKeyPressed);
 
-                let onWidgetEditorClose = () => { htmlEditor.disable(); }
+                const onWidgetEditorClose = () => { htmlEditor.disable(); }
 
                 eventManager.addEventListener("onWidgetEditorClose", onWidgetEditorClose);
 
-                let onHtmlEditorRequested = () => {
+                const onHtmlEditorRequested = () => {
                     if (config.readonly()) {
                         return;
                     }

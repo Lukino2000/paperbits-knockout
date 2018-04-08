@@ -45,7 +45,7 @@ ko.bindingHandlers["surface"] = {
                 sticky: false,
                 payload: "surface",
                 preventDragging: (clickedElement: HTMLElement) => {
-                    return clickedElement.closest("a, .form, .button, .toolbox-button, .toolbox-dropdown") != null;
+                    return clickedElement.closest("a, .form, .btn, .toolbox-btn, .toolbox-dropdown") != null;
                 },
                 ondragend: (): void => {
                     if (!view || !view.component) {

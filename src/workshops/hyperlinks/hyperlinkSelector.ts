@@ -44,7 +44,11 @@ export class HyperlinkSelector {
         }
     }
 
-    private onResourceSelected(hyperlink: HyperlinkModel): void {
+    /**
+     * Called by IResourcePicker when user selected a resource.
+     * @param hyperlink 
+     */
+    public onResourceSelected(hyperlink: HyperlinkModel): void {
         this.hyperlink(hyperlink);
 
         if (this.onHyperlinkChange) {

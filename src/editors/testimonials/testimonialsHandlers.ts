@@ -29,7 +29,7 @@ export class TestimonialsHandlers implements IWidgetHandler {
             displayName: "Testimonials",
             iconClass: "paperbits-testimonials",
             createWidget: factoryFunction,
-            createModel: () => {
+            createModel: async () => {
                 return model;
             }
         }

@@ -5,7 +5,7 @@ import { IViewManager } from "@paperbits/common/ui/IViewManager";
 import { IPermalinkService } from "@paperbits/common/permalinks/IPermalinkService";
 import { NavigationItemContract } from "@paperbits/common/navigation/NavigationItemContract";
 import { NavigationTree } from "../../workshops/navigation/navigationTree";
-import { NavigationTreeNode } from "../../workshops/navigation/navigationTreeNode";
+import { NavigationItemViewModel } from "../../workshops/navigation/navigationItemViewModel";
 import { Component } from "../../decorators/component";
 
 
@@ -17,7 +17,7 @@ import { Component } from "../../decorators/component";
 export class NavigationWorkshop {
     private navigationService: INavigationService;
     private readonly permalinkService: IPermalinkService;
-    private selectedNavigationItem: KnockoutObservable<NavigationTreeNode>;
+    private selectedNavigationItem: KnockoutObservable<NavigationItemViewModel>;
 
     public viewManager: IViewManager;
     public navigationItemsTree: KnockoutObservable<NavigationTree>;
@@ -33,7 +33,7 @@ export class NavigationWorkshop {
         this.onNavigationItemLoaded = this.onNavigationItemLoaded.bind(this);
         this.selectNavigationItem = this.selectNavigationItem.bind(this);
         this.navigationItemsTree = ko.observable<NavigationTree>();
-        this.selectedNavigationItem = ko.observable<NavigationTreeNode>();
+        this.selectedNavigationItem = ko.observable<NavigationItemViewModel>();
 
         this.searchNavigationItems();
     }
@@ -64,10 +64,9 @@ export class NavigationWorkshop {
         return !!(this.navigationItemsTree() && this.navigationItemsTree().focusedNode());
     }
 
-    public async selectNavigationItem(navigationItem: NavigationTreeNode): Promise<void> {
-        const hyperlink = navigationItem.hyperlink();
-
+    public async selectNavigationItem(navigationItem: NavigationItemViewModel): Promise<void> {
         this.selectedNavigationItem(navigationItem);
+        
         this.viewManager.openViewAsWorkshop("Navigation item", "navigation-details-workshop", {
             navigationItem: navigationItem,
             onDeleteCallback: () => {

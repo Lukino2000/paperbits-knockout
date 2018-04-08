@@ -37,7 +37,7 @@ export class ButtonHandlers implements IWidgetHandler {
             displayName: "Button",
             iconClass: "paperbits-button-2",
             createWidget: factoryFunction,
-            createModel: () => {
+            createModel: async () => {
                 return model;
             }
         }

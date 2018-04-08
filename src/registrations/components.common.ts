@@ -16,6 +16,7 @@ import { BlockService } from "@paperbits/common/blocks/blockService";
 import { NavigationService } from "@paperbits/common/navigation/navigationService";
 import { SiteService } from "@paperbits/common/sites/siteService";
 import { IntercomService } from "@paperbits/common/intercom/intercomService";
+import { UrlService } from "@paperbits/common/urls/urlService";
 import { YoutubeModelBinder } from "@paperbits/common/widgets/youtube-player/youtubeModelBinder";
 import { VideoPlayerModelBinder } from "@paperbits/common/widgets/video-player/videoPlayerModelBinder";
 import { AudioPlayerModelBinder } from "@paperbits/common/widgets/audio-player/audioPlayerModelBinder";
@@ -43,6 +44,7 @@ import { PermalinkResolver } from "@paperbits/common/permalinks/permalinkResolve
 import { MediaPermalinkResolver } from "@paperbits/common/media/mediaPermalinkResolver";
 import { PagePermalinkResolver } from "@paperbits/common/pages/pagePermalinkResolver";
 import { BlogPermalinkResolver } from "@paperbits/common/blogs/blogPermalinkResolver";
+import { UrlPermalinkResolver } from "@paperbits/common/urls/urlPermalinkResolver";
 
 
 export class ComponentRegistrationCommon implements IInjectorModule {
@@ -69,8 +71,10 @@ export class ComponentRegistrationCommon implements IInjectorModule {
         injector.bindSingleton("navigationService", NavigationService);
         injector.bindSingleton("siteService", SiteService);
         injector.bindSingleton("intercomService", IntercomService);
+        injector.bindSingleton("urlService", UrlService);
         injector.bindSingleton("savingHandler", SavingHandler);
         injector.bindSingleton("errorHandler", UnhandledErrorHandler);
+
 
         /*** Model binders ***/
         injector.bind("backgroundModelBinder", BackgroundModelBinder);
@@ -94,17 +98,21 @@ export class ComponentRegistrationCommon implements IInjectorModule {
         injector.bind("mediaPermalinkResolver", MediaPermalinkResolver);
         injector.bind("pagePermalinkResolver", PagePermalinkResolver);
         injector.bind("blogPermalinkResolver", BlogPermalinkResolver);
+        injector.bind("urlPermalinkResolver", UrlPermalinkResolver);
 
         injector.bindSingletonFactory("permalinkResolver", (ctx: IInjector) => {
-            let permalinkService = ctx.resolve<IPermalinkService>("permalinkService");
-            let mediaPermalinkResolver = ctx.resolve<IPermalinkResolver>("mediaPermalinkResolver");
-            let pagePermalinkResolver = ctx.resolve<IPermalinkResolver>("pagePermalinkResolver");
-            let blogPermalinkResolver = ctx.resolve<IPermalinkResolver>("blogPermalinkResolver");
+            const permalinkService = ctx.resolve<IPermalinkService>("permalinkService");
+            const mediaPermalinkResolver = ctx.resolve<IPermalinkResolver>("mediaPermalinkResolver");
+            const pagePermalinkResolver = ctx.resolve<IPermalinkResolver>("pagePermalinkResolver");
+            const blogPermalinkResolver = ctx.resolve<IPermalinkResolver>("blogPermalinkResolver");
+            const urlPermalinkResolver = ctx.resolve<IPermalinkResolver>("urlPermalinkResolver");
 
             return new PermalinkResolver(permalinkService, [
                 mediaPermalinkResolver,
                 pagePermalinkResolver,
-                blogPermalinkResolver]);
+                blogPermalinkResolver,
+                urlPermalinkResolver
+            ]);
         });
     }
 }

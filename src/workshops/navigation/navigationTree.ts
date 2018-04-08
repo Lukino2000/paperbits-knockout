@@ -1,14 +1,14 @@
 ﻿import * as ko from "knockout";
 import * as Utils from "@paperbits/common/utils";
 import { NavigationItemContract } from "@paperbits/common/navigation/NavigationItemContract";
-import { NavigationTreeNode } from "../../workshops/navigation/navigationTreeNode";
+import { NavigationItemViewModel } from "../../workshops/navigation/navigationItemViewModel";
 
 export class NavigationTree {
     private placeholderElement: HTMLElement;
 
-    public nodes: KnockoutObservableArray<NavigationTreeNode>;
-    public selectedNode: KnockoutObservable<NavigationTreeNode>;
-    public focusedNode: KnockoutObservable<NavigationTreeNode>;
+    public nodes: KnockoutObservableArray<NavigationItemViewModel>;
+    public selectedNode: KnockoutObservable<NavigationItemViewModel>;
+    public focusedNode: KnockoutObservable<NavigationItemViewModel>;
     public onUpdate: KnockoutSubscribable<Array<NavigationItemContract>>;
 
     constructor(items: Array<NavigationItemContract>) {
@@ -21,12 +21,12 @@ export class NavigationTree {
         this.onAcceptNodeAfter = this.onAcceptNodeAfter.bind(this);
         this.dispatchUpdates = this.dispatchUpdates.bind(this);
 
-        var nodes = new Array<NavigationTreeNode>();
+        const nodes = new Array<NavigationItemViewModel>();
         items.forEach(x => nodes.push(this.navigationItemToNode(x)));
 
-        this.nodes = ko.observableArray<NavigationTreeNode>(nodes);
-        this.selectedNode = ko.observable<NavigationTreeNode>();
-        this.focusedNode = ko.observable<NavigationTreeNode>();
+        this.nodes = ko.observableArray<NavigationItemViewModel>(nodes);
+        this.selectedNode = ko.observable<NavigationItemViewModel>();
+        this.focusedNode = ko.observable<NavigationItemViewModel>();
         this.onUpdate = new ko.subscribable<Array<NavigationItemContract>>();
 
         this.placeholderElement = document.createElement("div");
@@ -38,7 +38,7 @@ export class NavigationTree {
         event.stopPropagation();
     }
 
-    private onFocusChange(node: NavigationTreeNode): void {
+    private onFocusChange(node: NavigationItemViewModel): void {
         this.focusedNode(node);
     }
 
@@ -48,8 +48,8 @@ export class NavigationTree {
         this.onUpdate.notifySubscribers(items);
     }
 
-    private navigationItemToNode(navItem: NavigationItemContract): NavigationTreeNode {
-        var node = new NavigationTreeNode(navItem); // TODO: Review permalinks
+    private navigationItemToNode(navItem: NavigationItemContract): NavigationItemViewModel {
+        const node = new NavigationItemViewModel(navItem); // TODO: Review permalinks
 
         node.hasFocus.subscribe((focused) => {
             if (focused) {
@@ -70,12 +70,16 @@ export class NavigationTree {
         return node;
     }
 
-    public addNode(label: string): NavigationTreeNode {
+    public addNode(label: string): NavigationItemViewModel {
         var focusedNode = this.focusedNode();
 
         if (focusedNode) {
-            var navitem: NavigationItemContract = { key: Utils.guid(), label: label };
-            var node = new NavigationTreeNode(navitem);
+            const navitem: NavigationItemContract = { 
+                key: Utils.guid(), 
+                label: label
+            }
+
+            const node = new NavigationItemViewModel(navitem);
 
             node.parent = focusedNode;
             focusedNode.nodes.push(node);
@@ -94,7 +98,7 @@ export class NavigationTree {
         }
     }
 
-    public nodeToNavigationItem(node: NavigationTreeNode): NavigationItemContract {
+    public nodeToNavigationItem(node: NavigationItemViewModel): NavigationItemContract {
         let navigationItems = null;
 
         if (node.nodes().length > 0) {
@@ -105,19 +109,9 @@ export class NavigationTree {
         const navigationItem: NavigationItemContract = {
             key: node.id,
             label: node.label(),
+            permalinkKey: node.permalinkKey(),
             navigationItems: navigationItems
         };
-
-        let hyperlink = node.hyperlink();
-
-        if (hyperlink) {
-            if (hyperlink.permalinkKey) {
-                navigationItem.permalinkKey = hyperlink.permalinkKey;
-            }
-            else {
-                navigationItem.externalUrl = hyperlink.href;
-            }
-        }
 
         return navigationItem;
     }

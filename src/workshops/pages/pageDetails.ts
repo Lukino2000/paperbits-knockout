@@ -64,8 +64,8 @@ export class PageDetailsWorkshop {
     }
 
     private async updatePage(): Promise<void> {
-        await this.pageService.updatePage(this.pageItem.toPage());
-        this.viewManager.setTitle(null, this.pageItem.toPage());
+        await this.pageService.updatePage(this.pageItem.toContract());
+        this.viewManager.setTitle(null, this.pageItem.toContract());
     }
 
     private async updatePermlaink(): Promise<void> {
@@ -75,7 +75,7 @@ export class PageDetailsWorkshop {
 
     public async deletePage(): Promise<void> {
         //TODO: Show confirmation dialog according to mockup
-        await this.pageService.deletePage(this.pageItem.toPage());
+        await this.pageService.deletePage(this.pageItem.toContract());
 
         this.viewManager.notifySuccess("Pages", `Page "${this.pageItem.title()}" was deleted.`);
         this.viewManager.closeWorkshop("page-details-workshop");

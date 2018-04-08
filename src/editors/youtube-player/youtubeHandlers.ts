@@ -40,7 +40,7 @@ export class YoutubeHandlers implements IWidgetHandler, IContentDropHandler {
 
                 // return { element: htmlElement }
             },
-            createModel: () => {
+            createModel: async () => {
                 return youtubePlayerModel;
             }
         }

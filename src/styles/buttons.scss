@@ -1,8 +1,7 @@
 ﻿@import "variables.scss";
 @import "mixins.scss";
 
-.btn,
-.button {
+.btn {
     border: none;
     background: none;
     color: $color-base;
@@ -24,15 +23,6 @@
     }
 }
 
-.btn-group,
-.button-group {
-    padding-top: $workshop-padding;
-
-    .button {
-        margin-right: 20px;
-    }
-}
-
 .btn-link {
     color: #99C248;
     text-decoration: none;
@@ -43,4 +33,12 @@
 .btn-danger:active {
     background: $color-danger;
     color: #fff;
+}
+
+.btn-group {
+    padding-top: $workshop-padding;
+
+    .btn {
+        margin-right: 20px;
+    }
 }
