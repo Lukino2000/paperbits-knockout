@@ -1,0 +1,11 @@
+<div>
+    <!--ko if: title()-->
+    <b data-bind="text: title"></b>
+    <!--/ko-->
+    <ul class="list-item-children" data-bind="foreach: anchors">
+        <li class="list-item">
+            <i class="paperbits-icon paperbits-anchor"></i>
+            <a data-bind="text: title, attr: { href: href }"></a>
+        </li>
+    </ul>
+</div>

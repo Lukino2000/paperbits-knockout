@@ -186,7 +186,7 @@ export class ViewManager implements IViewManager {
         return pageType;
     }
 
-    private async getCurrentPage(): Promise<PageContract> {
+    public async getCurrentPage(): Promise<PageContract> {
         const url = this.routeHandler.getCurrentUrl();
         let permalink = await this.permalinkService.getPermalinkByUrl(url);
 

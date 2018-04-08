@@ -91,6 +91,7 @@ import { FormHandlers } from "../editors/form/formHandlers";
 import { FormEditor } from "../editors/form/formEditor";
 import { TestimonialsHandlers } from "../editors/testimonials/testimonialsHandlers";
 import { TestimonialsEditor } from "../editors/testimonials/testimonialsEditor";
+import { ContentTableHandlers } from "../editors/content-table/contentTableHandlers";
 
 
 export class ComponentRegistrationEditors implements IInjectorModule {
@@ -165,6 +166,7 @@ export class ComponentRegistrationEditors implements IInjectorModule {
         injector.bindSingleton("sliderHandler", SliderHandlers);
         injector.bindSingleton("formHandler", FormHandlers);
         injector.bindSingleton("testimonialsHandler", TestimonialsHandlers);
+        injector.bindSingleton("contentTableHandlers", ContentTableHandlers);
 
         injector.bindFactory<Array<IContentDropHandler>>("dropHandlers", (ctx: IInjector) => {
             var dropHandlers = new Array<IContentDropHandler>();
@@ -194,6 +196,7 @@ export class ComponentRegistrationEditors implements IInjectorModule {
             widgetHandlers.push(ctx.resolve<FormHandlers>("formHandler"));
             widgetHandlers.push(ctx.resolve<TestimonialsHandlers>("testimonialsHandler"));
             // widgetHandlers.push(ctx.resolve<SliderHandlers>("sliderHandler"));
+            widgetHandlers.push(ctx.resolve<ContentTableHandlers>("contentTableHandlers"));
 
             return widgetHandlers;
         });
