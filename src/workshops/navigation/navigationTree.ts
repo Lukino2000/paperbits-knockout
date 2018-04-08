@@ -49,7 +49,7 @@ export class NavigationTree {
     }
 
     private navigationItemToNode(navItem: NavigationItemContract): NavigationTreeNode {
-        var node = new NavigationTreeNode(navItem); // TODO: Review permalinks
+        const node = new NavigationTreeNode(navItem); // TODO: Review permalinks
 
         node.hasFocus.subscribe((focused) => {
             if (focused) {
@@ -108,15 +108,10 @@ export class NavigationTree {
             navigationItems: navigationItems
         };
 
-        let hyperlink = node.hyperlink();
+        const hyperlink = node.hyperlink();
 
         if (hyperlink) {
-            if (hyperlink.permalinkKey) {
-                navigationItem.permalinkKey = hyperlink.permalinkKey;
-            }
-            else {
-                navigationItem.externalUrl = hyperlink.href;
-            }
+            navigationItem.permalinkKey = hyperlink.permalinkKey;
         }
 
         return navigationItem;

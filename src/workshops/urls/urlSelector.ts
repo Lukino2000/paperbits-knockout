@@ -71,7 +71,7 @@ export class UrlSelector implements IResourceSelector<UrlContract> {
     public async createUrl(): Promise<void> {
         const newUri = this.uri();
 
-        const url = await this.urlService.createUrl(newUri, "");
+        const url = await this.urlService.createUrl(newUri);
         const permalink = await this.permalinkService.createPermalink(newUri, url.key);
 
         url.permalinkKey = permalink.key;

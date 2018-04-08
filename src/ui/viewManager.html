@@ -45,7 +45,7 @@
 <!-- ko foreach: { data: contextualEditors, as: 'contextualEditor' } -->
 <!-- ko if: contextualEditor.hoverCommand -->
 
-<button class="fixed button-standalone" data-bind="stickTo: { target: contextualEditor.element, position: contextualEditor.hoverCommand.position }, balloon: { component: contextualEditor.hoverCommand.component, position: 'bottom' }, background: { color: contextualEditor.hoverCommand.color }, attr: { title: contextualEditor.hoverCommand.tooltip }">
+<button class="fixed btn-standalone" data-bind="stickTo: { target: contextualEditor.element, position: contextualEditor.hoverCommand.position }, balloon: { component: contextualEditor.hoverCommand.component, position: 'bottom' }, background: { color: contextualEditor.hoverCommand.color }, attr: { title: contextualEditor.hoverCommand.tooltip }">
     <i class="paperbits-icon paperbits-simple-add"></i>
 </button>
 
@@ -86,7 +86,7 @@
 <!-- /ko -->
 
 <div class="toolbox toolbox-position-left-bottom" data-bind="visible: primaryToolboxVisible">
-    <div class="toolbox-button">
+    <div class="toolbox-btn">
         <a href="#" data-bind="balloon: { component: 'viewport-selector', position: 'top' }" title="Viewport selection">
             <i class="paperbits-icon paperbits-mirror-2"></i>
         </a>

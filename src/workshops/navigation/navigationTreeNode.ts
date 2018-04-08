@@ -35,9 +35,8 @@ export class NavigationTreeNode {
         document.addEventListener("keydown", this.onKeyDown, false);
 
         // TODO : Move to Navigation Details to resolve up-to-date hyperlink
-        let hyperlink = new HyperlinkModel();
+        const hyperlink = new HyperlinkModel();
         hyperlink.permalinkKey = navitem.permalinkKey;
-        hyperlink.href = navitem.externalUrl;
         hyperlink.title = navitem.label;
 
         this.hyperlink = ko.observable<HyperlinkModel>(hyperlink);
