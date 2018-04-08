@@ -23,7 +23,7 @@ export class ContentTableHandlers implements IWidgetHandler {
         let config = {
             object: "block",
             type: "content-table",
-            title: "Content Table",
+            title: "Table of contents",
             targetPermalinkKey: currentPage.permalinkKey
         };
         let model = await this.modelBinder.nodeToModel(config);
@@ -34,7 +34,7 @@ export class ContentTableHandlers implements IWidgetHandler {
 
         let widgetOrder: IWidgetOrder = {
             name: "content-table",
-            displayName: "Content Table",
+            displayName: "Table of contents",
             iconClass: "paperbits-content-table",
             createWidget: factoryFunction,
             createModel: () => {
