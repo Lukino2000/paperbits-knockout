@@ -5,7 +5,7 @@ import { PermalinkService } from "@paperbits/common/permalinks/permalinkService"
 import { IViewManager } from "@paperbits/common/ui/IViewManager";
 import { IPermalink } from "@paperbits/common/permalinks/IPermalink";
 import { INavigationService } from "@paperbits/common/navigation/INavigationService";
-import { NavigationTreeNode } from "../../workshops/navigation/navigationTreeNode";
+import { NavigationItemViewModel } from "../../workshops/navigation/navigationItemViewModel";
 import { HyperlinkModel } from "@paperbits/common/permalinks/hyperlinkModel";
 import { Component } from "../../decorators/component";
 
@@ -20,7 +20,7 @@ export class NavigationDetailsWorkshop {
 
     public readonly hyperlinkTitle: KnockoutComputed<string>;
     public readonly hyperlink: KnockoutObservable<HyperlinkModel>;
-    public readonly navigationItem: NavigationTreeNode;
+    public readonly navigationItem: NavigationItemViewModel;
 
     constructor(
         private readonly navigationService: INavigationService,

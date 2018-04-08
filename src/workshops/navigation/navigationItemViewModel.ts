@@ -1,14 +1,14 @@
 ﻿import * as ko from "knockout";
-import { NavigationItemContract } from "@paperbits/common/navigation/NavigationItemContract";
+import { NavigationItemContract } from "@paperbits/common/navigation/navigationItemContract";
 import { HyperlinkModel } from "@paperbits/common/permalinks/hyperlinkModel";
 
 
-export class NavigationTreeNode {
+export class NavigationItemViewModel {
     public id: string;
     public label: KnockoutObservable<string>;
     public hyperlink: KnockoutObservable<HyperlinkModel>;
-    public parent: NavigationTreeNode;
-    public nodes: KnockoutObservableArray<NavigationTreeNode>;
+    public parent: NavigationItemViewModel;
+    public nodes: KnockoutObservableArray<NavigationItemViewModel>;
     public collapsed: KnockoutObservable<boolean>;
     public dragged: KnockoutObservable<boolean>;
     public hasFocus: KnockoutObservable<boolean>;
@@ -26,7 +26,7 @@ export class NavigationTreeNode {
         this.label = ko.observable<string>(navitem.label);
 
 
-        this.nodes = ko.observableArray<NavigationTreeNode>([]);
+        this.nodes = ko.observableArray<NavigationItemViewModel>([]);
         this.collapsed = ko.observable<boolean>(false);
         this.dragged = ko.observable<boolean>(false);
         this.hasFocus = ko.observable<boolean>(false);
@@ -44,15 +44,15 @@ export class NavigationTreeNode {
         this.hyperlink.subscribe(() => this.onUpdate.notifySubscribers());
     }
 
-    private isSiblingNode(node: NavigationTreeNode): boolean {
+    private isSiblingNode(node: NavigationItemViewModel): boolean {
         return this.parent && this.parent.nodes.indexOf(node) >= 0;
     }
 
-    private isChildNode(node: NavigationTreeNode): boolean {
+    private isChildNode(node: NavigationItemViewModel): boolean {
         return this.nodes.indexOf(node) >= 0;
     }
 
-    private isUncleNode(node: NavigationTreeNode): boolean {
+    private isUncleNode(node: NavigationItemViewModel): boolean {
         return this.parent && this.parent.parent && this.parent.parent.nodes.indexOf(node) >= 0 && this.parent !== node;
     }
 
@@ -84,11 +84,11 @@ export class NavigationTreeNode {
         this.onUpdate.notifySubscribers();
     }
 
-    public canAccept(node: NavigationTreeNode): boolean {
+    public canAccept(node: NavigationItemViewModel): boolean {
         return this.isSiblingNode(node) || this.isChildNode(node) || this.isUncleNode(node);
     }
 
-    public insertBefore(node: NavigationTreeNode): void {
+    public insertBefore(node: NavigationItemViewModel): void {
         if (this.parent && this.isSiblingNode(node) || this.isUncleNode(node) || this.isChildNode(node)) {
             node.parent.nodes.remove(node);
             let ownIndex = this.parent.nodes.indexOf(this);
@@ -99,7 +99,7 @@ export class NavigationTreeNode {
         }
     }
 
-    public insertAfter(node: NavigationTreeNode): void {
+    public insertAfter(node: NavigationItemViewModel): void {
         if (this.parent && this.isSiblingNode(node) || this.isUncleNode(node)) {
             node.parent.nodes.remove(node);
             let ownIndex = this.parent.nodes.indexOf(this);
