@@ -2,7 +2,6 @@ import * as ko from "knockout";
 import template from "./urlSelector.html";
 import { IResourceSelector } from "@paperbits/common/ui/IResourceSelector";
 import { UrlItem } from "./urlItem";
-import { UrlSelection } from '@paperbits/common/urls/urlSelection';
 import { UrlContract } from '@paperbits/common/urls/urlContract';
 import { IPermalink } from '@paperbits/common/permalinks/IPermalink';
 import { IPermalinkService } from '@paperbits/common/permalinks/IPermalinkService';
@@ -15,7 +14,7 @@ import { Component } from "../../decorators/component";
     template: template,
     injectable: "urlSelector"
 })
-export class UrlSelector implements IResourceSelector<UrlSelection> {
+export class UrlSelector implements IResourceSelector<UrlContract> {
     private readonly urlService: IUrlService;
     private readonly permalinkService: IPermalinkService;
 
@@ -23,11 +22,10 @@ export class UrlSelector implements IResourceSelector<UrlSelection> {
     public readonly urls: KnockoutObservableArray<UrlItem>;
     public readonly uri: KnockoutObservable<string>;
     public readonly working: KnockoutObservable<boolean>;
+    public readonly selectedUrl: KnockoutObservable<UrlItem>;
+    public readonly onResourceSelected: (selection: UrlContract) => void;
 
-    public selectedUrl: KnockoutObservable<UrlItem>;
-    public onResourceSelected: (selection: UrlSelection) => void;
-
-    constructor(urlService: IUrlService, permalinkService: IPermalinkService, onSelect: (url: UrlSelection) => void) {
+    constructor(urlService: IUrlService, permalinkService: IPermalinkService, onSelect: (url: UrlContract) => void) {
         this.urlService = urlService;
         this.permalinkService = permalinkService;
 
@@ -35,7 +33,7 @@ export class UrlSelector implements IResourceSelector<UrlSelection> {
         this.createUrl = this.createUrl.bind(this);
         this.onResourceSelected = onSelect;
 
-        this.uri = ko.observable<string>();
+        this.uri = ko.observable<string>("https://");
         this.urls = ko.observableArray<UrlItem>();
         this.selectedUrl = ko.observable<UrlItem>();
         this.searchPattern = ko.observable<string>();
@@ -66,7 +64,7 @@ export class UrlSelector implements IResourceSelector<UrlSelection> {
         this.selectedUrl(urlItem);
 
         if (this.onResourceSelected) {
-            this.onResourceSelected({ title: urlItem.title(), permalinkKey: urlItem.permalinkKey });
+            this.onResourceSelected(urlItem.toUrl());
         }
     }
 
@@ -80,7 +78,7 @@ export class UrlSelector implements IResourceSelector<UrlSelection> {
 
         await this.urlService.updateUrl(url);
 
-        this.uri("");
+        this.uri("https://");
         await this.searchUrls();
     }
 }

@@ -70,7 +70,7 @@ export class PagesWorkshop {
 
     public selectPage(pageItem: PageItem): void {
         this.selectedPage(pageItem);
-        this.viewManager.setTitle(null, pageItem.toPage());
+        this.viewManager.setTitle(null, pageItem.toContract());
         this.viewManager.openViewAsWorkshop("Page", "page-details-workshop", {
             pageItem: pageItem,
             onDeleteCallback: () => {
@@ -115,7 +115,7 @@ export class PagesWorkshop {
         //TODO: Show confirmation dialog according to mockup
         this.viewManager.closeWorkshop("page-details-workshop");
 
-        await this.pageService.deletePage(this.selectedPage().toPage());
+        await this.pageService.deletePage(this.selectedPage().toContract());
         await this.searchPages();
 
         this.routeHandler.navigateTo("/");
