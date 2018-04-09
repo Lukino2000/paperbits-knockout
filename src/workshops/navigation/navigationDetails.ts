@@ -1,7 +1,7 @@
 ﻿import * as ko from "knockout";
 import template from "./navigationDetails.html";
 import { IView } from "@paperbits/common/ui/IView";
-import { PermalinkService } from "@paperbits/common/permalinks/permalinkService";
+import { PermalinkService } from "@paperbits/common/permalinks";
 import { IViewManager } from "@paperbits/common/ui/IViewManager";
 import { IPermalink } from "@paperbits/common/permalinks";
 import { INavigationService } from "@paperbits/common/navigation/INavigationService";
