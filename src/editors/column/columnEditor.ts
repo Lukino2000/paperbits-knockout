@@ -3,14 +3,14 @@ import template from "./columnEditor.html";
 import * as Utils from "@paperbits/common/utils";
 import { MediaContract } from "@paperbits/common/media/mediaContract";
 import { ColumnViewModel } from "../../widgets/column/columnViewModel";
-import { IMediaService } from "@paperbits/common/media/IMediaService";
+import { IMediaService } from "@paperbits/common/media";
 import { ICreatedMedia } from "@paperbits/common/media/ICreatedMedia";
-import { IPermalink } from "@paperbits/common/permalinks/IPermalink";
-import { IPermalinkService } from "@paperbits/common/permalinks/IPermalinkService";
+import { IPermalink } from "@paperbits/common/permalinks";
+import { IPermalinkService } from "@paperbits/common/permalinks";
 import { IViewManager } from "@paperbits/common/ui/IViewManager";
 import { IWidgetEditor } from "@paperbits/common/widgets/IWidgetEditor";
 import { ColumnModel } from "@paperbits/common/widgets/column/columnModel";
-import { IEventManager } from "@paperbits/common/events/IEventManager";
+import { IEventManager } from "@paperbits/common/events";
 import { Component } from "../../decorators/component";
 
 

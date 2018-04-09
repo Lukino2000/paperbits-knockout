@@ -1,6 +1,6 @@
 ﻿import * as ko from "knockout";
 import { NavigationItemContract } from "@paperbits/common/navigation/navigationItemContract";
-import { HyperlinkModel } from "@paperbits/common/permalinks/hyperlinkModel";
+import { HyperlinkModel } from "@paperbits/common/permalinks";
 
 
 export class NavigationItemViewModel {

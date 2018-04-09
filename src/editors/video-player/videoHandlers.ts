@@ -5,7 +5,7 @@ import { ICreatedMedia } from "@paperbits/common/media/ICreatedMedia";
 import { IWidgetFactoryResult } from "@paperbits/common/editing/IWidgetFactoryResult";
 import { MediaContract } from "@paperbits/common/media/mediaContract";
 import { IWidgetBinding } from "@paperbits/common/editing/IWidgetBinding";
-import { IEventManager } from "@paperbits/common/events/IEventManager";
+import { IEventManager } from "@paperbits/common/events";
 import { IWidgetOrder } from "@paperbits/common/editing/IWidgetOrder";
 import { IWidgetHandler } from "@paperbits/common/editing/IWidgetHandler";
 import { IContentDropHandler } from "@paperbits/common/editing/IContentDropHandler";

@@ -3,7 +3,7 @@ import template from "./buttonEditor.html";
 import { IWidgetEditor } from '@paperbits/common/widgets/IWidgetEditor';
 import { IViewManager } from '@paperbits/common/ui/IViewManager';
 import { ButtonModel } from "@paperbits/common/widgets/button/buttonModel";
-import { HyperlinkModel } from "@paperbits/common/permalinks/hyperlinkModel";
+import { HyperlinkModel } from "@paperbits/common/permalinks";
 import { Component } from "../../decorators/component";
 
 

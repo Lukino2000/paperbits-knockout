@@ -1,6 +1,6 @@
 ﻿import * as ko from "knockout";
 import { IViewManager } from "@paperbits/common/ui/IViewManager";
-import { IEventManager } from "@paperbits/common/events/IEventManager";
+import { IEventManager } from "@paperbits/common/events";
 import { GridEditor } from "../editors/grid/gridEditor";
 
 

@@ -1,7 +1,7 @@
 import { IBlogService } from "@paperbits/common/blogs/IBlogService";
 import { IContentDropHandler } from '@paperbits/common/editing/IContentDropHandler';
 import { IInjector, IInjectorModule } from "@paperbits/common/injection";
-import { ILayoutService } from "@paperbits/common/layouts/ILayoutService";
+import { ILayoutService } from "@paperbits/common/layouts";
 import { IMediaService } from '@paperbits/common/media/IMediaService';
 import { INavigationService } from '@paperbits/common/navigation/INavigationService';
 import { IPageService } from '@paperbits/common/pages/IPageService';
@@ -12,7 +12,7 @@ import { IViewManager } from '@paperbits/common/ui/IViewManager';
 import { IWidgetHandler } from '@paperbits/common/editing/IWidgetHandler';
 import { IWidgetService } from "@paperbits/common/widgets/IWidgetService";
 import { IBlockService } from "@paperbits/common/blocks/IBlockService";
-import { IEventManager } from "@paperbits/common/events/IEventManager";
+import { IEventManager } from "@paperbits/common/events";
 import { PermalinkResolver } from "@paperbits/common/permalinks/permalinkResolver";
 import { MediaPermalinkResolver } from "@paperbits/common/media/mediaPermalinkResolver";
 import { IPermalinkResolver } from "@paperbits/common/permalinks/IPermalinkResolver";

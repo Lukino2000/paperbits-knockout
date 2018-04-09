@@ -3,7 +3,7 @@ import { XmlHttpRequestClient } from "@paperbits/common/http/xmlHttpRequestClien
 import { SettingsProvider } from "@paperbits/common/configuration/settingsProvider";
 import { DefaultEventManager } from "@paperbits/common/events/defaultEventManager";
 import { DefaultRouteHandler } from "@paperbits/common/routing/defaultRouteHandler";
-import { GlobalEventHandler } from "@paperbits/common/events/globalEventHandler";
+import { GlobalEventHandler } from "@paperbits/common/events";
 import { LocalCache } from "@paperbits/common/caching/localCache";
 import { PermalinkService } from "@paperbits/common/permalinks/permalinkService";
 import { WidgetService } from "@paperbits/common/widgets/widgetService";
@@ -38,7 +38,7 @@ import { SavingHandler } from "@paperbits/common/persistence/savingHandler";
 import { UnhandledErrorHandler } from "@paperbits/common/errors/unhandledErrorHandler";
 import { OfflineObjectStorage } from "@paperbits/common/persistence/offlineObjectStorage";
 import { AnchorMiddleware } from "@paperbits/common/persistence/anchorMiddleware";
-import { IPermalinkService } from "@paperbits/common/permalinks/IPermalinkService";
+import { IPermalinkService } from "@paperbits/common/permalinks";
 import { IPermalinkResolver } from "@paperbits/common/permalinks/IPermalinkResolver";
 import { PermalinkResolver } from "@paperbits/common/permalinks/permalinkResolver";
 import { MediaPermalinkResolver } from "@paperbits/common/media/mediaPermalinkResolver";

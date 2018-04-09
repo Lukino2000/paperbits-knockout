@@ -3,10 +3,10 @@ import template from "./navigationDetails.html";
 import { IView } from "@paperbits/common/ui/IView";
 import { PermalinkService } from "@paperbits/common/permalinks/permalinkService";
 import { IViewManager } from "@paperbits/common/ui/IViewManager";
-import { IPermalink } from "@paperbits/common/permalinks/IPermalink";
+import { IPermalink } from "@paperbits/common/permalinks";
 import { INavigationService } from "@paperbits/common/navigation/INavigationService";
 import { NavigationItemViewModel } from "../../workshops/navigation/navigationItemViewModel";
-import { HyperlinkModel } from "@paperbits/common/permalinks/hyperlinkModel";
+import { HyperlinkModel } from "@paperbits/common/permalinks";
 import { IPermalinkResolver } from "@paperbits/common/permalinks/IPermalinkResolver";
 import { Component } from "../../decorators/component";
 

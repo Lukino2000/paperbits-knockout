@@ -1,8 +1,8 @@
 ﻿import * as ko from "knockout";
 import template from "./blogPostDetails.html";
 import { BlogPostContract } from "@paperbits/common/blogs/BlogPostContract";
-import { IPermalink } from "@paperbits/common/permalinks/IPermalink";
-import { IPermalinkService } from "@paperbits/common/permalinks/IPermalinkService";
+import { IPermalink } from "@paperbits/common/permalinks";
+import { IPermalinkService } from "@paperbits/common/permalinks";
 import { IBlogService } from "@paperbits/common/blogs/IBlogService";
 import { IRouteHandler } from "@paperbits/common/routing/IRouteHandler";
 import { IViewManager } from "@paperbits/common/ui/IViewManager";

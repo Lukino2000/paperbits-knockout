@@ -1,9 +1,7 @@
 import * as ko from "knockout";
 import template from "./hyperlinkSelector.html";
-import { IPermalinkService } from "@paperbits/common/permalinks/IPermalinkService";
-import { IHyperlinkProvider } from "@paperbits/common/ui/IHyperlinkProvider";
-import { HyperlinkModel } from "@paperbits/common/permalinks/hyperlinkModel";
-import { IHyperlink } from "@paperbits/common/permalinks/IHyperlink";
+import { HyperlinkModel, IPermalinkService } from "@paperbits/common/permalinks";
+import { IHyperlinkProvider } from "@paperbits/common/ui";
 import { Component } from "../../decorators/component";
 
 

@@ -10,7 +10,7 @@ import { IPermalinkService } from '@paperbits/common/permalinks/IPermalinkServic
 import { MediaContract } from '@paperbits/common/media/mediaContract';
 import { ISettings } from "@paperbits/common/sites/ISettings";
 import { Component } from "../../decorators/component";
-import { IMediaFilter } from "@paperbits/common/media/IMediaFilter";
+import { IMediaFilter } from "@paperbits/common/media";
 import { metaDataSetter } from "@paperbits/common/meta/metaDataSetter";
 import { BackgroundModel } from "@paperbits/common/widgets/background/backgroundModel";
 

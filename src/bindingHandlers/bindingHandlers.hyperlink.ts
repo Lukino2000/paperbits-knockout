@@ -1,6 +1,6 @@
 ﻿import * as ko from "knockout";
-import { IHyperlink } from "@paperbits/common/permalinks/IHyperlink";
-import { HyperlinkModel } from "@paperbits/common/permalinks/hyperlinkModel";
+import { IHyperlink } from "@paperbits/common/permalinks";
+import { HyperlinkModel } from "@paperbits/common/permalinks";
 
 ko.bindingHandlers["hyperlink"] = {
     init(element: HTMLElement, valueAccessor) {

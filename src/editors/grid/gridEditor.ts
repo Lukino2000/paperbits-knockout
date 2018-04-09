@@ -21,7 +21,7 @@ import { Keys } from "@paperbits/common/keyboard";
 import { GridItem } from "./gridItem";
 import { GridHelper } from "./gridHelper";
 import { ViewManager } from "../../ui/viewManager";
-import { IEventManager } from "@paperbits/common/events/IEventManager";
+import { IEventManager } from "@paperbits/common/events";
 
 interface Quadrant {
     vertical: string;

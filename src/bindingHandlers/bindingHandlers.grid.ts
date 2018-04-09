@@ -4,7 +4,7 @@ import { PageModelBinder } from "@paperbits/common/widgets/page/pageModelBinder"
 import { LayoutModelBinder } from "@paperbits/common/widgets/layout/layoutModelBinder";
 import { GridEditor } from "../editors/grid/gridEditor";
 import { GridHelper } from "../editors/grid/gridHelper";
-import { IEventManager } from "@paperbits/common/events/IEventManager";
+import { IEventManager } from "@paperbits/common/events";
 import { RowModel } from "@paperbits/common/widgets/row/rowModel";
 import { ColumnModel } from "@paperbits/common/widgets/column/columnModel";
 

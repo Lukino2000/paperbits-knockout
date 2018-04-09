@@ -1,10 +1,10 @@
 import * as ko from "knockout";
 import template from "./formattingTools.html";
 import * as Utils from "@paperbits/common/utils";
-import { IEventManager } from "@paperbits/common/events/IEventManager";
+import { IEventManager } from "@paperbits/common/events";
 import { IHtmlEditorProvider } from "@paperbits/common/editing/htmlEditorProvider";
 import { Component } from "../../../decorators/component";
-import { IPermalinkService } from "@paperbits/common/permalinks/IPermalinkService";
+import { IPermalinkService } from "@paperbits/common/permalinks";
 import { IPageService } from "@paperbits/common/pages/IPageService";
 import { IntentionsUtils } from "@paperbits/common/appearance/intentionsUtils";
 import { IRouteHandler } from "@paperbits/common/routing/IRouteHandler";

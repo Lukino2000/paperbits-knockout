@@ -2,10 +2,10 @@
 import template from "./hyperlinkTools.html";
 import { IHtmlEditorProvider } from '@paperbits/common/editing/htmlEditorProvider'
 import { IEventManager } from '@paperbits/common/events/IEventManager';
-import { HyperlinkModel } from "@paperbits/common/permalinks/hyperlinkModel";
-import { IHyperlink } from "@paperbits/common/permalinks/IHyperlink";
+import { HyperlinkModel } from "@paperbits/common/permalinks";
+import { IHyperlink } from "@paperbits/common/permalinks";
 import { PermalinkResolver } from "@paperbits/common/permalinks/permalinkResolver";
-import { IPermalinkService } from "@paperbits/common/permalinks/IPermalinkService";
+import { IPermalinkService } from "@paperbits/common/permalinks";
 import { Component } from "../../../decorators/component";
 
 

@@ -1,7 +1,7 @@
 import * as ko from "knockout";
 import template from "./contentTable.html";
 import { Component } from "../../decorators/component";
-import { HyperlinkModel } from "@paperbits/common/permalinks/hyperlinkModel";
+import { HyperlinkModel } from "@paperbits/common/permalinks";
 
 @Component({
     selector: "content-table",

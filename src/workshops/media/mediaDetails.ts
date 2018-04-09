@@ -1,9 +1,9 @@
 ﻿import * as ko from "knockout";
 import template from "./mediaDetails.html";
 import { MediaContract } from "@paperbits/common/media/mediaContract";
-import { IPermalink } from "@paperbits/common/permalinks/IPermalink";
-import { IPermalinkService } from "@paperbits/common/permalinks/IPermalinkService";
-import { IMediaService } from "@paperbits/common/media/IMediaService";
+import { IPermalink } from "@paperbits/common/permalinks";
+import { IPermalinkService } from "@paperbits/common/permalinks";
+import { IMediaService } from "@paperbits/common/media";
 import { IRouteHandler } from "@paperbits/common/routing/IRouteHandler";
 import { IViewManager } from "@paperbits/common/ui/IViewManager";
 import { MediaItem } from "../../workshops/media/mediaItem";

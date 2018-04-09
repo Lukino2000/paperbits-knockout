@@ -2,7 +2,7 @@
 import template from "./navigation.html";
 import { INavigationService } from "@paperbits/common/navigation/INavigationService";
 import { IViewManager } from "@paperbits/common/ui/IViewManager";
-import { IPermalinkService } from "@paperbits/common/permalinks/IPermalinkService";
+import { IPermalinkService } from "@paperbits/common/permalinks";
 import { NavigationItemContract } from "@paperbits/common/navigation/NavigationItemContract";
 import { NavigationTree } from "../../workshops/navigation/navigationTree";
 import { NavigationItemViewModel } from "../../workshops/navigation/navigationItemViewModel";

@@ -1,6 +1,6 @@
 ﻿import * as ko from "knockout";
 import { IHtmlEditor } from "@paperbits/common/editing/IHtmlEditor";
-import { IEventManager } from "@paperbits/common/events/IEventManager";
+import { IEventManager } from "@paperbits/common/events";
 import { TextblockViewModel } from "../widgets/textblock/textblockViewModel";
 
 
