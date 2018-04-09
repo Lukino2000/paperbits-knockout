@@ -12,7 +12,7 @@ import { IBag } from "@paperbits/common/IBag";
 import { IViewManager } from "@paperbits/common/ui/IViewManager";
 import { IAppIntentionsProvider } from "../../../application/interface";
 import { Intentions } from "../../../application/codegen/intentionContracts";
-import { IHtmlEditor, SelectionState } from "@paperbits/common/editing/IHtmlEditor";
+import { IHtmlEditor, SelectionState } from "@paperbits/common/editing";
 import { Intention, IntentionWithViewport } from "@paperbits/common/appearance/intention";
 import { isAbsolute } from "path";
 
