@@ -4,7 +4,7 @@ import { NavbarItemViewModel } from "./navbarItemViewModel";
 import { NavbarItemModel } from "@paperbits/common/widgets/navbar/navbarItemModel";
 import { IRouteHandler } from "@paperbits/common/routing/IRouteHandler";
 import { IViewModelBinder } from "@paperbits/common/widgets/IViewModelBinder";
-import { IEventManager } from "@paperbits/common/events/IEventManager";
+import { IEventManager } from "@paperbits/common/events";
 import { NavigationEvents } from "@paperbits/common/navigation/navigationEvents";
 import { NavbarModelBinder } from "@paperbits/common/widgets/navbar/navbarModelBinder";
 

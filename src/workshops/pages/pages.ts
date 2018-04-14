@@ -3,7 +3,7 @@ import template from "./pages.html";
 import { PageContract } from "@paperbits/common/pages/pageContract";
 import { IPageService } from "@paperbits/common/pages/IPageService";
 import { IRouteHandler } from "@paperbits/common/routing/IRouteHandler";
-import { IPermalinkService } from "@paperbits/common/permalinks/IPermalinkService";
+import { IPermalinkService } from "@paperbits/common/permalinks";
 import { IViewManager } from "@paperbits/common/ui/IViewManager";
 import { PageItem } from "../../workshops/pages/pageItem";
 import { IFileService } from "@paperbits/common/files/IFileService";

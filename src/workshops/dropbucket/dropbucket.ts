@@ -1,19 +1,14 @@
 ﻿import * as ko from "knockout";
 import template from "./dropbucket.html";
 import * as Utils from "@paperbits/common/utils";
-import { IViewManager, ViewManagerMode } from "@paperbits/common/ui/IViewManager";
-import { IHttpClient } from "@paperbits/common/http/IHttpClient";
-import { IMediaService } from "@paperbits/common/media/IMediaService";
-import { IContentDropHandler } from "@paperbits/common/editing/IContentDropHandler";
-import { IContentDescriptor } from "@paperbits/common/editing/IContentDescriptor";
-import { IDataTransfer } from "@paperbits/common/editing/IDataTransfer";
-import { ICreatedMedia } from "@paperbits/common/media/ICreatedMedia";
-import { IWidgetOrder } from "@paperbits/common/editing/IWidgetOrder";
-import { GlobalEventHandler } from "@paperbits/common/events/globalEventHandler";
-import { ProgressPromise } from "@paperbits/common/progressPromise";
+import { IViewManager, ViewManagerMode } from "@paperbits/common/ui";
+import { IEventManager, GlobalEventHandler } from "@paperbits/common/events";
+import { IHttpClient } from "@paperbits/common/http";
+import { IMediaService, ICreatedMedia  } from "@paperbits/common/media";
+import { IWidgetOrder, IContentDropHandler, IContentDescriptor, IDataTransfer } from "@paperbits/common/editing";
+import { ProgressPromise } from "@paperbits/common";
 import { DropBucketItem } from "../../workshops/dropbucket/dropbucketItem";
 import { Component } from "../../decorators/component";
-import { IEventManager } from "@paperbits/common/events/IEventManager";
 
 /*
    - Drop bucket introduces a special container for dropping content,

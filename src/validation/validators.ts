@@ -1,10 +1,9 @@
 
 import * as ko from "knockout";
 import * as validation from "knockout.validation";
-import { IPermalinkService } from "@paperbits/common/permalinks/IPermalinkService";
-import { IPermalink } from "@paperbits/common/permalinks/IPermalink";
-import { ILayoutService } from "@paperbits/common/layouts/ILayoutService";
-import { LayoutItem } from "../workshops/layouts/layoutItem";
+import { IPermalink, IPermalinkService } from "@paperbits/common/permalinks";
+import { ILayoutService } from "@paperbits/common/layouts";
+import { LayoutItem } from "../workshops/layouts";
 import { setTimeout } from "timers";
 
 const errorClassName = "is-invalid";

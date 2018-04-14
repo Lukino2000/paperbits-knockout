@@ -2,7 +2,7 @@
 import template from "./layoutDetails.html";
 import { IRouteHandler } from '@paperbits/common/routing/IRouteHandler';
 import { IViewManager } from '@paperbits/common/ui/IViewManager';
-import { ILayoutService } from "@paperbits/common/layouts/ILayoutService";
+import { ILayoutService } from "@paperbits/common/layouts";
 import { LayoutItem } from "./layoutItem";
 import { Component } from "../../decorators/component";
 

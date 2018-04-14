@@ -5,12 +5,12 @@ import { AudioPlayerContract } from "@paperbits/common/widgets/audio-player/audi
 import { IWidgetFactoryResult } from "@paperbits/common/editing/IWidgetFactoryResult";
 import { IWidgetBinding } from "@paperbits/common/editing/IWidgetBinding";
 import { MediaContract } from "@paperbits/common/media/mediaContract";
-import { IWidgetOrder } from '@paperbits/common/editing/IWidgetOrder';
-import { IContentDropHandler } from '@paperbits/common/editing/IContentDropHandler';
-import { IWidgetHandler } from '@paperbits/common/editing/IWidgetHandler';
-import { IDataTransfer } from '@paperbits/common/editing/IDataTransfer';
-import { IContentDescriptor } from '@paperbits/common/editing/IContentDescriptor';
-import { MediaHandlers } from '../../editors/mediaHandlers';
+import { IWidgetOrder } from "@paperbits/common/editing/IWidgetOrder";
+import { IContentDropHandler } from "@paperbits/common/editing/IContentDropHandler";
+import { IWidgetHandler } from "@paperbits/common/editing/IWidgetHandler";
+import { IDataTransfer } from "@paperbits/common/editing/IDataTransfer";
+import { IContentDescriptor } from "@paperbits/common/editing/IContentDescriptor";
+import { MediaHandlers } from "../../editors/mediaHandlers";
 
 
 export class AudioHandlers extends MediaHandlers implements IWidgetHandler, IContentDropHandler {
@@ -26,7 +26,7 @@ export class AudioHandlers extends MediaHandlers implements IWidgetHandler, ICon
     }
 
     private getWidgetOrderByConfig(sourceUrl: string): IWidgetOrder {
-        let pictureWidgetModel: IWidgetBinding = {
+        const pictureWidgetModel: IWidgetBinding = {
             name: "paperbits-audio-player",
             params: {},
             oncreate: (audioPlayerModel: AudioPlayerViewModel) => {
@@ -37,12 +37,12 @@ export class AudioHandlers extends MediaHandlers implements IWidgetHandler, ICon
             nodeType: "audio-player"
         };
 
-        var widgetOrder: IWidgetOrder = {
+        const widgetOrder: IWidgetOrder = {
             name: "audio-player",
             displayName: "Audio player",
 
             createWidget: () => {
-                let htmlElement = document.createElement("widget");
+                const htmlElement = document.createElement("widget");
 
                 htmlElement["attachedModel"] = pictureWidgetModel.model;
                 ko.applyBindingsToNode(htmlElement, { component: { name: pictureWidgetModel.name, oncreate: pictureWidgetModel.oncreate } })
@@ -62,9 +62,9 @@ export class AudioHandlers extends MediaHandlers implements IWidgetHandler, ICon
     }
 
     public getContentDescriptorFromMedia(media: MediaContract): IContentDescriptor {
-        let getWidgetOrderFunction: () => Promise<IWidgetOrder> = () => {
+        const getWidgetOrderFunction: () => Promise<IWidgetOrder> = () => {
             return new Promise<IWidgetOrder>(async (resolve, reject) => {
-                let config: AudioPlayerContract = {
+                const config: AudioPlayerContract = {
                     object: "block",
                     type: "audio-player",
                     sourceKey: media.permalinkKey,
@@ -72,24 +72,11 @@ export class AudioHandlers extends MediaHandlers implements IWidgetHandler, ICon
                     autoplay: false
                 }
 
-                let model = await this.audioPlayerModelBinder.nodeToModel(config);
-                //let audioPlayerWidgetModel = await this.audioPlayerModelBinder.modelToWidgetModel(model);
-
-                let factoryFunction: () => IWidgetFactoryResult = () => {
-                    throw "Not implemented.";
-                    // let htmlElement = document.createElement("widget");
-                    // htmlElement.style.width = "100px";
-                    // htmlElement.style.height = "100px";
-                    // htmlElement["attachedModel"] = audioPlayerWidgetModel.model;
-
-                    // ko.applyBindingsToNode(htmlElement, { component: { name: audioPlayerWidgetModel.name, oncreate: audioPlayerWidgetModel.oncreate } })
-                    // return { element: htmlElement };
-                }
-
-                var widgetOrder: IWidgetOrder = {
+                const model = await this.audioPlayerModelBinder.nodeToModel(config);
+              
+                const widgetOrder: IWidgetOrder = {
                     name: "audio-player",
                     displayName: "Audio player",
-                    createWidget: factoryFunction,
                     createModel: async () => {
                         return model;
                     }
@@ -111,7 +98,7 @@ export class AudioHandlers extends MediaHandlers implements IWidgetHandler, ICon
             return null;
         }
 
-        let source = dataTransfer.source;
+        const source = dataTransfer.source;
         let droppedSourceUrl: string;
 
         if (source instanceof File) {
@@ -121,7 +108,7 @@ export class AudioHandlers extends MediaHandlers implements IWidgetHandler, ICon
             droppedSourceUrl = source;
         }
 
-        let descriptor: IContentDescriptor = {
+        const descriptor: IContentDescriptor = {
             title: "Audio",
             description: dataTransfer.name,
             iconUrl: AudioHandlers.DefaultThumbnailUri,

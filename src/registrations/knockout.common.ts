@@ -1,6 +1,6 @@
 ﻿import * as ko from "knockout";
 import { IInjector, IInjectorModule } from "@paperbits/common/injection";
-import { IEventManager } from "@paperbits/common/events/IEventManager";
+import { IEventManager } from "@paperbits/common/events";
 
 import "../bindingHandlers/bindingHandlers.background";
 import "../bindingHandlers/bindingHandlers.balloon";

@@ -9,8 +9,8 @@ import { IPermalinkService } from '@paperbits/common/permalinks/IPermalinkServic
 import { IMediaService } from '@paperbits/common/media/IMediaService';
 import { Component } from "../../decorators/component";
 import { IViewManager } from "@paperbits/common/ui/IViewManager";
-import { IMediaFilter } from "@paperbits/common/media/IMediaFilter";
-import { IEventManager } from "@paperbits/common/events/IEventManager";
+import { IMediaFilter } from "@paperbits/common/media";
+import { IEventManager } from "@paperbits/common/events";
 
 
 @Component({

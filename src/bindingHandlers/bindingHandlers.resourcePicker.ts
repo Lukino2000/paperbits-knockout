@@ -1,7 +1,7 @@
 import * as ko from "knockout";
 import { IResourceSelector } from "@paperbits/common/ui/IResourceSelector";
 import { IHyperlinkProvider } from "@paperbits/common/ui/IHyperlinkProvider";
-import { HyperlinkModel } from "@paperbits/common/permalinks/hyperlinkModel";
+import { HyperlinkModel } from "@paperbits/common/permalinks";
 
 ko.bindingHandlers["resourcePicker"] = {
     init: (element: HTMLElement, valueAccessor) => {

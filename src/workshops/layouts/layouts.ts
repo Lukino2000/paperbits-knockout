@@ -5,7 +5,7 @@ import { IRouteHandler } from '@paperbits/common/routing/IRouteHandler';
 import { IPermalinkService } from '@paperbits/common/permalinks/IPermalinkService';
 import { IViewManager } from '@paperbits/common/ui/IViewManager';
 import { IFileService } from '@paperbits/common/files/IFileService';
-import { ILayoutService } from "@paperbits/common/layouts/ILayoutService";
+import { ILayoutService } from "@paperbits/common/layouts";
 import { Keys } from "@paperbits/common/keyboard";
 import { LayoutItem } from "./layoutItem";
 import { Component } from "../../decorators/component";

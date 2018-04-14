@@ -3,7 +3,7 @@ import template from "./blogs.html";
 import { BlogPostContract } from "@paperbits/common/blogs/BlogPostContract";
 import { IBlogService } from "@paperbits/common/blogs/IBlogService";
 import { IRouteHandler } from "@paperbits/common/routing/IRouteHandler";
-import { IPermalinkService } from "@paperbits/common/permalinks/IPermalinkService";
+import { IPermalinkService } from "@paperbits/common/permalinks";
 import { IViewManager } from "@paperbits/common/ui/IViewManager";
 import { IBlockService } from "@paperbits/common/blocks/IBlockService";
 import { Keys } from "@paperbits/common/keyboard";

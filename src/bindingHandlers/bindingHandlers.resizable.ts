@@ -1,5 +1,5 @@
 import * as ko from "knockout";
-import { IEventManager } from "@paperbits/common/events/IEventManager";
+import { IEventManager } from "@paperbits/common/events";
 import { isNumber } from "util";
 
 interface ResizableOptions {

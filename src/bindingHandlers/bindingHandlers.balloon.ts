@@ -1,6 +1,6 @@
 ﻿import * as ko from "knockout";
 import * as Utils from "@paperbits/common/utils";
-import { IEventManager } from "@paperbits/common/events/IEventManager";
+import { IEventManager } from "@paperbits/common/events";
 import { Keys } from "@paperbits/common/keyboard";
 
 const balloonActiveClassName = "balloon-is-active";

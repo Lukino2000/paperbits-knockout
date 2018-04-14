@@ -1,5 +1,5 @@
 ﻿import * as ko from "knockout";
-import { BackgroundModel } from "@paperbits/common/widgets/background/backgroundModel";
+import { BackgroundModel } from "@paperbits/common/widgets/background";
 import { IAppIntentionsProvider } from "../application/interface";
 
 ko.bindingHandlers["style"] = {

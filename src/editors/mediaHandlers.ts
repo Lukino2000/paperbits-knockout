@@ -28,16 +28,4 @@ export abstract class MediaHandlers implements IContentDropHandler {
     public getContentDescriptorFromDataTransfer(item: IDataTransfer): IContentDescriptor {
         return null;
     }
-
-    // protected toWidgetFactoryResult<TViewModel>(element: HTMLElement, onFileUploaded?: (viewModel: TViewModel, source: File | string, uploadedUrl: string) => void): IWidgetFactoryResult {
-    //     var result: IWidgetFactoryResult = {
-    //         element: element,
-    //         onMediaUploadedCallback: (source: File | string, uploadedFileUrl: string) => {
-    //             var viewModel = <TViewModel>ko.dataFor(element.children[0]);
-    //             onFileUploaded(viewModel, source, uploadedFileUrl);
-    //         }
-    //     };
-
-    //     return result;
-    // }
 }

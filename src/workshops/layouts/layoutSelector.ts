@@ -3,7 +3,7 @@ import { IResourceSelector } from "@paperbits/common/ui/IResourceSelector";
 import { IPermalink } from '@paperbits/common/permalinks/IPermalink';
 import { IPermalinkService } from '@paperbits/common/permalinks/IPermalinkService';
 import { LayoutContract } from "@paperbits/common/layouts/layoutContract";
-import { ILayoutService } from "@paperbits/common/layouts/ILayoutService";
+import { ILayoutService } from "@paperbits/common/layouts";
 import { LayoutItem } from "./layoutItem";
 
 
