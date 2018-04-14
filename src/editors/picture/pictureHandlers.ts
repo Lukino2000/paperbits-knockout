@@ -35,10 +35,6 @@ export class PictureHandlers implements IWidgetHandler, IContentDropHandler {
     private async prepareWidgetOrder(config: PictureContract): Promise<IWidgetOrder> {
         const pictureModel = await this.pictureModelBinder.nodeToModel(config);
 
-        const factoryFunction: () => IWidgetFactoryResult = () => {
-            throw "Not implemented.";
-        }
-
         const widgetOrder: IWidgetOrder = {
             name: "picture",
             displayName: widgetDisplayName,
@@ -60,7 +56,7 @@ export class PictureHandlers implements IWidgetHandler, IContentDropHandler {
         pictureModel.caption = caption;
         pictureModel.layout = defaultLayout;
 
-        let widgetOrder: IWidgetOrder = {
+        const widgetOrder: IWidgetOrder = {
             name: "picture",
             displayName: widgetDisplayName,
             iconClass: "paperbits-image-2",
@@ -84,8 +80,6 @@ export class PictureHandlers implements IWidgetHandler, IContentDropHandler {
                     onMediaUploadedCallback: (media: ICreatedMedia) => {
                         pictureModel.background.sourceKey = media.permalink.key;
                         pictureModel.background.sourceUrl = media.media.downloadUrl;
-
-                        // TODO: Notify PageModelBinder to update page config.
                     }
                 }
             },

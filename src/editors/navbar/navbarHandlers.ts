@@ -25,34 +25,20 @@ export class NavbarHandlers implements IWidgetHandler {
     }
 
     private async getWidgetOrderByConfig(): Promise<IWidgetOrder> {
-
-
-        let node = {
+        const node = {
             object: "block",
             type: "navbar",
             rootKey: "navigationItems/main" // TODO: This is temporary, until multiple menus support is implemented.
         };
 
-        let model = await this.navbarModelBinder.nodeToModel(node);
+        const model = await this.navbarModelBinder.nodeToModel(node);
 
-
-        let widgetOrder: IWidgetOrder = {
+        const widgetOrder: IWidgetOrder = {
             name: "navbar",
             displayName: "Navigation bar",
             iconClass: "paperbits-menu-34",
             createWidget: () => {
                 throw "Not implemented.";
-
-                // let widgetModel = await this.navbarModelBinder.modelToWidgetModel(model);
-                // let htmlElement = document.createElement("widget");
-                // htmlElement.style.width = "150px";
-
-                // ko.applyBindingsToNode(htmlElement, { widget: widgetModel });
-                // htmlElement["attachedModel"] = widgetModel.model;
-
-                // return {
-                //     element: htmlElement
-                // }
             },
             createModel: async () => {
                 return model;
