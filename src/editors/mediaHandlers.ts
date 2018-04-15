@@ -1,8 +1,8 @@
 ﻿import * as ko from "knockout";
-import { IContentDropHandler } from '@paperbits/common/editing/IContentDropHandler';
-import { IDataTransfer } from '@paperbits/common/editing/IDataTransfer';
-import { IContentDescriptor } from '@paperbits/common/editing/IContentDescriptor';
-import { IWidgetFactoryResult } from '@paperbits/common/editing/IWidgetFactoryResult';
+import { IContentDropHandler } from '@paperbits/common/editing';
+import { IDataTransfer } from '@paperbits/common/editing';
+import { IContentDescriptor } from '@paperbits/common/editing';
+import { IWidgetFactoryResult } from '@paperbits/common/editing';
 
 export abstract class MediaHandlers implements IContentDropHandler {
     private mediaTypePrefixes: string[];

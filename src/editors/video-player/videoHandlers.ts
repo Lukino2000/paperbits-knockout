@@ -2,16 +2,16 @@
 import { VideoPlayerContract } from "@paperbits/common/widgets/video-player/VideoPlayerContract";
 import { VideoPlayerModelBinder } from "@paperbits/common/widgets/video-player/videoPlayerModelBinder";
 import { ICreatedMedia } from "@paperbits/common/media/ICreatedMedia";
-import { IWidgetFactoryResult } from "@paperbits/common/editing/IWidgetFactoryResult";
+import { IWidgetFactoryResult } from "@paperbits/common/editing";
 import { MediaContract } from "@paperbits/common/media/mediaContract";
-import { IWidgetBinding } from "@paperbits/common/editing/IWidgetBinding";
+import { IWidgetBinding } from "@paperbits/common/editing";
 import { IEventManager } from "@paperbits/common/events";
-import { IWidgetOrder } from "@paperbits/common/editing/IWidgetOrder";
-import { IWidgetHandler } from "@paperbits/common/editing/IWidgetHandler";
-import { IContentDropHandler } from "@paperbits/common/editing/IContentDropHandler";
+import { IWidgetOrder } from "@paperbits/common/editing";
+import { IWidgetHandler } from "@paperbits/common/editing";
+import { IContentDropHandler } from "@paperbits/common/editing";
 import { MediaHandlers } from "../../editors/mediaHandlers";
-import { IContentDescriptor } from "@paperbits/common/editing/IContentDescriptor";
-import { IDataTransfer } from "@paperbits/common/editing/IDataTransfer";
+import { IContentDescriptor } from "@paperbits/common/editing";
+import { IDataTransfer } from "@paperbits/common/editing";
 
 export class VideoHandlers implements IWidgetHandler, IContentDropHandler {
     private readonly videoPlayerModelBinder: VideoPlayerModelBinder;

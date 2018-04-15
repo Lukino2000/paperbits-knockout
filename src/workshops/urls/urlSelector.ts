@@ -4,7 +4,7 @@ import { IResourceSelector } from "@paperbits/common/ui/IResourceSelector";
 import { UrlItem } from "./urlItem";
 import { UrlContract } from '@paperbits/common/urls/urlContract';
 import { IPermalink } from '@paperbits/common/permalinks/IPermalink';
-import { IPermalinkService } from '@paperbits/common/permalinks/IPermalinkService';
+import { IPermalinkService } from '@paperbits/common/permalinks';
 import { IUrlService } from '@paperbits/common/urls/IUrlService';
 import { Component } from "../../decorators/component";
 

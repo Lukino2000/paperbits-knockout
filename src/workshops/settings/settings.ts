@@ -6,7 +6,7 @@ import { ISiteService } from '@paperbits/common/sites/ISiteService';
 import { ICreatedMedia } from '@paperbits/common/media/ICreatedMedia';
 import { IMediaService } from '@paperbits/common/media/IMediaService';
 import { IPermalink } from '@paperbits/common/permalinks/IPermalink';
-import { IPermalinkService } from '@paperbits/common/permalinks/IPermalinkService';
+import { IPermalinkService } from '@paperbits/common/permalinks';
 import { MediaContract } from '@paperbits/common/media/mediaContract';
 import { ISettings } from "@paperbits/common/sites/ISettings";
 import { Component } from "../../decorators/component";

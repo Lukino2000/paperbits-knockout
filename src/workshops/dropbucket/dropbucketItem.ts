@@ -1,7 +1,7 @@
 ﻿import * as ko from "knockout";
-import { IWidgetFactoryResult } from '@paperbits/common/editing/IWidgetFactoryResult';
+import { IWidgetFactoryResult } from '@paperbits/common/editing';
 import { BackgroundModel } from "@paperbits/common/widgets/background/backgroundModel";
-import { IWidgetOrder } from "@paperbits/common/editing/IWidgetOrder";
+import { IWidgetOrder } from "@paperbits/common/editing";
 
 
 export class DropBucketItem {

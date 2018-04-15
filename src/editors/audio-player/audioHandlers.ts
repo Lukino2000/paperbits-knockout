@@ -2,14 +2,14 @@
 import { AudioPlayerViewModel } from "../../widgets/audio-player/audioViewModel";
 import { AudioPlayerModelBinder } from "@paperbits/common/widgets/audio-player/audioPlayerModelBinder";
 import { AudioPlayerContract } from "@paperbits/common/widgets/audio-player/audioPlayerContract";
-import { IWidgetFactoryResult } from "@paperbits/common/editing/IWidgetFactoryResult";
-import { IWidgetBinding } from "@paperbits/common/editing/IWidgetBinding";
+import { IWidgetFactoryResult } from "@paperbits/common/editing";
+import { IWidgetBinding } from "@paperbits/common/editing";
 import { MediaContract } from "@paperbits/common/media/mediaContract";
-import { IWidgetOrder } from "@paperbits/common/editing/IWidgetOrder";
-import { IContentDropHandler } from "@paperbits/common/editing/IContentDropHandler";
-import { IWidgetHandler } from "@paperbits/common/editing/IWidgetHandler";
-import { IDataTransfer } from "@paperbits/common/editing/IDataTransfer";
-import { IContentDescriptor } from "@paperbits/common/editing/IContentDescriptor";
+import { IWidgetOrder } from "@paperbits/common/editing";
+import { IContentDropHandler } from "@paperbits/common/editing";
+import { IWidgetHandler } from "@paperbits/common/editing";
+import { IDataTransfer } from "@paperbits/common/editing";
+import { IContentDescriptor } from "@paperbits/common/editing";
 import { MediaHandlers } from "../../editors/mediaHandlers";
 
 

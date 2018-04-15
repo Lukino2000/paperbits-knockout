@@ -7,7 +7,7 @@ import { IContextualEditor } from "@paperbits/common/ui/IContextualEditor";
 import { RowModel } from "@paperbits/common/widgets/row/rowModel";
 import { ColumnModel } from "@paperbits/common/widgets/column/columnModel";
 import { SectionModel } from "@paperbits/common/widgets/section/sectionModel";
-import { IWidgetBinding } from "@paperbits/common/editing/IWidgetBinding";
+import { IWidgetBinding } from "@paperbits/common/editing";
 import { SectionModelBinder } from "@paperbits/common/widgets/section/sectionModelBinder";
 import { IView } from "@paperbits/common/ui/IView";
 import { IWidgetEditor } from "@paperbits/common/widgets/IWidgetEditor";

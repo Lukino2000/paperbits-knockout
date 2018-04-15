@@ -1,18 +1,18 @@
 ﻿import * as ko from "knockout";
+import * as Utils from "@paperbits/common/utils";
 import { Code } from "../../widgets/codeblock/code";
-import { IWidgetBinding } from "@paperbits/common/editing/IWidgetBinding";
-import * as Utils from '@paperbits/common/utils';
-import { ProgressPromise } from '@paperbits/common/progressPromise';
-import { IWidgetOrder } from '@paperbits/common/editing/IWidgetOrder';
-import { IContentDropHandler } from '@paperbits/common/editing/IContentDropHandler';
-import { IContentDescriptor } from '@paperbits/common/editing/IContentDescriptor';
-import { IWidgetHandler } from '@paperbits/common/editing/IWidgetHandler';
-import { IWidgetFactoryResult } from '@paperbits/common/editing/IWidgetFactoryResult';
-import { IDataTransfer } from '@paperbits/common/editing/IDataTransfer';
+import { IWidgetBinding } from "@paperbits/common/editing";
+import { ProgressPromise } from "@paperbits/common";
+import { IWidgetOrder } from "@paperbits/common/editing";
+import { IContentDropHandler } from "@paperbits/common/editing";
+import { IContentDescriptor } from "@paperbits/common/editing";
+import { IWidgetHandler } from "@paperbits/common/editing";
+import { IWidgetFactoryResult } from "@paperbits/common/editing";
+import { IDataTransfer } from "@paperbits/common/editing";
 import { ICodeConfig } from "./ICodeConfig";
-import { MediaHandlers } from '../../editors/mediaHandlers';
-import { IPermalinkService } from '@paperbits/common/permalinks/IPermalinkService';
-import { IEventManager } from '@paperbits/common/events/IEventManager';
+import { MediaHandlers } from "../../editors/mediaHandlers";
+import { IPermalinkService } from "@paperbits/common/permalinks";
+import { IEventManager } from "@paperbits/common/events";
 
 
 export class CodeHandlers extends MediaHandlers implements IWidgetHandler, IContentDropHandler {
@@ -66,41 +66,10 @@ export class CodeHandlers extends MediaHandlers implements IWidgetHandler, ICont
 
     public getWidgetOrder(config?: ICodeConfig): Promise<IWidgetOrder> {
         return Promise.resolve(this.getWidgetOrderByConfig(`function foo(items) {\r\n\tvar x = "Put your code snippet here";\r\n\treturn x;\r\n}`, "javascript", "clouds", true));
-
-
-        // if (!config || config.code) {
-        //     var widgetOrder = this.createWidgetOrderByConfig(config);
-        //     return Promise.resolve(widgetOrder);
-        // } else if (config.onload) {
-        //     return config.onload.then(result => {
-        //         config.code = result;
-        //         return this.createWidgetOrderByConfig(config);
-        //     });
-        // } else {
-        //     throw new Error("Invalid argument config. Neither code nor onload defined.");
-        // }
-    }
-
-    createWidgetOrderByConfig(config?: ICodeConfig): IWidgetOrder {
-        var widgetOrder: IWidgetOrder = {
-            name: "code-block",
-            displayName: "Code",
-            createWidget: () => <IWidgetFactoryResult>{
-                element: Utils.createComponent("paperbits-code", {
-                    code: config ? config.code || "" : "function foo(items) {\r\n\tvar x = 'Put your code snippet here';\r\n\treturn x;\r\n}",
-                    lang: config ? config.lang || this.getLangByFileName(config.filename) : "javascript",
-                    theme: config ? config.theme : "clouds"
-                })
-            },
-            createModel: async () => {
-                return config;
-            }
-        }
-        return widgetOrder;
     }
 
     getLangByFileName(fileName: string): string {
-        var extension = fileName.split('.').pop();
+        var extension = fileName.split(".").pop();
         switch (extension) {
             case "cs":
                 return "csharp";

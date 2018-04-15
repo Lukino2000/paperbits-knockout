@@ -1,7 +1,7 @@
 ﻿import * as ko from "knockout";
 import template from "./youtube.html";
 import { Component } from "../../decorators/component";
-import { IWidgetBinding } from "@paperbits/common/editing/IWidgetBinding";
+import { IWidgetBinding } from "@paperbits/common/editing";
 import { YoutubePlayerModel } from "@paperbits/common/widgets/youtube-player/youtubePlayerModel";
 
 

@@ -2,14 +2,14 @@
 import { YoutubeModelBinder } from "@paperbits/common/widgets/youtube-player/youtubeModelBinder";
 import { YoutubePlayerModel } from "@paperbits/common/widgets/youtube-player/youtubePlayerModel";
 import { YoutubePlayerViewModel } from "../../widgets/youtube-player/youtubePlayerViewModel";
-import { IWidgetBinding } from "@paperbits/common/editing/IWidgetBinding";
+import { IWidgetBinding } from "@paperbits/common/editing";
 import * as Utils from '@paperbits/common/utils';
-import { IWidgetOrder } from '@paperbits/common/editing/IWidgetOrder';
-import { IContentDropHandler } from '@paperbits/common/editing/IContentDropHandler';
-import { IDataTransfer } from '@paperbits/common/editing/IDataTransfer';
-import { IContentDescriptor } from '@paperbits/common/editing/IContentDescriptor';
-import { IWidgetHandler } from '@paperbits/common/editing/IWidgetHandler';
-import { IWidgetFactoryResult } from '@paperbits/common/editing/IWidgetFactoryResult';
+import { IWidgetOrder } from '@paperbits/common/editing';
+import { IContentDropHandler } from '@paperbits/common/editing';
+import { IDataTransfer } from '@paperbits/common/editing';
+import { IContentDescriptor } from '@paperbits/common/editing';
+import { IWidgetHandler } from '@paperbits/common/editing';
+import { IWidgetFactoryResult } from '@paperbits/common/editing';
 
 const defaultYoutubeClipId = "KK9bwTlAvgo";
 

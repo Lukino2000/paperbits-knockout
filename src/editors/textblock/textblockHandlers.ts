@@ -2,9 +2,9 @@
 import * as Utils from "@paperbits/common/utils";
 import { TextblockModel } from "@paperbits/common/widgets/textblock/textblockModel";
 import { TextblockModelBinder } from "@paperbits/common/widgets/textblock/textblockModelBinder";
-import { IWidgetOrder } from "@paperbits/common/editing/IWidgetOrder";
-import { IWidgetFactoryResult } from "@paperbits/common/editing/IWidgetFactoryResult";
-import { IWidgetHandler } from "@paperbits/common/editing/IWidgetHandler";
+import { IWidgetOrder } from "@paperbits/common/editing";
+import { IWidgetFactoryResult } from "@paperbits/common/editing";
+import { IWidgetHandler } from "@paperbits/common/editing";
 import { TextblockViewModel } from "../../widgets/textblock/textblockViewModel";
 
 export const nodeName = "paperbits-text";

@@ -5,7 +5,7 @@ import { IResourceSelector } from "@paperbits/common/ui/IResourceSelector";
 import { MediaItem } from "./mediaItem";
 import { MediaContract } from '@paperbits/common/media/mediaContract';
 import { IPermalink } from '@paperbits/common/permalinks/IPermalink';
-import { IPermalinkService } from '@paperbits/common/permalinks/IPermalinkService';
+import { IPermalinkService } from '@paperbits/common/permalinks';
 import { IMediaService } from '@paperbits/common/media/IMediaService';
 import { Component } from "../../decorators/component";
 import { IViewManager } from "@paperbits/common/ui/IViewManager";

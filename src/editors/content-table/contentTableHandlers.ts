@@ -1,10 +1,10 @@
 ﻿import * as ko from "knockout";
-import { IWidgetBinding } from "@paperbits/common/editing/IWidgetBinding";
-import { IWidgetOrder } from '@paperbits/common/editing/IWidgetOrder';
-import { IContentDropHandler } from '@paperbits/common/editing/IContentDropHandler';
-import { IContentDescriptor } from '@paperbits/common/editing/IContentDescriptor';
-import { IWidgetHandler } from '@paperbits/common/editing/IWidgetHandler';
-import { IWidgetFactoryResult } from '@paperbits/common/editing/IWidgetFactoryResult';
+import { IWidgetBinding } from "@paperbits/common/editing";
+import { IWidgetOrder } from '@paperbits/common/editing';
+import { IContentDropHandler } from '@paperbits/common/editing';
+import { IContentDescriptor } from '@paperbits/common/editing';
+import { IWidgetHandler } from '@paperbits/common/editing';
+import { IWidgetFactoryResult } from '@paperbits/common/editing';
 import { Contract } from "@paperbits/common/contract";
 import { ContentTableModelBinder } from "@paperbits/common/widgets/content-table/contentTableModelBinder";
 import { IViewManager } from "@paperbits/common/ui/IViewManager";

@@ -1,8 +1,8 @@
 ﻿import * as ko from "knockout";
 import { MediaContract } from "@paperbits/common/media/mediaContract";
-import { IWidgetOrder } from '@paperbits/common/editing/IWidgetOrder';
+import { IWidgetOrder } from '@paperbits/common/editing';
 import { PictureHandlers } from "../../editors/picture/pictureHandlers";
-import { IWidgetFactoryResult } from "@paperbits/common/editing/IWidgetFactoryResult";
+import { IWidgetFactoryResult } from "@paperbits/common/editing";
 
 export class MediaItem {
     public key: string;

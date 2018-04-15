@@ -4,7 +4,7 @@ import * as Utils from "@paperbits/common/utils";
 import { IResourceSelector } from "@paperbits/common/ui/IResourceSelector";
 import { BlockContract } from '@paperbits/common/blocks/blockContract';
 import { IPermalink } from '@paperbits/common/permalinks/IPermalink';
-import { IPermalinkService } from '@paperbits/common/permalinks/IPermalinkService';
+import { IPermalinkService } from '@paperbits/common/permalinks';
 import { IBlockService } from '@paperbits/common/blocks/IBlockService';
 import { IViewManager } from "@paperbits/common/ui/IViewManager";
 import { SectionModelBinder } from "@paperbits/common/widgets/section/sectionModelBinder";

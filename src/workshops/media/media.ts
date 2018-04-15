@@ -3,15 +3,15 @@ import template from "./media.html";
 import * as Utils from "@paperbits/common/utils";
 import { IMediaService } from "@paperbits/common/media";
 import { IViewManager } from "@paperbits/common/ui/IViewManager";
-import { IContentDropHandler } from "@paperbits/common/editing/IContentDropHandler";
+import { IContentDropHandler } from "@paperbits/common/editing";
 import { MediaItem } from "../../workshops/media/mediaItem";
 import { MediaContract } from "@paperbits/common/media/mediaContract";
 import { ICreatedMedia } from "@paperbits/common/media/ICreatedMedia";
 import { IPermalinkService } from "@paperbits/common/permalinks";
-import { IWidgetOrder } from "@paperbits/common/editing/IWidgetOrder";
+import { IWidgetOrder } from "@paperbits/common/editing";
 import { Keys } from "@paperbits/common/keyboard";
 import { Component } from "../../decorators/component";
-import { IContentDescriptor } from "@paperbits/common/editing/IContentDescriptor";
+import { IContentDescriptor } from "@paperbits/common/editing";
 import { IEventManager } from "@paperbits/common/events";
 
 

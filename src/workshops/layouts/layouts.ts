@@ -2,7 +2,7 @@
 import template from "./layouts.html";
 import { Contract } from "@paperbits/common/contract";
 import { IRouteHandler } from '@paperbits/common/routing/IRouteHandler';
-import { IPermalinkService } from '@paperbits/common/permalinks/IPermalinkService';
+import { IPermalinkService } from '@paperbits/common/permalinks';
 import { IViewManager } from '@paperbits/common/ui/IViewManager';
 import { IFileService } from '@paperbits/common/files/IFileService';
 import { ILayoutService } from "@paperbits/common/layouts";

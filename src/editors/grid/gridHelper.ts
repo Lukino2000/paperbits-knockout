@@ -1,4 +1,4 @@
-import { IWidgetBinding } from "@paperbits/common/editing/IWidgetBinding";
+import { IWidgetBinding } from "@paperbits/common/editing";
 
 export class GridHelper {
     public static getParentElementWithModel<T>(element: HTMLElement): HTMLElement {

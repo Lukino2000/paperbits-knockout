@@ -8,7 +8,7 @@ import { metaDataSetter } from "@paperbits/common/meta/metaDataSetter";
 import { IBag } from "@paperbits/common/IBag";
 import { IContextualEditor } from "@paperbits/common/ui/IContextualEditor";
 import { IView } from "@paperbits/common/ui/IView";
-import { ProgressPromise } from "@paperbits/common/progressPromise";
+import { ProgressPromise } from "@paperbits/common";
 import { IMediaService } from "@paperbits/common/media";
 import { IEventManager } from "@paperbits/common/events";
 import { GlobalEventHandler } from "@paperbits/common/events";

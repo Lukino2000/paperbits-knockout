@@ -6,11 +6,11 @@ import { SectionViewModel } from "../../widgets/section/sectionViewModel";
 import { IMediaService } from '@paperbits/common/media/IMediaService';
 import { ICreatedMedia } from '@paperbits/common/media/ICreatedMedia';
 import { IPermalink } from '@paperbits/common/permalinks/IPermalink';
-import { IPermalinkService } from '@paperbits/common/permalinks/IPermalinkService';
+import { IPermalinkService } from '@paperbits/common/permalinks';
 import { IViewManager } from '@paperbits/common/ui/IViewManager';
 import { IWidgetEditor } from '@paperbits/common/widgets/IWidgetEditor';
 import { SectionModel } from "@paperbits/common/widgets/section/sectionModel";
-import { IEventManager } from '@paperbits/common/events/IEventManager';
+import { IEventManager } from '@paperbits/common/events';
 import { Component } from "../../decorators/component";
 import { BackgroundModel } from "@paperbits/common/widgets/background/backgroundModel";
 

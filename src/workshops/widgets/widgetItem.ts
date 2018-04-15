@@ -1,5 +1,5 @@
 ﻿import * as ko from "knockout";
-import { IWidgetOrder } from "@paperbits/common/editing/IWidgetOrder";
+import { IWidgetOrder } from "@paperbits/common/editing";
 
 export class WidgetItem {
     public css: string;
