@@ -1,6 +1,6 @@
 {
     "name": "@paperbits/knockout",
-    "version": "0.0.77",
+    "version": "0.0.78",
     "description": "Paperbits components for Knockout.",
     "author": "Vienna LLC",
     "license": "MIT",
@@ -43,7 +43,7 @@
         "yargs": "^10.0.3"
     },
     "dependencies": {
-        "@paperbits/common": "0.0.77",
+        "@paperbits/common": "0.0.78",
         "es6-shim": "^0.35.3",
         "google-maps": "^3.2.1",
         "knockout": "^3.5.0-beta",
